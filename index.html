@@ -46,7 +46,6 @@ body {
 }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-/* ===== Top Bar ===== */
 .top-bar {
   border-bottom: 1px solid var(--border);
   padding: 18px 0;
@@ -92,7 +91,6 @@ body {
 .status-dot.offline { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-/* ===== Hero ===== */
 .hero {
   padding: 72px 0 48px;
   text-align: center;
@@ -140,7 +138,6 @@ body {
   font-size: 15px; position: relative;
 }
 
-/* ===== Section ===== */
 .section { margin: 48px 0; }
 .section-head {
   display: flex; align-items: baseline; justify-content: space-between;
@@ -155,7 +152,6 @@ body {
   letter-spacing: 1.5px; text-transform: uppercase;
 }
 
-/* ===== Card / Table ===== */
 .card {
   background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
   border: 1px solid var(--border);
@@ -211,7 +207,6 @@ tbody tr:hover { background: rgba(212,160,23,0.03); }
   color: var(--text-dim);
 }
 
-/* ===== Note ===== */
 .note {
   padding: 12px 22px;
   background: rgba(212,160,23,0.04);
@@ -223,7 +218,6 @@ tbody tr:hover { background: rgba(212,160,23,0.03); }
 }
 .note .ico { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
 
-/* ===== Footer ===== */
 footer {
   border-top: 1px solid var(--border);
   padding: 36px 0 48px;
@@ -236,7 +230,6 @@ footer .brand-logo {
 }
 footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 
-/* ===== Responsive ===== */
 @media (max-width: 640px) {
   .container { padding: 0 16px; }
   .hero { padding: 44px 0 28px; }
@@ -360,7 +353,7 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     <path d="M32 3 L57 17 L57 47 L32 61 L7 47 L7 17 Z" fill="none" stroke="url(#lgGold2)" stroke-width="1.5" opacity="0.5"/>
     <path d="M22 42 L32 20 L42 42 M26 35 L38 35" stroke="url(#lgGold2)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
-  <p>عيار © <span id="year"></span> — الأسعار تقريبية، قد تختلف عن السوق اللحظي.</p>
+  <p>عيار © <span id="year"></span> — الأسعار استرشادية، قد تختلف عن السوق المحلي.</p>
 </footer>
 
 <script>
@@ -368,16 +361,18 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
      ⚙️ إعدادات API (موجهة للسودان)
      ===================================================== */
 
-  // 1. API أسعار العملات (مقابل الجنيه السوداني)
+  // ⚠️ استبدل YOUR_API_KEY بمفتاحك من freegoldprice.org/settings/api
+  const FREE_GOLD_API_KEY = 'YOUR_API_KEY';
+
+  // 1. أسعار المعادن لكل جرام (GSPPJM = جميع المعادن، JSON، جرام)
+  const METALS_API = 'https://freegoldprice.org/api/v2?key=' + FREE_GOLD_API_KEY + '&action=GSPPJM';
+
+  // 2. أسعار العملات مقابل الجنيه السوداني
   const CURRENCY_API = 'https://open.er-api.com/v6/latest/SDG';
 
-  // 2. API أسعار المعادن العالمي (بالدولار)
-  const METALS_API = 'https://xaus.com/api/v1/spot';
-
-  // 3. API سعر صرف الدولار (للتحويل من الدولار إلى الجنيه السوداني)
+  // 3. سعر صرف الدولار مقابل الجنيه السوداني (للتحويل)
   const USD_RATE_API = 'https://open.er-api.com/v6/latest/USD';
 
-  // العملات المطلوبة (مقابل الجنيه السوداني)
   const TARGET_CURRENCIES = ['USD', 'EUR', 'GBP', 'SAR', 'AED', 'KWD', 'QAR', 'EGP', 'TRY', 'CNY', 'JPY'];
 
   const CURRENCY_NAMES = {
@@ -386,10 +381,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     QAR: 'الريال القطري', EGP: 'الجنيه المصري', TRY: 'الليرة التركية',
     CNY: 'اليوان الصيني', JPY: 'الين الياباني'
   };
-
-  /* =====================================================
-     البيانات الاحتياطية (تقريبية للسودان)
-     ===================================================== */
 
   const FALLBACK_GOLD = [
     { label: "عيار 24", price: 77500 },
@@ -409,10 +400,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     AED: 0.00612, KWD: 0.000513, QAR: 0.00607, EGP: 0.00812,
     TRY: 0.0615, CNY: 0.0119, JPY: 0.252
   };
-
-  /* =====================================================
-     دوال مساعدة
-     ===================================================== */
 
   function fmt(value, digits) {
     digits = (digits === undefined) ? 2 : digits;
@@ -473,10 +460,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     document.getElementById("year").textContent = now.getFullYear();
   }
 
-  /* =====================================================
-     🔌 جلب البيانات
-     ===================================================== */
-
   async function fetchCurrencies() {
     try {
       var res = await fetch(CURRENCY_API, { cache: 'no-store' });
@@ -496,10 +479,18 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 
   async function fetchMetals() {
     try {
-      // 1. جلب سعر الذهب والفضة بالدولار (أونصة)
+      // 1. جلب سعر الجرام بالدولار من FreeGoldPrice (GSPPJM)
       var metalsRes = await fetch(METALS_API, { cache: 'no-store' });
       if (!metalsRes.ok) throw new Error('Metals API status ' + metalsRes.status);
       var metalsData = await metalsRes.json();
+
+      // GSPPJM يعيد: { gold: { USD: { ask, bid } }, silver: { USD: { ask, bid } } , unit: "gram" }
+      var goldUsdPerGram = metalsData.gold && metalsData.gold.USD && metalsData.gold.USD.ask;
+      var silverUsdPerGram = metalsData.silver && metalsData.silver.USD && metalsData.silver.USD.ask;
+
+      if (!isFinite(goldUsdPerGram) || goldUsdPerGram <= 0) {
+        throw new Error('Invalid gold price from API');
+      }
 
       // 2. جلب سعر صرف الدولار مقابل الجنيه السوداني
       var rateRes = await fetch(USD_RATE_API, { cache: 'no-store' });
@@ -511,10 +502,8 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
         throw new Error('Invalid USD/SDG rate');
       }
 
-      // 3. استخراج سعر الذهب (بالدولار للأونصة) وتحويله
-      var goldUsdPerOz = metalsData.xau.price;
-      var goldSdgPerOz = goldUsdPerOz * usdToSdg;
-      var goldSdgPerGram = goldSdgPerOz / 31.1034768; // الأونصة = 31.1034768 جرام
+      // 3. تحويل سعر الجرام من الدولار إلى الجنيه السوداني
+      var goldSdgPerGram = goldUsdPerGram * usdToSdg;
 
       // 4. حساب أسعار العيارات المختلفة
       var goldItems = [
@@ -526,11 +515,9 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
       ];
       renderGold(goldItems);
 
-      // 5. استخراج سعر الفضة (إن وجد) وتحويله
-      if (metalsData.xag && metalsData.xag.price) {
-        var silverUsdPerOz = metalsData.xag.price;
-        var silverSdgPerOz = silverUsdPerOz * usdToSdg;
-        var silverSdgPerGram = silverSdgPerOz / 31.1034768;
+      // 5. تحويل وعرض سعر الفضة
+      if (isFinite(silverUsdPerGram) && silverUsdPerGram > 0) {
+        var silverSdgPerGram = silverUsdPerGram * usdToSdg;
         renderSilver([{ label: "فضة نقية", price: silverSdgPerGram }]);
       }
 
@@ -544,13 +531,11 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
   }
 
   async function loadAll() {
-    // عرض بيانات احتياطية فورًا
     renderGold(FALLBACK_GOLD);
     renderSilver(FALLBACK_SILVER);
     renderCurrencies(FALLBACK_RATES);
     updateTimestamp();
 
-    // محاولة جلب البيانات الحية بالتوازي
     var results = await Promise.all([fetchCurrencies(), fetchMetals()]);
     var anyLive = results.some(function (r) { return r === true; });
     setStatus(anyLive);
