@@ -4,243 +4,64 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0b0f">
-<meta name="description" content="عيار — تتبع دقيق لأسعار الذهب والفضة والعملات مقابل الجنيه السوداني">
 <title>عيار — أسعار الذهب والفضة والعملات في السودان</title>
 
-<!-- ===== Monetag MultiTag (Zone 302579) ===== -->
 <script src="https://quge5.com/88/tag.min.js" data-zone="302579" async data-cfasync="false"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Amiri:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0a0b0f;
-  --surface: #15171d;
-  --surface-2: #1a1d24;
-  --border: rgba(255,255,255,0.06);
-  --border-strong: rgba(212,160,23,0.25);
-  --text: #f5f3ee;
-  --text-dim: #a8a5a0;
-  --text-muted: #6b6a67;
-  --gold: #d4a017;
-  --gold-2: #f5d76e;
-  --gold-3: #b8860b;
-  --silver: #c0c5ce;
-  --silver-2: #e2e6ee;
-  --radius: 16px;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Tajawal', -apple-system, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  background-image:
-    radial-gradient(ellipse at top right, rgba(212,160,23,0.08), transparent 60%),
-    radial-gradient(ellipse at bottom left, rgba(184,134,11,0.05), transparent 60%);
-  background-attachment: fixed;
-}
-.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-
-.top-bar {
-  border-bottom: 1px solid var(--border);
-  padding: 18px 0;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(10,11,15,0.85);
-}
-.top-bar-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--text); }
-.brand-logo { width: 48px; height: 48px; flex-shrink: 0; }
-.brand-name { font-size: 24px; font-weight: 900; letter-spacing: -0.5px; line-height: 1; }
-.brand-name span {
-  background: linear-gradient(135deg, var(--gold-2), var(--gold-3));
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.brand-tag {
-  font-size: 10px; color: var(--text-muted);
-  letter-spacing: 2.5px; text-transform: uppercase;
-  margin-top: 4px;
-}
-.status {
-  display: flex; align-items: center; gap: 8px;
-  padding: 8px 14px; border-radius: 100px;
-  background: var(--surface); border: 1px solid var(--border);
-  font-size: 12px; color: var(--text-dim);
-}
-.status-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 8px #10b981;
-  animation: pulse 2s infinite;
-}
-.status-dot.offline { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-
-.hero {
-  padding: 72px 0 48px;
-  text-align: center;
-  position: relative;
-}
-.hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(212,160,23,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(212,160,23,0.04) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  pointer-events: none;
-}
-.eyebrow {
-  display: inline-block;
-  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-  color: var(--gold); font-weight: 500; margin-bottom: 18px;
-  padding: 6px 16px; border: 1px solid var(--border-strong);
-  border-radius: 100px;
-  background: rgba(212,160,23,0.05);
-}
-.hero h1 {
-  font-size: clamp(32px, 5vw, 54px);
-  font-weight: 900;
-  line-height: 1.15;
-  letter-spacing: -1px;
-  margin-bottom: 14px;
-  position: relative;
-}
-.hero h1 .accent {
-  font-family: 'Amiri', serif;
-  font-style: italic;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--gold-2) 0%, var(--gold) 50%, var(--gold-3) 100%);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-  padding: 0 6px;
-}
-.hero p {
-  color: var(--text-dim);
-  max-width: 580px; margin: 0 auto;
-  font-size: 15px; position: relative;
-}
-
-.section { margin: 48px 0; }
-.section-head {
-  display: flex; align-items: baseline; justify-content: space-between;
-  margin-bottom: 18px; padding-bottom: 14px;
-  border-bottom: 1px solid var(--border);
-  flex-wrap: wrap; gap: 8px;
-}
-.section-title { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
-.section-title .ico { color: var(--gold); margin-left: 10px; font-size: 16px; }
-.section-meta {
-  font-size: 11px; color: var(--text-muted);
-  letter-spacing: 1.5px; text-transform: uppercase;
-}
-
-.card {
-  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  position: relative;
-}
-.card::before {
-  content: ''; position: absolute; top: 0; right: 0; left: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
-}
-.overflow { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; }
-thead th {
-  text-align: right;
-  padding: 16px 22px;
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--text-muted);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  background: rgba(0,0,0,0.2);
-  border-bottom: 1px solid var(--border);
-  white-space: nowrap;
-}
-tbody td {
-  padding: 16px 22px;
-  border-bottom: 1px solid var(--border);
-  font-size: 15px;
-}
-tbody tr:last-child td { border-bottom: none; }
-tbody tr { transition: background 0.15s; }
-tbody tr:hover { background: rgba(212,160,23,0.03); }
-.label-cell { color: var(--text-dim); font-weight: 500; }
-.value-cell {
-  font-weight: 700;
-  font-size: 17px;
-  color: var(--text);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-.value-cell.gold { color: var(--gold-2); }
-.value-cell.silver { color: var(--silver-2); }
-.value-cell.inverted { color: #34d399; }
-.code-badge {
-  display: inline-block;
-  padding: 4px 10px; border-radius: 6px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border);
-  font-family: ui-monospace, 'Menlo', monospace;
-  font-size: 11px;
-  letter-spacing: 1px;
-  color: var(--text-dim);
-}
-
-.note {
-  padding: 12px 22px;
-  background: rgba(212,160,23,0.04);
-  border-bottom: 1px solid var(--border);
-  font-size: 12px;
-  color: var(--text-dim);
-  display: flex; align-items: flex-start; gap: 10px;
-  line-height: 1.7;
-}
-.note .ico { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
-
-footer {
-  border-top: 1px solid var(--border);
-  padding: 36px 0 48px;
-  margin-top: 72px;
-  text-align: center;
-}
-footer .brand-logo {
-  width: 34px; height: 34px;
-  margin: 0 auto 14px; display: block; opacity: 0.55;
-}
-footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
-
-@media (max-width: 640px) {
-  .container { padding: 0 16px; }
-  .hero { padding: 44px 0 28px; }
-  .hero h1 { font-size: 32px; }
-  thead th, tbody td { padding: 12px 14px; font-size: 13px; }
-  .value-cell { font-size: 15px; }
-  .brand-name { font-size: 20px; }
-  .brand-logo { width: 40px; height: 40px; }
-  .top-bar { padding: 14px 0; }
-  .brand-tag { display: none; }
-}
+:root{--bg:#0a0b0f;--surface:#15171d;--surface-2:#1a1d24;--border:rgba(255,255,255,0.06);--border-strong:rgba(212,160,23,0.25);--text:#f5f3ee;--text-dim:#a8a5a0;--text-muted:#6b6a67;--gold:#d4a017;--gold-2:#f5d76e;--gold-3:#b8860b;--silver:#c0c5ce;--silver-2:#e2e6ee;--radius:16px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased;background-image:radial-gradient(ellipse at top right,rgba(212,160,23,0.08),transparent 60%),radial-gradient(ellipse at bottom left,rgba(184,134,11,0.05),transparent 60%);background-attachment:fixed}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+.top-bar{border-bottom:1px solid var(--border);padding:18px 0;backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;background:rgba(10,11,15,0.85)}
+.top-bar-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--text)}
+.brand-logo{width:48px;height:48px;flex-shrink:0}
+.brand-name{font-size:24px;font-weight:900;letter-spacing:-0.5px;line-height:1}
+.brand-name span{background:linear-gradient(135deg,var(--gold-2),var(--gold-3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.brand-tag{font-size:10px;color:var(--text-muted);letter-spacing:2.5px;text-transform:uppercase;margin-top:4px}
+.status{display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:100px;background:var(--surface);border:1px solid var(--border);font-size:12px;color:var(--text-dim)}
+.status-dot{width:8px;height:8px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981;animation:pulse 2s infinite}
+.status-dot.offline{background:#f59e0b;box-shadow:0 0 8px #f59e0b}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero{padding:72px 0 48px;text-align:center;position:relative}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(212,160,23,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(212,160,23,0.04) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse at center,black 30%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at center,black 30%,transparent 70%);pointer-events:none}
+.eyebrow{display:inline-block;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:18px;padding:6px 16px;border:1px solid var(--border-strong);border-radius:100px;background:rgba(212,160,23,0.05)}
+.hero h1{font-size:clamp(32px,5vw,54px);font-weight:900;line-height:1.15;letter-spacing:-1px;margin-bottom:14px;position:relative}
+.hero h1 .accent{font-family:'Amiri',serif;font-style:italic;font-weight:700;background:linear-gradient(135deg,var(--gold-2),var(--gold),var(--gold-3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding:0 6px}
+.hero p{color:var(--text-dim);max-width:580px;margin:0 auto;font-size:15px;position:relative}
+.rate-badge{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:8px 18px;background:var(--surface);border:1px solid var(--border-strong);border-radius:100px;font-size:13px;color:var(--text-dim);position:relative}
+.rate-badge strong{color:var(--gold-2);font-weight:700}
+.section{margin:48px 0}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px}
+.section-title{font-size:20px;font-weight:700;letter-spacing:-0.3px}
+.section-title .ico{color:var(--gold);margin-left:10px;font-size:16px}
+.section-meta{font-size:11px;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase}
+.card{background:linear-gradient(180deg,var(--surface),var(--surface-2));border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;position:relative}
+.card::before{content:'';position:absolute;top:0;right:0;left:0;height:1px;background:linear-gradient(90deg,transparent,var(--border-strong),transparent)}
+.overflow{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead th{text-align:right;padding:16px 22px;font-size:11px;font-weight:500;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;background:rgba(0,0,0,0.2);border-bottom:1px solid var(--border);white-space:nowrap}
+tbody td{padding:16px 22px;border-bottom:1px solid var(--border);font-size:15px}
+tbody tr:last-child td{border-bottom:none}
+tbody tr{transition:background 0.15s}
+tbody tr:hover{background:rgba(212,160,23,0.03)}
+.label-cell{color:var(--text-dim);font-weight:500}
+.value-cell{font-weight:700;font-size:17px;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}
+.value-cell.gold{color:var(--gold-2)}
+.value-cell.silver{color:var(--silver-2)}
+.value-cell.inverted{color:#34d399}
+.code-badge{display:inline-block;padding:4px 10px;border-radius:6px;background:rgba(255,255,255,0.04);border:1px solid var(--border);font-family:monospace;font-size:11px;letter-spacing:1px;color:var(--text-dim)}
+.note{padding:12px 22px;background:rgba(212,160,23,0.04);border-bottom:1px solid var(--border);font-size:12px;color:var(--text-dim);display:flex;align-items:flex-start;gap:10px;line-height:1.7}
+.note .ico{color:var(--gold);flex-shrink:0;margin-top:2px}
+footer{border-top:1px solid var(--border);padding:36px 0 48px;margin-top:72px;text-align:center}
+footer .brand-logo{width:34px;height:34px;margin:0 auto 14px;display:block;opacity:0.55}
+footer p{font-size:12px;color:var(--text-muted);letter-spacing:0.5px}
+@media(max-width:640px){.container{padding:0 16px}.hero{padding:44px 0 28px}.hero h1{font-size:32px}thead th,tbody td{padding:12px 14px;font-size:13px}.value-cell{font-size:15px}.brand-name{font-size:20px}.brand-logo{width:40px;height:40px}.brand-tag{display:none}}
 </style>
 </head>
 <body>
@@ -248,7 +69,7 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 <header class="top-bar">
   <div class="container top-bar-inner">
     <a href="/" class="brand">
-      <svg class="brand-logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-label="عيار">
+      <svg class="brand-logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="lgGold" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#f5d76e"/>
@@ -260,8 +81,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
         <circle cx="32" cy="32" r="20" fill="rgba(212,160,23,0.05)" stroke="url(#lgGold)" stroke-width="1" opacity="0.5"/>
         <path d="M22 42 L32 20 L42 42 M26 35 L38 35" stroke="url(#lgGold)" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M32 10 L35 13 L32 16 L29 13 Z" fill="url(#lgGold)"/>
-        <circle cx="10" cy="32" r="1.5" fill="url(#lgGold)"/>
-        <circle cx="54" cy="32" r="1.5" fill="url(#lgGold)"/>
       </svg>
       <div>
         <div class="brand-name">عيـ<span>ـار</span></div>
@@ -276,11 +95,14 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 </header>
 
 <main class="container">
-
   <section class="hero">
     <span class="eyebrow">أسعار لحظية</span>
     <h1>الأسواق <span class="accent">النبيلة</span> في السودان</h1>
     <p>تتبّع دقيق لأسعار الذهب والفضة والعملات مقابل الجنيه السوداني — في مكان واحد.</p>
+    <div class="rate-badge">
+      <span>💵 سعر الصرف المستخدم:</span>
+      <strong id="rateUsed">—</strong>
+    </div>
   </section>
 
   <section class="section">
@@ -300,7 +122,7 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 
   <section class="section">
     <div class="section-head">
-      <h2 class="section-title"><span class="ico" style="color: var(--silver)">◇</span> الفضة</h2>
+      <h2 class="section-title"><span class="ico" style="color:var(--silver)">◇</span> الفضة</h2>
       <span class="section-meta">ج.س / جرام</span>
     </div>
     <div class="card">
@@ -338,7 +160,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
       </div>
     </div>
   </section>
-
 </main>
 
 <footer>
@@ -357,213 +178,238 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 </footer>
 
 <script>
-  /* =====================================================
-     ⚙️ إعدادات API (موجهة للسودان)
-     ===================================================== */
+  /* ═══════════════════════════════════════════════════════
+     ⚙️ الإعدادات — عدّل هنا فقط
+     ═══════════════════════════════════════════════════════ */
 
-  // ⚠️ استبدل YOUR_API_KEY بمفتاحك من freegoldprice.org/settings/api
-  const FREE_GOLD_API_KEY = 'YOUR_API_KEY';
+  // 🔴 مهم: سعر الصرف الموازي للدولار مقابل الجنيه السوداني
+  // ✏️ عدّل هذا الرقم ليطابق السوق الموازي الفعلي اليوم
+  // مثال: إذا كان الدولار = 10000 جنيه، اكتب 10000
+  // إذا وضعت 0 أو null، سيُستخدم السعر الرسمي من API (غالبًا غير واقعي)
+  const SDG_PARALLEL_RATE = 10000; // ✏️ عدّل هذا الرقم
 
-  // 1. أسعار المعادن لكل جرام (GSPPJM = جميع المعادن، JSON، جرام)
-  const METALS_API = 'https://freegoldprice.org/api/v2?key=' + FREE_GOLD_API_KEY + '&action=GSPPJM';
-
-  // 2. أسعار العملات مقابل الجنيه السوداني
+  // APIs (مجانية، بدون مفتاح، تدعم CORS)
+  const GOLD_API = 'https://api.gold-api.com/price/XAU';
+  const SILVER_API = 'https://api.gold-api.com/price/XAG';
   const CURRENCY_API = 'https://open.er-api.com/v6/latest/SDG';
 
-  // 3. سعر صرف الدولار مقابل الجنيه السوداني (للتحويل)
-  const USD_RATE_API = 'https://open.er-api.com/v6/latest/USD';
-
-  const TARGET_CURRENCIES = ['USD', 'EUR', 'GBP', 'SAR', 'AED', 'KWD', 'QAR', 'EGP', 'TRY', 'CNY', 'JPY'];
+  // العملات المطلوبة (مقابل الجنيه السوداني)
+  const TARGET_CURRENCIES = ['USD','EUR','GBP','SAR','AED','KWD','QAR','EGP','TRY','CNY','JPY'];
 
   const CURRENCY_NAMES = {
-    USD: 'الدولار الأمريكي', EUR: 'اليورو', GBP: 'الجنيه الإسترليني',
-    SAR: 'الريال السعودي', AED: 'الدرهم الإماراتي', KWD: 'الدينار الكويتي',
-    QAR: 'الريال القطري', EGP: 'الجنيه المصري', TRY: 'الليرة التركية',
-    CNY: 'اليوان الصيني', JPY: 'الين الياباني'
+    USD:'الدولار الأمريكي', EUR:'اليورو', GBP:'الجنيه الإسترليني',
+    SAR:'الريال السعودي', AED:'الدرهم الإماراتي', KWD:'الدينار الكويتي',
+    QAR:'الريال القطري', EGP:'الجنيه المصري', TRY:'الليرة التركية',
+    CNY:'اليوان الصيني', JPY:'الين الياباني'
   };
 
-  const FALLBACK_GOLD = [
-    { label: "عيار 24", price: 77500 },
-    { label: "عيار 22", price: 71000 },
-    { label: "عيار 21", price: 67800 },
-    { label: "عيار 18", price: 58100 },
-    { label: "عيار 14", price: 45200 }
-  ];
+  // احتياطي: أسعار الذهب والفضة العالمية بالدولار للأونصة (لحساب الاحتياطي)
+  const FALLBACK_GOLD_USD_OZ = 2650;
+  const FALLBACK_SILVER_USD_OZ = 31;
+  const OZ_TO_GRAM = 31.1034768;
 
-  const FALLBACK_SILVER = [
-    { label: "فضة نقية", price: 950 },
-    { label: "فضة عيار 925", price: 880 }
-  ];
+  /* ═══════════════════════════════════════════════════════
+     دوال مساعدة
+     ═══════════════════════════════════════════════════════ */
 
-  const FALLBACK_RATES = {
-    USD: 0.001666, EUR: 0.001538, GBP: 0.001282, SAR: 0.00625,
-    AED: 0.00612, KWD: 0.000513, QAR: 0.00607, EGP: 0.00812,
-    TRY: 0.0615, CNY: 0.0119, JPY: 0.252
-  };
-
-  function fmt(value, digits) {
-    digits = (digits === undefined) ? 2 : digits;
-    if (!isFinite(value)) return "-";
+  function fmt(v, d) {
+    d = (d === undefined) ? 2 : d;
+    if (!isFinite(v)) return "-";
     return new Intl.NumberFormat("ar-EG-u-nu-latn", {
-      minimumFractionDigits: digits,
-      maximumFractionDigits: digits
-    }).format(value);
+      minimumFractionDigits: d, maximumFractionDigits: d
+    }).format(v);
   }
 
   function renderGold(items) {
-    document.getElementById("goldTable").innerHTML = items.map(function (g) {
-      return '<tr>' +
-        '<td class="label-cell">' + g.label + '</td>' +
-        '<td class="value-cell gold">' + fmt(g.price, 0) + ' <span style="font-size:12px;color:var(--text-muted);font-weight:400">ج.س</span></td>' +
-      '</tr>';
-    }).join("");
+    document.getElementById("goldTable").innerHTML = items.map(g =>
+      '<tr><td class="label-cell">' + g.label + '</td>' +
+      '<td class="value-cell gold">' + fmt(g.price, 0) +
+      ' <span style="font-size:12px;color:var(--text-muted);font-weight:400">ج.س</span></td></tr>'
+    ).join("");
   }
 
   function renderSilver(items) {
-    document.getElementById("silverTable").innerHTML = items.map(function (s) {
-      return '<tr>' +
-        '<td class="label-cell">' + s.label + '</td>' +
-        '<td class="value-cell silver">' + fmt(s.price, 2) + ' <span style="font-size:12px;color:var(--text-muted);font-weight:400">ج.س</span></td>' +
-      '</tr>';
-    }).join("");
+    document.getElementById("silverTable").innerHTML = items.map(s =>
+      '<tr><td class="label-cell">' + s.label + '</td>' +
+      '<td class="value-cell silver">' + fmt(s.price, 2) +
+      ' <span style="font-size:12px;color:var(--text-muted);font-weight:400">ج.س</span></td></tr>'
+    ).join("");
   }
 
-  function renderCurrencies(rates) {
-    var items = TARGET_CURRENCIES
-      .filter(function (code) { return rates[code] != null; })
-      .map(function (code) {
-        return { code: code, name: CURRENCY_NAMES[code] || code, rate: Number(rates[code]) };
-      });
+  function renderCurrencies(sdgPerUnit) {
+    const items = TARGET_CURRENCIES
+      .filter(code => sdgPerUnit[code] != null && sdgPerUnit[code] > 0)
+      .map(code => ({ code, name: CURRENCY_NAMES[code] || code, sdg: sdgPerUnit[code] }));
 
-    document.getElementById("currencyTable").innerHTML = items.map(function (c) {
-      var inverted = (c.rate > 0) ? (1 / c.rate) : null;
-      var invText = (inverted !== null) ? fmt(inverted, 2) : "-";
-      var tradText = fmt(c.rate, 6);
+    document.getElementById("currencyTable").innerHTML = items.map(c => {
+      const perSdg = 1 / c.sdg;
       return '<tr>' +
         '<td><div style="font-weight:500">' + c.name + '</div></td>' +
         '<td><span class="code-badge">' + c.code + '</span></td>' +
-        '<td class="value-cell inverted">' + invText + ' <span style="font-size:11px;color:var(--text-muted);font-weight:400">ج.س</span></td>' +
-        '<td class="value-cell" style="font-size:14px;color:var(--text-dim);font-weight:500">' + tradText + '</td>' +
+        '<td class="value-cell inverted">' + fmt(c.sdg, 2) +
+        ' <span style="font-size:11px;color:var(--text-muted);font-weight:400">ج.س</span></td>' +
+        '<td class="value-cell" style="font-size:14px;color:var(--text-dim);font-weight:500">' + fmt(perSdg, 6) + '</td>' +
       '</tr>';
     }).join("");
   }
 
-  function setStatus(isLive) {
-    document.getElementById("statusDot").classList.toggle("offline", !isLive);
+  function setStatus(live) {
+    document.getElementById("statusDot").classList.toggle("offline", !live);
+  }
+
+  function setRateUsed(rate, source) {
+    document.getElementById("rateUsed").textContent = fmt(rate, 0) + ' ج.س (' + source + ')';
   }
 
   function updateTimestamp() {
-    var now = new Date();
+    const now = new Date();
     document.getElementById("lastUpdated").textContent = new Intl.DateTimeFormat("ar-EG-u-nu-latn", {
       dateStyle: "medium", timeStyle: "short"
     }).format(now);
     document.getElementById("year").textContent = now.getFullYear();
   }
 
+  /* ═══════════════════════════════════════════════════════
+     بناء أسعار العملات مقابل الجنيه السوداني
+     ═══════════════════════════════════════════════════════ */
+
+  function buildSdgRates(officialRates, usdSdg) {
+    // officialRates من open.er-api.com (base = SDG)
+    // أي: officialRates.USD = كم دولار لكل 1 جنيه سوداني (رقم صغير جداً)
+    const usdPerSdg = officialRates.USD;
+    if (!usdPerSdg || usdPerSdg <= 0) return {};
+
+    const result = {};
+    TARGET_CURRENCIES.forEach(code => {
+      const rate = officialRates[code];
+      if (!rate || rate <= 0) return;
+      // SDG لكل وحدة من العملة = usdSdg * (usdPerSdg / rate)
+      // (لأن rate = كم وحدة من العملة لكل 1 SDG)
+      result[code] = usdSdg * usdPerSdg / rate;
+    });
+    return result;
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     جلب العملات
+     ═══════════════════════════════════════════════════════ */
+
   async function fetchCurrencies() {
     try {
-      var res = await fetch(CURRENCY_API, { cache: 'no-store' });
+      const res = await fetch(CURRENCY_API, { cache: 'no-store' });
       if (!res.ok) throw new Error('Currency API status ' + res.status);
-      var data = await res.json();
-      if (data.result === 'success' && data.rates) {
-        renderCurrencies(data.rates);
-        return true;
-      }
-      throw new Error('Currency API: unexpected format');
+      const data = await res.json();
+      if (data.result !== 'success' || !data.rates) throw new Error('Unexpected format');
+
+      // تحديد سعر الصرف المستخدم
+      const officialUsdSdg = 1 / data.rates.USD;
+      const usdSdg = (SDG_PARALLEL_RATE && SDG_PARALLEL_RATE > 0) ? SDG_PARALLEL_RATE : officialUsdSdg;
+      const source = (SDG_PARALLEL_RATE && SDG_PARALLEL_RATE > 0) ? 'موازي' : 'رسمي';
+
+      setRateUsed(usdSdg, source);
+
+      const sdgRates = buildSdgRates(data.rates, usdSdg);
+      renderCurrencies(sdgRates);
+      console.log('✅ Currencies loaded. USD =', usdSdg, 'SDG (', source, ')');
+      return { ok: true, usdSdg };
     } catch (err) {
-      console.warn('⚠️ Currency API failed, using fallback:', err);
-      renderCurrencies(FALLBACK_RATES);
-      return false;
+      console.warn('⚠️ Currency API failed:', err);
+      // احتياطي: استخدم SDG_PARALLEL_RATE أو 600
+      const usdSdg = (SDG_PARALLEL_RATE && SDG_PARALLEL_RATE > 0) ? SDG_PARALLEL_RATE : 600;
+      setRateUsed(usdSdg, 'احتياطي');
+      renderCurrencies({
+        USD: usdSdg, EUR: usdSdg * 1.08, GBP: usdSdg * 1.27,
+        SAR: usdSdg / 3.75, AED: usdSdg / 3.67, KWD: usdSdg / 0.31,
+        QAR: usdSdg / 3.64, EGP: usdSdg / 48, TRY: usdSdg / 34,
+        CNY: usdSdg / 7.2, JPY: usdSdg / 155
+      });
+      return { ok: false, usdSdg };
     }
   }
 
-  async function fetchMetals() {
+  /* ═══════════════════════════════════════════════════════
+     جلب المعادن
+     ═══════════════════════════════════════════════════════ */
+
+  async function fetchMetals(usdSdg) {
     try {
-      // 1. جلب سعر الجرام بالدولار من FreeGoldPrice (GSPPJM)
-      var metalsRes = await fetch(METALS_API, { cache: 'no-store' });
-      if (!metalsRes.ok) throw new Error('Metals API status ' + metalsRes.status);
-      var metalsData = await metalsRes.json();
+      const [goldRes, silverRes] = await Promise.all([
+        fetch(GOLD_API, { cache: 'no-store' }),
+        fetch(SILVER_API, { cache: 'no-store' })
+      ]);
+      if (!goldRes.ok) throw new Error('Gold API status ' + goldRes.status);
+      if (!silverRes.ok) throw new Error('Silver API status ' + silverRes.status);
 
-      // GSPPJM يعيد: { gold: { USD: { ask, bid } }, silver: { USD: { ask, bid } } , unit: "gram" }
-      var goldUsdPerGram = metalsData.gold && metalsData.gold.USD && metalsData.gold.USD.ask;
-      var silverUsdPerGram = metalsData.silver && metalsData.silver.USD && metalsData.silver.USD.ask;
+      const goldData = await goldRes.json();
+      const silverData = await silverRes.json();
 
-      if (!isFinite(goldUsdPerGram) || goldUsdPerGram <= 0) {
-        throw new Error('Invalid gold price from API');
-      }
+      const goldUsdOz = Number(goldData.price);
+      const silverUsdOz = Number(silverData.price);
 
-      // 2. جلب سعر صرف الدولار مقابل الجنيه السوداني
-      var rateRes = await fetch(USD_RATE_API, { cache: 'no-store' });
-      if (!rateRes.ok) throw new Error('USD Rate API status ' + rateRes.status);
-      var rateData = await rateRes.json();
-      var usdToSdg = rateData.rates.SDG;
+      if (!isFinite(goldUsdOz) || goldUsdOz <= 0) throw new Error('Invalid gold price');
+      if (!isFinite(silverUsdOz) || silverUsdOz <= 0) throw new Error('Invalid silver price');
 
-      if (!usdToSdg || usdToSdg <= 0) {
-        throw new Error('Invalid USD/SDG rate');
-      }
+      const goldSdgG = (goldUsdOz * usdSdg) / OZ_TO_GRAM;
+      const silverSdgG = (silverUsdOz * usdSdg) / OZ_TO_GRAM;
 
-      // 3. تحويل سعر الجرام من الدولار إلى الجنيه السوداني
-      var goldSdgPerGram = goldUsdPerGram * usdToSdg;
+      renderGold([
+        { label: "عيار 24", price: goldSdgG },
+        { label: "عيار 22", price: goldSdgG * 22/24 },
+        { label: "عيار 21", price: goldSdgG * 21/24 },
+        { label: "عيار 18", price: goldSdgG * 18/24 },
+        { label: "عيار 14", price: goldSdgG * 14/24 }
+      ]);
 
-      // 4. حساب أسعار العيارات المختلفة
-      var goldItems = [
-        { label: "عيار 24", price: goldSdgPerGram },
-        { label: "عيار 22", price: goldSdgPerGram * (22/24) },
-        { label: "عيار 21", price: goldSdgPerGram * (21/24) },
-        { label: "عيار 18", price: goldSdgPerGram * (18/24) },
-        { label: "عيار 14", price: goldSdgPerGram * (14/24) }
-      ];
-      renderGold(goldItems);
+      renderSilver([
+        { label: "فضة نقية", price: silverSdgG },
+        { label: "فضة عيار 925", price: silverSdgG * 0.925 }
+      ]);
 
-      // 5. تحويل وعرض سعر الفضة
-      if (isFinite(silverUsdPerGram) && silverUsdPerGram > 0) {
-        var silverSdgPerGram = silverUsdPerGram * usdToSdg;
-        renderSilver([{ label: "فضة نقية", price: silverSdgPerGram }]);
-      }
-
+      console.log('✅ Metals loaded. Gold USD/oz =', goldUsdOz, '→ SDG/g =', goldSdgG.toFixed(0));
       return true;
     } catch (err) {
-      console.warn('⚠️ Metals API failed, using fallback:', err);
-      renderGold(FALLBACK_GOLD);
-      renderSilver(FALLBACK_SILVER);
+      console.warn('⚠️ Metals API failed:', err);
+      const goldSdgG = (FALLBACK_GOLD_USD_OZ * usdSdg) / OZ_TO_GRAM;
+      const silverSdgG = (FALLBACK_SILVER_USD_OZ * usdSdg) / OZ_TO_GRAM;
+      renderGold([
+        { label: "عيار 24", price: goldSdgG },
+        { label: "عيار 22", price: goldSdgG * 22/24 },
+        { label: "عيار 21", price: goldSdgG * 21/24 },
+        { label: "عيار 18", price: goldSdgG * 18/24 },
+        { label: "عيار 14", price: goldSdgG * 14/24 }
+      ]);
+      renderSilver([
+        { label: "فضة نقية", price: silverSdgG },
+        { label: "فضة عيار 925", price: silverSdgG * 0.925 }
+      ]);
       return false;
     }
   }
 
+  /* ═══════════════════════════════════════════════════════
+     التشغيل
+     ═══════════════════════════════════════════════════════ */
+
   async function loadAll() {
-    renderGold(FALLBACK_GOLD);
-    renderSilver(FALLBACK_SILVER);
-    renderCurrencies(FALLBACK_RATES);
     updateTimestamp();
+    console.log('🔍 Loading with SDG_PARALLEL_RATE =', SDG_PARALLEL_RATE);
 
-    var results = await Promise.all([fetchCurrencies(), fetchMetals()]);
-    var anyLive = results.some(function (r) { return r === true; });
-    setStatus(anyLive);
+    const currencyResult = await fetchCurrencies();
+    const metalsOk = await fetchMetals(currencyResult.usdSdg);
 
-    if (anyLive) {
-      console.log('✅ Live prices loaded (SDG base)');
-    } else {
-      console.warn('⚠️ All APIs failed — showing fallback data');
-    }
+    setStatus(currencyResult.ok || metalsOk);
   }
 
   loadAll();
   setInterval(loadAll, 5 * 60 * 1000);
 
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/sw.js").catch(function (err) {
-      console.warn("SW registration failed:", err);
-    });
+    navigator.serviceWorker.register("/sw.js").catch(err => console.warn("SW registration failed:", err));
   }
 </script>
 
-<!-- ===== Monetag OnClick Popunder #1 (Zone 12132620) ===== -->
 <script>(function(s){s.dataset.zone='12132620',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
-<!-- ===== Monetag OnClick Popunder #2 (Zone 12132625) ===== -->
 <script>(function(s){s.dataset.zone='12132625',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
-<!-- ===== Monetag Vignette Banner (Zone 12132627) ===== -->
 <script>(function(s){s.dataset.zone='12132627',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 </body>
