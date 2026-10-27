@@ -1,230 +1,170 @@
-"use client";
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>آيار — أسعار الذهب والفضة والعملات</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: #f9fafb; color: #111827; padding: 1rem; line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 2rem; }
+    h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; }
+    @media (min-width: 768px) { h1 { font-size: 2.25rem; } }
+    .last-updated { font-size: 0.875rem; color: #6b7280; }
+    section {
+      background: white; border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem; overflow: hidden;
+    }
+    section h2 { font-size: 1.125rem; font-weight: 700; padding: 1rem; border-bottom: 1px solid #e5e7eb; }
+    .gold h2 { background: #fefce8; }
+    .silver h2 { background: #f3f4f6; }
+    .currency h2 { background: #eff6ff; }
+    .note {
+      padding: 0.5rem 1rem; font-size: 0.75rem; color: #4b5563;
+      background: rgba(239,246,255,0.6); border-bottom: 1px solid #e5e7eb;
+    }
+    table { width: 100%; border-collapse: collapse; text-align: right; }
+    thead { background: #f3f4f6; }
+    th, td { padding: 0.75rem; border-bottom: 1px solid #e5e7eb; }
+    th { font-weight: 700; }
+    tr:hover { background: #f9fafb; }
+    .bold { font-weight: 700; }
+    .green { color: #15803d; }
+    .gray { color: #4b5563; }
+    .code { font-family: monospace; font-size: 0.875rem; color: #6b7280; }
+    footer { text-align: center; font-size: 0.75rem; color: #6b7280; padding: 1rem; }
+    .overflow { overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>آيار — أسعار الذهب والفضة والعملات</h1>
+      <p class="last-updated" id="lastUpdated">جاري التحميل...</p>
+    </header>
 
-import { useEffect, useState } from "react";
-
-/* =====================================================
-   الأنواع
-===================================================== */
-
-type MetalPrice = {
-  karat: string;
-  label: string;
-  price: number; // جنيه لكل جرام
-};
-
-type Currency = {
-  code: string;
-  name: string;
-  rate: number; // 1 جنيه مصري = rate من العملة الأجنبية
-};
-
-/* =====================================================
-   البيانات الافتراضية (Fallback)
-   يمكن استبدالها ببيانات قادمة من API لاحقًا
-===================================================== */
-
-const FALLBACK_GOLD: MetalPrice[] = [
-  { karat: "24", label: "عيار 24", price: 7098.95 },
-  { karat: "22", label: "عيار 22", price: 6507.37 },
-  { karat: "21", label: "عيار 21", price: 6211.58 },
-  { karat: "18", label: "عيار 18", price: 5324.21 },
-  { karat: "14", label: "عيار 14", price: 4141.05 },
-];
-
-const FALLBACK_SILVER: MetalPrice[] = [
-  { karat: "pure", label: "فضة نقية", price: 79.5 },
-  { karat: "925", label: "فضة عيار 925", price: 73.54 },
-];
-
-const FALLBACK_CURRENCIES: Currency[] = [
-  { code: "USD", name: "الدولار الأمريكي", rate: 0.0178 },
-  { code: "EUR", name: "اليورو", rate: 0.0159 },
-  { code: "GBP", name: "الجنيه الإسترليني", rate: 0.0135 },
-  { code: "SAR", name: "الريال السعودي", rate: 0.0667 },
-  { code: "AED", name: "الدرهم الإماراتي", rate: 0.0654 },
-  { code: "KWD", name: "الدينار الكويتي", rate: 0.0055 },
-  { code: "QAR", name: "الريال القطري", rate: 0.0687 },
-  { code: "BHD", name: "الدينار البحريني", rate: 0.0045 },
-  { code: "OMR", name: "الريال العماني", rate: 0.0046 },
-  { code: "JOD", name: "الدينار الأردني", rate: 0.0126 },
-  { code: "IQD", name: "الدينار العراقي", rate: 23.29 },
-  { code: "LYD", name: "الدينار الليبي", rate: 0.0867 },
-  { code: "TRY", name: "الليرة التركية", rate: 0.6 },
-  { code: "CNY", name: "اليوان الصيني", rate: 0.1285 },
-];
-
-/* =====================================================
-   دوال مساعدة
-===================================================== */
-
-function formatNumber(value: number, digits = 2): string {
-  if (!Number.isFinite(value)) return "-";
-  return new Intl.NumberFormat("ar-EG-u-nu-latn", {
-    minimumFractionDigits: digits,
-    maximumFractionDigits: digits,
-  }).format(value);
-}
-
-function invertRate(rate: number): number | null {
-  if (!rate || rate <= 0) return null;
-  return 1 / rate;
-}
-
-function formatDateTime(date: Date): string {
-  return new Intl.DateTimeFormat("ar-EG-u-nu-latn", {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(date);
-}
-
-/* =====================================================
-   الصفحة
-===================================================== */
-
-export default function HomePage() {
-  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-  const [gold] = useState<MetalPrice[]>(FALLBACK_GOLD);
-  const [silver] = useState<MetalPrice[]>(FALLBACK_SILVER);
-  const [currencies] = useState<Currency[]>(FALLBACK_CURRENCIES);
-
-  /* وقت آخر تحديث (يُضبط بعد التحميل لتجنب مشاكل hydration) */
-  useEffect(() => {
-    setLastUpdated(new Date());
-  }, []);
-
-  /* إذا كان لديك API حقيقي، فعّل هذا الجزء بدلًا من الثابت أعلاه:
-  useEffect(() => {
-    fetch("/api/prices")
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.gold) setGold(data.gold);
-        if (data.silver) setSilver(data.silver);
-        if (data.currencies) setCurrencies(data.currencies);
-        setLastUpdated(new Date());
-      })
-      .catch(() => setLastUpdated(new Date()));
-  }, []);
-  */
-
-  return (
-    <main dir="rtl" className="min-h-screen bg-gray-50 p-4 md:p-8">
-      <div className="max-w-4xl mx-auto space-y-6">
-        {/* الترويسة */}
-        <header className="text-center">
-          <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
-            آيار — أسعار الذهب والفضة والعملات
-          </h1>
-          <p className="text-sm text-gray-600 mt-2" suppressHydrationWarning>
-            {lastUpdated
-              ? `آخر تحديث: ${formatDateTime(lastUpdated)}`
-              : "جاري التحميل..."}
-          </p>
-        </header>
-
-        {/* أسعار الذهب */}
-        <section className="bg-white rounded-lg shadow overflow-hidden">
-          <h2 className="text-lg md:text-xl font-bold p-4 bg-yellow-50 border-b">
-            أسعار الذهب اليوم (ج.م / جرام)
-          </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-right">
-              <thead className="bg-gray-100">
-                <tr>
-                  <th className="p-3 border-b">العيار</th>
-                  <th className="p-3 border-b">السعر (ج.م)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {gold.map((item) => (
-                  <tr key={item.karat} className="hover:bg-gray-50">
-                    <td className="p-3 border-b">{item.label}</td>
-                    <td className="p-3 border-b font-bold">
-                      {formatNumber(item.price, 2)} ج.م
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* أسعار الفضة */}
-        <section className="bg-white rounded-lg shadow overflow-hidden">
-          <h2 className="text-lg md:text-xl font-bold p-4 bg-gray-100 border-b">
-            أسعار الفضة اليوم (ج.م / جرام)
-          </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-right">
-              <thead className="bg-gray-100">
-                <tr>
-                  <th className="p-3 border-b">النوع</th>
-                  <th className="p-3 border-b">السعر (ج.م)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {silver.map((item) => (
-                  <tr key={item.karat} className="hover:bg-gray-50">
-                    <td className="p-3 border-b">{item.label}</td>
-                    <td className="p-3 border-b font-bold">
-                      {formatNumber(item.price, 2)} ج.م
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* أسعار العملات — بالعمودين */}
-        <section className="bg-white rounded-lg shadow overflow-hidden">
-          <h2 className="text-lg md:text-xl font-bold p-4 bg-blue-50 border-b">
-            أسعار العملات مقابل الجنيه المصري
-          </h2>
-          <p className="px-4 py-2 text-xs md:text-sm text-gray-600 bg-blue-50/60 border-b">
-            العمود الثالث: قيمة العملة الأجنبية الواحدة بالجنيه المصري.
-            العمود الرابع: قيمة الجنيه المصري الواحد بالعملة الأجنبية (السعر
-            المعكوس).
-          </p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-right">
-              <thead className="bg-gray-100">
-                <tr>
-                  <th className="p-3 border-b">العملة</th>
-                  <th className="p-3 border-b">الكود</th>
-                  <th className="p-3 border-b">1 عملة = (ج.م)</th>
-                  <th className="p-3 border-b">1 ج.م = (عملة)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currencies.map((currency) => {
-                  const inverted = invertRate(currency.rate);
-                  return (
-                    <tr key={currency.code} className="hover:bg-gray-50">
-                      <td className="p-3 border-b">{currency.name}</td>
-                      <td className="p-3 border-b font-mono text-sm text-gray-600">
-                        {currency.code}
-                      </td>
-                      <td className="p-3 border-b font-bold text-green-700">
-                        {inverted !== null
-                          ? `${formatNumber(inverted, 2)} ج.م`
-                          : "-"}
-                      </td>
-                      <td className="p-3 border-b text-gray-700">
-                        {formatNumber(currency.rate, 6)}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* تذييل */}
-        <footer className="text-center text-xs text-gray-500 py-4">
-          الأسعار المعروضة تقريبية وقد تختلف عن أسعار السوق اللحظية.
-        </footer>
+    <section class="gold">
+      <h2>أسعار الذهب اليوم (ج.م / جرام)</h2>
+      <div class="overflow">
+        <table>
+          <thead><tr><th>العيار</th><th>السعر (ج.م)</th></tr></thead>
+          <tbody id="goldTable"></tbody>
+        </table>
       </div>
-    </main>
-  );
-}
+    </section>
+
+    <section class="silver">
+      <h2>أسعار الفضة اليوم (ج.م / جرام)</h2>
+      <div class="overflow">
+        <table>
+          <thead><tr><th>النوع</th><th>السعر (ج.م)</th></tr></thead>
+          <tbody id="silverTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="currency">
+      <h2>أسعار العملات مقابل الجنيه المصري</h2>
+      <p class="note">
+        العمود الثالث: قيمة العملة الأجنبية الواحدة بالجنيه المصري (السعر التقليدي).
+        العمود الرابع: قيمة الجنيه المصري الواحد بالعملة الأجنبية (السعر المعكوس).
+      </p>
+      <div class="overflow">
+        <table>
+          <thead>
+            <tr>
+              <th>العملة</th><th>الكود</th>
+              <th>1 عملة = (ج.م)</th><th>1 ج.م = (عملة)</th>
+            </tr>
+          </thead>
+          <tbody id="currencyTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>الأسعار المعروضة تقريبية وقد تختلف عن أسعار السوق اللحظية.</footer>
+  </div>
+
+  <script>
+    // ====== البيانات ======
+    const goldData = [
+      { label: "عيار 24", price: 7098.95 },
+      { label: "عيار 22", price: 6507.37 },
+      { label: "عيار 21", price: 6211.58 },
+      { label: "عيار 18", price: 5324.21 },
+      { label: "عيار 14", price: 4141.05 }
+    ];
+
+    const silverData = [
+      { label: "فضة نقية", price: 79.50 },
+      { label: "فضة عيار 925", price: 73.54 }
+    ];
+
+    const currenciesData = [
+      { code: "USD", name: "الدولار الأمريكي", rate: 0.0178 },
+      { code: "EUR", name: "اليورو", rate: 0.0159 },
+      { code: "GBP", name: "الجنيه الإسترليني", rate: 0.0135 },
+      { code: "SAR", name: "الريال السعودي", rate: 0.0667 },
+      { code: "AED", name: "الدرهم الإماراتي", rate: 0.0654 },
+      { code: "KWD", name: "الدينار الكويتي", rate: 0.0055 },
+      { code: "QAR", name: "الريال القطري", rate: 0.0687 },
+      { code: "BHD", name: "الدينار البحريني", rate: 0.0045 },
+      { code: "OMR", name: "الريال العماني", rate: 0.0046 },
+      { code: "JOD", name: "الدينار الأردني", rate: 0.0126 },
+      { code: "IQD", name: "الدينار العراقي", rate: 23.29 },
+      { code: "LYD", name: "الدينار الليبي", rate: 0.0867 },
+      { code: "TRY", name: "الليرة التركية", rate: 0.60 },
+      { code: "CNY", name: "اليوان الصيني", rate: 0.1285 }
+    ];
+
+    // ====== دوال مساعدة ======
+    function fmt(value, digits) {
+      digits = (digits === undefined) ? 2 : digits;
+      if (!isFinite(value)) return "-";
+      return new Intl.NumberFormat("ar-EG-u-nu-latn", {
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits
+      }).format(value);
+    }
+
+    // ====== عرض البيانات ======
+    document.getElementById("goldTable").innerHTML = goldData.map(function (g) {
+      return '<tr><td>' + g.label + '</td><td class="bold">' + fmt(g.price, 2) + ' ج.م</td></tr>';
+    }).join("");
+
+    document.getElementById("silverTable").innerHTML = silverData.map(function (s) {
+      return '<tr><td>' + s.label + '</td><td class="bold">' + fmt(s.price, 2) + ' ج.م</td></tr>';
+    }).join("");
+
+    document.getElementById("currencyTable").innerHTML = currenciesData.map(function (c) {
+      var inverted = (c.rate > 0) ? (1 / c.rate) : null;
+      var invText = (inverted !== null) ? (fmt(inverted, 2) + " ج.م") : "-";
+      return '<tr>' +
+        '<td>' + c.name + '</td>' +
+        '<td class="code">' + c.code + '</td>' +
+        '<td class="bold green">' + invText + '</td>' +
+        '<td class="gray">' + fmt(c.rate, 6) + '</td>' +
+      '</tr>';
+    }).join("");
+
+    // ====== وقت التحديث ======
+    var now = new Date();
+    var formatted = new Intl.DateTimeFormat("ar-EG-u-nu-latn", {
+      dateStyle: "medium", timeStyle: "short"
+    }).format(now);
+    document.getElementById("lastUpdated").textContent = "آخر تحديث: " + formatted;
+
+    // ====== إعادة تسجيل Service Worker ======
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").catch(function (err) {
+        console.warn("SW registration failed:", err);
+      });
+    }
+  </script>
+</body>
+</html>
