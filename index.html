@@ -139,6 +139,14 @@ body {
   max-width: 580px; margin: 0 auto;
   font-size: 15px; position: relative;
 }
+.rate-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 18px; padding: 8px 18px;
+  background: var(--surface); border: 1px solid var(--border-strong);
+  border-radius: 100px; font-size: 13px; color: var(--text-dim);
+  position: relative;
+}
+.rate-badge strong { color: var(--gold-2); font-weight: 700; }
 
 /* ===== Country Section ===== */
 .country-section { margin: 60px 0; }
@@ -230,16 +238,6 @@ tbody tr:hover { background: rgba(212,160,23,0.03); }
   color: var(--text-dim);
 }
 
-/* ===== Rate Badge ===== */
-.rate-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  margin-top: 18px; padding: 8px 18px;
-  background: var(--surface); border: 1px solid var(--border-strong);
-  border-radius: 100px; font-size: 13px; color: var(--text-dim);
-  position: relative;
-}
-.rate-badge strong { color: var(--gold-2); font-weight: 700; }
-
 /* ===== Note ===== */
 .note {
   padding: 10px 20px;
@@ -319,8 +317,8 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     <h1>الأسواق <span class="accent">النبيلة</span> في الوطن العربي</h1>
     <p>تتبّع دقيق لأسعار الذهب والفضة والعملات في 10 دول عربية — في مكان واحد.</p>
     <div class="rate-badge">
-      <span>💵 سعر الصرف الموازي (السودان):</span>
-      <strong id="rateUsed">—</strong>
+      <span>💵 سعر الدولار في السودان (موازي):</span>
+      <strong id="rateUsed">جاري الجلب...</strong>
     </div>
   </section>
 
@@ -347,19 +345,21 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 
 <script>
   /* ═══════════════════════════════════════════════════════════════
-     ⚙️ الإعدادات — عدّل هنا فقط
+     ⚙️ الإعدادات
      ═══════════════════════════════════════════════════════════════ */
 
-  // 🔴 مهم: سعر الصرف الموازي للدولار مقابل الجنيه السوداني
-  // ✏️ عدّل هذا الرقم ليطابق السوق الموازي الفعلي اليوم
-  // مثال: إذا كان الدولار = 10000 جنيه سوداني، اكتب 10000
-  const SDG_PARALLEL_RATE = 10000; // ✏️ عدّل هذا الرقم
+  // السعر الاحتياطي للدولار في السودان (يُستخدم فقط إذا فشل جلب السعر الحي)
+  // ✏️ عدّله ليطابق آخر سعر تعرفه في السوق الموازي
+  const SDG_FALLBACK_RATE = 10000;
 
   // APIs (مجانية، بدون مفتاح)
   const ALQANAAS_API = 'https://alqanaas.com/gold-data.json';
   const CURRENCY_API = 'https://open.er-api.com/v6/latest/USD';
 
-  // الدول المطلوبة (رمز ISO 3166-1 alpha-2)
+  // نقطة نهاية Binance P2P العامة (لجلب سعر USDT/SDG)
+  const BINANCE_P2P_URL = 'https://p2p.binance.com/bapi/c2c/v2/friendly/c2c/adv/search';
+
+  // الدول المطلوبة
   const COUNTRIES = [
     { code: 'EG', name: 'مصر', flag: '🇪🇬', currency: 'EGP' },
     { code: 'SD', name: 'السودان', flag: '🇸🇩', currency: 'SDG' },
@@ -373,20 +373,18 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     { code: 'JO', name: 'الأردن', flag: '🇯🇴', currency: 'JOD' }
   ];
 
-  // العملات التي نريد عرضها مقابل كل عملة محلية
   const TARGET_CURRENCIES = ['USD', 'EUR', 'GBP', 'SAR', 'AED'];
-
   const CURRENCY_NAMES = {
     USD: 'الدولار الأمريكي', EUR: 'اليورو', GBP: 'الجنيه الإسترليني',
     SAR: 'الريال السعودي', AED: 'الدرهم الإماراتي'
   };
-
   const CURRENCY_SYMBOLS = {
     EGP: 'ج.م', SDG: 'ج.س', SAR: 'ر.س', AED: 'د.إ', BHD: 'د.ب',
     IQD: 'ع.د', KWD: 'د.ك', QAR: 'ر.ق', OMR: 'ر.ع', JOD: 'د.أ'
   };
 
   const OZ_TO_GRAM = 31.1034768;
+  let sdgRateSource = 'احتياطي'; // لتوضيح مصدر السعر في الشارة
 
   /* ═══════════════════════════════════════════════════════════════
      دوال مساعدة
@@ -413,7 +411,55 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
   }
 
   /* ═══════════════════════════════════════════════════════════════
-     عرض بيانات دولة واحدة
+     🔌 جلب سعر الدولار في السودان من Binance P2P
+     ═══════════════════════════════════════════════════════════════ */
+
+  async function fetchSdgRate() {
+    try {
+      // طلب POST إلى Binance P2P للحصول على عروض بيع USDT مقابل SDG
+      const response = await fetch(BINANCE_P2P_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fiat: 'SDG',
+          page: 1,
+          rows: 10,
+          tradeType: 'BUY', // نحن نشتري USDT (أي نبيع SDG) — هذا يعكس سعر السوق
+          asset: 'USDT',
+          countries: [],
+          proMerchantAds: false,
+          shieldMerchantAds: false,
+          publisherType: null,
+          payTypes: []
+        }),
+        cache: 'no-store'
+      });
+
+      if (!response.ok) throw new Error('Binance P2P status ' + response.status);
+
+      const data = await response.json();
+      if (!data || !data.data || !Array.isArray(data.data) || data.data.length === 0) {
+        throw new Error('No P2P ads found');
+      }
+
+      // استخراج أفضل سعر (أول عرض عادةً)
+      const firstAd = data.data[0];
+      const price = parseFloat(firstAd.adv.price);
+
+      if (!isFinite(price) || price <= 0) throw new Error('Invalid price');
+
+      console.log('✅ SDG rate from Binance P2P:', price);
+      sdgRateSource = 'Binance P2P';
+      return price;
+    } catch (err) {
+      console.warn('⚠️ Binance P2P failed, using fallback:', err.message);
+      sdgRateSource = 'احتياطي';
+      return SDG_FALLBACK_RATE;
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     عرض بيانات دولة
      ═══════════════════════════════════════════════════════════════ */
 
   function renderCountry(country, goldPrices, currencyRates) {
@@ -421,7 +467,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     var section = document.createElement('section');
     section.className = 'country-section';
 
-    // ---- جدول الذهب ----
     var goldRows = '';
     if (goldPrices) {
       goldRows =
@@ -430,21 +475,18 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
         '<tr><td class="label-cell">عيار 21</td><td class="value-cell gold">' + fmt(goldPrices.k21, 0) + ' ' + sym + '</td></tr>' +
         '<tr><td class="label-cell">عيار 18</td><td class="value-cell gold">' + fmt(goldPrices.k18, 0) + ' ' + sym + '</td></tr>';
     } else {
-      goldRows = '<tr><td colspan="2" style="text-align:center;color:var(--text-muted);padding:20px;">لا تتوفر بيانات الذهب لهذه الدولة</td></tr>';
+      goldRows = '<tr><td colspan="2" style="text-align:center;color:var(--text-muted);padding:20px;">لا تتوفر بيانات الذهب</td></tr>';
     }
 
-    // ---- جدول العملات ----
     var currencyRows = '';
     if (currencyRates && Object.keys(currencyRates).length > 0) {
       currencyRows = TARGET_CURRENCIES
         .filter(function(code) { return currencyRates[code] != null && currencyRates[code] > 0; })
         .map(function(code) {
-          var name = CURRENCY_NAMES[code] || code;
-          var rate = currencyRates[code]; // كم من العملة المحلية لكل 1 وحدة أجنبية
           return '<tr>' +
-            '<td><div style="font-weight:500">' + name + '</div></td>' +
+            '<td><div style="font-weight:500">' + (CURRENCY_NAMES[code] || code) + '</div></td>' +
             '<td><span class="code-badge">' + code + '</span></td>' +
-            '<td class="value-cell inverted">' + fmt(rate, 2) + ' ' + sym + '</td>' +
+            '<td class="value-cell inverted">' + fmt(currencyRates[code], 2) + ' ' + sym + '</td>' +
           '</tr>';
         }).join('');
     } else {
@@ -471,7 +513,7 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
   }
 
   /* ═══════════════════════════════════════════════════════════════
-     جلب البيانات
+     التحميل الرئيسي
      ═══════════════════════════════════════════════════════════════ */
 
   async function loadAll() {
@@ -481,39 +523,40 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     container.innerHTML = '<p style="text-align:center; padding:60px 0; color:var(--text-muted);">جاري تحميل البيانات...</p>';
 
     try {
-      // 1. جلب بيانات AlQANAAS (الذهب) و open.er-api (العملات) بالتوازي
-      var results = await Promise.all([
-        fetch(ALQANAAS_API, { cache: 'no-store' }).then(function(r) { if (!r.ok) throw new Error('AlQANAAS status ' + r.status); return r.json(); }),
-        fetch(CURRENCY_API, { cache: 'no-store' }).then(function(r) { if (!r.ok) throw new Error('Currency status ' + r.status); return r.json(); })
+      // 1. جلب سعر الدولار في السودان (Binance P2P) + بيانات AlQANAAS + بيانات العملات
+      var [sdgRate, goldResponse, currencyResponse] = await Promise.all([
+        fetchSdgRate(),
+        fetch(ALQANAAS_API, { cache: 'no-store' }),
+        fetch(CURRENCY_API, { cache: 'no-store' })
       ]);
 
-      var goldData = results[0];
-      var currencyData = results[1];
+      if (!goldResponse.ok) throw new Error('AlQANAAS status ' + goldResponse.status);
+      if (!currencyResponse.ok) throw new Error('Currency status ' + currencyResponse.status);
 
-      // 2. سعر الذهب العالمي بالدولار للأونصة
+      var goldData = await goldResponse.json();
+      var currencyData = await currencyResponse.json();
+
+      // تحديث شارة سعر الصرف
+      document.getElementById('rateUsed').textContent = fmt(sdgRate, 0) + ' ج.س (' + sdgRateSource + ')';
+
+      // سعر الذهب العالمي
       var liveXau = goldData.liveXauusd;
       var goldUsdOz = liveXau ? Number(liveXau.mid || liveXau.ask || 0) : 0;
       if (!isFinite(goldUsdOz) || goldUsdOz <= 0) throw new Error('Invalid XAUUSD price');
 
-      // 3. أسعار الصرف مقابل الدولار (base = USD)
-      var ratesToUsd = currencyData.rates; // 1 USD = X من العملة
+      var ratesToUsd = currencyData.rates;
       if (!ratesToUsd) throw new Error('Invalid currency rates');
 
-      // 4. عرض شارة سعر الصرف الموازي للسودان
-      var sdgRate = (SDG_PARALLEL_RATE && SDG_PARALLEL_RATE > 0) ? SDG_PARALLEL_RATE : (ratesToUsd.SDG || 600);
-      document.getElementById('rateUsed').textContent = fmt(sdgRate, 0) + ' ج.س (موازي)';
-
-      // 5. مسح الحاوية
       container.innerHTML = '';
 
-      // 6. لكل دولة، احسب الأسعار واعرضها
+      // 2. لكل دولة
       COUNTRIES.forEach(function(country) {
         var goldPrices = null;
         var currencyRates = {};
 
-        // ---- حساب أسعار الذهب ----
+        // --- الذهب ---
         if (country.code === 'SD') {
-          // السودان: حساب يدوي باستخدام سعر الصرف الموازي
+          // السودان: حساب من السعر العالمي × سعر البنانس
           var goldSdgGram = (goldUsdOz * sdgRate) / OZ_TO_GRAM;
           goldPrices = {
             k24: goldSdgGram,
@@ -522,7 +565,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
             k18: goldSdgGram * 18 / 24
           };
         } else {
-          // الدول الأخرى: استخدام بيانات AlQANAAS المحلية
           var alqCountry = goldData.countries ? goldData.countries.find(function(c) {
             return (c.countryCode || '').toUpperCase() === country.code;
           }) : null;
@@ -536,7 +578,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
               k18: g['18K'] || g.karat18 || g['18k']
             };
           } else {
-            // احتياطي: حساب من السعر العالمي وسعر الصرف الرسمي
             var officialRate = ratesToUsd[country.currency];
             if (officialRate && officialRate > 0) {
               var goldLocalGram = (goldUsdOz * officialRate) / OZ_TO_GRAM;
@@ -550,26 +591,34 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
           }
         }
 
-        // ---- حساب أسعار العملات مقابل العملة المحلية ----
-        // ratesToUsd[country.currency] = كم من العملة المحلية لكل 1 دولار
-        // ratesToUsd[targetCode] = كم من العملة الأجنبية لكل 1 دولار
-        // إذن: 1 وحدة أجنبية = ratesToUsd[country.currency] / ratesToUsd[targetCode] من العملة المحلية
+        // --- العملات ---
         var localPerUsd = ratesToUsd[country.currency];
         if (localPerUsd && localPerUsd > 0) {
           TARGET_CURRENCIES.forEach(function(code) {
             var foreignPerUsd = ratesToUsd[code];
             if (foreignPerUsd && foreignPerUsd > 0) {
-              // 1 وحدة من العملة الأجنبية = (localPerUsd / foreignPerUsd) من العملة المحلية
               currencyRates[code] = localPerUsd / foreignPerUsd;
             }
           });
+        }
+
+        // للسودان: تعديل أسعار العملات لتتوافق مع سعر البنانس (بدلاً من السعر الرسمي)
+        if (country.code === 'SD' && localPerUsd) {
+          // ratesToUsd.SDG هو السعر الرسمي (حوالي 600). نريد استخدام sdgRate (حوالي 10000)
+          var officialSdgPerUsd = ratesToUsd.SDG;
+          if (officialSdgPerUsd && officialSdgPerUsd > 0) {
+            var adjustment = sdgRate / officialSdgPerUsd;
+            Object.keys(currencyRates).forEach(function(code) {
+              currencyRates[code] *= adjustment;
+            });
+          }
         }
 
         renderCountry(country, goldPrices, currencyRates);
       });
 
       setStatus(true);
-      console.log('✅ All countries loaded successfully');
+      console.log('✅ All countries loaded successfully. SDG rate source:', sdgRateSource);
 
     } catch (err) {
       console.error('❌ Load failed:', err);
@@ -587,7 +636,7 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
      ═══════════════════════════════════════════════════════════════ */
 
   loadAll();
-  setInterval(loadAll, 5 * 60 * 1000); // تحديث كل 5 دقائق
+  setInterval(loadAll, 5 * 60 * 1000);
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(function(err) {
