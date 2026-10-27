@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0b0f">
-<meta name="description" content="عيار — تتبع دقيق لأسعار الذهب والفضة والعملات مقابل الجنيه المصري">
-<title>عيار — أسعار الذهب والفضة والعملات</title>
+<meta name="description" content="عيار — تتبع دقيق لأسعار الذهب والفضة والعملات مقابل الجنيه السوداني">
+<title>عيار — أسعار الذهب والفضة والعملات في السودان</title>
 
 <!-- ===== Monetag MultiTag (Zone 302579) ===== -->
 <script src="https://quge5.com/88/tag.min.js" data-zone="302579" async data-cfasync="false"></script>
@@ -272,7 +272,7 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
       </svg>
       <div>
         <div class="brand-name">عيـ<span>ـار</span></div>
-        <div class="brand-tag">AYAR · PRECIOUS MARKETS</div>
+        <div class="brand-tag">AYAR · SUDAN MARKETS</div>
       </div>
     </a>
     <div class="status">
@@ -286,14 +286,14 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 
   <section class="hero">
     <span class="eyebrow">أسعار لحظية</span>
-    <h1>الأسواق <span class="accent">النبيلة</span> في مصر</h1>
-    <p>تتبّع دقيق لأسعار الذهب والفضة والعملات مقابل الجنيه المصري — في مكان واحد.</p>
+    <h1>الأسواق <span class="accent">النبيلة</span> في السودان</h1>
+    <p>تتبّع دقيق لأسعار الذهب والفضة والعملات مقابل الجنيه السوداني — في مكان واحد.</p>
   </section>
 
   <section class="section">
     <div class="section-head">
       <h2 class="section-title"><span class="ico">◆</span> الذهب</h2>
-      <span class="section-meta">ج.م / جرام</span>
+      <span class="section-meta">ج.س / جرام</span>
     </div>
     <div class="card">
       <div class="overflow">
@@ -308,7 +308,7 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
   <section class="section">
     <div class="section-head">
       <h2 class="section-title"><span class="ico" style="color: var(--silver)">◇</span> الفضة</h2>
-      <span class="section-meta">ج.م / جرام</span>
+      <span class="section-meta">ج.س / جرام</span>
     </div>
     <div class="card">
       <div class="overflow">
@@ -323,12 +323,12 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
   <section class="section">
     <div class="section-head">
       <h2 class="section-title"><span class="ico">⇄</span> العملات</h2>
-      <span class="section-meta">مقابل الجنيه المصري</span>
+      <span class="section-meta">مقابل الجنيه السوداني</span>
     </div>
     <div class="card">
       <div class="note">
         <span class="ico">ℹ</span>
-        <span>العمود الأخضر: قيمة العملة الأجنبية الواحدة بالجنيه المصري · العمود الرمادي: قيمة الجنيه المصري الواحد بالعملة الأجنبية.</span>
+        <span>العمود الأخضر: قيمة العملة الأجنبية الواحدة بالجنيه السوداني · العمود الرمادي: قيمة الجنيه السوداني الواحد بالعملة الأجنبية.</span>
       </div>
       <div class="overflow">
         <table>
@@ -336,8 +336,8 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
             <tr>
               <th>العملة</th>
               <th>الكود</th>
-              <th>1 عملة = ج.م</th>
-              <th>1 ج.م = عملة</th>
+              <th>1 عملة = ج.س</th>
+              <th>1 ج.س = عملة</th>
             </tr>
           </thead>
           <tbody id="currencyTable"></tbody>
@@ -365,48 +365,49 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 
 <script>
   /* =====================================================
-     ⚙️ إعدادات API
+     ⚙️ إعدادات API (موجهة للسودان)
      ===================================================== */
 
-  const CURRENCY_API = 'https://open.er-api.com/v6/latest/EGP';
-  const METALS_API = 'https://alyawmgold.com/api/v1/spot/latest?country=EG';
+  // 1. API أسعار العملات (مقابل الجنيه السوداني)
+  const CURRENCY_API = 'https://open.er-api.com/v6/latest/SDG';
 
-  // ✅ تمت إضافة JPY (الين الياباني) و SDG (الجنيه السوداني)
-  const TARGET_CURRENCIES = ['USD', 'EUR', 'GBP', 'SAR', 'AED', 'KWD', 'QAR', 'BHD', 'OMR', 'JOD', 'IQD', 'LYD', 'TRY', 'CNY', 'JPY', 'SDG'];
+  // 2. API أسعار المعادن العالمي (بالدولار)
+  const METALS_API = 'https://xaus.com/api/v1/spot';
+
+  // 3. API سعر صرف الدولار (للتحويل من الدولار إلى الجنيه السوداني)
+  const USD_RATE_API = 'https://open.er-api.com/v6/latest/USD';
+
+  // العملات المطلوبة (مقابل الجنيه السوداني)
+  const TARGET_CURRENCIES = ['USD', 'EUR', 'GBP', 'SAR', 'AED', 'KWD', 'QAR', 'EGP', 'TRY', 'CNY', 'JPY'];
 
   const CURRENCY_NAMES = {
     USD: 'الدولار الأمريكي', EUR: 'اليورو', GBP: 'الجنيه الإسترليني',
     SAR: 'الريال السعودي', AED: 'الدرهم الإماراتي', KWD: 'الدينار الكويتي',
-    QAR: 'الريال القطري', BHD: 'الدينار البحريني', OMR: 'الريال العماني',
-    JOD: 'الدينار الأردني', IQD: 'الدينار العراقي', LYD: 'الدينار الليبي',
-    TRY: 'الليرة التركية', CNY: 'اليوان الصيني',
-    // ✅ إضافات جديدة
-    JPY: 'الين الياباني', SDG: 'الجنيه السوداني'
+    QAR: 'الريال القطري', EGP: 'الجنيه المصري', TRY: 'الليرة التركية',
+    CNY: 'اليوان الصيني', JPY: 'الين الياباني'
   };
 
   /* =====================================================
-     البيانات الاحتياطية
+     البيانات الاحتياطية (تقريبية للسودان)
      ===================================================== */
 
   const FALLBACK_GOLD = [
-    { label: "عيار 24", price: 7098.95 },
-    { label: "عيار 22", price: 6507.37 },
-    { label: "عيار 21", price: 6211.58 },
-    { label: "عيار 18", price: 5324.21 },
-    { label: "عيار 14", price: 4141.05 }
+    { label: "عيار 24", price: 77500 },
+    { label: "عيار 22", price: 71000 },
+    { label: "عيار 21", price: 67800 },
+    { label: "عيار 18", price: 58100 },
+    { label: "عيار 14", price: 45200 }
   ];
 
   const FALLBACK_SILVER = [
-    { label: "فضة نقية", price: 79.50 },
-    { label: "فضة عيار 925", price: 73.54 }
+    { label: "فضة نقية", price: 950 },
+    { label: "فضة عيار 925", price: 880 }
   ];
 
   const FALLBACK_RATES = {
-    USD: 0.0178, EUR: 0.0159, GBP: 0.0135, SAR: 0.0667, AED: 0.0654,
-    KWD: 0.0055, QAR: 0.0687, BHD: 0.0045, OMR: 0.0046, JOD: 0.0126,
-    IQD: 23.29, LYD: 0.0867, TRY: 0.60, CNY: 0.1285,
-    // ✅ إضافات جديدة (قيم تقريبية احتياطية)
-    JPY: 2.68, SDG: 10.65
+    USD: 0.001666, EUR: 0.001538, GBP: 0.001282, SAR: 0.00625,
+    AED: 0.00612, KWD: 0.000513, QAR: 0.00607, EGP: 0.00812,
+    TRY: 0.0615, CNY: 0.0119, JPY: 0.252
   };
 
   /* =====================================================
@@ -426,7 +427,7 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     document.getElementById("goldTable").innerHTML = items.map(function (g) {
       return '<tr>' +
         '<td class="label-cell">' + g.label + '</td>' +
-        '<td class="value-cell gold">' + fmt(g.price, 2) + ' <span style="font-size:12px;color:var(--text-muted);font-weight:400">ج.م</span></td>' +
+        '<td class="value-cell gold">' + fmt(g.price, 0) + ' <span style="font-size:12px;color:var(--text-muted);font-weight:400">ج.س</span></td>' +
       '</tr>';
     }).join("");
   }
@@ -435,7 +436,7 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     document.getElementById("silverTable").innerHTML = items.map(function (s) {
       return '<tr>' +
         '<td class="label-cell">' + s.label + '</td>' +
-        '<td class="value-cell silver">' + fmt(s.price, 2) + ' <span style="font-size:12px;color:var(--text-muted);font-weight:400">ج.م</span></td>' +
+        '<td class="value-cell silver">' + fmt(s.price, 2) + ' <span style="font-size:12px;color:var(--text-muted);font-weight:400">ج.س</span></td>' +
       '</tr>';
     }).join("");
   }
@@ -454,7 +455,7 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
       return '<tr>' +
         '<td><div style="font-weight:500">' + c.name + '</div></td>' +
         '<td><span class="code-badge">' + c.code + '</span></td>' +
-        '<td class="value-cell inverted">' + invText + ' <span style="font-size:11px;color:var(--text-muted);font-weight:400">ج.م</span></td>' +
+        '<td class="value-cell inverted">' + invText + ' <span style="font-size:11px;color:var(--text-muted);font-weight:400">ج.س</span></td>' +
         '<td class="value-cell" style="font-size:14px;color:var(--text-dim);font-weight:500">' + tradText + '</td>' +
       '</tr>';
     }).join("");
@@ -481,7 +482,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
       var res = await fetch(CURRENCY_API, { cache: 'no-store' });
       if (!res.ok) throw new Error('Currency API status ' + res.status);
       var data = await res.json();
-
       if (data.result === 'success' && data.rates) {
         renderCurrencies(data.rates);
         return true;
@@ -496,34 +496,42 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 
   async function fetchMetals() {
     try {
-      var res = await fetch(METALS_API, {
-        cache: 'no-store',
-        headers: { 'Accept': 'application/json' }
-      });
-      if (!res.ok) throw new Error('Metals API status ' + res.status);
-      var data = await res.json();
+      // 1. جلب سعر الذهب والفضة بالدولار (أونصة)
+      var metalsRes = await fetch(METALS_API, { cache: 'no-store' });
+      if (!metalsRes.ok) throw new Error('Metals API status ' + metalsRes.status);
+      var metalsData = await metalsRes.json();
 
-      var goldData = data && data.metals && data.metals.gold;
-      var silverData = data && data.metals && data.metals.silver;
+      // 2. جلب سعر صرف الدولار مقابل الجنيه السوداني
+      var rateRes = await fetch(USD_RATE_API, { cache: 'no-store' });
+      if (!rateRes.ok) throw new Error('USD Rate API status ' + rateRes.status);
+      var rateData = await rateRes.json();
+      var usdToSdg = rateData.rates.SDG;
 
-      if (goldData && goldData.karats) {
-        var k = goldData.karats;
-        var goldItems = [
-          { label: "عيار 24", price: Number(k.karat24) },
-          { label: "عيار 22", price: Number(k.karat22) },
-          { label: "عيار 21", price: Number(k.karat21) },
-          { label: "عيار 18", price: Number(k.karat18) },
-          { label: "عيار 14", price: Number(k.karat14) }
-        ].filter(function (i) { return isFinite(i.price) && i.price > 0; });
-
-        if (goldItems.length) renderGold(goldItems);
+      if (!usdToSdg || usdToSdg <= 0) {
+        throw new Error('Invalid USD/SDG rate');
       }
 
-      if (silverData && silverData.units && silverData.units.gram != null) {
-        var sp = Number(silverData.units.gram);
-        if (isFinite(sp) && sp > 0) {
-          renderSilver([{ label: "فضة نقية", price: sp }]);
-        }
+      // 3. استخراج سعر الذهب (بالدولار للأونصة) وتحويله
+      var goldUsdPerOz = metalsData.xau.price;
+      var goldSdgPerOz = goldUsdPerOz * usdToSdg;
+      var goldSdgPerGram = goldSdgPerOz / 31.1034768; // الأونصة = 31.1034768 جرام
+
+      // 4. حساب أسعار العيارات المختلفة
+      var goldItems = [
+        { label: "عيار 24", price: goldSdgPerGram },
+        { label: "عيار 22", price: goldSdgPerGram * (22/24) },
+        { label: "عيار 21", price: goldSdgPerGram * (21/24) },
+        { label: "عيار 18", price: goldSdgPerGram * (18/24) },
+        { label: "عيار 14", price: goldSdgPerGram * (14/24) }
+      ];
+      renderGold(goldItems);
+
+      // 5. استخراج سعر الفضة (إن وجد) وتحويله
+      if (metalsData.xag && metalsData.xag.price) {
+        var silverUsdPerOz = metalsData.xag.price;
+        var silverSdgPerOz = silverUsdPerOz * usdToSdg;
+        var silverSdgPerGram = silverSdgPerOz / 31.1034768;
+        renderSilver([{ label: "فضة نقية", price: silverSdgPerGram }]);
       }
 
       return true;
@@ -536,17 +544,19 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
   }
 
   async function loadAll() {
+    // عرض بيانات احتياطية فورًا
     renderGold(FALLBACK_GOLD);
     renderSilver(FALLBACK_SILVER);
     renderCurrencies(FALLBACK_RATES);
     updateTimestamp();
 
+    // محاولة جلب البيانات الحية بالتوازي
     var results = await Promise.all([fetchCurrencies(), fetchMetals()]);
     var anyLive = results.some(function (r) { return r === true; });
     setStatus(anyLive);
 
     if (anyLive) {
-      console.log('✅ Live prices loaded');
+      console.log('✅ Live prices loaded (SDG base)');
     } else {
       console.warn('⚠️ All APIs failed — showing fallback data');
     }
