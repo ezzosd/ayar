@@ -6,6 +6,10 @@
 <meta name="theme-color" content="#0a0b0f">
 <meta name="description" content="عيار — تتبع دقيق لأسعار الذهب والفضة والعملات مقابل الجنيه المصري">
 <title>عيار — أسعار الذهب والفضة والعملات</title>
+
+<!-- ===== Monetag MultiTag (Zone 302579) ===== -->
+<script src="https://quge5.com/88/tag.min.js" data-zone="302579" async data-cfasync="false"></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Amiri:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
@@ -364,14 +368,9 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
      ⚙️ إعدادات API
      ===================================================== */
 
-  // API العملات — موثوق، مجاني، يدعم CORS، بدون مفتاح
-  // يرجع: { rates: { USD: 0.0201, EUR: 0.0185, ... } } بمعنى 1 EGP = X عملة
   const CURRENCY_API = 'https://open.er-api.com/v6/latest/EGP';
-
-  // API الذهب والفضة — من alyawmgold.com
   const METALS_API = 'https://alyawmgold.com/api/v1/spot/latest?country=EG';
 
-  // العملات التي نريد عرضها (يمكنك تعديلها)
   const TARGET_CURRENCIES = ['USD', 'EUR', 'GBP', 'SAR', 'AED', 'KWD', 'QAR', 'BHD', 'OMR', 'JOD', 'IQD', 'LYD', 'TRY', 'CNY'];
 
   const CURRENCY_NAMES = {
@@ -381,10 +380,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     JOD: 'الدينار الأردني', IQD: 'الدينار العراقي', LYD: 'الدينار الليبي',
     TRY: 'الليرة التركية', CNY: 'اليوان الصيني'
   };
-
-  /* =====================================================
-     البيانات الاحتياطية
-     ===================================================== */
 
   const FALLBACK_GOLD = [
     { label: "عيار 24", price: 7098.95 },
@@ -404,10 +399,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     KWD: 0.0055, QAR: 0.0687, BHD: 0.0045, OMR: 0.0046, JOD: 0.0126,
     IQD: 23.29, LYD: 0.0867, TRY: 0.60, CNY: 0.1285
   };
-
-  /* =====================================================
-     دوال مساعدة
-     ===================================================== */
 
   function fmt(value, digits) {
     digits = (digits === undefined) ? 2 : digits;
@@ -468,17 +459,12 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     document.getElementById("year").textContent = now.getFullYear();
   }
 
-  /* =====================================================
-     🔌 جلب البيانات
-     ===================================================== */
-
   async function fetchCurrencies() {
     try {
       var res = await fetch(CURRENCY_API, { cache: 'no-store' });
       if (!res.ok) throw new Error('Currency API status ' + res.status);
       var data = await res.json();
 
-      // الصيغة: { result: "success", base_code: "EGP", rates: { USD: 0.0201, ... } }
       if (data.result === 'success' && data.rates) {
         renderCurrencies(data.rates);
         return true;
@@ -500,7 +486,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
       if (!res.ok) throw new Error('Metals API status ' + res.status);
       var data = await res.json();
 
-      // الصيغة المتوقعة: { metals: { gold: { karats: {...} }, silver: { units: { gram: ... } } } }
       var goldData = data && data.metals && data.metals.gold;
       var silverData = data && data.metals && data.metals.silver;
 
@@ -534,16 +519,12 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
   }
 
   async function loadAll() {
-    // 1) عرض البيانات الاحتياطية فورًا (حتى لا تكون الصفحة فارغة)
     renderGold(FALLBACK_GOLD);
     renderSilver(FALLBACK_SILVER);
     renderCurrencies(FALLBACK_RATES);
     updateTimestamp();
 
-    // 2) محاولة جلب البيانات الحية بالتوازي
     var results = await Promise.all([fetchCurrencies(), fetchMetals()]);
-
-    // 3) حالة الاتصال
     var anyLive = results.some(function (r) { return r === true; });
     setStatus(anyLive);
 
@@ -554,22 +535,24 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     }
   }
 
-  /* =====================================================
-     🚀 التشغيل
-     ===================================================== */
-
   loadAll();
-
-  // تحديث تلقائي كل 5 دقائق
   setInterval(loadAll, 5 * 60 * 1000);
 
-  // تسجيل Service Worker
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/sw.js").catch(function (err) {
       console.warn("SW registration failed:", err);
     });
   }
 </script>
+
+<!-- ===== Monetag OnClick Popunder #1 (Zone 12132620) ===== -->
+<script>(function(s){s.dataset.zone='12132620',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+<!-- ===== Monetag OnClick Popunder #2 (Zone 12132625) ===== -->
+<script>(function(s){s.dataset.zone='12132625',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+<!-- ===== Monetag Vignette Banner (Zone 12132627) ===== -->
+<script>(function(s){s.dataset.zone='12132627',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 </body>
 </html>
