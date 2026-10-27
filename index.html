@@ -4,7 +4,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0b0f">
-<meta name="description" content="عيار — أسعار الذهب والفضة والعملات في الدول العربية">
+<meta name="description" content="عيار — تتبّع لحظي لأسعار الذهب والفضة والعملات في 10 دول عربية: مصر، السودان، السعودية، الإمارات، البحرين، العراق، الكويت، قطر، عُمان، والأردن.">
+<meta name="keywords" content="أسعار الذهب, أسعار الذهب اليوم, عيار 21, عيار 24, عيار 22, عيار 18, سعر الدولار, أسعار العملات, الذهب في مصر, الذهب في السودان, الذهب في السعودية">
+<meta name="author" content="عيار">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://ayar-tawny.vercel.app/">
+
+<!-- ⚠️ لسه محتاج تضيف وسم التحقق الخاص بموقع عيار هنا (من GSC) -->
+<!-- <meta name="google-site-verification" content="..." /> -->
+
+<!-- ===== Favicon ===== -->
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="apple-touch-icon" href="/logo.png">
+<link rel="shortcut icon" href="/logo.png">
+
+<!-- ===== Open Graph ===== -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_AR">
+<meta property="og:site_name" content="عيار">
+<meta property="og:title" content="عيار — أسعار الذهب والعملات في الوطن العربي">
+<meta property="og:description" content="تتبّع دقيق لأسعار الذهب والفضة والعملات في 10 دول عربية — في مكان واحد.">
+<meta property="og:url" content="https://ayar-tawny.vercel.app/">
+<meta property="og:image" content="https://ayar-tawny.vercel.app/logo.png">
+
+<!-- ===== Twitter Card ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="عيار — أسعار الذهب والعملات في الوطن العربي">
+<meta name="twitter:description" content="تتبّع دقيق لأسعار الذهب والفضة والعملات في 10 دول عربية — في مكان واحد.">
+<meta name="twitter:image" content="https://ayar-tawny.vercel.app/logo.png">
+
 <title>عيار — أسعار الذهب والعملات في الوطن العربي</title>
 
 <!-- ===== Monetag MultiTag (Zone 302579) ===== -->
@@ -46,7 +74,6 @@ body {
 }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-/* ===== Top Bar ===== */
 .top-bar {
   border-bottom: 1px solid var(--border);
   padding: 18px 0;
@@ -92,7 +119,6 @@ body {
 .status-dot.offline { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-/* ===== Hero ===== */
 .hero {
   padding: 72px 0 48px;
   text-align: center;
@@ -148,7 +174,6 @@ body {
 }
 .rate-badge strong { color: var(--gold-2); font-weight: 700; }
 
-/* ===== Country Section ===== */
 .country-section { margin: 60px 0; }
 .country-head {
   display: flex; align-items: baseline; justify-content: space-between;
@@ -171,7 +196,6 @@ body {
   .country-grid { grid-template-columns: 1fr; }
 }
 
-/* ===== Card ===== */
 .card {
   background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
   border: 1px solid var(--border);
@@ -238,7 +262,6 @@ tbody tr:hover { background: rgba(212,160,23,0.03); }
   color: var(--text-dim);
 }
 
-/* ===== Note ===== */
 .note {
   padding: 10px 20px;
   background: rgba(212,160,23,0.04);
@@ -250,7 +273,6 @@ tbody tr:hover { background: rgba(212,160,23,0.03); }
 }
 .note .ico { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
 
-/* ===== Footer ===== */
 footer {
   border-top: 1px solid var(--border);
   padding: 36px 0 48px;
@@ -263,7 +285,6 @@ footer .brand-logo {
 }
 footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 
-/* ===== Responsive ===== */
 @media (max-width: 640px) {
   .container { padding: 0 16px; }
   .hero { padding: 44px 0 28px; }
@@ -344,20 +365,10 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 </footer>
 
 <script>
-  /* ═══════════════════════════════════════════════════════════════
-     ⚙️ الإعدادات
-     ═══════════════════════════════════════════════════════════════ */
-
-  // ✏️ سعر الدولار مقابل الجنيه السوداني (السوق الموازي)
-  // يُستخدم لحساب أسعار الذهب والعملات في السودان
-  // ⚠️ حدّث هذا الرقم دورياً ليطابق السوق الفعلي
   const SDG_MANUAL_RATE = 10000;
-
-  // APIs (مجانية، بدون مفتاح)
   const ALQANAAS_API = 'https://alqanaas.com/gold-data.json';
   const CURRENCY_API = 'https://open.er-api.com/v6/latest/USD';
 
-  // الدول المطلوبة
   const COUNTRIES = [
     { code: 'EG', name: 'مصر', flag: '🇪🇬', currency: 'EGP' },
     { code: 'SD', name: 'السودان', flag: '🇸🇩', currency: 'SDG' },
@@ -383,10 +394,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 
   const OZ_TO_GRAM = 31.1034768;
 
-  /* ═══════════════════════════════════════════════════════════════
-     دوال مساعدة
-     ═══════════════════════════════════════════════════════════════ */
-
   function fmt(v, d) {
     d = (d === undefined) ? 2 : d;
     if (!isFinite(v)) return '-';
@@ -406,10 +413,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     }).format(now);
     document.getElementById('year').textContent = now.getFullYear();
   }
-
-  /* ═══════════════════════════════════════════════════════════════
-     عرض بيانات دولة
-     ═══════════════════════════════════════════════════════════════ */
 
   function renderCountry(country, goldPrices, currencyRates) {
     var sym = CURRENCY_SYMBOLS[country.currency] || country.currency;
@@ -461,10 +464,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     document.getElementById('countriesContainer').appendChild(section);
   }
 
-  /* ═══════════════════════════════════════════════════════════════
-     التحميل الرئيسي
-     ═══════════════════════════════════════════════════════════════ */
-
   async function loadAll() {
     updateTimestamp();
     setStatus(false);
@@ -472,7 +471,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     container.innerHTML = '<p style="text-align:center; padding:60px 0; color:var(--text-muted);">جاري تحميل البيانات...</p>';
 
     try {
-      // 1. جلب بيانات الذهب + بيانات العملات
       var [goldResponse, currencyResponse] = await Promise.all([
         fetch(ALQANAAS_API, { cache: 'no-store' }),
         fetch(CURRENCY_API, { cache: 'no-store' })
@@ -484,12 +482,10 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
       var goldData = await goldResponse.json();
       var currencyData = await currencyResponse.json();
 
-      // سعر الذهب العالمي (لكل أونصة)
       var liveXau = goldData.liveXauusd;
       var goldUsdOz = liveXau ? Number(liveXau.mid || liveXau.ask || 0) : 0;
       if (!isFinite(goldUsdOz) || goldUsdOz <= 0) throw new Error('Invalid XAUUSD price');
 
-      // تحديث الشارة: سعر الذهب العالمي
       document.getElementById('rateUsed').textContent = '$' + fmt(goldUsdOz, 2) + ' / أونصة';
 
       var ratesToUsd = currencyData.rates;
@@ -497,14 +493,11 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 
       container.innerHTML = '';
 
-      // 2. لكل دولة
       COUNTRIES.forEach(function(country) {
         var goldPrices = null;
         var currencyRates = {};
 
-        // --- الذهب ---
         if (country.code === 'SD') {
-          // السودان: حساب من السعر العالمي × سعر الدولار اليدوي
           var goldSdgGram = (goldUsdOz * SDG_MANUAL_RATE) / OZ_TO_GRAM;
           goldPrices = {
             k24: goldSdgGram,
@@ -539,7 +532,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
           }
         }
 
-        // --- العملات ---
         var localPerUsd = ratesToUsd[country.currency];
         if (localPerUsd && localPerUsd > 0) {
           TARGET_CURRENCIES.forEach(function(code) {
@@ -550,7 +542,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
           });
         }
 
-        // للسودان: تعديل أسعار العملات لتتوافق مع السعر اليدوي (بدلاً من السعر الرسمي)
         if (country.code === 'SD' && localPerUsd) {
           var officialSdgPerUsd = ratesToUsd.SDG;
           if (officialSdgPerUsd && officialSdgPerUsd > 0) {
@@ -577,10 +568,6 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
       setStatus(false);
     }
   }
-
-  /* ═══════════════════════════════════════════════════════════════
-     التشغيل
-     ═══════════════════════════════════════════════════════════════ */
 
   loadAll();
   setInterval(loadAll, 5 * 60 * 1000);
