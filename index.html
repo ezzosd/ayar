@@ -285,6 +285,114 @@ footer .brand-logo {
 }
 footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 
+/* ✅ قسم فرص إضافية */
+.extras-section {
+  margin: 80px 0 40px;
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+}
+.extras-head {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.extras-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.extras-title span {
+  background: linear-gradient(135deg, var(--gold-2), var(--gold-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.extras-sub {
+  color: var(--text-muted);
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+.extras-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.extra-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.extra-card::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.extra-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: 0 8px 24px rgba(212,160,23,0.12);
+}
+.extra-card:hover::before { opacity: 1; }
+.extra-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.extra-label {
+  font-size: 14px;
+  font-weight: 600;
+  flex: 1;
+  color: var(--text-dim);
+  transition: color 0.25s;
+}
+.extra-card:hover .extra-label { color: var(--gold-2); }
+.extra-arrow {
+  color: var(--text-muted);
+  font-size: 16px;
+  transition: all 0.25s;
+}
+.extra-card:hover .extra-arrow {
+  color: var(--gold);
+  transform: translateX(-3px);
+}
+
+/* ✅ Footer links */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.footer-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 12px;
+  transition: color 0.25s;
+}
+.footer-links a:hover {
+  color: var(--gold-2);
+}
+
+@media (max-width: 900px) {
+  .extras-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 640px) {
   .container { padding: 0 16px; }
   .hero { padding: 44px 0 28px; }
@@ -296,6 +404,11 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
   .brand-logo { width: 40px; height: 40px; }
   .top-bar { padding: 14px 0; }
   .brand-tag { display: none; }
+}
+
+@media (max-width: 480px) {
+  .extras-grid { grid-template-columns: 1fr; }
+  .extras-title { font-size: 22px; }
 }
 </style>
 </head>
@@ -347,6 +460,36 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     <p style="text-align:center; padding:60px 0; color:var(--text-muted);">جاري تحميل بيانات الدول...</p>
   </div>
 
+  <!-- ✅ قسم فرص إضافية -->
+  <section class="extras-section">
+    <div class="extras-head">
+      <h2 class="extras-title">🌟 <span>فرص</span> إضافية</h2>
+      <p class="extras-sub">عروض وفرص مختارة بعناية</p>
+    </div>
+    <div class="extras-grid">
+      <a href="https://uplcm.com/4/12090630" target="_blank" rel="noopener" class="extra-card">
+        <span class="extra-icon">🚀</span>
+        <span class="extra-label">فرصة مميزة</span>
+        <span class="extra-arrow">←</span>
+      </a>
+      <a href="https://uplcm.com/4/12130004" target="_blank" rel="noopener" class="extra-card">
+        <span class="extra-icon">✨</span>
+        <span class="extra-label">اكتشف المزيد</span>
+        <span class="extra-arrow">←</span>
+      </a>
+      <a href="https://uplcm.com/4/12096134" target="_blank" rel="noopener" class="extra-card">
+        <span class="extra-icon">🎁</span>
+        <span class="extra-label">عرض خاص</span>
+        <span class="extra-arrow">←</span>
+      </a>
+      <a href="https://uplcm.com/4/12094822" target="_blank" rel="noopener" class="extra-card">
+        <span class="extra-icon">🔥</span>
+        <span class="extra-label">تفاصيل إضافية</span>
+        <span class="extra-arrow">←</span>
+      </a>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -362,6 +505,12 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     <path d="M22 42 L32 20 L42 42 M26 35 L38 35" stroke="url(#lgGold2)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
   <p>عيار © <span id="year"></span> — الأسعار استرشادية، قد تختلف عن السوق المحلي.</p>
+  <div class="footer-links">
+    <a href="https://uplcm.com/4/12090630" target="_blank" rel="noopener">🚀 فرصة مميزة</a>
+    <a href="https://uplcm.com/4/12130004" target="_blank" rel="noopener">✨ اكتشف المزيد</a>
+    <a href="https://uplcm.com/4/12096134" target="_blank" rel="noopener">🎁 عرض خاص</a>
+    <a href="https://uplcm.com/4/12094822" target="_blank" rel="noopener">🔥 تفاصيل إضافية</a>
+  </div>
 </footer>
 
 <script>
