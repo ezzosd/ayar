@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0b0f">
-<meta name="description" content="عيار — تتبّع لحظي لأسعار الذهب والفضة والعملات في 10 دول عربية: مصر، السودان، السعودية، الإمارات، البحرين، العراق، الكويت، قطر، عُمان، والأردن.">
+<meta name="description" content="عيار — تتبّع دوري لأسعار الذهب والفضة والعملات في 10 دول عربية: مصر، السودان، السعودية، الإمارات، البحرين، العراق، الكويت، قطر، عُمان، والأردن.">
 <meta name="keywords" content="أسعار الذهب, أسعار الذهب اليوم, عيار 21, عيار 24, عيار 22, عيار 18, سعر الدولار, أسعار العملات, الذهب في مصر, الذهب في السودان, الذهب في السعودية">
 <meta name="author" content="عيار">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -447,7 +447,7 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 <main class="container">
 
   <section class="hero">
-    <span class="eyebrow">أسعار لحظية</span>
+    <span class="eyebrow">أسعار محدّثة دورياً</span>
     <h1>الأسواق <span class="accent">النبيلة</span> في الوطن العربي</h1>
     <p>تتبّع دقيق لأسعار الذهب والفضة والعملات في 10 دول عربية — في مكان واحد.</p>
     <div class="rate-badge">
@@ -514,9 +514,11 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 </footer>
 
 <script>
-  const SDG_MANUAL_RATE = 10000;
-  const ALQANAAS_API = 'https://alqanaas.com/gold-data.json';
-  const CURRENCY_API = 'https://open.er-api.com/v6/latest/USD';
+  // ===== الإعدادات الأساسية =====
+  const GOLD_API = 'https://xaus.com/api/v1/spot?compact=1'; // API ذهب لحظي، بدون مفتاح
+  const CURRENCY_API = 'https://api.exchangerate.fun/latest?base=USD'; // API عملات، تحديث كل ساعة
+  const SDG_PARALLEL_API = 'https://allratestoday.com/api/v1/rates?source=SDG&target=USD'; // محاولة جلب سعر السودان الموازي
+  const SDG_FALLBACK_RATE = 10000; // قيمة احتياطية إذا فشل جلب سعر السودان
 
   const COUNTRIES = [
     { code: 'EG', name: 'مصر', flag: '🇪🇬', currency: 'EGP' },
@@ -543,6 +545,7 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
 
   const OZ_TO_GRAM = 31.1034768;
 
+  // ===== دوال مساعدة =====
   function fmt(v, d) {
     d = (d === undefined) ? 2 : d;
     if (!isFinite(v)) return '-';
@@ -555,174 +558,186 @@ footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
     document.getElementById('statusDot').classList.toggle('offline', !live);
   }
 
-  function updateTimestamp() {
-    var now = new Date();
+  function updateTimestamp(isoString) {
+    let date = isoString ? new Date(isoString) : new Date();
     document.getElementById('lastUpdated').textContent = new Intl.DateTimeFormat('ar-EG-u-nu-latn', {
       dateStyle: 'medium', timeStyle: 'short'
-    }).format(now);
-    document.getElementById('year').textContent = now.getFullYear();
+    }).format(date);
+    document.getElementById('year').textContent = date.getFullYear();
   }
 
+  // ===== جلب سعر الذهب العالمي =====
+  async function fetchGoldPrice() {
+    const res = await fetch(GOLD_API, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Gold API HTTP ' + res.status);
+    const data = await res.json();
+    // هيكل xaus.com: { spot_usd_oz, xau: { price }, data_state: { status, as_of } }
+    const price = data.xau?.price ?? data.spot_usd_oz;
+    if (!price || price <= 0) throw new Error('Invalid gold price from API');
+    return {
+      priceUsdOz: price,
+      asOf: data.data_state?.as_of || data.updated_at || new Date().toISOString()
+    };
+  }
+
+  // ===== جلب أسعار العملات =====
+  async function fetchCurrencyRates() {
+    const res = await fetch(CURRENCY_API, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Currency API HTTP ' + res.status);
+    const data = await res.json();
+    if (!data.rates || typeof data.rates !== 'object') throw new Error('Invalid currency rates');
+    return data.rates; // { USD:1, EGP:48.5, ... }
+  }
+
+  // ===== جلب سعر السودان الموازي (اختياري) =====
+  async function fetchSudanParallel() {
+    try {
+      const res = await fetch(SDG_PARALLEL_API, { cache: 'no-store' });
+      if (!res.ok) throw new Error('SDG API HTTP ' + res.status);
+      const data = await res.json();
+      // الهيكل قد يكون: { rates: { USD: 0.0001 } } أو { rate: ... }
+      const usdPerSdg = data.rates?.USD || data.rate;
+      if (usdPerSdg && usdPerSdg > 0) {
+        // نحتاج السعر العكسي (كم SDG لكل USD)
+        return 1 / usdPerSdg;
+      }
+    } catch (e) {
+      console.warn('⚠️ تعذر جلب سعر السودان الموازي:', e.message);
+    }
+    return null; // فشل -> نستخدم القيمة الاحتياطية
+  }
+
+  // ===== رسم بطاقة الدولة =====
   function renderCountry(country, goldPrices, currencyRates) {
-    var sym = CURRENCY_SYMBOLS[country.currency] || country.currency;
-    var section = document.createElement('section');
+    const sym = CURRENCY_SYMBOLS[country.currency] || country.currency;
+    const section = document.createElement('section');
     section.className = 'country-section';
 
-    var goldRows = '';
+    // صفوف الذهب
+    let goldRows = '';
     if (goldPrices) {
       goldRows =
-        '<tr><td class="label-cell">عيار 24</td><td class="value-cell gold">' + fmt(goldPrices.k24, 0) + ' ' + sym + '</td></tr>' +
-        '<tr><td class="label-cell">عيار 22</td><td class="value-cell gold">' + fmt(goldPrices.k22, 0) + ' ' + sym + '</td></tr>' +
-        '<tr><td class="label-cell">عيار 21</td><td class="value-cell gold">' + fmt(goldPrices.k21, 0) + ' ' + sym + '</td></tr>' +
-        '<tr><td class="label-cell">عيار 18</td><td class="value-cell gold">' + fmt(goldPrices.k18, 0) + ' ' + sym + '</td></tr>';
+        `<tr><td class="label-cell">عيار 24</td><td class="value-cell gold">${fmt(goldPrices.k24, 0)} ${sym}</td></tr>` +
+        `<tr><td class="label-cell">عيار 22</td><td class="value-cell gold">${fmt(goldPrices.k22, 0)} ${sym}</td></tr>` +
+        `<tr><td class="label-cell">عيار 21</td><td class="value-cell gold">${fmt(goldPrices.k21, 0)} ${sym}</td></tr>` +
+        `<tr><td class="label-cell">عيار 18</td><td class="value-cell gold">${fmt(goldPrices.k18, 0)} ${sym}</td></tr>`;
     } else {
-      goldRows = '<tr><td colspan="2" style="text-align:center;color:var(--text-muted);padding:20px;">لا تتوفر بيانات الذهب</td></tr>';
+      goldRows = `<tr><td colspan="2" style="text-align:center;color:var(--text-muted);padding:20px;">لا تتوفر بيانات الذهب</td></tr>`;
     }
 
-    var currencyRows = '';
+    // صفوف العملات
+    let currencyRows = '';
     if (currencyRates && Object.keys(currencyRates).length > 0) {
       currencyRows = TARGET_CURRENCIES
-        .filter(function(code) { return currencyRates[code] != null && currencyRates[code] > 0; })
-        .map(function(code) {
-          return '<tr>' +
-            '<td><div style="font-weight:500">' + (CURRENCY_NAMES[code] || code) + '</div></td>' +
-            '<td><span class="code-badge">' + code + '</span></td>' +
-            '<td class="value-cell inverted">' + fmt(currencyRates[code], 2) + ' ' + sym + '</td>' +
-          '</tr>';
-        }).join('');
+        .filter(code => currencyRates[code] != null && currencyRates[code] > 0)
+        .map(code => (
+          `<tr>` +
+            `<td><div style="font-weight:500">${CURRENCY_NAMES[code] || code}</div></td>` +
+            `<td><span class="code-badge">${code}</span></td>` +
+            `<td class="value-cell inverted">${fmt(currencyRates[code], 2)} ${sym}</td>` +
+          `</tr>`
+        )).join('');
     } else {
-      currencyRows = '<tr><td colspan="3" style="text-align:center;color:var(--text-muted);padding:20px;">لا تتوفر بيانات العملات</td></tr>';
+      currencyRows = `<tr><td colspan="3" style="text-align:center;color:var(--text-muted);padding:20px;">لا تتوفر بيانات العملات</td></tr>`;
     }
 
     section.innerHTML =
-      '<div class="country-head">' +
-        '<h2 class="country-title"><span class="flag">' + country.flag + '</span>' + country.name + '</h2>' +
-        '<span class="country-meta">' + country.currency + ' · أسعار محلية</span>' +
-      '</div>' +
-      '<div class="country-grid">' +
-        '<div class="card">' +
-          '<div class="card-header"><span class="dot gold"></span> الذهب (لكل جرام)</div>' +
-          '<div class="overflow"><table><thead><tr><th>العيار</th><th>السعر</th></tr></thead><tbody>' + goldRows + '</tbody></table></div>' +
-        '</div>' +
-        '<div class="card">' +
-          '<div class="card-header"><span class="dot blue"></span> العملات مقابل ' + sym + '</div>' +
-          '<div class="overflow"><table><thead><tr><th>العملة</th><th>الكود</th><th>1 وحدة = ؟</th></tr></thead><tbody>' + currencyRows + '</tbody></table></div>' +
-        '</div>' +
-      '</div>';
+      `<div class="country-head">` +
+        `<h2 class="country-title"><span class="flag">${country.flag}</span>${country.name}</h2>` +
+        `<span class="country-meta">${country.currency} · أسعار محلية</span>` +
+      `</div>` +
+      `<div class="country-grid">` +
+        `<div class="card">` +
+          `<div class="card-header"><span class="dot gold"></span> الذهب (لكل جرام)</div>` +
+          `<div class="overflow"><table><thead><tr><th>العيار</th><th>السعر</th></tr></thead><tbody>${goldRows}</tbody></table></div>` +
+        `</div>` +
+        `<div class="card">` +
+          `<div class="card-header"><span class="dot blue"></span> العملات مقابل ${sym}</div>` +
+          `<div class="overflow"><table><thead><tr><th>العملة</th><th>الكود</th><th>1 وحدة = ؟</th></tr></thead><tbody>${currencyRows}</tbody></table></div>` +
+        `</div>` +
+      `</div>`;
 
     document.getElementById('countriesContainer').appendChild(section);
   }
 
+  // ===== الدالة الرئيسية =====
   async function loadAll() {
-    updateTimestamp();
+    const container = document.getElementById('countriesContainer');
+    container.innerHTML = `<p style="text-align:center; padding:60px 0; color:var(--text-muted);">جاري تحميل البيانات...</p>`;
     setStatus(false);
-    var container = document.getElementById('countriesContainer');
-    container.innerHTML = '<p style="text-align:center; padding:60px 0; color:var(--text-muted);">جاري تحميل البيانات...</p>';
 
     try {
-      var [goldResponse, currencyResponse] = await Promise.all([
-        fetch(ALQANAAS_API, { cache: 'no-store' }),
-        fetch(CURRENCY_API, { cache: 'no-store' })
+      // 1) جلب البيانات بالتوازي
+      const [goldResult, currencyRates, sdgParallel] = await Promise.all([
+        fetchGoldPrice(),
+        fetchCurrencyRates(),
+        fetchSudanParallel()
       ]);
 
-      if (!goldResponse.ok) throw new Error('AlQANAAS status ' + goldResponse.status);
-      if (!currencyResponse.ok) throw new Error('Currency status ' + currencyResponse.status);
+      // 2) تحديث سعر الذهب العالمي في الواجهة
+      document.getElementById('rateUsed').textContent = `$${fmt(goldResult.priceUsdOz, 2)} / أونصة`;
+      updateTimestamp(goldResult.asOf);
 
-      var goldData = await goldResponse.json();
-      var currencyData = await currencyResponse.json();
-
-      var liveXau = goldData.liveXauusd;
-      var goldUsdOz = liveXau ? Number(liveXau.mid || liveXau.ask || 0) : 0;
-      if (!isFinite(goldUsdOz) || goldUsdOz <= 0) throw new Error('Invalid XAUUSD price');
-
-      document.getElementById('rateUsed').textContent = '$' + fmt(goldUsdOz, 2) + ' / أونصة';
-
-      var ratesToUsd = currencyData.rates;
-      if (!ratesToUsd) throw new Error('Invalid currency rates');
-
+      // 3) مسح الحاوية وإعادة الرسم
       container.innerHTML = '';
 
-      COUNTRIES.forEach(function(country) {
-        var goldPrices = null;
-        var currencyRates = {};
+      // 4) رسم كل دولة
+      COUNTRIES.forEach(country => {
+        let goldPrices = null;
+        const currencyObj = {};
 
-        if (country.code === 'SD') {
-          var goldSdgGram = (goldUsdOz * SDG_MANUAL_RATE) / OZ_TO_GRAM;
-          goldPrices = {
-            k24: goldSdgGram,
-            k22: goldSdgGram * 22 / 24,
-            k21: goldSdgGram * 21 / 24,
-            k18: goldSdgGram * 18 / 24
-          };
-        } else {
-          var alqCountry = goldData.countries ? goldData.countries.find(function(c) {
-            return (c.countryCode || '').toUpperCase() === country.code;
-          }) : null;
-
-          if (alqCountry && alqCountry.goldPerGram) {
-            var g = alqCountry.goldPerGram;
-            goldPrices = {
-              k24: g['24K'] || g.karat24 || g['24k'],
-              k22: g['22K'] || g.karat22 || g['22k'],
-              k21: g['21K'] || g.karat21 || g['21k'],
-              k18: g['18K'] || g.karat18 || g['18k']
-            };
-          } else {
-            var officialRate = ratesToUsd[country.currency];
-            if (officialRate && officialRate > 0) {
-              var goldLocalGram = (goldUsdOz * officialRate) / OZ_TO_GRAM;
-              goldPrices = {
-                k24: goldLocalGram,
-                k22: goldLocalGram * 22 / 24,
-                k21: goldLocalGram * 21 / 24,
-                k18: goldLocalGram * 18 / 24
-              };
-            }
+        // 4-أ) حساب سعر الذهب محلياً
+        const localPerUsd = currencyRates[country.currency];
+        if (localPerUsd && localPerUsd > 0) {
+          let rateToUse = localPerUsd;
+          // معالجة خاصة للسودان: استخدام السعر الموازي إن وُجد
+          if (country.code === 'SD') {
+            rateToUse = sdgParallel || SDG_FALLBACK_RATE;
           }
+          const goldLocalGram = (goldResult.priceUsdOz * rateToUse) / OZ_TO_GRAM;
+          goldPrices = {
+            k24: goldLocalGram,
+            k22: goldLocalGram * 22 / 24,
+            k21: goldLocalGram * 21 / 24,
+            k18: goldLocalGram * 18 / 24
+          };
         }
 
-        var localPerUsd = ratesToUsd[country.currency];
+        // 4-ب) حساب أسعار العملات المحلية مقابل العملات الأجنبية
         if (localPerUsd && localPerUsd > 0) {
-          TARGET_CURRENCIES.forEach(function(code) {
-            var foreignPerUsd = ratesToUsd[code];
+          TARGET_CURRENCIES.forEach(code => {
+            const foreignPerUsd = currencyRates[code];
             if (foreignPerUsd && foreignPerUsd > 0) {
-              currencyRates[code] = localPerUsd / foreignPerUsd;
+              currencyObj[code] = localPerUsd / foreignPerUsd;
             }
           });
         }
 
-        if (country.code === 'SD' && localPerUsd) {
-          var officialSdgPerUsd = ratesToUsd.SDG;
-          if (officialSdgPerUsd && officialSdgPerUsd > 0) {
-            var adjustment = SDG_MANUAL_RATE / officialSdgPerUsd;
-            Object.keys(currencyRates).forEach(function(code) {
-              currencyRates[code] *= adjustment;
-            });
-          }
-        }
-
-        renderCountry(country, goldPrices, currencyRates);
+        // 4-ج) رسم البطاقة
+        renderCountry(country, goldPrices, currencyObj);
       });
 
       setStatus(true);
-      console.log('✅ All countries loaded. Global XAU/USD:', goldUsdOz, '| SDG manual rate:', SDG_MANUAL_RATE);
+      console.log('✅ تم تحميل البيانات بنجاح | سعر الأونصة:', goldResult.priceUsdOz, '| سعر السودان الموازي:', sdgParallel);
 
     } catch (err) {
-      console.error('❌ Load failed:', err);
+      console.error('❌ فشل التحميل:', err);
       container.innerHTML =
-        '<div style="text-align:center; padding:60px 20px;">' +
-          '<p style="color:var(--text-muted); margin-bottom:20px;">⚠️ تعذر تحميل البيانات. تحقق من اتصالك بالإنترنت.</p>' +
-          '<button onclick="loadAll()" style="background:var(--gold); color:var(--bg); border:none; padding:12px 30px; border-radius:100px; font-family:inherit; font-weight:700; cursor:pointer;">إعادة المحاولة</button>' +
-        '</div>';
+        `<div style="text-align:center; padding:60px 20px;">` +
+          `<p style="color:var(--text-muted); margin-bottom:20px;">⚠️ تعذر تحميل البيانات. تحقق من اتصالك بالإنترنت.</p>` +
+          `<button onclick="loadAll()" style="background:var(--gold); color:var(--bg); border:none; padding:12px 30px; border-radius:100px; font-family:inherit; font-weight:700; cursor:pointer;">إعادة المحاولة</button>` +
+        `</div>`;
       setStatus(false);
     }
   }
 
+  // ===== التشغيل =====
   loadAll();
-  setInterval(loadAll, 5 * 60 * 1000);
+  setInterval(loadAll, 5 * 60 * 1000); // تحديث كل 5 دقائق
 
+  // ===== Service Worker =====
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').catch(function(err) {
+    navigator.serviceWorker.register('/sw.js').catch(err => {
       console.warn('SW registration failed:', err);
     });
   }
