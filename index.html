@@ -1,7 +1,6 @@
 <script>
 // ===================== الإعدادات =====================
 const FETCH_TIMEOUT_MS = 6000;
-const SDG_FALLBACK_RATE = 10000; // ⚠️ حدّثه يدوياً لو اختلف سعر السوق السوداني
 const OZ_TO_GRAM = 31.1034768;
 
 // ===================== مصادر الذهب (3 بدائل) =====================
@@ -52,7 +51,7 @@ const CURRENCY_SOURCES = [
   }
 ];
 
-// ===================== الدول والعملات =====================
+// ===================== الدول والعملات (9 دول — بدون السودان) =====================
 const COUNTRIES = [
   { code: 'EG', name: 'مصر', flag: '🇪🇬', currency: 'EGP' },
   { code: 'SA', name: 'السعودية', flag: '🇸🇦', currency: 'SAR' },
@@ -71,7 +70,7 @@ const CURRENCY_NAMES = {
   SAR: 'الريال السعودي', AED: 'الدرهم الإماراتي'
 };
 const CURRENCY_SYMBOLS = {
-  EGP: 'ج.م', SDG: 'ج.س', SAR: 'ر.س', AED: 'د.إ', BHD: 'د.ب',
+  EGP: 'ج.م', SAR: 'ر.س', AED: 'د.إ', BHD: 'د.ب',
   IQD: 'ع.د', KWD: 'د.ك', QAR: 'ر.ق', OMR: 'ر.ع', JOD: 'د.أ'
 };
 
@@ -245,11 +244,7 @@ async function loadAll() {
     const currencyObj = {};
 
     if (goldResult && localPerUsd && localPerUsd > 0) {
-      let rateToUse = localPerUsd;
-      if (country.code === 'SD') {
-        rateToUse = SDG_FALLBACK_RATE;
-      }
-      const goldLocalGram = (goldResult.priceUsdOz * rateToUse) / OZ_TO_GRAM;
+      const goldLocalGram = (goldResult.priceUsdOz * localPerUsd) / OZ_TO_GRAM;
       goldPrices = {
         k24: goldLocalGram,
         k22: goldLocalGram * 22 / 24,
