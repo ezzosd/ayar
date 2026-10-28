@@ -1,57 +1,283 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0b0f">
+<meta name="description" content="عيار — تتبّع لحظي لأسعار الذهب والفضة والعملات في 9 دول عربية: مصر، السعودية، الإمارات، البحرين، العراق، الكويت، قطر، عُمان، والأردن.">
+<title>عيار — أسعار الذهب والعملات في الوطن العربي</title>
+
+<!-- Monetag -->
+<script src="https://quge5.com/88/tag.min.js" data-zone="302579" async data-cfasync="false"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Amiri:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0a0b0f; --surface: #15171d; --surface-2: #1a1d24;
+  --border: rgba(255,255,255,0.06); --border-strong: rgba(212,160,23,0.25);
+  --text: #f5f3ee; --text-dim: #a8a5a0; --text-muted: #6b6a67;
+  --gold: #d4a017; --gold-2: #f5d76e; --gold-3: #b8860b;
+  --radius: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text);
+  min-height: 100vh; line-height: 1.6;
+  background-image: radial-gradient(ellipse at top right, rgba(212,160,23,0.08), transparent 60%),
+    radial-gradient(ellipse at bottom left, rgba(184,134,11,0.05), transparent 60%);
+  background-attachment: fixed;
+}
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+.top-bar {
+  border-bottom: 1px solid var(--border); padding: 18px 0;
+  backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 100;
+  background: rgba(10,11,15,0.85);
+}
+.top-bar-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--text); }
+.brand-logo { width: 48px; height: 48px; }
+.brand-name { font-size: 24px; font-weight: 900; }
+.brand-name span {
+  background: linear-gradient(135deg, var(--gold-2), var(--gold-3));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.brand-tag { font-size: 10px; color: var(--text-muted); letter-spacing: 2.5px; margin-top: 4px; }
+.status {
+  display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 100px;
+  background: var(--surface); border: 1px solid var(--border); font-size: 12px; color: var(--text-dim);
+}
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981; animation: pulse 2s infinite; }
+.status-dot.offline { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+.hero { padding: 72px 0 48px; text-align: center; position: relative; }
+.eyebrow {
+  display: inline-block; font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); font-weight: 500; margin-bottom: 18px; padding: 6px 16px;
+  border: 1px solid var(--border-strong); border-radius: 100px; background: rgba(212,160,23,0.05);
+}
+.hero h1 { font-size: clamp(32px, 5vw, 54px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
+.hero h1 .accent {
+  font-family: 'Amiri', serif; font-style: italic; font-weight: 700;
+  background: linear-gradient(135deg, var(--gold-2) 0%, var(--gold) 50%, var(--gold-3) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  padding: 0 6px;
+}
+.hero p { color: var(--text-dim); max-width: 580px; margin: 0 auto; font-size: 15px; }
+.rate-badge {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 8px 18px;
+  background: var(--surface); border: 1px solid var(--border-strong); border-radius: 100px;
+  font-size: 13px; color: var(--text-dim);
+}
+.rate-badge strong { color: var(--gold-2); font-weight: 700; }
+
+.country-section { margin: 60px 0; }
+.country-head {
+  display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 22px;
+  padding-bottom: 14px; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 8px;
+}
+.country-title { font-size: 24px; font-weight: 800; }
+.country-title .flag { margin-left: 10px; font-size: 20px; }
+.country-meta { font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+.country-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 768px) { .country-grid { grid-template-columns: 1fr; } }
+
+.card {
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+  border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
+}
+.card-header {
+  padding: 14px 20px; background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border);
+  font-size: 14px; font-weight: 700; color: var(--text-dim); display: flex; align-items: center; gap: 8px;
+}
+.card-header .dot { width: 6px; height: 6px; border-radius: 50%; }
+.card-header .dot.gold { background: var(--gold); }
+.card-header .dot.blue { background: #60a5fa; }
+.overflow { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  text-align: right; padding: 12px 18px; font-size: 10px; font-weight: 500;
+  color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase;
+  background: rgba(0,0,0,0.1); border-bottom: 1px solid var(--border); white-space: nowrap;
+}
+tbody td { padding: 14px 18px; border-bottom: 1px solid var(--border); font-size: 14px; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: rgba(212,160,23,0.03); }
+.label-cell { color: var(--text-dim); font-weight: 500; }
+.value-cell { font-weight: 700; font-size: 16px; color: var(--text); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.value-cell.gold { color: var(--gold-2); }
+.value-cell.inverted { color: #34d399; }
+.code-badge {
+  display: inline-block; padding: 3px 8px; border-radius: 5px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+  font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 1px; color: var(--text-dim);
+}
+
+footer {
+  border-top: 1px solid var(--border); padding: 36px 0 48px; margin-top: 72px; text-align: center;
+}
+footer p { font-size: 12px; color: var(--text-muted); }
+
+.extras-section { margin: 80px 0 40px; padding: 40px 0; border-top: 1px solid var(--border); }
+.extras-head { text-align: center; margin-bottom: 32px; }
+.extras-title { font-size: 28px; font-weight: 800; margin-bottom: 8px; color: var(--text); }
+.extras-title span {
+  background: linear-gradient(135deg, var(--gold-2), var(--gold-3));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.extras-sub { color: var(--text-muted); font-size: 13px; }
+.extras-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.extra-card {
+  display: flex; align-items: center; gap: 12px; padding: 18px 20px;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+  border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--text);
+  transition: all 0.25s ease;
+}
+.extra-card:hover {
+  transform: translateY(-3px); border-color: var(--border-strong);
+  box-shadow: 0 8px 24px rgba(212,160,23,0.12);
+}
+.extra-icon { font-size: 22px; }
+.extra-label { font-size: 14px; font-weight: 600; flex: 1; color: var(--text-dim); }
+.extra-card:hover .extra-label { color: var(--gold-2); }
+.extra-arrow { color: var(--text-muted); font-size: 16px; }
+
+.footer-links {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px;
+  margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);
+}
+.footer-links a { color: var(--text-dim); text-decoration: none; font-size: 12px; }
+.footer-links a:hover { color: var(--gold-2); }
+
+@media (max-width: 900px) { .extras-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) {
+  .container { padding: 0 16px; }
+  .hero { padding: 44px 0 28px; }
+  .hero h1 { font-size: 32px; }
+  .country-title { font-size: 20px; }
+  thead th, tbody td { padding: 10px 12px; font-size: 12px; }
+  .value-cell { font-size: 14px; }
+  .brand-name { font-size: 20px; }
+  .brand-logo { width: 40px; height: 40px; }
+  .brand-tag { display: none; }
+}
+@media (max-width: 480px) {
+  .extras-grid { grid-template-columns: 1fr; }
+  .extras-title { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<header class="top-bar">
+  <div class="container top-bar-inner">
+    <a href="/" class="brand">
+      <svg class="brand-logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lgGold" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f5d76e"/>
+            <stop offset="50%" stop-color="#d4a017"/>
+            <stop offset="100%" stop-color="#b8860b"/>
+          </linearGradient>
+        </defs>
+        <path d="M32 3 L57 17 L57 47 L32 61 L7 47 L7 17 Z" fill="none" stroke="url(#lgGold)" stroke-width="1.5" opacity="0.6"/>
+        <path d="M22 42 L32 20 L42 42 M26 35 L38 35" stroke="url(#lgGold)" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <div class="brand-name">عيـ<span>ـار</span></div>
+        <div class="brand-tag">AYAR · ARAB MARKETS</div>
+      </div>
+    </a>
+    <div class="status">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="lastUpdated">جاري التحديث...</span>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <span class="eyebrow">أسعار محدّثة دورياً</span>
+    <h1>الأسواق <span class="accent">النبيلة</span> في الوطن العربي</h1>
+    <p>تتبّع دقيق لأسعار الذهب والفضة والعملات في 9 دول عربية — في مكان واحد.</p>
+    <div class="rate-badge">
+      <span>🥇 سعر الذهب العالمي (أونصة):</span>
+      <strong id="rateUsed">جاري الجلب...</strong>
+    </div>
+  </section>
+
+  <div id="countriesContainer">
+    <p style="text-align:center; padding:60px 0; color:var(--text-muted);">جاري تحميل بيانات الدول...</p>
+  </div>
+
+  <section class="extras-section">
+    <div class="extras-head">
+      <h2 class="extras-title">🌟 <span>فرص</span> إضافية</h2>
+      <p class="extras-sub">عروض وفرص مختارة بعناية</p>
+    </div>
+    <div class="extras-grid">
+      <a href="https://uplcm.com/4/12090630" target="_blank" rel="noopener" class="extra-card">
+        <span class="extra-icon">🚀</span><span class="extra-label">فرصة مميزة</span><span class="extra-arrow">←</span>
+      </a>
+      <a href="https://uplcm.com/4/12130004" target="_blank" rel="noopener" class="extra-card">
+        <span class="extra-icon">✨</span><span class="extra-label">اكتشف المزيد</span><span class="extra-arrow">←</span>
+      </a>
+      <a href="https://uplcm.com/4/12096134" target="_blank" rel="noopener" class="extra-card">
+        <span class="extra-icon">🎁</span><span class="extra-label">عرض خاص</span><span class="extra-arrow">←</span>
+      </a>
+      <a href="https://uplcm.com/4/12094822" target="_blank" rel="noopener" class="extra-card">
+        <span class="extra-icon">🔥</span><span class="extra-label">تفاصيل إضافية</span><span class="extra-arrow">←</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>عيار © <span id="year"></span> — الأسعار استرشادية، قد تختلف عن السوق المحلي.</p>
+  <div class="footer-links">
+    <a href="https://uplcm.com/4/12090630" target="_blank" rel="noopener">🚀 فرصة مميزة</a>
+    <a href="https://uplcm.com/4/12130004" target="_blank" rel="noopener">✨ اكتشف المزيد</a>
+    <a href="https://uplcm.com/4/12096134" target="_blank" rel="noopener">🎁 عرض خاص</a>
+    <a href="https://uplcm.com/4/12094822" target="_blank" rel="noopener">🔥 تفاصيل إضافية</a>
+  </div>
+</footer>
+
 <script>
-// ===================== الإعدادات =====================
 const FETCH_TIMEOUT_MS = 6000;
 const OZ_TO_GRAM = 31.1034768;
 
-// ===================== مصادر الذهب (3 بدائل) =====================
 const GOLD_SOURCES = [
-  {
-    name: 'alqanaas.com',
-    url: 'https://alqanaas.com/gold-data.json',
-    parse: (d) => {
-      const live = d && d.liveXauusd;
-      const p = live ? Number(live.mid || live.ask || 0) : 0;
-      return (p > 0) ? p : null;
-    }
-  },
-  {
-    name: 'xaus.com',
-    url: 'https://xaus.com/api/v1/spot?compact=1',
-    parse: (d) => {
-      const p = d ? Number((d.xau && d.xau.price) || d.spot_usd_oz || 0) : 0;
-      return (p > 0) ? p : null;
-    }
-  },
-  {
-    name: 'gold-api.com',
-    url: 'https://api.gold-api.com/price/XAU',
-    parse: (d) => {
-      const p = d ? Number(d.price || 0) : 0;
-      return (p > 0) ? p : null;
-    }
-  }
+  { name: 'alqanaas.com', url: 'https://alqanaas.com/gold-data.json', parse: (d) => {
+    const live = d && d.liveXauusd;
+    const p = live ? Number(live.mid || live.ask || 0) : 0;
+    return (p > 0) ? p : null;
+  }},
+  { name: 'xaus.com', url: 'https://xaus.com/api/v1/spot?compact=1', parse: (d) => {
+    const p = d ? Number((d.xau && d.xau.price) || d.spot_usd_oz || 0) : 0;
+    return (p > 0) ? p : null;
+  }},
+  { name: 'gold-api.com', url: 'https://api.gold-api.com/price/XAU', parse: (d) => {
+    const p = d ? Number(d.price || 0) : 0;
+    return (p > 0) ? p : null;
+  }}
 ];
 
-// ===================== مصادر العملات (بديلان) =====================
 const CURRENCY_SOURCES = [
-  {
-    name: 'fawazahmed0/jsDelivr',
-    url: 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json',
-    parse: (d) => {
-      if (!d || !d.usd || typeof d.usd !== 'object') return null;
-      const out = {};
-      for (const k in d.usd) out[k.toUpperCase()] = d.usd[k];
-      return Object.keys(out).length ? out : null;
-    }
-  },
-  {
-    name: 'open.er-api.com',
-    url: 'https://open.er-api.com/v6/latest/USD',
-    parse: (d) => (d && d.rates && Object.keys(d.rates).length) ? d.rates : null
+  { name: 'jsDelivr', url: 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json', parse: (d) => {
+    if (!d || !d.usd) return null;
+    const out = {};
+    for (const k in d.usd) out[k.toUpperCase()] = d.usd[k];
+    return Object.keys(out).length ? out : null;
+  }},
+  { name: 'open.er-api', url: 'https://open.er-api.com/v6/latest/USD', parse: (d) =>
+    (d && d.rates && Object.keys(d.rates).length) ? d.rates : null
   }
 ];
 
-// ===================== الدول والعملات (9 دول — بدون السودان) =====================
 const COUNTRIES = [
   { code: 'EG', name: 'مصر', flag: '🇪🇬', currency: 'EGP' },
   { code: 'SA', name: 'السعودية', flag: '🇸🇦', currency: 'SAR' },
@@ -65,36 +291,20 @@ const COUNTRIES = [
 ];
 
 const TARGET_CURRENCIES = ['USD', 'EUR', 'GBP', 'SAR', 'AED'];
-const CURRENCY_NAMES = {
-  USD: 'الدولار الأمريكي', EUR: 'اليورو', GBP: 'الجنيه الإسترليني',
-  SAR: 'الريال السعودي', AED: 'الدرهم الإماراتي'
-};
-const CURRENCY_SYMBOLS = {
-  EGP: 'ج.م', SAR: 'ر.س', AED: 'د.إ', BHD: 'د.ب',
-  IQD: 'ع.د', KWD: 'د.ك', QAR: 'ر.ق', OMR: 'ر.ع', JOD: 'د.أ'
-};
+const CURRENCY_NAMES = { USD: 'الدولار الأمريكي', EUR: 'اليورو', GBP: 'الجنيه الإسترليني', SAR: 'الريال السعودي', AED: 'الدرهم الإماراتي' };
+const CURRENCY_SYMBOLS = { EGP: 'ج.م', SAR: 'ر.س', AED: 'د.إ', BHD: 'د.ب', IQD: 'ع.د', KWD: 'د.ك', QAR: 'ر.ق', OMR: 'ر.ع', JOD: 'د.أ' };
 
-// ===================== دوال مساعدة =====================
 function fmt(v, d) {
   if (!isFinite(v)) return '-';
   d = (d === undefined) ? 2 : d;
-  return new Intl.NumberFormat('ar-EG-u-nu-latn', {
-    minimumFractionDigits: d, maximumFractionDigits: d
-  }).format(v);
+  return new Intl.NumberFormat('ar-EG-u-nu-latn', { minimumFractionDigits: d, maximumFractionDigits: d }).format(v);
 }
-
-function setStatus(live) {
-  document.getElementById('statusDot').classList.toggle('offline', !live);
-}
-
+function setStatus(live) { document.getElementById('statusDot').classList.toggle('offline', !live); }
 function updateTimestamp(date) {
   if (!(date instanceof Date) || isNaN(date)) date = new Date();
-  document.getElementById('lastUpdated').textContent = new Intl.DateTimeFormat('ar-EG-u-nu-latn', {
-    dateStyle: 'medium', timeStyle: 'short'
-  }).format(date);
+  document.getElementById('lastUpdated').textContent = new Intl.DateTimeFormat('ar-EG-u-nu-latn', { dateStyle: 'medium', timeStyle: 'short' }).format(date);
   document.getElementById('year').textContent = date.getFullYear();
 }
-
 async function fetchWithTimeout(url, ms) {
   const controller = new AbortController();
   const t = setTimeout(() => controller.abort(), ms || FETCH_TIMEOUT_MS);
@@ -103,126 +313,77 @@ async function fetchWithTimeout(url, ms) {
     clearTimeout(t);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     return await res.json();
-  } catch (e) {
-    clearTimeout(t);
-    throw e;
-  }
+  } catch (e) { clearTimeout(t); throw e; }
 }
-
-// ===================== جلب سعر الذهب =====================
 async function fetchGoldPrice() {
   for (const src of GOLD_SOURCES) {
     try {
-      console.log('🔄 Gold trying:', src.name);
       const data = await fetchWithTimeout(src.url);
       const price = src.parse(data);
-      if (price && price > 0) {
-        console.log('✅ Gold OK from:', src.name, '→', price);
-        return { priceUsdOz: price, source: src.name, asOf: new Date() };
-      }
-      console.warn('⚠️ Invalid price from:', src.name);
-    } catch (e) {
-      console.warn('❌ Gold failed:', src.name, '-', e.message);
-    }
+      if (price && price > 0) return { priceUsdOz: price, source: src.name, asOf: new Date() };
+    } catch (e) { console.warn('Gold failed:', src.name, e.message); }
   }
   throw new Error('كل مصادر الذهب فشلت');
 }
-
-// ===================== جلب أسعار العملات =====================
 async function fetchCurrencyRates() {
   for (const src of CURRENCY_SOURCES) {
     try {
-      console.log('🔄 Currency trying:', src.name);
       const data = await fetchWithTimeout(src.url);
       const rates = src.parse(data);
-      if (rates && Object.keys(rates).length > 0) {
-        console.log('✅ Currency OK from:', src.name);
-        return rates;
-      }
-      console.warn('⚠️ Invalid rates from:', src.name);
-    } catch (e) {
-      console.warn('❌ Currency failed:', src.name, '-', e.message);
-    }
+      if (rates && Object.keys(rates).length > 0) return rates;
+    } catch (e) { console.warn('Currency failed:', src.name, e.message); }
   }
   throw new Error('كل مصادر العملات فشلت');
 }
 
-// ===================== رسم بطاقة الدولة =====================
 function renderCountry(country, goldPrices, currencyRates) {
   const sym = CURRENCY_SYMBOLS[country.currency] || country.currency;
   const section = document.createElement('section');
   section.className = 'country-section';
-
-  let goldRows = '';
-  if (goldPrices) {
-    goldRows =
-      `<tr><td class="label-cell">عيار 24</td><td class="value-cell gold">${fmt(goldPrices.k24, 0)} ${sym}</td></tr>` +
-      `<tr><td class="label-cell">عيار 22</td><td class="value-cell gold">${fmt(goldPrices.k22, 0)} ${sym}</td></tr>` +
-      `<tr><td class="label-cell">عيار 21</td><td class="value-cell gold">${fmt(goldPrices.k21, 0)} ${sym}</td></tr>` +
-      `<tr><td class="label-cell">عيار 18</td><td class="value-cell gold">${fmt(goldPrices.k18, 0)} ${sym}</td></tr>`;
-  } else {
-    goldRows = `<tr><td colspan="2" style="text-align:center;color:var(--text-muted);padding:20px;">لا تتوفر بيانات الذهب</td></tr>`;
-  }
-
-  let currencyRows = '';
-  if (currencyRates && Object.keys(currencyRates).length > 0) {
-    currencyRows = TARGET_CURRENCIES
-      .filter(code => currencyRates[code] != null && currencyRates[code] > 0)
-      .map(code =>
-        `<tr>` +
-          `<td><div style="font-weight:500">${CURRENCY_NAMES[code] || code}</div></td>` +
-          `<td><span class="code-badge">${code}</span></td>` +
-          `<td class="value-cell inverted">${fmt(currencyRates[code], 2)} ${sym}</td>` +
-        `</tr>`
-      ).join('');
-    if (!currencyRows) {
-      currencyRows = `<tr><td colspan="3" style="text-align:center;color:var(--text-muted);padding:20px;">لا تتوفر بيانات العملات</td></tr>`;
-    }
-  } else {
-    currencyRows = `<tr><td colspan="3" style="text-align:center;color:var(--text-muted);padding:20px;">لا تتوفر بيانات العملات</td></tr>`;
-  }
-
-  section.innerHTML =
-    `<div class="country-head">` +
-      `<h2 class="country-title"><span class="flag">${country.flag}</span>${country.name}</h2>` +
-      `<span class="country-meta">${country.currency} · أسعار محلية</span>` +
-    `</div>` +
-    `<div class="country-grid">` +
-      `<div class="card">` +
-        `<div class="card-header"><span class="dot gold"></span> الذهب (لكل جرام)</div>` +
-        `<div class="overflow"><table><thead><tr><th>العيار</th><th>السعر</th></tr></thead><tbody>${goldRows}</tbody></table></div>` +
-      `</div>` +
-      `<div class="card">` +
-        `<div class="card-header"><span class="dot blue"></span> العملات مقابل ${sym}</div>` +
-        `<div class="overflow"><table><thead><tr><th>العملة</th><th>الكود</th><th>1 وحدة = ؟</th></tr></thead><tbody>${currencyRows}</tbody></table></div>` +
-      `</div>` +
-    `</div>`;
-
+  let goldRows = goldPrices ? 
+    `<tr><td class="label-cell">عيار 24</td><td class="value-cell gold">${fmt(goldPrices.k24, 0)} ${sym}</td></tr>
+     <tr><td class="label-cell">عيار 22</td><td class="value-cell gold">${fmt(goldPrices.k22, 0)} ${sym}</td></tr>
+     <tr><td class="label-cell">عيار 21</td><td class="value-cell gold">${fmt(goldPrices.k21, 0)} ${sym}</td></tr>
+     <tr><td class="label-cell">عيار 18</td><td class="value-cell gold">${fmt(goldPrices.k18, 0)} ${sym}</td></tr>`
+    : `<tr><td colspan="2" style="text-align:center;color:var(--text-muted);padding:20px;">لا تتوفر بيانات الذهب</td></tr>`;
+  let currencyRows = (currencyRates && Object.keys(currencyRates).length > 0) ?
+    TARGET_CURRENCIES.filter(code => currencyRates[code] != null && currencyRates[code] > 0).map(code =>
+      `<tr><td>${CURRENCY_NAMES[code] || code}</td><td><span class="code-badge">${code}</span></td><td class="value-cell inverted">${fmt(currencyRates[code], 2)} ${sym}</td></tr>`
+    ).join('') || `<tr><td colspan="3" style="text-align:center;color:var(--text-muted);padding:20px;">لا تتوفر بيانات العملات</td></tr>`
+    : `<tr><td colspan="3" style="text-align:center;color:var(--text-muted);padding:20px;">لا تتوفر بيانات العملات</td></tr>`;
+  section.innerHTML = `
+    <div class="country-head">
+      <h2 class="country-title"><span class="flag">${country.flag}</span>${country.name}</h2>
+      <span class="country-meta">${country.currency} · أسعار محلية</span>
+    </div>
+    <div class="country-grid">
+      <div class="card">
+        <div class="card-header"><span class="dot gold"></span> الذهب (لكل جرام)</div>
+        <div class="overflow"><table><thead><tr><th>العيار</th><th>السعر</th></tr></thead><tbody>${goldRows}</tbody></table></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot blue"></span> العملات مقابل ${sym}</div>
+        <div class="overflow"><table><thead><tr><th>العملة</th><th>الكود</th><th>1 وحدة = ؟</th></tr></thead><tbody>${currencyRows}</tbody></table></div>
+      </div>
+    </div>`;
   document.getElementById('countriesContainer').appendChild(section);
 }
 
-// ===================== الدالة الرئيسية =====================
 async function loadAll() {
   const container = document.getElementById('countriesContainer');
   container.innerHTML = `<p style="text-align:center; padding:60px 0; color:var(--text-muted);">جاري تحميل البيانات...</p>`;
   document.getElementById('rateUsed').textContent = 'جاري الجلب...';
   setStatus(false);
 
-  // جلب بالتوازي مع السماح بفشل جزء دون الآخر
-  const [goldSettled, currencySettled] = await Promise.allSettled([
-    fetchGoldPrice(),
-    fetchCurrencyRates()
-  ]);
-
+  const [goldSettled, currencySettled] = await Promise.allSettled([fetchGoldPrice(), fetchCurrencyRates()]);
   const goldResult = goldSettled.status === 'fulfilled' ? goldSettled.value : null;
   const currencyRates = currencySettled.status === 'fulfilled' ? currencySettled.value : null;
 
   if (!goldResult && !currencyRates) {
-    container.innerHTML =
-      `<div style="text-align:center; padding:60px 20px;">` +
-        `<p style="color:var(--text-muted); margin-bottom:20px;">⚠️ تعذر تحميل البيانات. تحقق من اتصالك وحاول مجدداً.</p>` +
-        `<button onclick="loadAll()" style="background:var(--gold); color:var(--bg); border:none; padding:12px 30px; border-radius:100px; font-family:inherit; font-weight:700; cursor:pointer;">إعادة المحاولة</button>` +
-      `</div>`;
+    container.innerHTML = `<div style="text-align:center; padding:60px 20px;">
+      <p style="color:var(--text-muted); margin-bottom:20px;">⚠️ تعذر تحميل البيانات. تحقق من اتصالك وحاول مجدداً.</p>
+      <button onclick="loadAll()" style="background:var(--gold); color:var(--bg); border:none; padding:12px 30px; border-radius:100px; font-family:inherit; font-weight:700; cursor:pointer;">إعادة المحاولة</button>
+    </div>`;
     document.getElementById('rateUsed').textContent = 'غير متاح';
     setStatus(false);
     return;
@@ -237,43 +398,28 @@ async function loadAll() {
   }
 
   container.innerHTML = '';
-
   COUNTRIES.forEach(country => {
     const localPerUsd = currencyRates ? currencyRates[country.currency] : null;
     let goldPrices = null;
     const currencyObj = {};
-
     if (goldResult && localPerUsd && localPerUsd > 0) {
       const goldLocalGram = (goldResult.priceUsdOz * localPerUsd) / OZ_TO_GRAM;
-      goldPrices = {
-        k24: goldLocalGram,
-        k22: goldLocalGram * 22 / 24,
-        k21: goldLocalGram * 21 / 24,
-        k18: goldLocalGram * 18 / 24
-      };
+      goldPrices = { k24: goldLocalGram, k22: goldLocalGram * 22/24, k21: goldLocalGram * 21/24, k18: goldLocalGram * 18/24 };
     }
-
     if (currencyRates && localPerUsd && localPerUsd > 0) {
       TARGET_CURRENCIES.forEach(code => {
         const foreignPerUsd = currencyRates[code];
-        if (foreignPerUsd && foreignPerUsd > 0) {
-          currencyObj[code] = localPerUsd / foreignPerUsd;
-        }
+        if (foreignPerUsd && foreignPerUsd > 0) currencyObj[code] = localPerUsd / foreignPerUsd;
       });
     }
-
     renderCountry(country, goldPrices, currencyObj);
   });
-
   setStatus(true);
-  console.log('✅ تم التحميل | الذهب:', goldResult ? goldResult.source : 'فشل', '| العملات:', currencyRates ? 'OK' : 'فشل');
 }
 
-// ===================== التشغيل =====================
 loadAll();
 setInterval(loadAll, 5 * 60 * 1000);
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').catch(err => console.warn('SW:', err));
-}
 </script>
+
+</body>
+</html>
