@@ -52,6 +52,7 @@ body {
 }
 .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981; animation: pulse 2s infinite; }
 .status-dot.offline { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
+.status-dot.loading { background: #60a5fa; box-shadow: 0 0 8px #60a5fa; }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 
 .hero { padding: 72px 0 48px; text-align: center; position: relative; }
@@ -71,9 +72,16 @@ body {
 .rate-badge {
   display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 8px 18px;
   background: var(--surface); border: 1px solid var(--border-strong); border-radius: 100px;
-  font-size: 13px; color: var(--text-dim);
+  font-size: 13px; color: var(--text-dim); flex-wrap: wrap; justify-content: center;
 }
 .rate-badge strong { color: var(--gold-2); font-weight: 700; }
+
+.next-update-badge {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; padding: 8px 18px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 100px;
+  font-size: 12px; color: var(--text-muted);
+}
+.next-update-badge strong { color: #60a5fa; font-weight: 700; font-variant-numeric: tabular-nums; }
 
 .country-section { margin: 60px 0; }
 .country-head {
@@ -201,12 +209,16 @@ footer p { font-size: 12px; color: var(--text-muted); }
 
 <main class="container">
   <section class="hero">
-    <span class="eyebrow">أسعار محدّثة دورياً</span>
+    <span class="eyebrow">تحديث تلقائي كل 30 دقيقة</span>
     <h1>الأسواق <span class="accent">النبيلة</span> في الوطن العربي</h1>
     <p>تتبّع دقيق لأسعار الذهب والفضة والعملات في 9 دول عربية — في مكان واحد.</p>
     <div class="rate-badge">
       <span>🥇 سعر الذهب العالمي (أونصة):</span>
       <strong id="rateUsed">جاري الجلب...</strong>
+    </div>
+    <div class="next-update-badge">
+      <span>⏱️ التحديث التالي بعد:</span>
+      <strong id="countdown">—</strong>
     </div>
   </section>
 
@@ -247,9 +259,16 @@ footer p { font-size: 12px; color: var(--text-muted); }
 </footer>
 
 <script>
+/* ============================================================
+   إعدادات التحديث التلقائي
+   ============================================================ */
+const UPDATE_INTERVAL_MS = 30 * 60 * 1000; // 30 دقيقة
 const FETCH_TIMEOUT_MS = 6000;
 const OZ_TO_GRAM = 31.1034768;
 
+/* ============================================================
+   مصادر البيانات (APIs)
+   ============================================================ */
 const GOLD_SOURCES = [
   { name: 'alqanaas.com', url: 'https://alqanaas.com/gold-data.json', parse: (d) => {
     const live = d && d.liveXauusd;
@@ -278,6 +297,9 @@ const CURRENCY_SOURCES = [
   }
 ];
 
+/* ============================================================
+   بيانات الدول والعملات
+   ============================================================ */
 const COUNTRIES = [
   { code: 'EG', name: 'مصر', flag: '🇪🇬', currency: 'EGP' },
   { code: 'SA', name: 'السعودية', flag: '🇸🇦', currency: 'SAR' },
@@ -294,15 +316,23 @@ const TARGET_CURRENCIES = ['USD', 'EUR', 'GBP', 'SAR', 'AED'];
 const CURRENCY_NAMES = { USD: 'الدولار الأمريكي', EUR: 'اليورو', GBP: 'الجنيه الإسترليني', SAR: 'الريال السعودي', AED: 'الدرهم الإماراتي' };
 const CURRENCY_SYMBOLS = { EGP: 'ج.م', SAR: 'ر.س', AED: 'د.إ', BHD: 'د.ب', IQD: 'ع.د', KWD: 'د.ك', QAR: 'ر.ق', OMR: 'ر.ع', JOD: 'د.أ' };
 
+/* ============================================================
+   دوال مساعدة
+   ============================================================ */
 function fmt(v, d) {
   if (!isFinite(v)) return '-';
   d = (d === undefined) ? 2 : d;
   return new Intl.NumberFormat('ar-EG-u-nu-latn', { minimumFractionDigits: d, maximumFractionDigits: d }).format(v);
 }
-function setStatus(live) { document.getElementById('statusDot').classList.toggle('offline', !live); }
+function setStatus(state) {
+  const dot = document.getElementById('statusDot');
+  dot.classList.remove('offline', 'loading');
+  if (state === 'offline') dot.classList.add('offline');
+  else if (state === 'loading') dot.classList.add('loading');
+}
 function updateTimestamp(date) {
   if (!(date instanceof Date) || isNaN(date)) date = new Date();
-  document.getElementById('lastUpdated').textContent = new Intl.DateTimeFormat('ar-EG-u-nu-latn', { dateStyle: 'medium', timeStyle: 'short' }).format(date);
+  document.getElementById('lastUpdated').textContent = 'آخر تحديث: ' + new Intl.DateTimeFormat('ar-EG-u-nu-latn', { dateStyle: 'medium', timeStyle: 'short' }).format(date);
   document.getElementById('year').textContent = date.getFullYear();
 }
 async function fetchWithTimeout(url, ms) {
@@ -336,11 +366,14 @@ async function fetchCurrencyRates() {
   throw new Error('كل مصادر العملات فشلت');
 }
 
+/* ============================================================
+   عرض بيانات الدول
+   ============================================================ */
 function renderCountry(country, goldPrices, currencyRates) {
   const sym = CURRENCY_SYMBOLS[country.currency] || country.currency;
   const section = document.createElement('section');
   section.className = 'country-section';
-  let goldRows = goldPrices ? 
+  let goldRows = goldPrices ?
     `<tr><td class="label-cell">عيار 24</td><td class="value-cell gold">${fmt(goldPrices.k24, 0)} ${sym}</td></tr>
      <tr><td class="label-cell">عيار 22</td><td class="value-cell gold">${fmt(goldPrices.k22, 0)} ${sym}</td></tr>
      <tr><td class="label-cell">عيار 21</td><td class="value-cell gold">${fmt(goldPrices.k21, 0)} ${sym}</td></tr>
@@ -369,11 +402,14 @@ function renderCountry(country, goldPrices, currencyRates) {
   document.getElementById('countriesContainer').appendChild(section);
 }
 
+/* ============================================================
+   الدالة الرئيسية لتحميل كل البيانات
+   ============================================================ */
 async function loadAll() {
   const container = document.getElementById('countriesContainer');
   container.innerHTML = `<p style="text-align:center; padding:60px 0; color:var(--text-muted);">جاري تحميل البيانات...</p>`;
   document.getElementById('rateUsed').textContent = 'جاري الجلب...';
-  setStatus(false);
+  setStatus('loading');
 
   const [goldSettled, currencySettled] = await Promise.allSettled([fetchGoldPrice(), fetchCurrencyRates()]);
   const goldResult = goldSettled.status === 'fulfilled' ? goldSettled.value : null;
@@ -382,10 +418,11 @@ async function loadAll() {
   if (!goldResult && !currencyRates) {
     container.innerHTML = `<div style="text-align:center; padding:60px 20px;">
       <p style="color:var(--text-muted); margin-bottom:20px;">⚠️ تعذر تحميل البيانات. تحقق من اتصالك وحاول مجدداً.</p>
-      <button onclick="loadAll()" style="background:var(--gold); color:var(--bg); border:none; padding:12px 30px; border-radius:100px; font-family:inherit; font-weight:700; cursor:pointer;">إعادة المحاولة</button>
+      <button onclick="manualReload()" style="background:var(--gold); color:var(--bg); border:none; padding:12px 30px; border-radius:100px; font-family:inherit; font-weight:700; cursor:pointer;">إعادة المحاولة</button>
     </div>`;
     document.getElementById('rateUsed').textContent = 'غير متاح';
-    setStatus(false);
+    setStatus('offline');
+    updateTimestamp(new Date());
     return;
   }
 
@@ -414,11 +451,100 @@ async function loadAll() {
     }
     renderCountry(country, goldPrices, currencyObj);
   });
-  setStatus(true);
+
+  setStatus('online');
 }
 
-loadAll();
-setInterval(loadAll, 5 * 60 * 1000);
+/* ============================================================
+   نظام التحديث التلقائي الآمن (كل 30 دقيقة)
+   ============================================================ */
+
+let nextUpdateTime = null;
+let countdownTimer = null;
+let updateTimeoutId = null;
+
+// دالة العدّاد التنازلي
+function startCountdown() {
+  if (countdownTimer) clearInterval(countdownTimer);
+
+  countdownTimer = setInterval(() => {
+    if (!nextUpdateTime) return;
+    const remaining = nextUpdateTime - Date.now();
+    const el = document.getElementById('countdown');
+
+    if (remaining <= 0) {
+      el.textContent = 'جاري التحديث...';
+      return;
+    }
+
+    const totalSec = Math.floor(remaining / 1000);
+    const mins = Math.floor(totalSec / 60);
+    const secs = totalSec % 60;
+    el.textContent = `${mins} د ${String(secs).padStart(2, '0')} ث`;
+  }, 1000);
+}
+
+// جدولة التحديث القادم — بطريقة آمنة تعتمد على setTimeout (لا تتراكم الطلبات)
+function scheduleNextUpdate() {
+  if (updateTimeoutId) clearTimeout(updateTimeoutId);
+
+  nextUpdateTime = Date.now() + UPDATE_INTERVAL_MS;
+  startCountdown();
+
+  updateTimeoutId = setTimeout(async () => {
+    console.log('⏰ بدء التحديث الدوري التلقائي...');
+    try {
+      await loadAll();
+      console.log('✅ اكتمل التحديث الدوري');
+    } catch (e) {
+      console.error('❌ فشل التحديث الدوري:', e);
+    } finally {
+      // جدولة التحديث التالي فقط بعد انتهاء الحالي
+      scheduleNextUpdate();
+    }
+  }, UPDATE_INTERVAL_MS);
+}
+
+// إعادة تحميل يدوية (زر الإعادة عند الفشل)
+function manualReload() {
+  if (updateTimeoutId) clearTimeout(updateTimeoutId);
+  if (countdownTimer) clearInterval(countdownTimer);
+
+  (async () => {
+    try {
+      await loadAll();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      scheduleNextUpdate();
+    }
+  })();
+}
+
+// إعادة الجدولة عند عودة التركيز للصفحة (بعد التبويب كان خاملاً)
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    const elapsed = Date.now() - (nextUpdateTime - UPDATE_INTERVAL_MS);
+    // إذا مرّ أكثر من فترة التحديث الكاملة، حدّث الآن
+    if (elapsed >= UPDATE_INTERVAL_MS) {
+      manualReload();
+    }
+  }
+});
+
+/* ============================================================
+   بدء التشغيل
+   ============================================================ */
+(async function init() {
+  try {
+    await loadAll();
+  } catch (e) {
+    console.error('فشل التحميل الأولي:', e);
+  } finally {
+    // ابدأ دورة التحديث التلقائي كل 30 دقيقة
+    scheduleNextUpdate();
+  }
+})();
 </script>
 
 <!-- ===== Monetag OnClick Popunder #1 (Zone 12132620) ===== -->
