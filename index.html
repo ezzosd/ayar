@@ -209,7 +209,7 @@ footer p { font-size: 12px; color: var(--text-muted); }
 
 <main class="container">
   <section class="hero">
-    <span class="eyebrow">تحديث تلقائي كل 30 دقيقة</span>
+    <span class="eyebrow">تحديث تلقائي كل 5 دقائق</span>
     <h1>الأسواق <span class="accent">النبيلة</span> في الوطن العربي</h1>
     <p>تتبّع دقيق لأسعار الذهب والفضة والعملات في 9 دول عربية — في مكان واحد.</p>
     <div class="rate-badge">
@@ -262,7 +262,7 @@ footer p { font-size: 12px; color: var(--text-muted); }
 /* ============================================================
    إعدادات التحديث التلقائي
    ============================================================ */
-const UPDATE_INTERVAL_MS = 30 * 60 * 1000; // 30 دقيقة
+const UPDATE_INTERVAL_MS = 5 * 60 * 1000; // 5 دقائق
 const FETCH_TIMEOUT_MS = 6000;
 const OZ_TO_GRAM = 31.1034768;
 
@@ -456,7 +456,7 @@ async function loadAll() {
 }
 
 /* ============================================================
-   نظام التحديث التلقائي الآمن (كل 30 دقيقة)
+   نظام التحديث التلقائي الآمن (كل 5 دقائق)
    ============================================================ */
 
 let nextUpdateTime = null;
@@ -541,7 +541,7 @@ document.addEventListener('visibilitychange', () => {
   } catch (e) {
     console.error('فشل التحميل الأولي:', e);
   } finally {
-    // ابدأ دورة التحديث التلقائي كل 30 دقيقة
+    // ابدأ دورة التحديث التلقائي كل 5 دقائق
     scheduleNextUpdate();
   }
 })();
