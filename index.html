@@ -7,6 +7,16 @@
 <meta name="description" content="عيار — تتبّع لحظي لأسعار الذهب والفضة والعملات في 9 دول عربية: مصر، السعودية، الإمارات، البحرين، العراق، الكويت، قطر، عُمان، والأردن.">
 <title>عيار — أسعار الذهب والعملات في الوطن العربي</title>
 
+<!-- Social / SEO -->
+<meta property="og:title" content="عيار — أسعار الذهب والعملات في الوطن العربي">
+<meta property="og:description" content="تتبّع لحظي لأسعار الذهب والفضة والعملات في 9 دول عربية.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_AR">
+<meta name="twitter:card" content="summary_large_image">
+<!-- TODO: ضع رابط الموقع الفعلي هنا -->
+<!-- <link rel="canonical" href="https://your-domain.example/"> -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 3 L57 17 L57 47 L32 61 L7 47 L7 17 Z' fill='none' stroke='%23d4a017' stroke-width='3'/%3E%3Cpath d='M22 42 L32 20 L42 42 M26 35 L38 35' stroke='%23f5d76e' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+
 <!-- ===== Monetag MultiTag (Zone 302579) ===== -->
 <script src="https://quge5.com/88/tag.min.js" data-zone="302579" async data-cfasync="false"></script>
 
@@ -171,6 +181,24 @@ footer p { font-size: 12px; color: var(--text-muted); }
 .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 12px; }
 .footer-links a:hover { color: var(--gold-2); }
 
+/* شارة الكاش */
+.cache-notice {
+  display: none; max-width: 640px; margin: 0 auto 24px; padding: 10px 16px;
+  background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 100px; font-size: 12px; color: #fbbf24; text-align: center;
+}
+.cache-notice.show { display: block; }
+
+.offline-panel {
+  text-align: center; padding: 60px 20px; color: var(--text-muted);
+}
+.offline-panel button {
+  margin-top: 20px; background: var(--gold); color: var(--bg); border: none;
+  padding: 12px 30px; border-radius: 100px; font-family: inherit; font-weight: 700;
+  cursor: pointer; font-size: 14px;
+}
+.offline-panel button:hover { background: var(--gold-2); }
+
 @media (max-width: 900px) { .extras-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) {
   .container { padding: 0 16px; }
@@ -213,7 +241,7 @@ footer p { font-size: 12px; color: var(--text-muted); }
     </a>
     <div class="status">
       <span class="status-dot" id="statusDot"></span>
-      <span id="lastUpdated">جاري التحديث...</span>
+      <span id="lastUpdated" aria-live="polite">جاري التحديث...</span>
     </div>
   </div>
 </header>
@@ -238,6 +266,16 @@ footer p { font-size: 12px; color: var(--text-muted); }
       </div>
     </div>
   </section>
+
+  <div class="cache-notice" id="cacheNotice">
+    ⚠️ تعذّر الاتصال — تُعرض آخر أسعار محفوظة مؤقتًا.
+  </div>
+
+  <noscript>
+    <div class="offline-panel">
+      يحتاج «عيار» إلى تفعيل JavaScript لعرض الأسعار اللحظية.
+    </div>
+  </noscript>
 
   <div id="countriesContainer">
     <p style="text-align:center; padding:60px 0; color:var(--text-muted);">جاري تحميل بيانات الدول...</p>
@@ -279,15 +317,22 @@ footer p { font-size: 12px; color: var(--text-muted); }
 /* ============================================================
    إعدادات التحديث التلقائي (مستقل للذهب والعملات)
    ============================================================ */
-const GOLD_UPDATE_INTERVAL_MS = 5 * 60 * 1000;      // الذهب: كل 5 دقائق
-const CURRENCY_UPDATE_INTERVAL_MS = 30 * 60 * 1000; // العملات: كل 30 دقيقة
-const FETCH_TIMEOUT_MS = 6000;
-const OZ_TO_GRAM = 31.1034768;
+const GOLD_UPDATE_INTERVAL_MS     = 5 * 60 * 1000;   // الذهب: كل 5 دقائق
+const CURRENCY_UPDATE_INTERVAL_MS = 30 * 60 * 1000;  // العملات: كل 30 دقيقة
+const FETCH_TIMEOUT_MS            = 6000;
+const CACHE_TTL_MS                = 24 * 3600 * 1000; // 24 ساعة
+const OZ_TO_GRAM                  = 31.1034768;
+const LS_GOLD                     = 'ayar_gold_cache';
+const LS_CURRENCY                 = 'ayar_currency_cache';
 
 /* ============================================================
    مصادر البيانات (APIs)
    ============================================================ */
 const GOLD_SOURCES = [
+  { name: 'gold-api.com', url: 'https://api.gold-api.com/price/XAU', parse: (d) => {
+    const p = d ? Number(d.price || 0) : 0;
+    return (p > 0) ? p : null;
+  }},
   { name: 'alqanaas.com', url: 'https://alqanaas.com/gold-data.json', parse: (d) => {
     const live = d && d.liveXauusd;
     const p = live ? Number(live.mid || live.ask || 0) : 0;
@@ -295,10 +340,6 @@ const GOLD_SOURCES = [
   }},
   { name: 'xaus.com', url: 'https://xaus.com/api/v1/spot?compact=1', parse: (d) => {
     const p = d ? Number((d.xau && d.xau.price) || d.spot_usd_oz || 0) : 0;
-    return (p > 0) ? p : null;
-  }},
-  { name: 'gold-api.com', url: 'https://api.gold-api.com/price/XAU', parse: (d) => {
-    const p = d ? Number(d.price || 0) : 0;
     return (p > 0) ? p : null;
   }}
 ];
@@ -316,12 +357,6 @@ const CURRENCY_SOURCES = [
     for (const k in d.rates) out[k.toUpperCase()] = d.rates[k];
     return Object.keys(out).length ? out : null;
   }},
-  { name: 'irfanokr/currency-api', url: 'https://cdn.jsdelivr.net/gh/irfanokr/currency-api@main/v1/currencies/usd.min.json', parse: (d) => {
-    if (!d || !d.usd) return null;
-    const out = {};
-    for (const k in d.usd) out[k.toUpperCase()] = d.usd[k];
-    return Object.keys(out).length ? out : null;
-  }},
   { name: 'open.er-api', url: 'https://open.er-api.com/v6/latest/USD', parse: (d) =>
     (d && d.rates && Object.keys(d.rates).length) ? d.rates : null
   }
@@ -331,51 +366,97 @@ const CURRENCY_SOURCES = [
    بيانات الدول والعملات
    ============================================================ */
 const COUNTRIES = [
-  { code: 'EG', name: 'مصر', flag: '🇪🇬', currency: 'EGP' },
+  { code: 'EG', name: 'مصر',      flag: '🇪🇬', currency: 'EGP' },
   { code: 'SA', name: 'السعودية', flag: '🇸🇦', currency: 'SAR' },
   { code: 'AE', name: 'الإمارات', flag: '🇦🇪', currency: 'AED' },
-  { code: 'BH', name: 'البحرين', flag: '🇧🇭', currency: 'BHD' },
-  { code: 'IQ', name: 'العراق', flag: '🇮🇶', currency: 'IQD' },
-  { code: 'KW', name: 'الكويت', flag: '🇰🇼', currency: 'KWD' },
-  { code: 'QA', name: 'قطر', flag: '🇶🇦', currency: 'QAR' },
-  { code: 'OM', name: 'عُمان', flag: '🇴🇲', currency: 'OMR' },
-  { code: 'JO', name: 'الأردن', flag: '🇯🇴', currency: 'JOD' }
+  { code: 'BH', name: 'البحرين',  flag: '🇧🇭', currency: 'BHD' },
+  { code: 'IQ', name: 'العراق',   flag: '🇮🇶', currency: 'IQD' },
+  { code: 'KW', name: 'الكويت',   flag: '🇰🇼', currency: 'KWD' },
+  { code: 'QA', name: 'قطر',      flag: '🇶🇦', currency: 'QAR' },
+  { code: 'OM', name: 'عُمان',    flag: '🇴🇲', currency: 'OMR' },
+  { code: 'JO', name: 'الأردن',   flag: '🇯🇴', currency: 'JOD' }
 ];
 
 const TARGET_CURRENCIES = ['USD', 'EUR', 'GBP', 'SAR', 'AED'];
-const CURRENCY_NAMES = { USD: 'الدولار الأمريكي', EUR: 'اليورو', GBP: 'الجنيه الإسترليني', SAR: 'الريال السعودي', AED: 'الدرهم الإماراتي' };
-const CURRENCY_SYMBOLS = { EGP: 'ج.م', SAR: 'ر.س', AED: 'د.إ', BHD: 'د.ب', IQD: 'ع.د', KWD: 'د.ك', QAR: 'ر.ق', OMR: 'ر.ع', JOD: 'د.أ' };
+const CURRENCY_NAMES = {
+  USD: 'الدولار الأمريكي', EUR: 'اليورو', GBP: 'الجنيه الإسترليني',
+  SAR: 'الريال السعودي',  AED: 'الدرهم الإماراتي'
+};
+const CURRENCY_SYMBOLS = {
+  EGP: 'ج.م', SAR: 'ر.س', AED: 'د.إ', BHD: 'د.ب', IQD: 'ع.د',
+  KWD: 'د.ك', QAR: 'ر.ق', OMR: 'ر.ع', JOD: 'د.أ'
+};
 
 /* ============================================================
-   حالة البيانات (state)
+   حالة البيانات
    ============================================================ */
-let goldPrice = null;        // { priceUsdOz, asOf }
-let currencyRates = null;    // { EGP: ..., SAR: ... } (سعر العملة المحلية مقابل الدولار)
-let currencyAsOf = null;     // تاريخ آخر تحديث لأسعار العملات
+let goldPrice      = null;  // { priceUsdOz, asOf, source }
+let currencyRates  = null;  // { EGP: ..., SAR: ... }
+let currencyAsOf   = null;  // Date
+let usingCache     = false;
+let uiBuilt        = false;
 
 /* ============================================================
    دوال مساعدة
    ============================================================ */
 function fmt(v, d) {
-  if (!isFinite(v)) return '-';
+  if (!isFinite(v)) return '—';
   d = (d === undefined) ? 2 : d;
-  return new Intl.NumberFormat('ar-EG-u-nu-latn', { minimumFractionDigits: d, maximumFractionDigits: d }).format(v);
+  return new Intl.NumberFormat('ar-EG-u-nu-latn', {
+    minimumFractionDigits: d, maximumFractionDigits: d
+  }).format(v);
 }
-function setStatus(state) {
-  const dot = document.getElementById('statusDot');
-  dot.classList.remove('offline', 'loading');
-  if (state === 'offline') dot.classList.add('offline');
-  else if (state === 'loading') dot.classList.add('loading');
-}
-function updateTimestamp(date) {
-  if (!(date instanceof Date) || isNaN(date)) date = new Date();
-  document.getElementById('lastUpdated').textContent = 'آخر تحديث: ' + new Intl.DateTimeFormat('ar-EG-u-nu-latn', { dateStyle: 'medium', timeStyle: 'short' }).format(date);
-  document.getElementById('year').textContent = date.getFullYear();
-}
+
 function fmtTime(date) {
   if (!(date instanceof Date) || isNaN(date)) return '—';
   return new Intl.DateTimeFormat('ar-EG-u-nu-latn', { timeStyle: 'short' }).format(date);
 }
+
+function setStatus(state) {
+  const dot = document.getElementById('statusDot');
+  if (!dot) return;
+  dot.classList.remove('offline', 'loading');
+  if (state === 'offline') dot.classList.add('offline');
+  else if (state === 'loading') dot.classList.add('loading');
+}
+
+function syncStatus() {
+  if (goldPrice || currencyRates) setStatus('online');
+  else setStatus('offline');
+}
+
+function updateHeaderTimestamp() {
+  const el = document.getElementById('lastUpdated');
+  if (!el) return;
+  const t = Math.max(
+    goldPrice?.asOf?.getTime() || 0,
+    currencyAsOf?.getTime() || 0
+  );
+  if (!t) { el.textContent = 'لم يتم التحديث بعد'; return; }
+  const d = new Date(t);
+  el.textContent = 'آخر تحديث: ' + new Intl.DateTimeFormat('ar-EG-u-nu-latn', {
+    dateStyle: 'medium', timeStyle: 'short'
+  }).format(d);
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = d.getFullYear();
+}
+
+function updateRateBadge() {
+  const el = document.getElementById('rateUsed');
+  if (!el) return;
+  if (goldPrice && goldPrice.priceUsdOz > 0) {
+    el.textContent = `$${fmt(goldPrice.priceUsdOz, 2)} / أونصة`;
+  } else {
+    el.textContent = 'غير متاح';
+  }
+}
+
+function showCacheNotice(show) {
+  const el = document.getElementById('cacheNotice');
+  if (!el) return;
+  el.classList.toggle('show', !!show);
+}
+
 async function fetchWithTimeout(url, ms) {
   const controller = new AbortController();
   const t = setTimeout(() => controller.abort(), ms || FETCH_TIMEOUT_MS);
@@ -388,79 +469,88 @@ async function fetchWithTimeout(url, ms) {
 }
 
 /* ============================================================
+   الكاش (localStorage)
+   ============================================================ */
+function saveCache(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
+}
+function readCache(key) {
+  try {
+    const v = JSON.parse(localStorage.getItem(key) || 'null');
+    if (!v || !v.t) return null;
+    if (Date.now() - v.t > CACHE_TTL_MS) return null;
+    return v;
+  } catch (e) { return null; }
+}
+function loadFromCache() {
+  const g = readCache(LS_GOLD);
+  if (g && g.price > 0) {
+    goldPrice = { priceUsdOz: g.price, asOf: new Date(g.t), source: 'cache' };
+    usingCache = true;
+  }
+  const c = readCache(LS_CURRENCY);
+  if (c && c.rates && Object.keys(c.rates).length) {
+    currencyRates = c.rates;
+    currencyAsOf  = new Date(c.t);
+    usingCache = true;
+  }
+}
+
+/* ============================================================
    جلب البيانات
    ============================================================ */
 async function fetchGoldPrice() {
   for (const src of GOLD_SOURCES) {
     try {
-      const data = await fetchWithTimeout(src.url);
+      const data  = await fetchWithTimeout(src.url);
       const price = src.parse(data);
-      if (price && price > 0) return { priceUsdOz: price, source: src.name, asOf: new Date() };
-    } catch (e) { console.warn('Gold failed:', src.name, e.message); }
+      if (price && price > 0) {
+        return { priceUsdOz: price, source: src.name, asOf: new Date() };
+      }
+    } catch (e) { console.warn('Gold source failed:', src.name, e.message); }
   }
   throw new Error('كل مصادر الذهب فشلت');
 }
+
 async function fetchCurrencyRates() {
   for (const src of CURRENCY_SOURCES) {
     try {
-      const data = await fetchWithTimeout(src.url);
+      const data  = await fetchWithTimeout(src.url);
       const rates = src.parse(data);
-      if (rates && Object.keys(rates).length > 0) return { rates, asOf: new Date(), source: src.name };
-    } catch (e) { console.warn('Currency failed:', src.name, e.message); }
+      if (rates && Object.keys(rates).length > 0) {
+        return { rates, asOf: new Date(), source: src.name };
+      }
+    } catch (e) { console.warn('Currency source failed:', src.name, e.message); }
   }
   throw new Error('كل مصادر العملات فشلت');
 }
 
 /* ============================================================
-   عرض بيانات الدول
+   بناء واجهة الدول (مرة واحدة فقط)
    ============================================================ */
-function renderAllCountries() {
+function getTargetsFor(country) {
+  return TARGET_CURRENCIES.filter(c => c !== country.currency);
+}
+
+function buildCountriesUI() {
   const container = document.getElementById('countriesContainer');
+  if (!container) return;
   container.innerHTML = '';
 
-  if (!goldPrice && !currencyRates) {
-    container.innerHTML = `<div style="text-align:center; padding:60px 20px;">
-      <p style="color:var(--text-muted); margin-bottom:20px;">⚠️ تعذر تحميل البيانات. تحقق من اتصالك وحاول مجدداً.</p>
-      <button onclick="manualReloadAll()" style="background:var(--gold); color:var(--bg); border:none; padding:12px 30px; border-radius:100px; font-family:inherit; font-weight:700; cursor:pointer;">إعادة المحاولة</button>
-    </div>`;
-    return;
-  }
-
   COUNTRIES.forEach(country => {
-    const sym = CURRENCY_SYMBOLS[country.currency] || country.currency;
-    const localPerUsd = currencyRates ? currencyRates[country.currency] : null;
+    const sym     = CURRENCY_SYMBOLS[country.currency] || country.currency;
+    const targets = getTargetsFor(country);
 
-    // --- الذهب ---
-    let goldPrices = null;
-    if (goldPrice && localPerUsd && localPerUsd > 0) {
-      const g = (goldPrice.priceUsdOz * localPerUsd) / OZ_TO_GRAM;
-      goldPrices = { k24: g, k22: g * 22/24, k21: g * 21/24, k18: g * 18/24 };
-    }
-    const goldRows = goldPrices
-      ? `<tr><td class="label-cell">عيار 24</td><td class="value-cell gold">${fmt(goldPrices.k24, 0)} ${sym}</td></tr>
-         <tr><td class="label-cell">عيار 22</td><td class="value-cell gold">${fmt(goldPrices.k22, 0)} ${sym}</td></tr>
-         <tr><td class="label-cell">عيار 21</td><td class="value-cell gold">${fmt(goldPrices.k21, 0)} ${sym}</td></tr>
-         <tr><td class="label-cell">عيار 18</td><td class="value-cell gold">${fmt(goldPrices.k18, 0)} ${sym}</td></tr>`
-      : `<tr><td colspan="2" style="text-align:center;color:var(--text-muted);padding:20px;">لا تتوفر بيانات الذهب</td></tr>`;
-
-    // --- العملات ---
-    let currencyObj = {};
-    if (currencyRates && localPerUsd && localPerUsd > 0) {
-      TARGET_CURRENCIES.forEach(code => {
-        const foreignPerUsd = currencyRates[code];
-        if (foreignPerUsd && foreignPerUsd > 0) currencyObj[code] = localPerUsd / foreignPerUsd;
-      });
-    }
-    const currencyRows = (Object.keys(currencyObj).length > 0)
-      ? TARGET_CURRENCIES.filter(code => currencyObj[code] != null && currencyObj[code] > 0).map(code =>
-          `<tr><td>${CURRENCY_NAMES[code] || code}</td><td><span class="code-badge">${code}</span></td><td class="value-cell inverted">${fmt(currencyObj[code], 2)} ${sym}</td></tr>`
-        ).join('')
-      : `<tr><td colspan="3" style="text-align:center;color:var(--text-muted);padding:20px;">لا تتوفر بيانات العملات</td></tr>`;
-
-    const currencyTimestamp = currencyAsOf ? `آخر تحديث: ${fmtTime(currencyAsOf)}` : '—';
+    const currencyRows = targets.map(code => `
+      <tr>
+        <td class="label-cell">${CURRENCY_NAMES[code] || code}</td>
+        <td><span class="code-badge">${code}</span></td>
+        <td class="value-cell inverted" data-cell="${code}">—</td>
+      </tr>`).join('');
 
     const section = document.createElement('section');
     section.className = 'country-section';
+    section.dataset.country = country.code;
     section.innerHTML = `
       <div class="country-head">
         <h2 class="country-title"><span class="flag">${country.flag}</span>${country.name}</h2>
@@ -468,18 +558,106 @@ function renderAllCountries() {
       </div>
       <div class="country-grid">
         <div class="card">
-          <div class="card-header"><span class="dot gold"></span> الذهب (لكل جرام)</div>
-          <div class="overflow"><table><thead><tr><th>العيار</th><th>السعر</th></tr></thead><tbody>${goldRows}</tbody></table></div>
+          <div class="card-header">
+            <span class="dot gold"></span> الذهب (لكل جرام)
+            <span class="card-timestamp" data-ts="gold">—</span>
+          </div>
+          <div class="overflow"><table>
+            <thead><tr><th>العيار</th><th>السعر</th></tr></thead>
+            <tbody>
+              <tr><td class="label-cell">عيار 24</td><td class="value-cell gold" data-cell="k24">—</td></tr>
+              <tr><td class="label-cell">عيار 22</td><td class="value-cell gold" data-cell="k22">—</td></tr>
+              <tr><td class="label-cell">عيار 21</td><td class="value-cell gold" data-cell="k21">—</td></tr>
+              <tr><td class="label-cell">عيار 18</td><td class="value-cell gold" data-cell="k18">—</td></tr>
+            </tbody>
+          </table></div>
         </div>
         <div class="card">
           <div class="card-header">
             <span class="dot blue"></span> العملات مقابل ${sym}
-            <span class="card-timestamp">${currencyTimestamp}</span>
+            <span class="card-timestamp" data-ts="currency">—</span>
           </div>
-          <div class="overflow"><table><thead><tr><th>العملة</th><th>الكود</th><th>1 وحدة = ؟</th></tr></thead><tbody>${currencyRows}</tbody></table></div>
+          <div class="overflow"><table>
+            <thead><tr><th>العملة</th><th>الكود</th><th>1 وحدة = ؟</th></tr></thead>
+            <tbody>${currencyRows}</tbody>
+          </table></div>
         </div>
       </div>`;
     container.appendChild(section);
+  });
+
+  uiBuilt = true;
+}
+
+/* ============================================================
+   تحديث قيم الواجهة (تفاضلي — بدون إعادة بناء)
+   ============================================================ */
+function updateCountriesUI() {
+  if (!uiBuilt) return;
+
+  const anyData = goldPrice || currencyRates;
+  const container = document.getElementById('countriesContainer');
+
+  // في حالة عدم وجود أي بيانات إطلاقًا
+  if (!anyData) {
+    container.innerHTML = `
+      <div class="offline-panel">
+        <p>⚠️ تعذّر تحميل البيانات. تحقق من اتصالك وحاول مجدداً.</p>
+        <button onclick="manualReloadAll()">إعادة المحاولة</button>
+      </div>`;
+    uiBuilt = false;
+    return;
+  }
+
+  // إعادة البناء إن كنا في حالة الـ offline panel سابقًا
+  if (!uiBuilt) buildCountriesUI();
+
+  COUNTRIES.forEach(country => {
+    const section = container.querySelector(`[data-country="${country.code}"]`);
+    if (!section) return;
+
+    const sym        = CURRENCY_SYMBOLS[country.currency] || country.currency;
+    const localPerUsd = currencyRates ? currencyRates[country.currency] : null;
+
+    // --- الذهب ---
+    const goldTs = section.querySelector('[data-ts="gold"]');
+    if (goldPrice && localPerUsd && localPerUsd > 0) {
+      const g = (goldPrice.priceUsdOz * localPerUsd) / OZ_TO_GRAM;
+      const prices = { k24: g, k22: g * 22 / 24, k21: g * 21 / 24, k18: g * 18 / 24 };
+      ['k24', 'k22', 'k21', 'k18'].forEach(k => {
+        const cell = section.querySelector(`[data-cell="${k}"]`);
+        if (cell) cell.textContent = `${fmt(prices[k], 0)} ${sym}`;
+      });
+      if (goldTs) goldTs.textContent = 'آخر تحديث: ' + fmtTime(goldPrice.asOf);
+    } else {
+      ['k24', 'k22', 'k21', 'k18'].forEach(k => {
+        const cell = section.querySelector(`[data-cell="${k}"]`);
+        if (cell) cell.textContent = '—';
+      });
+      if (goldTs) goldTs.textContent = '—';
+    }
+
+    // --- العملات ---
+    const curTs = section.querySelector('[data-ts="currency"]');
+    if (currencyRates && localPerUsd && localPerUsd > 0) {
+      getTargetsFor(country).forEach(code => {
+        const cell = section.querySelector(`[data-cell="${code}"]`);
+        if (!cell) return;
+        const foreignPerUsd = currencyRates[code];
+        if (foreignPerUsd && foreignPerUsd > 0) {
+          cell.textContent = `${fmt(localPerUsd / foreignPerUsd, 2)} ${sym}`;
+        } else {
+          cell.textContent = '—';
+        }
+      });
+      if (curTs) curTs.textContent = 'آخر تحديث: ' + fmtTime(currencyAsOf);
+    } else {
+      getTargetsFor(country).forEach(code => {
+        const cell = section.querySelector(`[data-cell="${code}"]`);
+        if (cell) cell.textContent = '—';
+      });
+      if (curTs) curTs.textContent = '—';
+    }
   });
 }
 
@@ -490,16 +668,22 @@ async function updateGold() {
   try {
     const result = await fetchGoldPrice();
     goldPrice = result;
-    document.getElementById('rateUsed').textContent = `$${fmt(goldPrice.priceUsdOz, 2)} / أونصة`;
-    renderAllCountries();
-    updateTimestamp(goldPrice.asOf);
-    setStatus('online');
+    saveCache(LS_GOLD, { price: result.priceUsdOz, t: Date.now() });
+    // إذا كانت العملات من الكاش فقط ولم تُحدَّث، أبقِ الشارة إن كانت هناك
+    if (!usingCache) showCacheNotice(false);
+    updateRateBadge();
+    updateCountriesUI();
+    updateHeaderTimestamp();
+    syncStatus();
   } catch (e) {
     console.error('فشل تحديث الذهب:', e);
     if (!goldPrice) {
-      document.getElementById('rateUsed').textContent = 'غير متاح';
-      setStatus('offline');
+      usingCache = true;
+      showCacheNotice(true);
     }
+    updateRateBadge();
+    updateCountriesUI();
+    syncStatus();
   }
 }
 
@@ -510,16 +694,25 @@ async function updateCurrencies() {
   try {
     const result = await fetchCurrencyRates();
     currencyRates = result.rates;
-    currencyAsOf = result.asOf;
-    renderAllCountries();
-    updateTimestamp(new Date());
+    currencyAsOf  = result.asOf;
+    saveCache(LS_CURRENCY, { rates: result.rates, t: Date.now() });
+    if (!usingCache) showCacheNotice(false);
+    updateCountriesUI();
+    updateHeaderTimestamp();
+    syncStatus();
   } catch (e) {
     console.error('فشل تحديث العملات:', e);
+    if (!currencyRates) {
+      usingCache = true;
+      showCacheNotice(true);
+    }
+    updateCountriesUI();
+    syncStatus();
   }
 }
 
 /* ============================================================
-   نظام الجدولة المنفصل (بدون تداخل)
+   نظام العدّاد التنازلي
    ============================================================ */
 let goldNextTime = null;
 let currencyNextTime = null;
@@ -553,9 +746,7 @@ function scheduleGoldUpdate() {
   if (goldTimeoutId) clearTimeout(goldTimeoutId);
   goldNextTime = Date.now() + GOLD_UPDATE_INTERVAL_MS;
   startGoldCountdown();
-
   goldTimeoutId = setTimeout(async () => {
-    console.log('⏰ تحديث الذهب الدوري...');
     await updateGold();
     scheduleGoldUpdate();
   }, GOLD_UPDATE_INTERVAL_MS);
@@ -565,23 +756,20 @@ function scheduleCurrencyUpdate() {
   if (currencyTimeoutId) clearTimeout(currencyTimeoutId);
   currencyNextTime = Date.now() + CURRENCY_UPDATE_INTERVAL_MS;
   startCurrencyCountdown();
-
   currencyTimeoutId = setTimeout(async () => {
-    console.log('⏰ تحديث العملات الدوري...');
     await updateCurrencies();
     scheduleCurrencyUpdate();
   }, CURRENCY_UPDATE_INTERVAL_MS);
 }
 
 /* ============================================================
-   إعادة تحميل يدوية شاملة
+   إعادة تحميل يدوية
    ============================================================ */
 function manualReloadAll() {
   if (goldTimeoutId) clearTimeout(goldTimeoutId);
   if (currencyTimeoutId) clearTimeout(currencyTimeoutId);
   if (goldCountdownTimer) clearInterval(goldCountdownTimer);
   if (currencyCountdownTimer) clearInterval(currencyCountdownTimer);
-
   (async () => {
     await Promise.allSettled([updateGold(), updateCurrencies()]);
     scheduleGoldUpdate();
@@ -589,10 +777,11 @@ function manualReloadAll() {
   })();
 }
 
-// إعادة الجدولة عند العودة إلى التبويب
+/* ============================================================
+   إعادة الجدولة عند العودة للتبويب
+   ============================================================ */
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState !== 'visible') return;
-
   const now = Date.now();
   if (goldNextTime && now >= goldNextTime) {
     updateGold().then(scheduleGoldUpdate);
@@ -607,24 +796,27 @@ document.addEventListener('visibilitychange', () => {
    ============================================================ */
 (async function init() {
   setStatus('loading');
-  document.getElementById('rateUsed').textContent = 'جاري الجلب...';
+  updateRateBadge();
 
-  await Promise.allSettled([updateGold(), updateCurrencies()]);
-
-  if (!goldPrice && !currencyRates) {
-    setStatus('offline');
+  // 1) اعرض الكاش فورًا إن وُجد
+  loadFromCache();
+  if (goldPrice || currencyRates) {
+    buildCountriesUI();
+    updateCountriesUI();
+    updateHeaderTimestamp();
+    updateRateBadge();
+    syncStatus();
+    showCacheNotice(usingCache);
   }
 
+  // 2) ثم اجلب البيانات الحقيقية
+  await Promise.allSettled([updateGold(), updateCurrencies()]);
+
+  // 3) جهّز المؤقّتات
   scheduleGoldUpdate();
   scheduleCurrencyUpdate();
 })();
 </script>
-
-<!-- ===== Monetag OnClick Popunder #1 (Zone 12132620) ===== -->
-<script>(function(s){s.dataset.zone='12132620',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
-<!-- ===== Monetag OnClick Popunder #2 (Zone 12132625) ===== -->
-<script>(function(s){s.dataset.zone='12132625',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 <!-- ===== Monetag Vignette Banner (Zone 12132627) ===== -->
 <script>(function(s){s.dataset.zone='12132627',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
