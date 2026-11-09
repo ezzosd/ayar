@@ -5,828 +5,1007 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0b0f">
 <meta name="description" content="عيار — تتبّع لحظي لأسعار الذهب والفضة والعملات في 9 دول عربية: مصر، السعودية، الإمارات، البحرين، العراق، الكويت، قطر، عُمان، والأردن.">
+<meta name="robots" content="index,follow">
 <title>عيار — أسعار الذهب والعملات في الوطن العربي</title>
+<link rel="canonical" href="https://example.com/">
 
 <!-- Social / SEO -->
 <meta property="og:title" content="عيار — أسعار الذهب والعملات في الوطن العربي">
 <meta property="og:description" content="تتبّع لحظي لأسعار الذهب والفضة والعملات في 9 دول عربية.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ar_AR">
+<meta property="og:url" content="https://example.com/">
+<meta property="og:image" content="https://example.com/og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 3 L57 17 L57 47 L32 61 L7 47 L7 17 Z' fill='none' stroke='%23d4a017' stroke-width='3'/%3E%3Cpath d='M22 42 L32 20 L42 42 M26 35 L38 35' stroke='%23f5d76e' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta name="twitter:title" content="عيار — أسعار الذهب والعملات">
+<meta name="twitter:description" content="تتبّع لحظي لأسعار الذهب والفضة والعملات في 9 دول عربية.">
 
-<!-- ===== Monetag MultiTag (Zone 302579) ===== -->
-<script src="https://quge5.com/88/tag.min.js" data-zone="302579" async data-cfasync="false"></script>
+<!-- PWA -->
+<link rel="manifest" href='data:application/manifest+json,{"name":"عيار","short_name":"عيار","start_url":"./","display":"standalone","background_color":"%230a0b0f","theme_color":"%230a0b0f","lang":"ar","dir":"rtl"}'>
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='38' fill='%230a0b0f'/%3E%3Ccircle cx='90' cy='90' r='62' fill='%23e9b949'/%3E%3Ctext x='90' y='120' text-anchor='middle' font-size='86' font-weight='700' fill='%233a2a06' font-family='sans-serif'%3Eع%3C/text%3E%3C/svg%3E">
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"عيار","url":"https://example.com/","inLanguage":"ar","description":"أسعار الذهب والفضة والعملات في 9 دول عربية."}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Amiri:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400..800&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --bg: #0a0b0f; --surface: #15171d; --surface-2: #1a1d24;
-  --border: rgba(255,255,255,0.06); --border-strong: rgba(212,160,23,0.25);
-  --text: #f5f3ee; --text-dim: #a8a5a0; --text-muted: #6b6a67;
-  --gold: #d4a017; --gold-2: #f5d76e; --gold-3: #b8860b;
-  --radius: 16px;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text);
-  min-height: 100vh; line-height: 1.6;
-  background-image: radial-gradient(ellipse at top right, rgba(212,160,23,0.08), transparent 60%),
-    radial-gradient(ellipse at bottom left, rgba(184,134,11,0.05), transparent 60%);
-  background-attachment: fixed;
-}
-.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  *,*::before,*::after{box-sizing:border-box}
+  :root{
+    color-scheme: dark;
+    --bg:#0a0b0f;
+    --surface:#111420;
+    --surface-2:#161a29;
+    --line:#242a3d;
+    --gold:#e9b949;
+    --gold-soft:#f7d98a;
+    --text:#eef1f8;
+    --muted:#8a93a9;
+    --green:#2fd39a;
+    --red:#ff5f7a;
+    --amber:#ffb35c;
+    --radius:16px;
+    --header-h:60px;
+  }
+  html,body{margin:0;padding:0}
+  body{
+    min-height:100vh;line-height:1.6;color:var(--text);
+    font-family:"Cairo",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    background:
+      radial-gradient(900px 520px at 82% -12%, rgba(233,185,73,.10), transparent 62%),
+      radial-gradient(720px 420px at 8% -6%, rgba(70,120,255,.09), transparent 62%),
+      var(--bg);
+    padding-bottom:40px;
+  }
+  .wrap{width:min(1120px, 100% - 32px);margin-inline:auto}
 
-.top-bar {
-  border-bottom: 1px solid var(--border); padding: 18px 0;
-  backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 100;
-  background: rgba(10,11,15,0.85);
-}
-.top-bar-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-.brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--text); }
-.brand-logo { width: 48px; height: 48px; }
-.brand-name { font-size: 24px; font-weight: 900; }
-.brand-name span {
-  background: linear-gradient(135deg, var(--gold-2), var(--gold-3));
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-}
-.brand-tag { font-size: 10px; color: var(--text-muted); letter-spacing: 2.5px; margin-top: 4px; }
-.status {
-  display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 100px;
-  background: var(--surface); border: 1px solid var(--border); font-size: 12px; color: var(--text-dim);
-}
-.status-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981; animation: pulse 2s infinite; }
-.status-dot.offline { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
-.status-dot.loading { background: #60a5fa; box-shadow: 0 0 8px #60a5fa; }
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  /* Skip link + SR-only */
+  .skip{
+    position:absolute; top:-100px; inset-inline-start:8px; z-index:100;
+    background:var(--gold); color:#1a1206; padding:8px 16px; border-radius:8px;
+    font-weight:700; text-decoration:none; transition:top .2s ease;
+  }
+  .skip:focus{ top:8px; }
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
 
-.hero { padding: 72px 0 48px; text-align: center; position: relative; }
-.eyebrow {
-  display: inline-block; font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-  color: var(--gold); font-weight: 500; margin-bottom: 18px; padding: 6px 16px;
-  border: 1px solid var(--border-strong); border-radius: 100px; background: rgba(212,160,23,0.05);
-}
-.hero h1 { font-size: clamp(32px, 5vw, 54px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
-.hero h1 .accent {
-  font-family: 'Amiri', serif; font-style: italic; font-weight: 700;
-  background: linear-gradient(135deg, var(--gold-2) 0%, var(--gold) 50%, var(--gold-3) 100%);
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  padding: 0 6px;
-}
-.hero p { color: var(--text-dim); max-width: 580px; margin: 0 auto; font-size: 15px; }
-.rate-badge {
-  display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 8px 18px;
-  background: var(--surface); border: 1px solid var(--border-strong); border-radius: 100px;
-  font-size: 13px; color: var(--text-dim); flex-wrap: wrap; justify-content: center;
-}
-.rate-badge strong { color: var(--gold-2); font-weight: 700; }
+  /* Header */
+  .site-header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,11,15,.86);
+    border-bottom:1px solid var(--line);
+  }
+  @supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    .site-header{ -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); background:rgba(10,11,15,.78); }
+  }
+  .header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+  .brand-mark{width:36px;height:36px;flex:0 0 auto}
+  .brand-mark svg{width:100%;height:100%;display:block}
+  .brand-text{display:flex;flex-direction:column;line-height:1.15}
+  .brand-text strong{font-size:17px;letter-spacing:.2px}
+  .brand-text small{font-size:11px;color:var(--muted)}
+  .header-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .pill{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:11.5px; font-weight:600;
+    padding:4px 10px; border-radius:999px;
+    border:1px solid var(--line); color:var(--muted);
+    background:var(--surface);
+  }
+  .pill.demo{color:var(--amber); background:rgba(255,179,92,.10); border-color:rgba(255,179,92,.30)}
+  .pill.live{color:var(--green); background:rgba(47,211,154,.10); border-color:rgba(47,211,154,.28)}
+  .pill.live i{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.8s ease-in-out infinite}
+  .pill.closed{color:var(--amber); background:rgba(255,179,92,.10); border-color:rgba(255,179,92,.30)}
+  .pill.open{color:var(--green); background:rgba(47,211,154,.10); border-color:rgba(47,211,154,.28)}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.65)}}
+  .updated{font-size:12px;color:var(--muted);display:none}
+  @media (min-width:760px){ .updated{display:inline} }
 
-.countdowns-row {
-  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 14px;
-}
-.next-update-badge {
-  display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px;
-  background: var(--surface); border: 1px solid var(--border); border-radius: 100px;
-  font-size: 12px; color: var(--text-muted);
-}
-.next-update-badge strong { font-weight: 700; font-variant-numeric: tabular-nums; }
-.next-update-badge.gold-countdown strong { color: var(--gold-2); }
-.next-update-badge.currency-countdown strong { color: #60a5fa; }
+  /* Countries + toolbar */
+  .countries{padding:14px 0 6px}
+  .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{
+    flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;
+    padding:8px 14px;border-radius:999px;cursor:pointer;
+    background:var(--surface);border:1px solid var(--line);
+    color:var(--muted);font:inherit;font-size:13.5px;font-weight:600;
+    transition:color .2s, border-color .2s, background .2s, box-shadow .2s, transform .2s;
+  }
+  .chip .flag{font-size:15px;line-height:1}
+  @media (hover:hover){
+    .chip:hover{color:var(--text);border-color:#333c57;transform:translateY(-1px)}
+  }
+  .chip.is-active{
+    color:#20170a;font-weight:800;border-color:transparent;
+    background:linear-gradient(180deg,var(--gold-soft),var(--gold));
+    box-shadow:0 6px 18px rgba(233,185,73,.28);
+  }
+  .chip:focus-visible{outline:2px solid var(--gold-soft);outline-offset:2px}
 
-.country-section { margin: 60px 0; }
-.country-head {
-  display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 22px;
-  padding-bottom: 14px; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 8px;
-}
-.country-title { font-size: 24px; font-weight: 800; }
-.country-title .flag { margin-left: 10px; font-size: 20px; }
-.country-meta { font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
-.country-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-@media (max-width: 768px) { .country-grid { grid-template-columns: 1fr; } }
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+  .toggle{
+    font:inherit;font-size:12.5px;font-weight:600;
+    padding:7px 12px;border-radius:10px;cursor:pointer;
+    background:var(--surface);border:1px solid var(--line);color:var(--muted);
+    transition:color .2s, border-color .2s, background .2s;
+  }
+  @media (hover:hover){ .toggle:hover{color:var(--text);border-color:#333c57} }
+  .toggle[aria-pressed="true"]{
+    color:#20170a;background:linear-gradient(180deg,var(--gold-soft),var(--gold));
+    border-color:transparent;font-weight:700;
+  }
+  .toggle:focus-visible{outline:2px solid var(--gold-soft);outline-offset:2px}
 
-.card {
-  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
-  border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
-}
-.card-header {
-  padding: 14px 20px; background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border);
-  font-size: 14px; font-weight: 700; color: var(--text-dim); display: flex; align-items: center; gap: 8px;
-  flex-wrap: wrap;
-}
-.card-header .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.card-header .dot.gold { background: var(--gold); }
-.card-header .dot.blue { background: #60a5fa; }
-.card-header .card-timestamp {
-  margin-right: auto; font-size: 10px; color: var(--text-muted); font-weight: 400;
-  font-variant-numeric: tabular-nums; white-space: nowrap;
-}
-.overflow { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; }
-thead th {
-  text-align: right; padding: 12px 18px; font-size: 10px; font-weight: 500;
-  color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase;
-  background: rgba(0,0,0,0.1); border-bottom: 1px solid var(--border); white-space: nowrap;
-}
-tbody td { padding: 14px 18px; border-bottom: 1px solid var(--border); font-size: 14px; }
-tbody tr:last-child td { border-bottom: none; }
-tbody tr:hover { background: rgba(212,160,23,0.03); }
-.label-cell { color: var(--text-dim); font-weight: 500; }
-.value-cell { font-weight: 700; font-size: 16px; color: var(--text); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.value-cell.gold { color: var(--gold-2); }
-.value-cell.inverted { color: #34d399; }
-.code-badge {
-  display: inline-block; padding: 3px 8px; border-radius: 5px;
-  background: rgba(255,255,255,0.04); border: 1px solid var(--border);
-  font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 1px; color: var(--text-dim);
-}
+  /* Hero */
+  .hero{
+    position:relative;overflow:hidden;
+    margin-top:14px;padding:24px;border-radius:22px;
+    display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center;
+    background:linear-gradient(135deg, rgba(233,185,73,.14), rgba(17,20,32,.55) 46%), var(--surface);
+    border:1px solid rgba(233,185,73,.22);
+  }
+  .hero::after{
+    content:"";position:absolute;inset-inline-end:-70px;top:-80px;
+    width:230px;height:230px;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle, rgba(233,185,73,.30), transparent 66%);
+  }
+  .eyebrow{margin:0 0 6px;font-size:12.5px;font-weight:600;color:var(--gold-soft);letter-spacing:.3px}
+  .hero-price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .big{
+    font-size:clamp(30px,6vw,50px);font-weight:800;letter-spacing:-.5px;
+    font-variant-numeric:tabular-nums;line-height:1.15;
+    color:var(--gold-soft);
+  }
+  @supports ((-webkit-background-clip:text) or (background-clip:text)){
+    .big{
+      background:linear-gradient(180deg,#ffffff,#f2cf7d);
+      -webkit-background-clip:text;background-clip:text;
+      -webkit-text-fill-color:transparent;color:transparent;
+    }
+  }
+  .cur{font-size:14px;color:var(--muted);font-weight:600}
+  .hero-sub{margin:8px 0 0;font-size:12.5px;color:var(--muted)}
+  .hero-side{display:flex;flex-direction:column;align-items:flex-end;gap:6px;position:relative;z-index:1}
+  .change{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:13.5px;font-weight:800;padding:6px 12px;border-radius:999px;
+    font-variant-numeric:tabular-nums;
+  }
+  .change.up{color:var(--green);background:rgba(47,211,154,.12);border:1px solid rgba(47,211,154,.25)}
+  .change.down{color:var(--red);background:rgba(255,95,122,.12);border:1px solid rgba(255,95,122,.25)}
+  .change.flat{color:var(--muted);background:var(--surface-2);border:1px solid var(--line)}
+  #spark{width:100%;max-width:260px;aspect-ratio:26/7;height:auto;display:block}
+  .spark-label{font-size:10.5px;color:var(--muted)}
 
-footer {
-  border-top: 1px solid var(--border); padding: 36px 0 48px; margin-top: 72px; text-align: center;
-}
-footer p { font-size: 12px; color: var(--text-muted); }
+  /* Sections */
+  .section{margin-top:28px}
+  .section-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  h2{font-size:16px;margin:0;letter-spacing:.2px}
+  .hint{font-size:12px;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .grid.two{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+  .card{
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:16px;
+  }
+  .card-title{margin:0 0 10px;font-size:13px;font-weight:700;color:var(--muted)}
 
-.extras-section { margin: 80px 0 40px; padding: 40px 0; border-top: 1px solid var(--border); }
-.extras-head { text-align: center; margin-bottom: 32px; }
-.extras-title { font-size: 28px; font-weight: 800; margin-bottom: 8px; color: var(--text); }
-.extras-title span {
-  background: linear-gradient(135deg, var(--gold-2), var(--gold-3));
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-}
-.extras-sub { color: var(--text-muted); font-size: 13px; }
-.extras-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-.extra-card {
-  display: flex; align-items: center; gap: 12px; padding: 18px 20px;
-  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
-  border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--text);
-  transition: all 0.25s ease;
-}
-.extra-card:hover {
-  transform: translateY(-3px); border-color: var(--border-strong);
-  box-shadow: 0 8px 24px rgba(212,160,23,0.12);
-}
-.extra-icon { font-size: 22px; }
-.extra-label { font-size: 14px; font-weight: 600; flex: 1; color: var(--text-dim); }
-.extra-card:hover .extra-label { color: var(--gold-2); }
-.extra-arrow { color: var(--text-muted); font-size: 16px; }
+  .karat{position:relative;overflow:hidden;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+  @media (hover:hover){
+    .karat:hover{transform:translateY(-3px);border-color:rgba(233,185,73,.35);box-shadow:0 10px 26px rgba(0,0,0,.38)}
+  }
+  .karat.is-popular{
+    border-color:rgba(233,185,73,.42);
+    background:linear-gradient(180deg, rgba(233,185,73,.10), transparent 72%), var(--surface);
+  }
+  .k-top{display:flex;align-items:center;gap:7px;margin-bottom:10px;flex-wrap:wrap}
+  .k-label{font-size:12.5px;color:var(--muted);font-weight:600}
+  .k-num{font-size:20px;font-weight:800;color:var(--gold-soft);line-height:1;font-variant-numeric:tabular-nums}
+  .tag{
+    margin-inline-start:auto;font-size:10px;font-weight:700;
+    padding:2px 8px;border-radius:999px;
+    background:rgba(233,185,73,.16);color:var(--gold-soft);
+    border:1px solid rgba(233,185,73,.30);
+  }
+  .price{margin:0;font-size:26px;font-weight:800;letter-spacing:-.3px;font-variant-numeric:tabular-nums}
+  .unit{margin:4px 0 0;font-size:11.5px;color:var(--muted)}
 
-.footer-links {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px;
-  margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);
-}
-.footer-links a { color: var(--text-dim); text-decoration: none; font-size: 12px; }
-.footer-links a:hover { color: var(--gold-2); }
+  .rows{display:grid;gap:8px;margin-top:14px}
+  .row{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:9px 12px;border-radius:12px;
+    background:var(--surface-2);border:1px solid var(--line);
+  }
+  .row span{font-size:12.5px;color:var(--muted)}
+  .row strong{font-size:14.5px;font-weight:800;font-variant-numeric:tabular-nums}
 
-.cache-notice {
-  display: none; max-width: 640px; margin: 0 auto 24px; padding: 10px 16px;
-  background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.3);
-  border-radius: 100px; font-size: 12px; color: #fbbf24; text-align: center;
-}
-.cache-notice.show { display: block; }
+  /* Table */
+  .data-table{
+    width:100%;border-collapse:separate;border-spacing:0;
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);overflow:hidden;font-size:13px;
+    margin-top:12px;
+  }
+  .data-table th,.data-table td{
+    padding:11px 14px;text-align:start;border-bottom:1px solid var(--line);
+    font-variant-numeric:tabular-nums;
+  }
+  .data-table th{background:var(--surface-2);color:var(--muted);font-weight:700;font-size:12px}
+  .data-table tr:last-child td{border-bottom:0}
+  .data-table td{font-weight:700}
 
-.offline-panel {
-  text-align: center; padding: 60px 20px; color: var(--text-muted);
-}
-.offline-panel button {
-  margin-top: 20px; background: var(--gold); color: var(--bg); border: none;
-  padding: 12px 30px; border-radius: 100px; font-family: inherit; font-weight: 700;
-  cursor: pointer; font-size: 14px;
-}
-.offline-panel button:hover { background: var(--gold-2); }
+  /* Calculator */
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .field{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--muted)}
+  .field input,.field select{
+    font:inherit;font-size:14px;padding:8px 10px;
+    border-radius:8px;background:var(--surface-2);
+    border:1px solid var(--line);color:var(--text);
+    font-variant-numeric:tabular-nums;
+  }
+  .field input:focus,.field select:focus{
+    outline:2px solid var(--gold-soft);outline-offset:1px;border-color:transparent;
+  }
+  .calc-result{
+    margin-top:12px;padding:12px;border-radius:10px;
+    background:var(--surface-2);border:1px solid var(--line);
+    text-align:center;
+  }
+  .calc-result strong{
+    color:var(--gold-soft);font-size:20px;font-variant-numeric:tabular-nums;
+    display:block;margin-top:2px;
+  }
+  .calc-note{font-size:11px;color:var(--muted);margin-top:8px;text-align:center}
 
-@media (max-width: 900px) { .extras-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 640px) {
-  .container { padding: 0 16px; }
-  .hero { padding: 44px 0 28px; }
-  .hero h1 { font-size: 32px; }
-  .country-title { font-size: 20px; }
-  thead th, tbody td { padding: 10px 12px; font-size: 12px; }
-  .value-cell { font-size: 14px; }
-  .brand-name { font-size: 20px; }
-  .brand-logo { width: 40px; height: 40px; }
-  .brand-tag { display: none; }
-  .card-header .card-timestamp { display: none; }
-}
-@media (max-width: 480px) {
-  .extras-grid { grid-template-columns: 1fr; }
-  .extras-title { font-size: 22px; }
-}
+  /* Footer */
+  .footer{
+    margin:42px 0 0;padding-top:20px;border-top:1px solid var(--line);
+    color:var(--muted);font-size:12.5px;display:grid;gap:8px;
+  }
+  .footer strong{color:var(--gold-soft)}
+  .noscript{
+    background:rgba(255,179,92,.10);border:1px solid rgba(255,179,92,.30);
+    color:var(--amber);padding:12px 16px;border-radius:10px;
+    margin:16px auto;max-width:1120px;width:calc(100% - 32px);
+  }
+
+  /* Motion + responsive + print */
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{
+      animation-duration:.01ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:.01ms !important;
+    }
+    .pill.live i{animation:none}
+  }
+  @media (max-width:720px){
+    .hero{grid-template-columns:1fr;padding:20px;gap:16px}
+    .hero-side{align-items:flex-start}
+    #spark{max-width:100%}
+  }
+  @media print{
+    .site-header,.countries,.skip,.toolbar,.spark-label,#spark,
+    .pill.live,.pill.demo,.market-status,.updated{display:none !important}
+    body{background:#fff;color:#000;padding:0}
+    .hero,.card,.data-table{background:#fff;border:1px solid #bbb;color:#000;box-shadow:none}
+    .big{color:#000 !important;background:none !important;-webkit-text-fill-color:#000 !important}
+    .price,.k-num,.calc-result strong{color:#000 !important}
+    .karat.is-popular{background:#f5f0e0}
+  }
 </style>
 </head>
 <body>
 
-<header class="top-bar">
-  <div class="container top-bar-inner">
-    <a href="/" class="brand">
-      <svg class="brand-logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="lgGold" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#f5d76e"/>
-            <stop offset="50%" stop-color="#d4a017"/>
-            <stop offset="100%" stop-color="#b8860b"/>
-          </linearGradient>
-        </defs>
-        <path d="M32 3 L57 17 L57 47 L32 61 L7 47 L7 17 Z" fill="none" stroke="url(#lgGold)" stroke-width="1.5" opacity="0.6"/>
-        <path d="M22 42 L32 20 L42 42 M26 35 L38 35" stroke="url(#lgGold)" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <div>
-        <div class="brand-name">عيـ<span>ـار</span></div>
-        <div class="brand-tag">AYAR · ARAB MARKETS</div>
-      </div>
+<a class="skip" href="#main">تخطَّ إلى المحتوى الرئيسي</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#" aria-label="عيار — الصفحة الرئيسية">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gm" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f8dc95"/><stop offset="1" stop-color="#c9922b"/>
+            </linearGradient>
+          </defs>
+          <circle cx="16" cy="16" r="15" fill="url(#gm)"/>
+          <circle cx="16" cy="16" r="11.5" fill="none" stroke="#0a0b0f" stroke-opacity=".25" stroke-width="1.5"/>
+          <text x="16" y="21.5" text-anchor="middle" font-size="14" font-weight="700" fill="#3a2a06" font-family="Cairo, sans-serif">ع</text>
+        </svg>
+      </span>
+      <span class="brand-text">
+        <strong>عيار</strong>
+        <small>أسعار الذهب والعملات</small>
+      </span>
     </a>
-    <div class="status">
-      <span class="status-dot" id="statusDot"></span>
-      <span id="lastUpdated" aria-live="polite">جاري التحديث...</span>
+
+    <div class="header-meta">
+      <span class="pill demo" title="الأسعار توضيحية ولا تمثل السوق الفعلي">بيانات تجريبية</span>
+      <span class="pill" id="marketStatus" role="status" aria-live="off">…</span>
+      <span class="pill live"><i></i> مباشر</span>
+      <span class="updated">آخر تحديث: <time id="updatedAt" datetime="">—</time></span>
     </div>
   </div>
 </header>
 
-<main class="container">
-  <section class="hero">
-    <span class="eyebrow">تحديث تلقائي مستقل: ذهب كل 5 دقائق · عملات كل 30 دقيقة</span>
-    <h1>الأسواق <span class="accent">النبيلة</span> في الوطن العربي</h1>
-    <p>تتبّع دقيق لأسعار الذهب والفضة والعملات في 9 دول عربية — في مكان واحد.</p>
-    <div class="rate-badge">
-      <span>🥇 سعر الذهب العالمي (أونصة):</span>
-      <strong id="rateUsed">جاري الجلب...</strong>
+<nav class="countries" aria-label="اختر الدولة">
+  <div class="wrap">
+    <div class="chips" role="radiogroup" aria-label="اختر الدولة" id="countryChips"></div>
+    <div class="toolbar" role="toolbar" aria-label="أدوات العرض">
+      <button type="button" class="toggle" id="manufToggle" aria-pressed="false"
+              title="إضافة المصنعية والضريبة إلى السعر">سعر المشغول</button>
+      <button type="button" class="toggle" id="viewToggle" aria-pressed="false"
+              title="التبديل بين البطاقات والجدول">عرض جدول</button>
+      <button type="button" class="toggle" id="exportBtn"
+              title="تصدير الأسعار كملف CSV">تصدير CSV</button>
+      <button type="button" class="toggle" id="refreshBtn"
+              title="تحديث الآن">↻ تحديث</button>
     </div>
-    <div class="countdowns-row">
-      <div class="next-update-badge gold-countdown">
-        <span>🥇 التحديث التالي للذهب بعد:</span>
-        <strong id="goldCountdown">—</strong>
+  </div>
+</nav>
+
+<main class="wrap" id="main" tabindex="-1">
+  <h1 class="sr-only">أسعار الذهب والفضة والعملات في الوطن العربي</h1>
+
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-main">
+      <p class="eyebrow" id="heroTitle">أونصة الذهب عيار 24</p>
+      <div class="hero-price">
+        <span class="big" id="ozLocal">—</span>
+        <span class="cur" id="ozCur">—</span>
       </div>
-      <div class="next-update-badge currency-countdown">
-        <span>💱 التحديث التالي للعملات بعد:</span>
-        <strong id="currencyCountdown">—</strong>
-      </div>
+      <p class="hero-sub"><span id="ozUsd">—</span> دولار أمريكي للأونصة</p>
+    </div>
+    <div class="hero-side">
+      <span class="change flat" id="ozChange" aria-live="polite">—</span>
+      <canvas id="spark" width="260" height="70" role="img" aria-label="اتجاه سعر الذهب في آخر 40 تحديثاً"></canvas>
+      <span class="spark-label">آخر 40 تحديثاً</span>
     </div>
   </section>
 
-  <div class="cache-notice" id="cacheNotice">
-    ⚠️ تعذّر تحديث أحد المصادر — تُعرض آخر بيانات محفوظة.
-  </div>
-
-  <noscript>
-    <div class="offline-panel">
-      يحتاج «عيار» إلى تفعيل JavaScript لعرض الأسعار اللحظية.
+  <section class="section" aria-labelledby="goldTitle">
+    <div class="section-head">
+      <h2 id="goldTitle">الذهب — سعر الجرام</h2>
+      <span class="hint" id="priceModeHint">سعر الخام</span>
     </div>
-  </noscript>
+    <div class="grid" id="karatGrid"></div>
+    <table class="data-table" id="karatTable" hidden aria-label="جدول أسعار الذهب">
+      <thead>
+        <tr>
+          <th scope="col">العيار</th>
+          <th scope="col">النقاء</th>
+          <th scope="col">الجرام</th>
+          <th scope="col">الكيلو</th>
+        </tr>
+      </thead>
+      <tbody id="karatTableBody"></tbody>
+    </table>
+  </section>
 
-  <div id="countriesContainer">
-    <p style="text-align:center; padding:60px 0; color:var(--text-muted);">جاري تحميل بيانات الدول...</p>
-  </div>
+  <section class="section" aria-labelledby="moreTitle">
+    <div class="section-head"><h2 id="moreTitle">الفضة والعملة</h2></div>
+    <div class="grid two">
+      <article class="card">
+        <h3 class="card-title">الفضة</h3>
+        <p class="price" id="silverGram">—</p>
+        <p class="unit" id="silverUnit">—</p>
+        <div class="rows">
+          <div class="row"><span>أونصة الفضة</span><strong id="silverOz">—</strong></div>
+          <div class="row"><span>كيلو الفضة</span><strong id="silverKilo">—</strong></div>
+          <div class="row"><span>نسبة الذهب إلى الفضة</span><strong id="gsRatio">—</strong></div>
+        </div>
+      </article>
 
-  <section class="extras-section">
-    <div class="extras-head">
-      <h2 class="extras-title">🌟 <span>فرص</span> إضافية</h2>
-      <p class="extras-sub">عروض وفرص مختارة بعناية</p>
-    </div>
-    <div class="extras-grid">
-      <a href="https://uplcm.com/4/12090630" target="_blank" rel="noopener" class="extra-card">
-        <span class="extra-icon">🚀</span><span class="extra-label">فرصة مميزة</span><span class="extra-arrow">←</span>
-      </a>
-      <a href="https://uplcm.com/4/12130004" target="_blank" rel="noopener" class="extra-card">
-        <span class="extra-icon">✨</span><span class="extra-label">اكتشف المزيد</span><span class="extra-arrow">←</span>
-      </a>
-      <a href="https://uplcm.com/4/12096134" target="_blank" rel="noopener" class="extra-card">
-        <span class="extra-icon">🎁</span><span class="extra-label">عرض خاص</span><span class="extra-arrow">←</span>
-      </a>
-      <a href="https://uplcm.com/4/12094822" target="_blank" rel="noopener" class="extra-card">
-        <span class="extra-icon">🔥</span><span class="extra-label">تفاصيل إضافية</span><span class="extra-arrow">←</span>
-      </a>
+      <article class="card">
+        <h3 class="card-title">سعر الصرف</h3>
+        <p class="price" id="fxBig">—</p>
+        <p class="unit" id="fxUnit">—</p>
+        <div class="rows">
+          <div class="row"><span>100 دولار أمريكي</span><strong id="fx100">—</strong></div>
+          <div class="row"><span id="fxLocalLabel">العملة المحلية مقابل الدولار</span><strong id="fxLocal">—</strong></div>
+        </div>
+      </article>
     </div>
   </section>
+
+  <section class="section" aria-labelledby="calcTitle">
+    <div class="section-head"><h2 id="calcTitle">حاسبة الذهب والزكاة</h2></div>
+    <div class="grid two">
+
+      <article class="card">
+        <h3 class="card-title">حاسبة سعر الذهب</h3>
+        <div class="form-row">
+          <label class="field">الوزن (جرام)
+            <input type="number" id="calcWeight" value="10" min="0" step="0.1" inputmode="decimal">
+          </label>
+          <label class="field">العيار
+            <select id="calcKarat">
+              <option value="24">24</option>
+              <option value="22">22</option>
+              <option value="21" selected>21</option>
+              <option value="18">18</option>
+            </select>
+          </label>
+        </div>
+        <div class="calc-result">
+          <span class="hint">السعر التقديري</span>
+          <strong id="calcResult">—</strong>
+        </div>
+        <p class="calc-note" id="calcNote">—</p>
+      </article>
+
+      <article class="card">
+        <h3 class="card-title">حاسبة الزكاة</h3>
+        <div class="form-row">
+          <label class="field">وزن الذهب (جرام)
+            <input type="number" id="zakatWeight" value="85" min="0" step="0.1" inputmode="decimal">
+          </label>
+          <label class="field">العيار
+            <select id="zakatKarat">
+              <option value="24">24</option>
+              <option value="22">22</option>
+              <option value="21" selected>21</option>
+              <option value="18">18</option>
+            </select>
+          </label>
+        </div>
+        <div class="calc-result">
+          <span class="hint">الزكاة المستحقة (2.5%)</span>
+          <strong id="zakatResult">—</strong>
+        </div>
+        <p class="calc-note" id="zakatNote">النصاب: 85 جرام من الذهب الخالص (عيار 24).</p>
+      </article>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p style="margin:0">
+      <strong>تنبيه:</strong> الأسعار المعروضة استرشادية وتُحدَّث تلقائياً لأغراض العرض فقط،
+      ولا تُعدّ نصيحة استثمارية. السعر الفعلي في السوق يختلف باختلاف المصنعية والدمغة
+      والرسوم المحلية وحالة العرض والطلب.
+    </p>
+    <p style="margin:0">© <span id="year">—</span> عيار — جميع الحقوق محفوظة.</p>
+  </footer>
 </main>
 
-<footer>
-  <p>عيار © <span id="year"></span> — الأسعار استرشادية، قد تختلف عن السوق المحلي.</p>
-  <div class="footer-links">
-    <a href="https://uplcm.com/4/12090630" target="_blank" rel="noopener">🚀 فرصة مميزة</a>
-    <a href="https://uplcm.com/4/12130004" target="_blank" rel="noopener">✨ اكتشف المزيد</a>
-    <a href="https://uplcm.com/4/12096134" target="_blank" rel="noopener">🎁 عرض خاص</a>
-    <a href="https://uplcm.com/4/12094822" target="_blank" rel="noopener">🔥 تفاصيل إضافية</a>
-  </div>
-</footer>
+<noscript>
+  <p class="noscript">لعرض الأسعار المحدّثة، يرجى تفعيل JavaScript. الأسعار المعروضة استرشادية فقط.</p>
+</noscript>
 
 <script>
-/* ============================================================
-   إعدادات التحديث التلقائي (مستقل للذهب والعملات)
-   ============================================================ */
-const GOLD_UPDATE_INTERVAL_MS     = 5 * 60 * 1000;   // الذهب: كل 5 دقائق
-const CURRENCY_UPDATE_INTERVAL_MS = 30 * 60 * 1000;  // العملات: كل 30 دقيقة
-const FETCH_TIMEOUT_MS            = 6000;
-const CACHE_TTL_MS                = 24 * 3600 * 1000; // 24 ساعة
-const OZ_TO_GRAM                  = 31.1034768;
-const LS_GOLD                     = 'ayar_gold_cache';
-const LS_CURRENCY                 = 'ayar_currency_cache';
+(() => {
+  'use strict';
 
-/* ============================================================
-   مصادر البيانات (APIs)
-   ============================================================ */
-const GOLD_SOURCES = [
-  { name: 'gold-api.com', url: 'https://api.gold-api.com/price/XAU', parse: (d) => {
-    const p = d ? Number(d.price || 0) : 0;
-    return (p > 0) ? p : null;
-  }},
-  { name: 'alqanaas.com', url: 'https://alqanaas.com/gold-data.json', parse: (d) => {
-    const live = d && d.liveXauusd;
-    const p = live ? Number(live.mid || live.ask || 0) : 0;
-    return (p > 0) ? p : null;
-  }},
-  { name: 'xaus.com', url: 'https://xaus.com/api/v1/spot?compact=1', parse: (d) => {
-    const p = d ? Number((d.xau && d.xau.price) || d.spot_usd_oz || 0) : 0;
-    return (p > 0) ? p : null;
-  }}
-];
+  /* ======================== ثوابت ======================== */
+  const GRAM_PER_OZ = 31.1034768;
+  const HISTORY_LEN = 40;
+  const TICK_MS     = 5000;
+  const CLOCK_MS    = 1000;
+  const DEMO_MODE   = true; // ضعها false عند ربط API حقيقي (سيحترم ساعات السوق)
 
-const CURRENCY_SOURCES = [
-  { name: 'jsDelivr (fawazahmed0)', url: 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json', parse: (d) => {
-    if (!d || !d.usd) return null;
-    const out = {};
-    for (const k in d.usd) out[k.toUpperCase()] = d.usd[k];
-    return Object.keys(out).length ? out : null;
-  }},
-  { name: 'Frankfurter', url: 'https://api.frankfurter.dev/v1/latest?base=USD', parse: (d) => {
-    if (!d || !d.rates) return null;
-    const out = {};
-    for (const k in d.rates) out[k.toUpperCase()] = d.rates[k];
-    return Object.keys(out).length ? out : null;
-  }},
-  { name: 'open.er-api', url: 'https://open.er-api.com/v6/latest/USD', parse: (d) =>
-    (d && d.rates && Object.keys(d.rates).length) ? d.rates : null
+  const DEFAULTS = { goldOz: 4148.60, silverOz: 52.35 };
+
+  const CUR_DECIMALS = { EGP:2, SAR:2, AED:2, BHD:3, IQD:0, KWD:3, QAR:2, OMR:3, JOD:3 };
+
+  const COUNTRIES = [
+    { code:'EG', name:'مصر',      flag:'🇪🇬', cur:'EGP', symbol:'ج.م', rate:48.55,  tax:0.14, manuf:0.07 },
+    { code:'SA', name:'السعودية', flag:'🇸🇦', cur:'SAR', symbol:'ر.س', rate:3.7500, tax:0,    manuf:0.02 },
+    { code:'AE', name:'الإمارات', flag:'🇦🇪', cur:'AED', symbol:'د.إ', rate:3.6725, tax:0.05, manuf:0.02 },
+    { code:'BH', name:'البحرين',  flag:'🇧🇭', cur:'BHD', symbol:'د.ب', rate:0.3760, tax:0,    manuf:0.02 },
+    { code:'IQ', name:'العراق',   flag:'🇮🇶', cur:'IQD', symbol:'د.ع', rate:1310.0, tax:0,    manuf:0.03 },
+    { code:'KW', name:'الكويت',   flag:'🇰🇼', cur:'KWD', symbol:'د.ك', rate:0.3070, tax:0,    manuf:0.02 },
+    { code:'QA', name:'قطر',      flag:'🇶🇦', cur:'QAR', symbol:'ر.ق', rate:3.6400, tax:0,    manuf:0.02 },
+    { code:'OM', name:'عُمان',    flag:'🇴🇲', cur:'OMR', symbol:'ر.ع', rate:0.3845, tax:0,    manuf:0.02 },
+    { code:'JO', name:'الأردن',   flag:'🇯🇴', cur:'JOD', symbol:'د.أ', rate:0.7090, tax:0.16, manuf:0.03 }
+  ];
+
+  const KARATS = [
+    { k:24, purity:'نقاء 99.9%' },
+    { k:22, purity:'نقاء 91.6%' },
+    { k:21, purity:'نقاء 87.5%', popular:true },
+    { k:18, purity:'نقاء 75.0%' }
+  ];
+
+  const market = { ...DEFAULTS };
+
+  const state = {
+    code: 'EG',
+    usdHistory: [],
+    showManufacturing: false,
+    showTable: false,
+    lastUpdate: null
+  };
+
+  /* ======================== أدوات مساعدة ======================== */
+  const el = id => document.getElementById(id);
+  const byCode = code => COUNTRIES.find(c => c.code === code);
+
+  const nfCache = new Map();
+  function nf(min, max) {
+    const key = min + ':' + max;
+    if (!nfCache.has(key)) {
+      nfCache.set(key, new Intl.NumberFormat('ar-EG-u-nu-latn', {
+        minimumFractionDigits: min, maximumFractionDigits: max
+      }));
+    }
+    return nfCache.get(key);
   }
-];
 
-/* ============================================================
-   بيانات الدول والعملات
-   ============================================================ */
-const COUNTRIES = [
-  { code: 'EG', name: 'مصر',      flag: '🇪🇬', currency: 'EGP' },
-  { code: 'SA', name: 'السعودية', flag: '🇸🇦', currency: 'SAR' },
-  { code: 'AE', name: 'الإمارات', flag: '🇦🇪', currency: 'AED' },
-  { code: 'BH', name: 'البحرين',  flag: '🇧🇭', currency: 'BHD' },
-  { code: 'IQ', name: 'العراق',   flag: '🇮🇶', currency: 'IQD' },
-  { code: 'KW', name: 'الكويت',   flag: '🇰🇼', currency: 'KWD' },
-  { code: 'QA', name: 'قطر',      flag: '🇶🇦', currency: 'QAR' },
-  { code: 'OM', name: 'عُمان',    flag: '🇴🇲', currency: 'OMR' },
-  { code: 'JO', name: 'الأردن',   flag: '🇯🇴', currency: 'JOD' }
-];
+  const timeFormat = new Intl.DateTimeFormat('ar-EG-u-nu-latn', {
+    hour:'2-digit', minute:'2-digit', second:'2-digit'
+  });
 
-const TARGET_CURRENCIES = ['USD', 'EUR', 'GBP', 'SAR', 'AED'];
-const CURRENCY_NAMES = {
-  USD: 'الدولار الأمريكي', EUR: 'اليورو', GBP: 'الجنيه الإسترليني',
-  SAR: 'الريال السعودي',  AED: 'الدرهم الإماراتي'
-};
-const CURRENCY_SYMBOLS = {
-  EGP: 'ج.م', SAR: 'ر.س', AED: 'د.إ', BHD: 'د.ب', IQD: 'ع.د',
-  KWD: 'د.ك', QAR: 'ر.ق', OMR: 'ر.ع', JOD: 'د.أ'
-};
+  function fmtMoney(v, c) {
+    const d = CUR_DECIMALS[c.cur] ?? 2;
+    return nf(d, d).format(v);
+  }
+  function fmtRate(v) {
+    if (v >= 100) return nf(0, 0).format(v);
+    if (v >= 1)   return nf(2, 2).format(v);
+    return nf(4, 4).format(v);
+  }
+  function fmtPriceMode(gramBase, c) {
+    if (!state.showManufacturing) return gramBase;
+    return gramBase * (1 + (c.tax || 0) + (c.manuf || 0));
+  }
 
-/* ============================================================
-   حالة البيانات
-   ============================================================ */
-let goldPrice           = null;
-let currencyRates       = null;
-let currencyAsOf        = null;
-let uiBuilt             = false;
-let goldFetchFailed     = false;
-let currencyFetchFailed = false;
+  function relativeTime(date) {
+    const diff = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000));
+    if (diff < 5)    return 'الآن';
+    if (diff < 60)   return 'قبل ' + diff + ' ثانية';
+    if (diff < 3600) return 'قبل ' + Math.floor(diff / 60) + ' دقيقة';
+    return 'قبل ' + Math.floor(diff / 3600) + ' ساعة';
+  }
 
-/* ============================================================
-   دوال مساعدة
-   ============================================================ */
-function fmt(v, d) {
-  if (!isFinite(v)) return '—';
-  d = (d === undefined) ? 2 : d;
-  return new Intl.NumberFormat('ar-EG-u-nu-latn', {
-    minimumFractionDigits: d, maximumFractionDigits: d
-  }).format(v);
-}
+  function isMarketOpen() {
+    const now = new Date();
+    const day  = now.getUTCDay();  // 0=Sun, 5=Fri, 6=Sat
+    const hour = now.getUTCHours();
+    if (day === 6) return false;                     // السبت
+    if (day === 5 && hour >= 21) return false;       // الجمعة مساءً
+    if (day === 0 && hour < 22) return false;        // الأحد صباحاً
+    return true;
+  }
 
-function fmtTime(date) {
-  if (!(date instanceof Date) || isNaN(date)) return '—';
-  return new Intl.DateTimeFormat('ar-EG-u-nu-latn', { timeStyle: 'short' }).format(date);
-}
+  /* ======================== السجل (USD موحّد) ======================== */
+  function seedHistory() {
+    const arr = [];
+    let v = market.goldOz;
+    for (let i = 0; i < HISTORY_LEN; i++) {
+      v *= 1 + (Math.random() - 0.5) * 0.0015;
+      arr.push(v);
+    }
+    arr[arr.length - 1] = market.goldOz;
+    state.usdHistory = arr;
+  }
+  function pushUsd(price) {
+    state.usdHistory.push(price);
+    if (state.usdHistory.length > HISTORY_LEN) state.usdHistory.shift();
+  }
 
-function setStatus(state) {
-  const dot = document.getElementById('statusDot');
-  if (!dot) return;
-  dot.classList.remove('offline', 'loading');
-  if (state === 'offline') dot.classList.add('offline');
-  else if (state === 'loading') dot.classList.add('loading');
-}
+  /* ======================== شيبس ======================== */
+  function renderChips() {
+    el('countryChips').innerHTML = COUNTRIES.map(c => `
+      <button type="button" class="chip${c.code === state.code ? ' is-active' : ''}"
+              data-code="${c.code}" role="radio" aria-checked="${c.code === state.code}">
+        <span class="flag" aria-hidden="true">${c.flag}</span>
+        <span>${c.name}</span>
+      </button>`).join('');
+  }
+  function syncChips() {
+    el('countryChips').querySelectorAll('.chip').forEach(btn => {
+      const on = btn.dataset.code === state.code;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-checked', String(on));
+      btn.tabIndex = on ? 0 : -1;
+    });
+  }
 
-function syncStatus() {
-  if (goldPrice || currencyRates) setStatus('online');
-  else setStatus('offline');
-}
+  /* ======================== كروت الأعيرة (بناء مرة واحدة) ======================== */
+  const karatNodes = {};
+  function buildKaratGrid() {
+    el('karatGrid').innerHTML = KARATS.map(k => `
+      <article class="card karat${k.popular ? ' is-popular' : ''}" data-k="${k.k}">
+        <div class="k-top">
+          <span class="k-label">عيار</span>
+          <span class="k-num">${k.k}</span>
+          ${k.popular ? '<span class="tag">الأكثر تداولاً</span>' : ''}
+        </div>
+        <p class="price">—</p>
+        <p class="unit">—</p>
+      </article>`).join('');
 
-function updateHeaderTimestamp() {
-  const el = document.getElementById('lastUpdated');
-  if (!el) return;
-  const t = Math.max(
-    (goldPrice && goldPrice.asOf && goldPrice.asOf.getTime()) || 0,
-    (currencyAsOf && currencyAsOf.getTime()) || 0
-  );
-  if (!t) { el.textContent = 'لم يتم التحديث بعد'; return; }
-  const d = new Date(t);
-  el.textContent = 'آخر تحديث: ' + new Intl.DateTimeFormat('ar-EG-u-nu-latn', {
-    dateStyle: 'medium', timeStyle: 'short'
-  }).format(d);
-  const yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = d.getFullYear();
-}
+    KARATS.forEach(k => {
+      const card = el('karatGrid').querySelector('[data-k="' + k.k + '"]');
+      karatNodes[k.k] = {
+        price: card.querySelector('.price'),
+        unit:  card.querySelector('.unit')
+      };
+    });
+  }
 
-function updateRateBadge() {
-  const el = document.getElementById('rateUsed');
-  if (!el) return;
-  if (goldPrice && goldPrice.priceUsdOz > 0) {
-    el.textContent = '$' + fmt(goldPrice.priceUsdOz, 2) + ' / أونصة';
+  /* ======================== الرسم ======================== */
+  function drawSpark(canvas, data) {
+    if (!canvas || !data || data.length < 2) return;
+    const rect = canvas.getBoundingClientRect();
+    const w = Math.max(120, Math.round(rect.width));
+    const h = Math.max(40,  Math.round(rect.height));
+    const dpr = window.devicePixelRatio || 1;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+      canvas.width  = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+    }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+
+    const min = Math.min(...data);
+    const max = Math.max(...data);
+    const span = (max - min) || 1;
+    const pad = 5;
+    const x = i => pad + i * (w - pad * 2) / (data.length - 1);
+    const y = v => h - pad - ((v - min) / span) * (h - pad * 2);
+    const up = data[data.length - 1] >= data[0];
+    const color = up ? '#2fd39a' : '#ff5f7a';
+
+    const grad = ctx.createLinearGradient(0, 0, 0, h);
+    grad.addColorStop(0, up ? 'rgba(47,211,154,.35)' : 'rgba(255,95,122,.35)');
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+
+    ctx.beginPath();
+    ctx.moveTo(x(0), y(data[0]));
+    for (let i = 1; i < data.length; i++) ctx.lineTo(x(i), y(data[i]));
+    ctx.lineTo(x(data.length - 1), h);
+    ctx.lineTo(x(0), h);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(x(0), y(data[0]));
+    for (let i = 1; i < data.length; i++) ctx.lineTo(x(i), y(data[i]));
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(x(data.length - 1), y(data[data.length - 1]), 3, 0, Math.PI * 2);
+    ctx.fillStyle = color;
+    ctx.fill();
+  }
+
+  /* ======================== جدول الأعيرة ======================== */
+  function renderTable(goldGram24, c) {
+    const body = el('karatTableBody');
+    body.innerHTML = KARATS.map(k => {
+      const gram = goldGram24 * k.k / 24;
+      const price = fmtPriceMode(gram, c);
+      return `<tr>
+        <td>${k.k}</td>
+        <td>${k.purity}</td>
+        <td>${fmtMoney(price, c)} ${c.symbol}</td>
+        <td>${fmtMoney(price * 1000, c)} ${c.symbol}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  /* ======================== الحاسبة والزكاة ======================== */
+  function updateCalculator(goldGram24, c) {
+    const w = parseFloat(el('calcWeight').value) || 0;
+    const k = parseInt(el('calcKarat').value, 10) || 24;
+    const gram = goldGram24 * k / 24;
+    const final = fmtPriceMode(gram * w, c);
+    el('calcResult').textContent = fmtMoney(final, c) + ' ' + c.symbol;
+    el('calcNote').textContent = state.showManufacturing
+      ? 'شامل المصنعية والضريبة المحلية.'
+      : 'سعر الخام بدون مصنعية أو ضريبة.';
+  }
+  function updateZakat(goldGram24, c) {
+    const w = parseFloat(el('zakatWeight').value) || 0;
+    const k = parseInt(el('zakatKarat').value, 10) || 24;
+    const pure = w * k / 24;
+    if (pure < 85) {
+      el('zakatResult').textContent = 'لم يبلغ النصاب';
+      el('zakatNote').textContent = 'النصاب: 85 جرام من الذهب الخالص. وزنك الحالي يعادل ' +
+        nf(2, 2).format(pure) + ' جرام خالص.';
+      return;
+    }
+    const value = pure * goldGram24;
+    const zakat = value * 0.025;
+    el('zakatResult').textContent = fmtMoney(zakat, c) + ' ' + c.symbol;
+    el('zakatNote').textContent = 'النصاب مُستوفى. الزكاة = 2.5% من قيمة الذهب الخالص.';
+  }
+
+  /* ======================== العرض الرئيسي ======================== */
+  function render() {
+    try {
+      const c = byCode(state.code);
+      if (!c) return;
+
+      const rate = c.rate;
+      const goldGram24 = market.goldOz / GRAM_PER_OZ * rate;
+      const ozLocal    = market.goldOz * rate;
+
+      /* Hero */
+      el('ozLocal').textContent = fmtMoney(ozLocal, c);
+      el('ozCur').textContent   = c.symbol;
+      el('ozUsd').textContent   = nf(2, 2).format(market.goldOz);
+
+      const histUsd = state.usdHistory.length ? state.usdHistory : [market.goldOz, market.goldOz];
+      const firstLocal = histUsd[0] * rate;
+      const pct = firstLocal ? ((ozLocal - firstLocal) / firstLocal) * 100 : 0;
+
+      const chg = el('ozChange');
+      if (Math.abs(pct) < 0.005) {
+        chg.textContent = '— 0.00%';
+        chg.className   = 'change flat';
+      } else {
+        const arrow = pct > 0 ? '▲' : '▼';
+        chg.textContent = arrow + ' ' + nf(2, 2).format(Math.abs(pct)) + '%';
+        chg.className = 'change ' + (pct > 0 ? 'up' : 'down');
+      }
+
+      /* شارة وضع السعر */
+      el('priceModeHint').textContent = state.showManufacturing
+        ? 'سعر المشغول (شامل المصنعية والضريبة)'
+        : 'سعر الخام';
+
+      /* كروت الأعيرة (تحديث نصّي فقط) */
+      KARATS.forEach(k => {
+        const node = karatNodes[k.k];
+        if (!node) return;
+        const gram = goldGram24 * k.k / 24;
+        node.price.textContent = fmtMoney(fmtPriceMode(gram, c), c);
+        node.unit.textContent  = c.symbol + ' للجرام · ' + k.purity;
+      });
+
+      /* الجدول */
+      if (state.showTable) renderTable(goldGram24, c);
+
+      /* الفضة */
+      const silverGram = market.silverOz / GRAM_PER_OZ * rate;
+      el('silverGram').textContent = fmtMoney(silverGram, c);
+      el('silverUnit').textContent = c.symbol + ' للجرام · نقاء 99.9%';
+      el('silverOz').textContent   = fmtMoney(market.silverOz * rate, c) + ' ' + c.symbol;
+      el('silverKilo').textContent = fmtMoney(silverGram * 1000, c) + ' ' + c.symbol;
+      el('gsRatio').textContent    = nf(1, 1).format(market.goldOz / market.silverOz);
+
+      /* الصرف */
+      el('fxBig').textContent    = fmtRate(rate) + ' ' + c.symbol;
+      el('fxUnit').textContent   = 'لكل 1 دولار أمريكي';
+      el('fx100').textContent    = fmtMoney(rate * 100, c) + ' ' + c.symbol;
+      el('fxLocal').textContent  = fmtRate(1 / rate) + ' دولار';
+      el('fxLocalLabel').textContent = '1 ' + c.symbol + ' مقابل الدولار';
+
+      /* الحاسبة والزكاة */
+      updateCalculator(goldGram24, c);
+      updateZakat(goldGram24, c);
+
+      /* الرسم */
+      drawSpark(el('spark'), histUsd.map(v => v * rate));
+
+      /* حالة السوق */
+      const status = el('marketStatus');
+      if (isMarketOpen()) {
+        status.textContent = 'السوق مفتوح';
+        status.className = 'pill open';
+      } else {
+        status.textContent = 'السوق مغلق';
+        status.className = 'pill closed';
+      }
+
+      /* وقت التحديث */
+      state.lastUpdate = new Date();
+      const t = el('updatedAt');
+      t.textContent = timeFormat.format(state.lastUpdate);
+      t.setAttribute('datetime', state.lastUpdate.toISOString());
+
+    } catch (err) {
+      console.error('[ayar] render error:', err);
+    }
+  }
+
+  /* ======================== التحديث اللحظي ======================== */
+  function tick() {
+    // في الوضع الحقيقي: احترم ساعات السوق
+    if (!DEMO_MODE && !isMarketOpen()) {
+      render();
+      return;
+    }
+    const drift = () => 1 + (Math.random() - 0.5) * 0.0012; // ±0.06% ≈ تقلّب واقعي
+    market.goldOz   = +(market.goldOz   * drift()).toFixed(2);
+    market.silverOz = +(market.silverOz * drift()).toFixed(3);
+    pushUsd(market.goldOz);
+    render();
+  }
+
+  /* ======================== تصدير CSV ======================== */
+  function exportCSV() {
+    try {
+      const c = byCode(state.code);
+      const goldGram24 = market.goldOz / GRAM_PER_OZ * c.rate;
+      const rows = [['العيار','النقاء','الجرام','الكيلو','العملة','الدولة']];
+      KARATS.forEach(k => {
+        const gram = goldGram24 * k.k / 24;
+        const price = fmtPriceMode(gram, c);
+        rows.push([k.k, k.purity, price.toFixed(2), (price * 1000).toFixed(2), c.cur, c.name]);
+      });
+      const silverGram = market.silverOz / GRAM_PER_OZ * c.rate;
+      rows.push(['فضة 999','99.9%', silverGram.toFixed(2), (silverGram * 1000).toFixed(2), c.cur, c.name]);
+      rows.push(['USD','', c.rate.toFixed(4), '', c.cur, c.name]);
+
+      const csv = rows.map(r => r.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\n');
+      const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'ayar-' + c.code + '-' + new Date().toISOString().slice(0, 10) + '.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('[ayar] export error:', err);
+    }
+  }
+
+  /* ======================== التخزين المحلي والهاش ======================== */
+  function loadState() {
+    try {
+      const hash = location.hash.slice(1).toUpperCase();
+      const saved = localStorage.getItem('ayar:country');
+      const candidate = byCode(hash) ? hash : (byCode(saved) ? saved : 'EG');
+      state.code = candidate;
+    } catch (_) { /* تجاهل */ }
+  }
+  function saveState() {
+    try {
+      localStorage.setItem('ayar:country', state.code);
+      history.replaceState(null, '', '#' + state.code);
+    } catch (_) { /* تجاهل */ }
+  }
+
+  /* ======================== التهيئة ======================== */
+  let dataTimer = null;
+  let clockTimer = null;
+
+  function startTimers() {
+    stopTimers();
+    dataTimer  = setInterval(tick, TICK_MS);
+    clockTimer = setInterval(() => {
+      if (!state.lastUpdate) return;
+      const t = el('updatedAt');
+      if (t) t.textContent = timeFormat.format(state.lastUpdate);
+    }, CLOCK_MS);
+  }
+  function stopTimers() {
+    if (dataTimer)  { clearInterval(dataTimer);  dataTimer = null; }
+    if (clockTimer) { clearInterval(clockTimer); clockTimer = null; }
+  }
+
+  function init() {
+    el('year').textContent = new Date().getFullYear();
+
+    loadState();
+    seedHistory();
+    renderChips();
+    syncChips();
+    buildKaratGrid();
+    render();
+
+    /* تبديل الدولة */
+    el('countryChips').addEventListener('click', e => {
+      const btn = e.target.closest('.chip');
+      if (!btn || btn.dataset.code === state.code) return;
+      state.code = btn.dataset.code;
+      syncChips();
+      saveState();
+      render();
+    });
+
+    /* تنقّل بالأسهم بين الشيبس */
+    el('countryChips').addEventListener('keydown', e => {
+      const keys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'];
+      if (!keys.includes(e.key)) return;
+      const chips = Array.from(el('countryChips').querySelectorAll('.chip'));
+      let i = chips.findIndex(c => c.dataset.code === state.code);
+      if (i < 0) return;
+      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   i = (i + 1) % chips.length;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') i = (i - 1 + chips.length) % chips.length;
+      if (e.key === 'Home') i = 0;
+      if (e.key === 'End')  i = chips.length - 1;
+      e.preventDefault();
+      state.code = chips[i].dataset.code;
+      syncChips();
+      saveState();
+      render();
+      chips[i].focus();
+    });
+
+    /* سعر المشغول */
+    el('manufToggle').addEventListener('click', () => {
+      state.showManufacturing = !state.showManufacturing;
+      el('manufToggle').setAttribute('aria-pressed', String(state.showManufacturing));
+      render();
+    });
+
+    /* عرض جدول */
+    el('viewToggle').addEventListener('click', () => {
+      state.showTable = !state.showTable;
+      el('viewToggle').setAttribute('aria-pressed', String(state.showTable));
+      el('karatGrid').hidden = state.showTable;
+      el('karatTable').hidden = !state.showTable;
+      if (state.showTable) {
+        const c = byCode(state.code);
+        const goldGram24 = market.goldOz / GRAM_PER_OZ * c.rate;
+        renderTable(goldGram24, c);
+      }
+    });
+
+    /* تصدير CSV */
+    el('exportBtn').addEventListener('click', exportCSV);
+
+    /* تحديث فوري */
+    el('refreshBtn').addEventListener('click', () => { tick(); });
+
+    /* الحاسبة */
+    el('calcWeight').addEventListener('input', () => {
+      const c = byCode(state.code);
+      updateCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
+    });
+    el('calcKarat').addEventListener('change', () => {
+      const c = byCode(state.code);
+      updateCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
+    });
+
+    /* الزكاة */
+    el('zakatWeight').addEventListener('input', () => {
+      const c = byCode(state.code);
+      updateZakat(market.goldOz / GRAM_PER_OZ * c.rate, c);
+    });
+    el('zakatKarat').addEventListener('change', () => {
+      const c = byCode(state.code);
+      updateZakat(market.goldOz / GRAM_PER_OZ * c.rate, c);
+    });
+
+    /* إعادة الرسم عند تغيير الحجم */
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(render, 150);
+    });
+
+    /* إيقاف عند إخفاء الصفحة (بطارية) */
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopTimers();
+      else { render(); startTimers(); }
+    });
+
+    startTimers();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    el.textContent = 'غير متاح';
+    init();
   }
-}
-
-function showCacheNotice(show) {
-  const el = document.getElementById('cacheNotice');
-  if (!el) return;
-  el.classList.toggle('show', !!show);
-}
-
-function refreshCacheNotice() {
-  const hasAny = goldPrice || currencyRates;
-  const anyFailed = goldFetchFailed || currencyFetchFailed;
-  showCacheNotice(hasAny && anyFailed);
-}
-
-async function fetchWithTimeout(url, ms) {
-  const controller = new AbortController();
-  const t = setTimeout(() => controller.abort(), ms || FETCH_TIMEOUT_MS);
-  try {
-    const res = await fetch(url, { cache: 'no-store', signal: controller.signal });
-    clearTimeout(t);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    return await res.json();
-  } catch (e) { clearTimeout(t); throw e; }
-}
-
-/* ============================================================
-   الكاش (localStorage)
-   ============================================================ */
-function saveCache(key, value) {
-  try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
-}
-function readCache(key) {
-  try {
-    const v = JSON.parse(localStorage.getItem(key) || 'null');
-    if (!v || !v.t) return null;
-    if (Date.now() - v.t > CACHE_TTL_MS) return null;
-    return v;
-  } catch (e) { return null; }
-}
-function loadFromCache() {
-  const g = readCache(LS_GOLD);
-  if (g && g.price > 0) {
-    goldPrice = { priceUsdOz: g.price, asOf: new Date(g.t), source: 'cache' };
-  }
-  const c = readCache(LS_CURRENCY);
-  if (c && c.rates && Object.keys(c.rates).length) {
-    currencyRates = c.rates;
-    currencyAsOf  = new Date(c.t);
-  }
-}
-
-/* ============================================================
-   جلب البيانات
-   ============================================================ */
-async function fetchGoldPrice() {
-  for (const src of GOLD_SOURCES) {
-    try {
-      const data  = await fetchWithTimeout(src.url);
-      const price = src.parse(data);
-      if (price && price > 0) {
-        return { priceUsdOz: price, source: src.name, asOf: new Date() };
-      }
-    } catch (e) { console.warn('Gold source failed:', src.name, e.message); }
-  }
-  throw new Error('كل مصادر الذهب فشلت');
-}
-
-async function fetchCurrencyRates() {
-  for (const src of CURRENCY_SOURCES) {
-    try {
-      const data  = await fetchWithTimeout(src.url);
-      const rates = src.parse(data);
-      if (rates && Object.keys(rates).length > 0) {
-        return { rates, asOf: new Date(), source: src.name };
-      }
-    } catch (e) { console.warn('Currency source failed:', src.name, e.message); }
-  }
-  throw new Error('كل مصادر العملات فشلت');
-}
-
-/* ============================================================
-   بناء واجهة الدول (مرة واحدة)
-   ============================================================ */
-function getTargetsFor(country) {
-  return TARGET_CURRENCIES.filter(c => c !== country.currency);
-}
-
-function buildCountriesUI() {
-  const container = document.getElementById('countriesContainer');
-  if (!container) return;
-  container.innerHTML = '';
-
-  COUNTRIES.forEach(country => {
-    const sym     = CURRENCY_SYMBOLS[country.currency] || country.currency;
-    const targets = getTargetsFor(country);
-
-    const currencyRows = targets.map(code => `
-      <tr>
-        <td class="label-cell">${CURRENCY_NAMES[code] || code}</td>
-        <td><span class="code-badge">${code}</span></td>
-        <td class="value-cell inverted" data-cell="${code}">—</td>
-      </tr>`).join('');
-
-    const section = document.createElement('section');
-    section.className = 'country-section';
-    section.dataset.country = country.code;
-    section.innerHTML = `
-      <div class="country-head">
-        <h2 class="country-title"><span class="flag">${country.flag}</span>${country.name}</h2>
-        <span class="country-meta">${country.currency} · أسعار محلية</span>
-      </div>
-      <div class="country-grid">
-        <div class="card">
-          <div class="card-header">
-            <span class="dot gold"></span> الذهب (لكل جرام)
-            <span class="card-timestamp" data-ts="gold">—</span>
-          </div>
-          <div class="overflow"><table>
-            <thead><tr><th>العيار</th><th>السعر</th></tr></thead>
-            <tbody>
-              <tr><td class="label-cell">عيار 24</td><td class="value-cell gold" data-cell="k24">—</td></tr>
-              <tr><td class="label-cell">عيار 22</td><td class="value-cell gold" data-cell="k22">—</td></tr>
-              <tr><td class="label-cell">عيار 21</td><td class="value-cell gold" data-cell="k21">—</td></tr>
-              <tr><td class="label-cell">عيار 18</td><td class="value-cell gold" data-cell="k18">—</td></tr>
-            </tbody>
-          </table></div>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <span class="dot blue"></span> العملات مقابل ${sym}
-            <span class="card-timestamp" data-ts="currency">—</span>
-          </div>
-          <div class="overflow"><table>
-            <thead><tr><th>العملة</th><th>الكود</th><th>1 وحدة = ؟</th></tr></thead>
-            <tbody>${currencyRows}</tbody>
-          </table></div>
-        </div>
-      </div>`;
-    container.appendChild(section);
-  });
-
-  uiBuilt = true;
-}
-
-/* ============================================================
-   تحديث قيم الواجهة (تفاضلي)
-   ============================================================ */
-function updateCountriesUI() {
-  const anyData = goldPrice || currencyRates;
-  const container = document.getElementById('countriesContainer');
-  if (!container) return;
-
-  if (!anyData) {
-    container.innerHTML = `
-      <div class="offline-panel">
-        <p>⚠️ تعذّر تحميل البيانات. تحقق من اتصالك وحاول مجدداً.</p>
-        <button onclick="manualReloadAll()">إعادة المحاولة</button>
-      </div>`;
-    uiBuilt = false;
-    return;
-  }
-
-  if (!uiBuilt) buildCountriesUI();
-
-  COUNTRIES.forEach(country => {
-    const section = container.querySelector('[data-country="' + country.code + '"]');
-    if (!section) return;
-
-    const sym = CURRENCY_SYMBOLS[country.currency] || country.currency;
-    const localPerUsd = currencyRates ? currencyRates[country.currency] : null;
-
-    // الذهب
-    const goldTs = section.querySelector('[data-ts="gold"]');
-    if (goldPrice && localPerUsd && localPerUsd > 0) {
-      const g = (goldPrice.priceUsdOz * localPerUsd) / OZ_TO_GRAM;
-      const prices = { k24: g, k22: g * 22 / 24, k21: g * 21 / 24, k18: g * 18 / 24 };
-      ['k24', 'k22', 'k21', 'k18'].forEach(k => {
-        const cell = section.querySelector('[data-cell="' + k + '"]');
-        if (cell) cell.textContent = fmt(prices[k], 0) + ' ' + sym;
-      });
-      if (goldTs) goldTs.textContent = 'آخر تحديث: ' + fmtTime(goldPrice.asOf);
-    } else {
-      ['k24', 'k22', 'k21', 'k18'].forEach(k => {
-        const cell = section.querySelector('[data-cell="' + k + '"]');
-        if (cell) cell.textContent = '—';
-      });
-      if (goldTs) goldTs.textContent = '—';
-    }
-
-    // العملات
-    const curTs = section.querySelector('[data-ts="currency"]');
-    if (currencyRates && localPerUsd && localPerUsd > 0) {
-      getTargetsFor(country).forEach(code => {
-        const cell = section.querySelector('[data-cell="' + code + '"]');
-        if (!cell) return;
-        const foreignPerUsd = currencyRates[code];
-        cell.textContent = (foreignPerUsd && foreignPerUsd > 0)
-          ? fmt(localPerUsd / foreignPerUsd, 2) + ' ' + sym
-          : '—';
-      });
-      if (curTs) curTs.textContent = 'آخر تحديث: ' + fmtTime(currencyAsOf);
-    } else {
-      getTargetsFor(country).forEach(code => {
-        const cell = section.querySelector('[data-cell="' + code + '"]');
-        if (cell) cell.textContent = '—';
-      });
-      if (curTs) curTs.textContent = '—';
-    }
-  });
-}
-
-/* ============================================================
-   تحديث الذهب
-   ============================================================ */
-async function updateGold() {
-  try {
-    const result = await fetchGoldPrice();
-    goldPrice = result;
-    goldFetchFailed = false;
-    saveCache(LS_GOLD, { price: result.priceUsdOz, t: Date.now() });
-    updateRateBadge();
-    updateCountriesUI();
-    updateHeaderTimestamp();
-    refreshCacheNotice();
-    syncStatus();
-  } catch (e) {
-    console.error('فشل تحديث الذهب:', e);
-    goldFetchFailed = true;
-    if (!goldPrice) {
-      const g = readCache(LS_GOLD);
-      if (g && g.price > 0) {
-        goldPrice = { priceUsdOz: g.price, asOf: new Date(g.t), source: 'cache' };
-      }
-    }
-    updateRateBadge();
-    updateCountriesUI();
-    updateHeaderTimestamp();
-    refreshCacheNotice();
-    syncStatus();
-  }
-}
-
-/* ============================================================
-   تحديث العملات
-   ============================================================ */
-async function updateCurrencies() {
-  try {
-    const result = await fetchCurrencyRates();
-    currencyRates = result.rates;
-    currencyAsOf  = result.asOf;
-    currencyFetchFailed = false;
-    saveCache(LS_CURRENCY, { rates: result.rates, t: Date.now() });
-    updateCountriesUI();
-    updateHeaderTimestamp();
-    refreshCacheNotice();
-    syncStatus();
-  } catch (e) {
-    console.error('فشل تحديث العملات:', e);
-    currencyFetchFailed = true;
-    if (!currencyRates) {
-      const c = readCache(LS_CURRENCY);
-      if (c && c.rates) {
-        currencyRates = c.rates;
-        currencyAsOf  = new Date(c.t);
-      }
-    }
-    updateCountriesUI();
-    updateHeaderTimestamp();
-    refreshCacheNotice();
-    syncStatus();
-  }
-}
-
-/* ============================================================
-   نظام العدّاد التنازلي والجدولة
-   ============================================================ */
-let goldNextTime = null;
-let currencyNextTime = null;
-let goldCountdownTimer = null;
-let currencyCountdownTimer = null;
-let goldTimeoutId = null;
-let currencyTimeoutId = null;
-
-function startCountdown(elId, targetTime) {
-  const el = document.getElementById(elId);
-  if (!el) return;
-  if (!targetTime) { el.textContent = '—'; return; }
-  const remaining = targetTime - Date.now();
-  if (remaining <= 0) { el.textContent = 'جاري التحديث...'; return; }
-  const totalSec = Math.floor(remaining / 1000);
-  const mins = Math.floor(totalSec / 60);
-  const secs = totalSec % 60;
-  el.textContent = mins + ' د ' + String(secs).padStart(2, '0') + ' ث';
-}
-
-function startGoldCountdown() {
-  if (goldCountdownTimer) clearInterval(goldCountdownTimer);
-  goldCountdownTimer = setInterval(() => startCountdown('goldCountdown', goldNextTime), 1000);
-}
-function startCurrencyCountdown() {
-  if (currencyCountdownTimer) clearInterval(currencyCountdownTimer);
-  currencyCountdownTimer = setInterval(() => startCountdown('currencyCountdown', currencyNextTime), 1000);
-}
-
-function scheduleGoldUpdate() {
-  if (goldTimeoutId) clearTimeout(goldTimeoutId);
-  goldNextTime = Date.now() + GOLD_UPDATE_INTERVAL_MS;
-  startGoldCountdown();
-  goldTimeoutId = setTimeout(async () => {
-    await updateGold();
-    scheduleGoldUpdate();
-  }, GOLD_UPDATE_INTERVAL_MS);
-}
-
-function scheduleCurrencyUpdate() {
-  if (currencyTimeoutId) clearTimeout(currencyTimeoutId);
-  currencyNextTime = Date.now() + CURRENCY_UPDATE_INTERVAL_MS;
-  startCurrencyCountdown();
-  currencyTimeoutId = setTimeout(async () => {
-    await updateCurrencies();
-    scheduleCurrencyUpdate();
-  }, CURRENCY_UPDATE_INTERVAL_MS);
-}
-
-/* ============================================================
-   إعادة تحميل يدوية
-   ============================================================ */
-function manualReloadAll() {
-  if (goldTimeoutId) clearTimeout(goldTimeoutId);
-  if (currencyTimeoutId) clearTimeout(currencyTimeoutId);
-  if (goldCountdownTimer) clearInterval(goldCountdownTimer);
-  if (currencyCountdownTimer) clearInterval(currencyCountdownTimer);
-  (async () => {
-    await Promise.allSettled([updateGold(), updateCurrencies()]);
-    scheduleGoldUpdate();
-    scheduleCurrencyUpdate();
-  })();
-}
-
-/* ============================================================
-   إعادة الجدولة عند العودة للتبويب
-   ============================================================ */
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState !== 'visible') return;
-  const now = Date.now();
-  if (goldNextTime && now >= goldNextTime) {
-    updateGold().then(scheduleGoldUpdate);
-  }
-  if (currencyNextTime && now >= currencyNextTime) {
-    updateCurrencies().then(scheduleCurrencyUpdate);
-  }
-});
-
-/* ============================================================
-   بدء التشغيل
-   ============================================================ */
-(async function init() {
-  setStatus('loading');
-  updateRateBadge();
-
-  // 1) اعرض الكاش إن وُجد
-  loadFromCache();
-  if (goldPrice || currencyRates) {
-    updateCountriesUI();
-    updateHeaderTimestamp();
-    updateRateBadge();
-    syncStatus();
-  }
-
-  // 2) اجلب البيانات الحقيقية
-  await Promise.allSettled([updateGold(), updateCurrencies()]);
-
-  // 3) جهّز المؤقّتات
-  scheduleGoldUpdate();
-  scheduleCurrencyUpdate();
 })();
 </script>
-
-<!-- ===== Monetag Vignette Banner (Zone 12132627) ===== -->
-<script>(function(s){s.dataset.zone='12132627',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
 </body>
 </html>
