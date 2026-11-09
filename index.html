@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0b0f">
-<meta name="description" content="عيار — تتبّع لحظي لأسعار الذهب والفضة والعملات في 9 دول عربية. سعر جرام الذهب عيار 24، 22، 21، 18 بالجنيه المصري والريال السعودي والدرهم الإماراتي والدينار الكويتي. حاسبة الزكاة وحاسبة بيع وشراء الذهب.">
-<meta name="keywords" content="سعر الذهب اليوم, سعر جرام الذهب, سعر الذهب عيار 21, عيار 24, حاسبة الذهب, حاسبة الزكاة, أسعار الفضة, أسعار العملات, حاسبة بيع وشراء الذهب">
+<meta name="description" content="عيار — تتبّع لحظي لأسعار الذهب والفضة والعملات في 9 دول عربية. مقارنة أسعار الذهب بين الدول، حاسبة الزكاة، حاسبة البيع والشراء، ورسم بياني تاريخي.">
+<meta name="keywords" content="سعر الذهب اليوم, سعر جرام الذهب, سعر الذهب عيار 21, مقارنة أسعار الذهب, أرخص دولة ذهب, حاسبة الذهب, حاسبة الزكاة">
 <meta name="robots" content="index,follow">
-<title>عيار — أسعار الذهب اليوم في مصر والسعودية والإمارات | 9 دول عربية</title>
+<title>عيار — أسعار الذهب اليوم ومقارنتها بين 9 دول عربية</title>
 <link rel="canonical" href="https://ayar-five.vercel.app/">
 
-<meta property="og:title" content="عيار — أسعار الذهب والفضة والعملات في الوطن العربي">
-<meta property="og:description" content="تتبّع لحظي لأسعار الذهب والفضة والعملات في 9 دول عربية. بيانات مباشرة من الأسواق العالمية.">
+<meta property="og:title" content="عيار — أسعار الذهب ومقارنتها بين الدول العربية">
+<meta property="og:description" content="أين الذهب أرخص؟ قارن أسعار الذهب بين 9 دول عربية شامل الضرائب والمصنعية.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ar_AR">
 <meta property="og:url" content="https://ayar-five.vercel.app/">
@@ -19,21 +19,18 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="عيار — أسعار الذهب والفضة والعملات">
-<meta name="twitter:description" content="تتبّع لحظي لأسعار الذهب والفضة والعملات في 9 دول عربية.">
+<meta name="twitter:title" content="عيار — أسعار الذهب ومقارنتها بين الدول">
+<meta name="twitter:description" content="أين الذهب أرخص؟ قارن أسعار الذهب بين 9 دول عربية.">
 <meta name="twitter:image" content="https://ayar-five.vercel.app/og-1200x630.png">
 
-<!-- Monetag — Multitag -->
 <script src="https://quge5.com/88/tag.min.js" data-zone="307983" async data-cfasync="false"></script>
-
-<!-- Lightweight Charts — TradingView -->
 <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
 
 <link rel="manifest" href='data:application/manifest+json,{"name":"عيار","short_name":"عيار","start_url":"./","display":"standalone","background_color":"%230a0b0f","theme_color":"%230a0b0f","lang":"ar","dir":"rtl"}'>
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='38' fill='%230a0b0f'/%3E%3Ccircle cx='90' cy='90' r='62' fill='%23e9b949'/%3E%3Ctext x='90' y='120' text-anchor='middle' font-size='86' font-weight='700' fill='%233a2a06' font-family='sans-serif'%3Eع%3C/text%3E%3C/svg%3E">
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"عيار","url":"https://ayar-five.vercel.app/","inLanguage":"ar","description":"أسعار الذهب والفضة والعملات في 9 دول عربية.","potentialAction":{"@type":"SearchAction","target":"https://ayar-five.vercel.app/?q={search_term_string}","query-input":"required name=search_term_string"}}
+{"@context":"https://schema.org","@type":"WebSite","name":"عيار","url":"https://ayar-five.vercel.app/","inLanguage":"ar","description":"أسعار الذهب والفضة والعملات في 9 دول عربية ومقارنتها.","potentialAction":{"@type":"SearchAction","target":"https://ayar-five.vercel.app/?q={search_term_string}","query-input":"required name=search_term_string"}}
 </script>
 
 <script type="application/ld+json">
@@ -41,11 +38,12 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
+    {"@type":"Question","name":"أين الذهب أرخص في الدول العربية؟","acceptedAnswer":{"@type":"Answer","text":"تختلف الأسعار حسب سعر الصرف والضرائب المحلية والمصنعية. عادةً تكون السعودية والكويت والبحرين من الأرخص لعدم وجود ضريبة على الذهب، بينما مصر والأردن أغلى بسبب ضريبة 14% و16% على التوالي. استخدم قسم المقارنة في الموقع للمقارنة الدقيقة."}},
     {"@type":"Question","name":"كم سعر جرام الذهب اليوم؟","acceptedAnswer":{"@type":"Answer","text":"سعر جرام الذهب اليوم يتغير لحظياً حسب السوق العالمي وسعر الصرف المحلي. في موقع عيار، يمكنك رؤية سعر الجرام لكل عيار (24، 22، 21، 18) في 9 دول عربية."}},
     {"@type":"Question","name":"كيف يتم حساب سعر الذهب؟","acceptedAnswer":{"@type":"Answer","text":"يُحسب سعر الجرام بقسمة سعر أونصة الذهب العالمي على 31.1035، ثم ضربه في سعر صرف العملة المحلية، ثم في نسبة نقاء العيار."}},
-    {"@type":"Question","name":"ما الفرق بين عيار 21 وعيار 24؟","acceptedAnswer":{"@type":"Answer","text":"عيار 24 هو الذهب الخالص 99.9% للاستثمار. عيار 21 يحتوي على 87.5% ذهب و12.5% معادن أخرى، وهو الأكثر شيوعاً في المشغولات."}},
-    {"@type":"Question","name":"هل السعر المعروض يشمل المصنعية؟","acceptedAnswer":{"@type":"Answer","text":"السعر الأساسي هو سعر الخام. استخدم حاسبة البيع والشراء لإضافة المصنعية والضريبة المحلية لكل دولة."}},
-    {"@type":"Question","name":"كيف أحسب زكاة الذهب؟","acceptedAnswer":{"@type":"Answer","text":"تجب إذا بلغ الذهب 85 جراماً خالصاً وحال عليه الحول. المقدار 2.5% من قيمته. استخدم حاسبة الزكاة المدمجة."}},
+    {"@type":"Question","name":"ما الفرق بين عيار 21 وعيار 24؟","acceptedAnswer":{"@type":"Answer","text":"عيار 24 هو الذهب الخالص 99.9% للاستثمار. عيار 21 يحتوي على 87.5% ذهب و12.5% معادن أخرى."}},
+    {"@type":"Question","name":"هل السعر المعروض يشمل المصنعية؟","acceptedAnswer":{"@type":"Answer","text":"السعر الأساسي هو سعر الخام. استخدم حاسبة البيع والشراء لإضافة المصنعية والضريبة."}},
+    {"@type":"Question","name":"كيف أحسب زكاة الذهب؟","acceptedAnswer":{"@type":"Answer","text":"تجب إذا بلغ 85 جراماً خالصاً وحال عليه الحول. المقدار 2.5%."}},
     {"@type":"Question","name":"ما الفرق بين سعر البيع والشراء من التاجر؟","acceptedAnswer":{"@type":"Answer","text":"عند الشراء تدفع سعر الخام + المصنعية + الضريبة. عند البيع يُستقطع 2-5% من سعر الخام كهامش ربح التاجر."}}
   ]
 }
@@ -176,58 +174,17 @@
   .calc-result strong{color:var(--gold-soft);font-size:20px;font-variant-numeric:tabular-nums;display:block;margin-top:2px}
   .calc-note{font-size:11px;color:var(--muted);margin-top:8px;text-align:center}
 
-  /* ============ تفصيل حاسبة البيع والشراء ============ */
-  .calc-breakdown{
-    margin-top:12px;
-    display:grid;
-    gap:2px;
-    padding:12px 14px;
-    background:var(--surface-2);
-    border:1px solid var(--line);
-    border-radius:10px;
-  }
-  .calc-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    padding:5px 0;
-    font-size:12.5px;
-    color:var(--muted);
-    border-bottom:1px dashed rgba(36,42,61,.4);
-  }
+  .calc-breakdown{margin-top:12px;display:grid;gap:2px;padding:12px 14px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px}
+  .calc-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:5px 0;font-size:12.5px;color:var(--muted);border-bottom:1px dashed rgba(36,42,61,.4)}
   .calc-row:last-child{border-bottom:0}
-  .calc-row strong{
-    font-size:13.5px;
-    font-weight:800;
-    font-variant-numeric:tabular-nums;
-    color:var(--text);
-  }
-  .calc-row.total-buy{
-    padding-top:10px;
-    margin-top:4px;
-    border-top:2px solid var(--amber);
-    border-bottom:0;
-    color:var(--amber);
-    font-weight:700;
-  }
+  .calc-row strong{font-size:13.5px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--text)}
+  .calc-row.total-buy{padding-top:10px;margin-top:4px;border-top:2px solid var(--amber);border-bottom:0;color:var(--amber);font-weight:700}
   .calc-row.total-buy strong{color:var(--amber);font-size:16px}
-  .calc-row.total-sell{
-    padding-top:6px;
-    border-bottom:0;
-    color:var(--green);
-    font-weight:700;
-  }
+  .calc-row.total-sell{padding-top:6px;border-bottom:0;color:var(--green);font-weight:700}
   .calc-row.total-sell strong{color:var(--green);font-size:16px}
-  .calc-row.spread{
-    padding-top:6px;
-    border-bottom:0;
-    font-size:11.5px;
-    color:var(--red);
-  }
+  .calc-row.spread{padding-top:6px;border-bottom:0;font-size:11.5px;color:var(--red)}
   .calc-row.spread strong{color:var(--red);font-size:12.5px}
 
-  /* ============ قسم الرسم البياني ============ */
   .chart-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:0;overflow:hidden}
   .chart-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
   .chart-title{display:flex;flex-direction:column;gap:2px}
@@ -251,7 +208,38 @@
   .chart-foot a{color:var(--gold-soft);text-decoration:none}
   .chart-foot a:hover{text-decoration:underline}
 
-  /* محتوى SEO */
+  /* ============ مقارنة الدول ============ */
+  .compare-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .compare-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
+  .cmp-sum-item{display:flex;flex-direction:column;gap:3px;padding:14px 18px;background:var(--surface-2)}
+  .cmp-sum-item > span{font-size:11.5px;color:var(--muted);font-weight:600}
+  .cmp-sum-item > strong{font-size:15px;color:var(--text);font-weight:800}
+  .cmp-sum-item > small{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .cmp-sum-item.cheapest{background:rgba(47,211,154,.08);border-inline-start:3px solid var(--green)}
+  .cmp-sum-item.cheapest > strong{color:var(--green)}
+  .cmp-sum-item.cheapest > small{color:var(--green);opacity:.85}
+  .cmp-sum-item.priciest{background:rgba(255,95,122,.08);border-inline-start:3px solid var(--red)}
+  .cmp-sum-item.priciest > strong{color:var(--red)}
+  .cmp-sum-item.diff > strong{color:var(--gold-soft)}
+
+  .compare-table-wrap{overflow-x:auto}
+  .compare-table{width:100%;border-collapse:collapse;font-size:13px}
+  .compare-table thead th{background:var(--surface-2);color:var(--muted);font-size:11.5px;font-weight:700;padding:10px 12px;text-align:start;border-bottom:1px solid var(--line);white-space:nowrap}
+  .compare-table tbody td{padding:11px 12px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;font-weight:600;color:var(--text)}
+  .compare-table tbody tr:last-child td{border-bottom:0}
+  .compare-table tbody tr.is-cheapest{background:rgba(47,211,154,.06);border-inline-start:3px solid var(--green)}
+  .compare-table .rank{text-align:center;width:44px;font-weight:800;color:var(--muted)}
+  .compare-table tbody tr.is-cheapest .rank{color:var(--green);font-size:16px}
+  .compare-table .country{display:flex;align-items:center;gap:7px;font-weight:700;white-space:nowrap}
+  .compare-table .country .flag{font-size:16px}
+  .compare-table .local{font-size:12.5px}
+  .compare-table .adds{font-size:11px;color:var(--muted);font-weight:500;white-space:nowrap}
+  .compare-table .total-usd{font-weight:800;color:var(--gold-soft);font-size:14px;white-space:nowrap}
+  .compare-table tbody tr.is-cheapest .total-usd{color:var(--green)}
+  .compare-table .diff{font-size:12px;color:var(--muted);white-space:nowrap}
+  .compare-table tbody tr.is-cheapest .diff{color:var(--green);font-weight:700}
+  .compare-note{padding:10px 16px 12px;font-size:11px;color:var(--muted);border-top:1px solid var(--line);background:var(--surface-2);line-height:1.6}
+
   .content-section{margin-top:32px;padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
   .content-section h2{color:var(--gold-soft);font-size:20px;margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
   .content-section p{margin:0 0 12px;font-size:14.5px;line-height:1.85;color:#c9d1e3}
@@ -285,11 +273,18 @@
     #goldChart{height:260px}
     .chart-head{padding:12px 14px}
     .chart-tab{padding:5px 9px;font-size:11.5px}
+    .compare-table thead th:nth-child(4),
+    .compare-table tbody td:nth-child(4),
+    .compare-table thead th:nth-child(6),
+    .compare-table tbody td:nth-child(6){display:none}
+    .compare-table tbody td{padding:9px 8px;font-size:12px}
+    .compare-table .total-usd{font-size:13px}
+    .cmp-sum-item{padding:11px 12px}
   }
   @media print{
     .site-header,.countries,.skip,.toolbar,.spark-label,#spark,.pill.live,.pill.demo,.market-status,.ad-slot,.chart-card{display:none !important}
     body{background:#fff;color:#000;padding:0}
-    .hero,.card,.data-table,.content-section{background:#fff;border:1px solid #bbb;color:#000;box-shadow:none}
+    .hero,.card,.data-table,.content-section,.compare-card{background:#fff;border:1px solid #bbb;color:#000;box-shadow:none}
     .big{color:#000 !important;background:none !important;-webkit-text-fill-color:#000 !important}
     .price,.k-num,.calc-result strong{color:#000 !important}
     .karat.is-popular{background:#f5f0e0}
@@ -335,7 +330,7 @@
 </nav>
 
 <main class="wrap" id="main" tabindex="-1">
-  <h1 class="sr-only">أسعار الذهب والفضة والعملات في الوطن العربي</h1>
+  <h1 class="sr-only">أسعار الذهب والفضة والعملات ومقارنتها بين الدول العربية</h1>
 
   <div class="ad-slot" data-ad="top" aria-hidden="true"></div>
 
@@ -392,7 +387,6 @@
     </div>
   </section>
 
-  <!-- ============ الرسم البياني التاريخي ============ -->
   <section class="section" aria-labelledby="chartTitle">
     <div class="section-head">
       <h2 id="chartTitle">الرسم البياني التاريخي</h2>
@@ -429,12 +423,44 @@
     </div>
   </section>
 
+  <!-- ============ مقارنة الأسعار بين الدول ============ -->
+  <section class="section" aria-labelledby="compareTitle">
+    <div class="section-head">
+      <h2 id="compareTitle">مقارنة الأسعار بين الدول</h2>
+      <span class="hint">أين الذهب أرخص؟ — عيار 21 شامل المصنعية والضريبة</span>
+    </div>
+    <div class="compare-card">
+      <div class="compare-summary" id="compareSummary">
+        <div class="cmp-sum-item"><span>جارٍ الحساب…</span></div>
+      </div>
+      <div class="compare-table-wrap">
+        <table class="compare-table" aria-label="مقارنة أسعار جرام الذهب عيار 21 بين الدول">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>الدولة</th>
+              <th>سعر الجرام 21</th>
+              <th>+ ضرائب ومصنعية</th>
+              <th>السعر النهائي</th>
+              <th>الفرق</th>
+            </tr>
+          </thead>
+          <tbody id="compareBody">
+            <tr><td colspan="6" style="text-align:center;padding:20px;color:var(--muted)">جارٍ الحساب…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="compare-note">
+        المقارنة موحّدة بالدولار الأمريكي لتحييد فروق العملات. السعر النهائي = سعر الخام + مصنعية الدولة الافتراضية + الضريبة المحلية. المصنعية في الواقع تختلف حسب التصميم والتاجر.
+      </p>
+    </div>
+  </section>
+
   <div class="ad-slot" data-ad="in-article" aria-hidden="true"></div>
 
   <section class="section" aria-labelledby="calcTitle">
     <div class="section-head"><h2 id="calcTitle">حاسبة الذهب والزكاة</h2></div>
     <div class="grid two">
-      <!-- 🆕 حاسبة بيع وشراء كاملة -->
       <article class="card">
         <h3 class="card-title">حاسبة البيع والشراء</h3>
         <div class="form-row">
@@ -486,6 +512,18 @@
     </ul>
   </section>
 
+  <section class="content-section" aria-labelledby="explainCompare">
+    <h2 id="explainCompare">لماذا تختلف أسعار الذهب بين الدول العربية؟</h2>
+    <p>سعر جرام الذهب <strong>لا يتحدد فقط بالسعر العالمي</strong>، بل يتأثر بعوامل محلية تجعل الفرق بين الأرخص والأغلى يصل إلى 20% أو أكثر:</p>
+    <ul>
+      <li><strong>سعر الصرف:</strong> حتى لو كانت الأونصة بنفس السعر بالدولار، فإن قيمة العملة المحلية تحدد السعر النهائي. الدولار بـ 53 جنيهاً مصرياً ليس كالدولار بـ 3.75 ريالات.</li>
+      <li><strong>الضرائب:</strong> مصر تفرض 14%، الأردن 16%، الإمارات 5%، بينما السعودية والكويت وقطر والبحرين وعُمان لا تفرض ضريبة على الذهب الاستثماري.</li>
+      <li><strong>المصنعية:</strong> تتراوح من 2% إلى 7% حسب الدولة والتاجر والتصميم.</li>
+      <li><strong>هامش التاجر عند البيع:</strong> يستقطع 2-3% عند إعادة الشراء منك.</li>
+    </ul>
+    <p>لذلك، فإن <strong>مقارنة أسعار جرام الذهب مباشرة</strong> بين الدول تحتاج إلى توحيدها بالدولار، ثم احتساب الضرائب والمصنعية. قسم "مقارنة الأسعار" في الموقع يفعل ذلك تلقائياً.</p>
+  </section>
+
   <section class="content-section" aria-labelledby="explainCalc">
     <h2 id="explainCalc">كيف يتم حساب سعر جرام الذهب؟</h2>
     <p>سعر الجرام في أي دولة يمر بثلاث خطوات:</p>
@@ -510,6 +548,10 @@
   <section class="content-section" aria-labelledby="faqTitle">
     <h2 id="faqTitle">الأسئلة الشائعة</h2>
     <div class="faq">
+      <details class="faq-item">
+        <summary>أين الذهب أرخص في الدول العربية؟</summary>
+        <div class="faq-answer">تختلف الأسعار حسب سعر الصرف والضرائب المحلية والمصنعية. عادةً تكون السعودية والكويت والبحرين من الأرخص لعدم وجود ضريبة على الذهب، بينما مصر والأردن أغلى بسبب ضريبة 14% و16% على التوالي. استخدم قسم المقارنة في الموقع للمقارنة الدقيقة.</div>
+      </details>
       <details class="faq-item">
         <summary>كم سعر جرام الذهب اليوم؟</summary>
         <div class="faq-answer">سعر جرام الذهب اليوم يتغير حسب السوق العالمي وسعر الصرف المحلي. في عيار، ترى سعر الجرام لكل عيار في 9 دول عربية.</div>
@@ -743,7 +785,6 @@
     }).join('');
   }
 
-  /* ======================== حاسبة البيع والشراء ======================== */
   function updateCalculator(goldGram24, c) {
     const w = parseFloat(el('calcWeight').value) || 0;
     const k = parseInt(el('calcKarat').value, 10) || 24;
@@ -781,6 +822,68 @@
     const zakat = pure * goldGram24 * 0.025;
     el('zakatResult').textContent = fmtMoney(zakat, c) + ' ' + c.symbol;
     el('zakatNote').textContent = 'النصاب مُستوفى. الزكاة = 2.5% من قيمة الذهب الخالص.';
+  }
+
+  /* ======================== مقارنة الدول ======================== */
+  function updateComparison() {
+    const tbody = el('compareBody');
+    const summary = el('compareSummary');
+    if (!tbody || !summary) return;
+
+    const usdGram21 = (market.goldOz / GRAM_PER_OZ) * (21 / 24);
+    if (!usdGram21 || usdGram21 <= 0) return;
+
+    const rows = COUNTRIES.map(c => {
+      const gram21Local = usdGram21 * c.rate;
+      const manuf = gram21Local * (c.manuf || 0);
+      const tax   = gram21Local * (c.tax   || 0);
+      const addsLocal = manuf + tax;
+      const totalLocal = gram21Local + addsLocal;
+      const totalUSD = totalLocal / c.rate;
+      return { c, gram21Local, addsLocal, totalUSD };
+    });
+
+    rows.sort((a, b) => a.totalUSD - b.totalUSD);
+
+    const cheapest = rows[0];
+    const priciest = rows[rows.length - 1];
+    const diffPct = ((priciest.totalUSD - cheapest.totalUSD) / cheapest.totalUSD) * 100;
+    const diffAbs = priciest.totalUSD - cheapest.totalUSD;
+
+    summary.innerHTML = `
+      <div class="cmp-sum-item cheapest">
+        <span>🏆 الأرخص (عيار 21)</span>
+        <strong>${cheapest.c.flag} ${cheapest.c.name}</strong>
+        <small>${nf(2,2).format(cheapest.totalUSD)} $ / جرام</small>
+      </div>
+      <div class="cmp-sum-item priciest">
+        <span>📈 الأغلى</span>
+        <strong>${priciest.c.flag} ${priciest.c.name}</strong>
+        <small>${nf(2,2).format(priciest.totalUSD)} $ / جرام</small>
+      </div>
+      <div class="cmp-sum-item diff">
+        <span>💡 فرق السعر</span>
+        <strong>${nf(1,1).format(diffPct)}%</strong>
+        <small>+${nf(2,2).format(diffAbs)} $ بين الأرخص والأغلى</small>
+      </div>
+    `;
+
+    tbody.innerHTML = rows.map((r, i) => {
+      const diffFromCheapest = r.totalUSD - cheapest.totalUSD;
+      const diffPctRow = cheapest.totalUSD > 0
+        ? (diffFromCheapest / cheapest.totalUSD) * 100
+        : 0;
+      const isCheapest = i === 0;
+      return `
+        <tr class="${isCheapest ? 'is-cheapest' : ''}">
+          <td class="rank">${isCheapest ? '🥇' : (i + 1)}</td>
+          <td class="country"><span class="flag">${r.c.flag}</span>${r.c.name}</td>
+          <td class="local">${fmtMoney(r.gram21Local, r.c)} ${r.c.symbol}</td>
+          <td class="adds">+${fmtMoney(r.addsLocal, r.c)} ${r.c.symbol}</td>
+          <td class="total-usd">${nf(2,2).format(r.totalUSD)} $</td>
+          <td class="diff">${isCheapest ? 'الأرخص' : '+' + nf(1,1).format(diffPctRow) + '%'}</td>
+        </tr>`;
+    }).join('');
   }
 
   function render() {
@@ -837,6 +940,7 @@
       updateCalculator(goldGram24, c);
       updateZakat(goldGram24, c);
       drawSpark(el('spark'), histUsd.map(v => v * rate));
+      updateComparison();
 
       const status = el('marketStatus');
       if (isMarketOpen()) { status.textContent = 'السوق مفتوح'; status.className = 'pill open'; }
@@ -911,7 +1015,7 @@
     render();
   }
 
-  /* ======================== الرسم البياني التاريخي ======================== */
+  /* ======================== الرسم البياني ======================== */
   const XAUS_INTRADAY = 'https://xaus.com/api/v1/intraday?symbol=xau';
   const XAUS_HISTORY  = 'https://xaus.com/api/v1/history';
 
@@ -1078,7 +1182,6 @@
     if (retry) retry.addEventListener('click', updateChart);
   }
 
-  /* ======================== CSV / الحالة ======================== */
   function exportCSV() {
     try {
       const c = byCode(state.code);
@@ -1186,7 +1289,6 @@
     el('exportBtn').addEventListener('click', exportCSV);
     el('refreshBtn').addEventListener('click', () => { tick(); fetchMetals(); updateChart(); });
 
-    // حاسبة البيع والشراء
     ['calcWeight','calcManuf'].forEach(id => {
       el(id).addEventListener('input', () => {
         const c = byCode(state.code);
@@ -1198,7 +1300,6 @@
       updateCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
     });
 
-    // حاسبة الزكاة
     ['zakatWeight','zakatKarat'].forEach(id => {
       el(id).addEventListener(id === 'zakatKarat' ? 'change' : 'input', () => {
         const c = byCode(state.code);
