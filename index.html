@@ -414,9 +414,12 @@
   const EMAILJS_TEMPLATE_ID = 'template_jky2jwh';          // ← جاهز
 
   // تهيئة EmailJS
-  if (window.emailjs) {
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-  }
+  if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  console.log('[ayar] EmailJS initialized');
+} else {
+  console.warn('[ayar] EmailJS not initialized - check PUBLIC_KEY');
+}
 
   /* ═══════════════════════════════════════════════════════════════ */
 
