@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0b0f">
-<meta name="description" content="عيار — أسعار الذهب والفضة والسبائك في 9 دول عربية مع تنبيهات فورية وحاسبة الفضة.">
+<meta name="description" content="عيار — أسعار الذهب والفضة والسبائك في 9 دول عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية.">
 <meta name="robots" content="index,follow">
-<title>عيار — أسعار الذهب والفضة والسبائك</title>
+<title>عيار — أسعار الذهب والأخبار والتحليلات</title>
 <link rel="canonical" href="https://ayar-five.vercel.app/">
 
 <script src="https://quge5.com/88/tag.min.js" data-zone="307983" async data-cfasync="false"></script>
@@ -85,7 +85,7 @@
   .row span{font-size:12.5px;color:var(--muted)}
   .row strong{font-size:14.5px;font-weight:800;font-variant-numeric:tabular-nums}
 
-  /* ============ قسم الفضة المتخصص ============ */
+  /* ============ الفضة المتخصصة ============ */
   .silver-grid{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
   .silver-card{text-align:center;position:relative;transition:.18s;padding:16px 12px}
   .silver-card:hover{transform:translateY(-3px);border-color:rgba(201,209,227,.35)}
@@ -98,7 +98,7 @@
   .silver-card.is-999 .s-purity{color:#f5f8ff}
   .silver-card .s-badge{position:absolute;top:8px;inset-inline-end:8px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:6px;background:rgba(201,209,227,.18);color:var(--silver-soft)}
 
-  /* ============ السبائك والجنيهات ============ */
+  /* ============ السبائك ============ */
   .bars-grid{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
   .bar-card{text-align:center;padding:14px 10px;position:relative;transition:.18s}
   .bar-card:hover{transform:translateY(-3px);border-color:rgba(233,185,73,.35)}
@@ -110,6 +110,24 @@
   .bar-card .bar-premium{font-size:10px;color:var(--amber);margin:3px 0 0;font-weight:700}
   .bar-card .bar-tag{position:absolute;top:8px;inset-inline-end:8px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:6px;background:rgba(233,185,73,.20);color:var(--gold-soft)}
 
+  /* ============ الأخبار ============ */
+  .news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+  .news-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;transition:.18s;display:flex;flex-direction:column}
+  .news-card:hover{transform:translateY(-3px);border-color:rgba(233,185,73,.35);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+  .news-card .news-tag{display:inline-block;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;background:rgba(233,185,73,.15);color:var(--gold-soft);margin-bottom:10px;align-self:flex-start;letter-spacing:.3px}
+  .news-card .news-tag.analysis{background:rgba(47,211,154,.12);color:var(--green)}
+  .news-card .news-tag.warning{background:rgba(255,95,122,.12);color:var(--red)}
+  .news-card .news-tag.forecast{background:rgba(201,209,227,.12);color:var(--silver-soft)}
+  .news-card h3{font-size:16px;font-weight:800;margin:0 0 8px;line-height:1.4;color:var(--text)}
+  .news-card p{font-size:13.5px;line-height:1.8;color:#c9d1e3;margin:0 0 12px;flex:1}
+  .news-card .news-meta{display:flex;justify-content:space-between;align-items:center;font-size:10.5px;color:var(--muted);padding-top:10px;border-top:1px dashed var(--line);margin-top:auto;gap:8px;flex-wrap:wrap}
+  .news-card .news-meta .source{color:var(--gold-soft);font-weight:700}
+  .news-loading,.news-empty,.news-error{grid-column:1/-1;text-align:center;padding:30px 20px;color:var(--muted);font-size:13px}
+  .news-error{color:var(--amber)}
+  .news-refresh{font:inherit;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;cursor:pointer;border:1px solid var(--line);background:var(--surface-2);color:var(--muted);display:inline-flex;align-items:center;gap:5px;transition:.2s}
+  .news-refresh:hover{border-color:var(--gold-soft);color:var(--gold-soft)}
+
+  /* ============ التنبيهات ============ */
   .alert-form{display:grid;gap:10px;margin-top:6px}
   .alert-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
   .btn-primary{font:inherit;font-size:13.5px;font-weight:800;padding:10px 18px;border-radius:10px;cursor:pointer;border:0;color:#1a1206;background:linear-gradient(180deg,var(--gold-soft),var(--gold));transition:.2s}
@@ -191,6 +209,7 @@
     .silver-grid{grid-template-columns:repeat(3,1fr)}
     .silver-card .s-purity{font-size:24px}
     .silver-card .s-price{font-size:16px}
+    .news-grid{grid-template-columns:1fr}
   }
 </style>
 </head>
@@ -200,7 +219,7 @@
   <div class="wrap header-inner">
     <a class="brand" href="#">
       <span class="brand-mark"><svg viewBox="0 0 32 32"><defs><linearGradient id="gm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8dc95"/><stop offset="1" stop-color="#c9922b"/></linearGradient></defs><circle cx="16" cy="16" r="15" fill="url(#gm)"/><text x="16" y="21.5" text-anchor="middle" font-size="14" font-weight="700" fill="#3a2a06">ع</text></svg></span>
-      <span class="brand-text"><strong>عيار</strong><small>الذهب والفضة والسبائك</small></span>
+      <span class="brand-text"><strong>عيار</strong><small>الذهب والفضة والأخبار</small></span>
     </a>
     <div class="header-meta">
       <span class="pill demo" id="modePill">…</span>
@@ -221,7 +240,7 @@
 </nav>
 
 <main class="wrap" id="main">
-  <h1 class="sr-only">أسعار الذهب والفضة والسبائك والتنبيهات</h1>
+  <h1 class="sr-only">أسعار الذهب والفضة والأخبار والتنبيهات</h1>
 
   <div class="ad-slot" data-ad="top"></div>
 
@@ -269,7 +288,6 @@
     </div>
   </section>
 
-  <!-- ============ قسم الفضة المتخصص ============ -->
   <section class="section" aria-labelledby="silverTitle">
     <div class="section-head">
       <h2 id="silverTitle">قسم الفضة المتخصص</h2>
@@ -280,20 +298,10 @@
       <article class="card">
         <h3 class="card-title">حاسبة الفضة</h3>
         <div class="form-row">
-          <label class="field">الوزن (جرام)
-            <input type="number" id="silverCalcWeight" value="100" min="0" step="0.1" inputmode="decimal">
-          </label>
-          <label class="field">النقاء
-            <select id="silverCalcPurity">
-              <option value="999">999 (فضة نقية)</option>
-              <option value="925" selected>925 (فضة إسترليني)</option>
-              <option value="800">800 (فضة قياسية)</option>
-            </select>
-          </label>
+          <label class="field">الوزن (جرام)<input type="number" id="silverCalcWeight" value="100" min="0" step="0.1" inputmode="decimal"></label>
+          <label class="field">النقاء<select id="silverCalcPurity"><option value="999">999 (فضة نقية)</option><option value="925" selected>925 (فضة إسترليني)</option><option value="800">800 (فضة قياسية)</option></select></label>
         </div>
-        <label class="field" style="margin-top:10px">نسبة المصنعية (٪)
-          <input type="number" id="silverCalcManuf" value="15" min="0" max="100" step="1" inputmode="decimal">
-        </label>
+        <label class="field" style="margin-top:10px">نسبة المصنعية (٪)<input type="number" id="silverCalcManuf" value="15" min="0" max="100" step="1" inputmode="decimal"></label>
         <div class="calc-breakdown">
           <div class="calc-row"><span>سعر الخام</span><strong id="silverCalcBase">—</strong></div>
           <div class="calc-row"><span>+ المصنعية</span><strong id="silverCalcManufVal">—</strong></div>
@@ -313,18 +321,31 @@
           <div id="silverChart"></div>
           <div class="chart-loading" id="silverChartLoading">جارٍ تحميل البيانات…</div>
         </div>
-        <p class="unit" style="margin-top:8px">المصدر: xaus.com (عبر وسيط CORS)</p>
+        <p class="unit" style="margin-top:8px">المصدر: xaus.com</p>
       </article>
     </div>
   </section>
 
-  <!-- ============ السبائك والجنيهات ============ -->
   <section class="section" aria-labelledby="barsTitle">
     <div class="section-head">
       <h2 id="barsTitle">السبائك والجنيهات الذهبية</h2>
       <span class="hint">سعر الشراء شامل مصنعية السبائك</span>
     </div>
     <div class="grid bars-grid" id="barsGrid"></div>
+  </section>
+
+  <!-- ============ أخبار وتحليلات الذهب ============ -->
+  <section class="section" aria-labelledby="newsTitle">
+    <div class="section-head">
+      <h2 id="newsTitle">أخبار وتحليلات الذهب</h2>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="hint" id="newsStatus">تحديث تلقائي</span>
+        <button type="button" class="news-refresh" id="newsRefreshBtn" title="تحديث الأخبار">↻</button>
+      </div>
+    </div>
+    <div class="news-grid" id="newsGrid">
+      <div class="news-loading">جارٍ تحميل الأخبار…</div>
+    </div>
   </section>
 
   <!-- ============ تنبيهات الأسعار ============ -->
@@ -367,7 +388,7 @@
         <div id="goldChart"></div>
         <div class="chart-loading" id="chartLoading">جارٍ تحميل البيانات…</div>
       </div>
-      <div class="chart-foot">المصدر: xaus.com (عبر وسيط CORS)</div>
+      <div class="chart-foot">المصدر: xaus.com</div>
     </div>
   </section>
 
@@ -422,7 +443,7 @@
   <div class="ad-slot" data-ad="footer"></div>
 
   <footer class="footer">
-    <p><strong>تنبيه:</strong> الأسعار استرشادية. المصدر: metals.dev</p>
+    <p><strong>تنبيه:</strong> الأسعار استرشادية. المصدر: metals.dev · الأخبار: Investing.com</p>
     <p>© <span id="year"></span> عيار — جميع الحقوق محفوظة</p>
   </footer>
 </main>
@@ -449,10 +470,12 @@
 
   /* ═══════════ ثوابت ═══════════ */
   const API_URL = 'https://ayar-proxy.ezzoabdo17.workers.dev/api/metals';
+  const NEWS_API_URL = 'https://ayar-proxy.ezzoabdo17.workers.dev/api/news';
   const GRAM_PER_OZ = 31.1034768;
   const HISTORY_LEN = 40;
   const DRIFT_MS = 5000;
   const FETCH_MIN_INTERVAL = 8 * 60 * 60 * 1000;
+  const NEWS_REFRESH_MS = 15 * 60 * 1000; // 15 دقيقة
   const CACHE_KEY = 'ayar:cache-v2';
   const LAST_FETCH_KEY = 'ayar:lastFetch-v2';
   const CACHE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
@@ -499,6 +522,50 @@
     { key:'999', purity:0.999, label:'999', desc:'فضة نقية', badge:'الأنقى' },
     { key:'925', purity:0.925, label:'925', desc:'فضة إسترليني', badge:'الأشهر' },
     { key:'800', purity:0.800, label:'800', desc:'فضة قياسية', badge:null }
+  ];
+
+  // 📰 أخبار احتياطية (تظهر إذا فشل الجلب من الخادم)
+  const NEWS_FALLBACK = [
+    {
+      tag: 'أخبار اليوم',
+      tagClass: '',
+      title: 'الذهب يرتفع 1.6% متجاوزًا 4,129 دولارًا مع تراجع النفط وترقب التضخم',
+      body: 'ارتفعت أسعار الذهب في المعاملات الفورية 1.6% إلى 4,129.69 دولارًا للأونصة، وصعدت الفضة 2.4% إلى 53.15 دولارًا. جاء الارتفاع مدفوعًا بانخفاض أسعار النفط الذي خفف مخاوف التضخم، في الوقت الذي يترقب فيه المستثمرون بيانات التضخم الأمريكية.',
+      source: 'بترا / بلومبرغ',
+      date: '9 نوفمبر 2026'
+    },
+    {
+      tag: 'تحليل',
+      tagClass: 'analysis',
+      title: 'لماذا ارتفع الذهب اليوم؟ 3 عوامل رئيسية',
+      body: 'أولًا: تراجع أسعار النفط خفف الضغط التضخمي مؤقتًا. ثانيًا: عمليات شراء عند الانخفاض بعد تصحيح أكتوبر. ثالثًا: استمرار التوترات الجيوسياسية (الولايات المتحدة وإيران، روسيا وأوكرانيا) تدعم الطلب على الملاذات الآمنة.',
+      source: 'CNBC TV18',
+      date: '9 نوفمبر 2026'
+    },
+    {
+      tag: 'عوامل ضاغطة',
+      tagClass: 'warning',
+      title: 'الفيدرالي والدولار: أكبر تحدٍ أمام الذهب',
+      body: 'الأسواق تسعّر احتمالًا بنسبة 71-79% لرفع الفيدرالي الفائدة 25 نقطة أساس في ديسمبر. ارتفاع الفائدة يرفع تكلفة الفرصة البديلة لحيازة الذهب، كما أن قوة الدولار تجعل الذهب أكثر تكلفة لحائزي العملات الأخرى.',
+      source: 'ATFX / CME FedWatch',
+      date: '9 نوفمبر 2026'
+    },
+    {
+      tag: 'توقعات',
+      tagClass: 'forecast',
+      title: 'Goldman Sachs يخفض توقعه: 4,150 دولارًا بنهاية 2026',
+      body: 'خفّض بنك جولدمان ساكس توقعه لسعر الذهب بنهاية 2026 من 4,650 إلى 4,150 دولارًا للأونصة، بسبب التحول المتشدد للفيدرالي وارتفاع عوائد السندات. لكنه يتوقع ارتفاعًا إلى 4,800 دولار في 2027.',
+      source: 'Goldman Sachs / MarketWatch',
+      date: '6 نوفمبر 2026'
+    },
+    {
+      tag: 'ما يجب مراقبته',
+      tagClass: 'analysis',
+      title: 'بيانات CPI الأمريكية غدًا.. هل تحدد اتجاه الذهب؟',
+      body: 'مؤشر أسعار المستهلك الأمريكي (CPI) المقرر صدوره في 10 نوفمبر هو الحدث الأهم هذا الأسبوع. إذا جاء التضخم أعلى من المتوقع، فقد يعزز رفع الفائدة ويضغط على الذهب. أما إذا جاء أضعف، فقد يخفف الضغط ويدفع الذهب للأعلى.',
+      source: 'ATFX',
+      date: '9 نوفمبر 2026'
+    }
   ];
 
   const market = { goldOz: FALLBACK.goldOz, silverOz: FALLBACK.silverOz };
@@ -551,6 +618,79 @@
     } catch (_) {}
   }
   function pushUsd(p) { state.usdHistory.push(p); if (state.usdHistory.length > HISTORY_LEN) state.usdHistory.shift(); }
+
+  /* ═══════════ الأخبار (تلقائي + fallback) ═══════════ */
+  let newsIntervalId = null;
+  let newsFetching = false;
+
+  function renderNewsCards(news, isFallback) {
+    const grid = el('newsGrid');
+    if (!grid) return;
+    if (!news || !news.length) {
+      grid.innerHTML = '<div class="news-empty">📰 لا توجد أخبار جديدة حالياً.</div>';
+      return;
+    }
+    grid.innerHTML = news.map(n => `
+      <article class="news-card">
+        <span class="news-tag ${n.tagClass || ''}">${n.tag || 'أخبار'}</span>
+        <h3>${n.title || ''}</h3>
+        <p>${n.body || ''}</p>
+        <div class="news-meta">
+          <span class="source">${n.source || 'مصدر'}</span>
+          <span>${n.date || ''}</span>
+        </div>
+      </article>
+    `).join('');
+    const status = el('newsStatus');
+    if (status) {
+      if (isFallback) {
+        status.textContent = '⚠️ أخبار محفوظة (لم يتصل الخادم)';
+        status.style.color = 'var(--amber)';
+      } else {
+        status.textContent = '✅ محدّث ' + timeFormat.format(new Date());
+        status.style.color = 'var(--green)';
+      }
+    }
+  }
+
+  async function fetchNews() {
+    if (newsFetching) return;
+    newsFetching = true;
+    const grid = el('newsGrid');
+    const status = el('newsStatus');
+    if (grid && !grid.querySelector('.news-card')) {
+      grid.innerHTML = '<div class="news-loading">جارٍ تحميل الأخبار…</div>';
+    }
+    if (status) { status.textContent = 'جارٍ التحديث…'; status.style.color = 'var(--muted)'; }
+
+    try {
+      const res = await fetch(NEWS_API_URL, { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const news = await res.json();
+
+      if (!Array.isArray(news) || news.length === 0) {
+        // الخادم أعاد مصفوفة فارغة — استخدم الاحتياطي
+        console.warn('[ayar] News API returned empty, using fallback');
+        renderNewsCards(NEWS_FALLBACK, true);
+      } else {
+        console.log('[ayar] ✅ News fetched:', news.length, 'items');
+        renderNewsCards(news, false);
+      }
+    } catch (err) {
+      console.warn('[ayar] News fetch failed:', err.message);
+      renderNewsCards(NEWS_FALLBACK, true);
+    } finally {
+      newsFetching = false;
+    }
+  }
+
+  function startNewsAutoRefresh() {
+    stopNewsAutoRefresh();
+    newsIntervalId = setInterval(fetchNews, NEWS_REFRESH_MS);
+  }
+  function stopNewsAutoRefresh() {
+    if (newsIntervalId) { clearInterval(newsIntervalId); newsIntervalId = null; }
+  }
 
   /* ═══════════ التنبيهات ═══════════ */
   function getAlerts() { try { return JSON.parse(localStorage.getItem(ALERTS_KEY) || '[]'); } catch (_) { return []; } }
@@ -689,7 +829,6 @@
     });
   }
 
-  /* ═══════════ الفضة المتخصصة ═══════════ */
   const silverNodes = {};
   function buildSilverGrid() {
     el('silverGrid').innerHTML = SILVER_PURITIES.map(s => `
@@ -703,10 +842,7 @@
       </article>`).join('');
     SILVER_PURITIES.forEach(s => {
       const card = el('silverGrid').querySelector(`[data-sp="${s.key}"]`);
-      silverNodes[s.key] = {
-        price: card.querySelector('.s-price'),
-        kilo: card.querySelector('.s-kilo')
-      };
+      silverNodes[s.key] = { price: card.querySelector('.s-price'), kilo: card.querySelector('.s-kilo') };
     });
   }
 
@@ -726,20 +862,17 @@
     const w = parseFloat(el('silverCalcWeight').value) || 0;
     const purity = parseInt(el('silverCalcPurity').value, 10) / 1000;
     const manufPct = parseFloat(el('silverCalcManuf').value) || 0;
-
     const silverGram999 = market.silverOz / GRAM_PER_OZ * c.rate;
     const gramPrice = silverGram999 * purity;
     const base = gramPrice * w;
     const manuf = base * (manufPct / 100);
     const total = base + manuf;
-
     el('silverCalcBase').textContent = fmtMoney(base, c) + ' ' + c.symbol;
     el('silverCalcManufVal').textContent = '+' + fmtMoney(manuf, c) + ' ' + c.symbol;
     el('silverCalcTotal').textContent = fmtMoney(total, c) + ' ' + c.symbol;
     el('silverCalcNote').textContent = `سعر جرام ${el('silverCalcPurity').value}: ${fmtMoney(gramPrice, c)} ${c.symbol}`;
   }
 
-  /* ═══════════ السبائك ═══════════ */
   const barNodes = {};
   function buildBarsGrid() {
     el('barsGrid').innerHTML = BARS.map(b => `
@@ -948,7 +1081,7 @@
     render();
   }
 
-  /* ═══════════ الرسم البياني (ذهب + فضة) ═══════════ */
+  /* ═══════════ الرسم البياني ═══════════ */
   const goldChartCache = { '24h':{d:null,ts:0,ttl:3e5}, '7d':{d:null,ts:0,ttl:36e5}, '30d':{d:null,ts:0,ttl:108e5}, '1y':{d:null,ts:0,ttl:432e5} };
   const silverChartCache = { '24h':{d:null,ts:0,ttl:3e5}, '7d':{d:null,ts:0,ttl:36e5}, '30d':{d:null,ts:0,ttl:108e5}, '1y':{d:null,ts:0,ttl:432e5} };
 
@@ -1058,6 +1191,10 @@
     render();
     renderAlerts();
 
+    // الأخبار — ابدأ فوراً
+    fetchNews();
+    startNewsAutoRefresh();
+
     initGoldChart(); initSilverChart();
     updateGoldChart(); updateSilverChart();
 
@@ -1078,7 +1215,7 @@
       render();
     });
 
-    el('refreshBtn').addEventListener('click', () => { tick(); fetchMetals(); });
+    el('refreshBtn').addEventListener('click', () => { tick(); fetchMetals(); fetchNews(); });
 
     ['calcWeight','calcManuf'].forEach(id => {
       el(id).addEventListener('input', () => {
@@ -1120,8 +1257,22 @@
       });
     });
 
+    // زر تحديث الأخبار
+    const newsBtn = el('newsRefreshBtn');
+    if (newsBtn) newsBtn.addEventListener('click', fetchNews);
+
     setInterval(tick, DRIFT_MS);
     setInterval(fetchMetals, 60*60*1000);
+
+    // أوقف تحديث الأخبار عند إخفاء الصفحة (توفير بطارية)
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopNewsAutoRefresh();
+      } else {
+        fetchNews();
+        startNewsAutoRefresh();
+      }
+    });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
