@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -85,7 +86,6 @@
   .row span{font-size:12.5px;color:var(--muted)}
   .row strong{font-size:14.5px;font-weight:800;font-variant-numeric:tabular-nums}
 
-  /* ============ الفضة المتخصصة ============ */
   .silver-grid{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
   .silver-card{text-align:center;position:relative;transition:.18s;padding:16px 12px}
   .silver-card:hover{transform:translateY(-3px);border-color:rgba(201,209,227,.35)}
@@ -98,7 +98,6 @@
   .silver-card.is-999 .s-purity{color:#f5f8ff}
   .silver-card .s-badge{position:absolute;top:8px;inset-inline-end:8px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:6px;background:rgba(201,209,227,.18);color:var(--silver-soft)}
 
-  /* ============ السبائك ============ */
   .bars-grid{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
   .bar-card{text-align:center;padding:14px 10px;position:relative;transition:.18s}
   .bar-card:hover{transform:translateY(-3px);border-color:rgba(233,185,73,.35)}
@@ -110,7 +109,6 @@
   .bar-card .bar-premium{font-size:10px;color:var(--amber);margin:3px 0 0;font-weight:700}
   .bar-card .bar-tag{position:absolute;top:8px;inset-inline-end:8px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:6px;background:rgba(233,185,73,.20);color:var(--gold-soft)}
 
-  /* ============ الأخبار ============ */
   .news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
   .news-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;transition:.18s;display:flex;flex-direction:column}
   .news-card:hover{transform:translateY(-3px);border-color:rgba(233,185,73,.35);box-shadow:0 8px 24px rgba(0,0,0,.35)}
@@ -127,7 +125,6 @@
   .news-refresh{font:inherit;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;cursor:pointer;border:1px solid var(--line);background:var(--surface-2);color:var(--muted);display:inline-flex;align-items:center;gap:5px;transition:.2s}
   .news-refresh:hover{border-color:var(--gold-soft);color:var(--gold-soft)}
 
-  /* ============ التنبيهات ============ */
   .alert-form{display:grid;gap:10px;margin-top:6px}
   .alert-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
   .btn-primary{font:inherit;font-size:13.5px;font-weight:800;padding:10px 18px;border-radius:10px;cursor:pointer;border:0;color:#1a1206;background:linear-gradient(180deg,var(--gold-soft),var(--gold));transition:.2s}
@@ -334,7 +331,6 @@
     <div class="grid bars-grid" id="barsGrid"></div>
   </section>
 
-  <!-- ============ أخبار وتحليلات الذهب ============ -->
   <section class="section" aria-labelledby="newsTitle">
     <div class="section-head">
       <h2 id="newsTitle">أخبار وتحليلات الذهب</h2>
@@ -348,7 +344,6 @@
     </div>
   </section>
 
-  <!-- ============ تنبيهات الأسعار ============ -->
   <section class="section" id="alertsSection">
     <div class="section-head"><h2>🔔 تنبيهات الأسعار</h2><span class="hint">أدخل بريدك والسعر — سننبهك عند تحقيقه</span></div>
     <article class="card">
@@ -454,7 +449,6 @@
 (() => {
   'use strict';
 
-  /* ═══════════ إعدادات EmailJS ═══════════ */
   const EMAILJS_PUBLIC_KEY  = 'UU4NtOdCRqPazrKFR';
   const EMAILJS_SERVICE_ID  = 'service_200';
   const EMAILJS_TEMPLATE_ID = 'template_jky2jwh';
@@ -468,14 +462,14 @@
     }
   }
 
-  /* ═══════════ ثوابت ═══════════ */
   const API_URL = 'https://ayar-proxy.ezzoabdo17.workers.dev/api/metals';
   const NEWS_API_URL = 'https://ayar-proxy.ezzoabdo17.workers.dev/api/news';
   const GRAM_PER_OZ = 31.1034768;
   const HISTORY_LEN = 40;
   const DRIFT_MS = 5000;
   const FETCH_MIN_INTERVAL = 8 * 60 * 60 * 1000;
-  const NEWS_REFRESH_MS = 15 * 60 * 1000; // 15 دقيقة
+  const FRESH_THRESHOLD = 30 * 60 * 1000;
+  const NEWS_REFRESH_MS = 15 * 60 * 1000;
   const CACHE_KEY = 'ayar:cache-v2';
   const LAST_FETCH_KEY = 'ayar:lastFetch-v2';
   const CACHE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
@@ -524,48 +518,12 @@
     { key:'800', purity:0.800, label:'800', desc:'فضة قياسية', badge:null }
   ];
 
-  // 📰 أخبار احتياطية (تظهر إذا فشل الجلب من الخادم)
   const NEWS_FALLBACK = [
-    {
-      tag: 'أخبار اليوم',
-      tagClass: '',
-      title: 'الذهب يرتفع 1.6% متجاوزًا 4,129 دولارًا مع تراجع النفط وترقب التضخم',
-      body: 'ارتفعت أسعار الذهب في المعاملات الفورية 1.6% إلى 4,129.69 دولارًا للأونصة، وصعدت الفضة 2.4% إلى 53.15 دولارًا. جاء الارتفاع مدفوعًا بانخفاض أسعار النفط الذي خفف مخاوف التضخم، في الوقت الذي يترقب فيه المستثمرون بيانات التضخم الأمريكية.',
-      source: 'بترا / بلومبرغ',
-      date: '9 نوفمبر 2026'
-    },
-    {
-      tag: 'تحليل',
-      tagClass: 'analysis',
-      title: 'لماذا ارتفع الذهب اليوم؟ 3 عوامل رئيسية',
-      body: 'أولًا: تراجع أسعار النفط خفف الضغط التضخمي مؤقتًا. ثانيًا: عمليات شراء عند الانخفاض بعد تصحيح أكتوبر. ثالثًا: استمرار التوترات الجيوسياسية (الولايات المتحدة وإيران، روسيا وأوكرانيا) تدعم الطلب على الملاذات الآمنة.',
-      source: 'CNBC TV18',
-      date: '9 نوفمبر 2026'
-    },
-    {
-      tag: 'عوامل ضاغطة',
-      tagClass: 'warning',
-      title: 'الفيدرالي والدولار: أكبر تحدٍ أمام الذهب',
-      body: 'الأسواق تسعّر احتمالًا بنسبة 71-79% لرفع الفيدرالي الفائدة 25 نقطة أساس في ديسمبر. ارتفاع الفائدة يرفع تكلفة الفرصة البديلة لحيازة الذهب، كما أن قوة الدولار تجعل الذهب أكثر تكلفة لحائزي العملات الأخرى.',
-      source: 'ATFX / CME FedWatch',
-      date: '9 نوفمبر 2026'
-    },
-    {
-      tag: 'توقعات',
-      tagClass: 'forecast',
-      title: 'Goldman Sachs يخفض توقعه: 4,150 دولارًا بنهاية 2026',
-      body: 'خفّض بنك جولدمان ساكس توقعه لسعر الذهب بنهاية 2026 من 4,650 إلى 4,150 دولارًا للأونصة، بسبب التحول المتشدد للفيدرالي وارتفاع عوائد السندات. لكنه يتوقع ارتفاعًا إلى 4,800 دولار في 2027.',
-      source: 'Goldman Sachs / MarketWatch',
-      date: '6 نوفمبر 2026'
-    },
-    {
-      tag: 'ما يجب مراقبته',
-      tagClass: 'analysis',
-      title: 'بيانات CPI الأمريكية غدًا.. هل تحدد اتجاه الذهب؟',
-      body: 'مؤشر أسعار المستهلك الأمريكي (CPI) المقرر صدوره في 10 نوفمبر هو الحدث الأهم هذا الأسبوع. إذا جاء التضخم أعلى من المتوقع، فقد يعزز رفع الفائدة ويضغط على الذهب. أما إذا جاء أضعف، فقد يخفف الضغط ويدفع الذهب للأعلى.',
-      source: 'ATFX',
-      date: '9 نوفمبر 2026'
-    }
+    { tag:'أخبار اليوم', tagClass:'', title:'الذهب يرتفع 1.6% متجاوزًا 4,129 دولارًا مع تراجع النفط وترقب التضخم', body:'ارتفعت أسعار الذهب في المعاملات الفورية 1.6% إلى 4,129.69 دولارًا للأونصة، وصعدت الفضة 2.4% إلى 53.15 دولارًا. جاء الارتفاع مدفوعًا بانخفاض أسعار النفط الذي خفف مخاوف التضخم، في الوقت الذي يترقب فيه المستثمرون بيانات التضخم الأمريكية.', source:'بترا / بلومبرغ', date:'9 نوفمبر 2026' },
+    { tag:'تحليل', tagClass:'analysis', title:'لماذا ارتفع الذهب اليوم؟ 3 عوامل رئيسية', body:'أولًا: تراجع أسعار النفط خفف الضغط التضخمي مؤقتًا. ثانيًا: عمليات شراء عند الانخفاض بعد تصحيح أكتوبر. ثالثًا: استمرار التوترات الجيوسياسية (الولايات المتحدة وإيران، روسيا وأوكرانيا) تدعم الطلب على الملاذات الآمنة.', source:'CNBC TV18', date:'9 نوفمبر 2026' },
+    { tag:'عوامل ضاغطة', tagClass:'warning', title:'الفيدرالي والدولار: أكبر تحدٍ أمام الذهب', body:'الأسواق تسعّر احتمالًا بنسبة 71-79% لرفع الفيدرالي الفائدة 25 نقطة أساس في ديسمبر. ارتفاع الفائدة يرفع تكلفة الفرصة البديلة لحيازة الذهب، كما أن قوة الدولار تجعل الذهب أكثر تكلفة لحائزي العملات الأخرى.', source:'ATFX / CME FedWatch', date:'9 نوفمبر 2026' },
+    { tag:'توقعات', tagClass:'forecast', title:'Goldman Sachs يخفض توقعه: 4,150 دولارًا بنهاية 2026', body:'خفّض بنك جولدمان ساكس توقعه لسعر الذهب بنهاية 2026 من 4,650 إلى 4,150 دولارًا للأونصة، بسبب التحول المتشدد للفيدرالي وارتفاع عوائد السندات. لكنه يتوقع ارتفاعًا إلى 4,800 دولار في 2027.', source:'Goldman Sachs / MarketWatch', date:'6 نوفمبر 2026' },
+    { tag:'ما يجب مراقبته', tagClass:'analysis', title:'بيانات CPI الأمريكية غدًا.. هل تحدد اتجاه الذهب؟', body:'مؤشر أسعار المستهلك الأمريكي (CPI) المقرر صدوره في 10 نوفمبر هو الحدث الأهم هذا الأسبوع. إذا جاء التضخم أعلى من المتوقع، فقد يعزز رفع الفائدة ويضغط على الذهب. أما إذا جاء أضعف، فقد يخفف الضغط ويدفع الذهب للأعلى.', source:'ATFX', date:'9 نوفمبر 2026' }
   ];
 
   const market = { goldOz: FALLBACK.goldOz, silverOz: FALLBACK.silverOz };
@@ -594,7 +552,6 @@
     return true;
   }
 
-  /* ═══════════ التخزين المؤقت ═══════════ */
   function loadCache() {
     try {
       const raw = localStorage.getItem(CACHE_KEY);
@@ -619,7 +576,7 @@
   }
   function pushUsd(p) { state.usdHistory.push(p); if (state.usdHistory.length > HISTORY_LEN) state.usdHistory.shift(); }
 
-  /* ═══════════ الأخبار (تلقائي + fallback) ═══════════ */
+  /* ═══════════ الأخبار ═══════════ */
   let newsIntervalId = null;
   let newsFetching = false;
 
@@ -644,7 +601,7 @@
     const status = el('newsStatus');
     if (status) {
       if (isFallback) {
-        status.textContent = '⚠️ أخبار محفوظة (لم يتصل الخادم)';
+        status.textContent = '⚠️ أخبار محفوظة';
         status.style.color = 'var(--amber)';
       } else {
         status.textContent = '✅ محدّث ' + timeFormat.format(new Date());
@@ -662,15 +619,12 @@
       grid.innerHTML = '<div class="news-loading">جارٍ تحميل الأخبار…</div>';
     }
     if (status) { status.textContent = 'جارٍ التحديث…'; status.style.color = 'var(--muted)'; }
-
     try {
       const res = await fetch(NEWS_API_URL, { cache: 'no-store' });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const news = await res.json();
-
       if (!Array.isArray(news) || news.length === 0) {
-        // الخادم أعاد مصفوفة فارغة — استخدم الاحتياطي
-        console.warn('[ayar] News API returned empty, using fallback');
+        console.warn('[ayar] News API empty, using fallback');
         renderNewsCards(NEWS_FALLBACK, true);
       } else {
         console.log('[ayar] ✅ News fetched:', news.length, 'items');
@@ -683,26 +637,18 @@
       newsFetching = false;
     }
   }
-
-  function startNewsAutoRefresh() {
-    stopNewsAutoRefresh();
-    newsIntervalId = setInterval(fetchNews, NEWS_REFRESH_MS);
-  }
-  function stopNewsAutoRefresh() {
-    if (newsIntervalId) { clearInterval(newsIntervalId); newsIntervalId = null; }
-  }
+  function startNewsAutoRefresh() { stopNewsAutoRefresh(); newsIntervalId = setInterval(fetchNews, NEWS_REFRESH_MS); }
+  function stopNewsAutoRefresh() { if (newsIntervalId) { clearInterval(newsIntervalId); newsIntervalId = null; } }
 
   /* ═══════════ التنبيهات ═══════════ */
   function getAlerts() { try { return JSON.parse(localStorage.getItem(ALERTS_KEY) || '[]'); } catch (_) { return []; } }
   function saveAlerts(a) { try { localStorage.setItem(ALERTS_KEY, JSON.stringify(a)); } catch (_) {} }
-
   function showStatus(type, msg) {
     const s = el('alertStatus');
     s.className = 'alert-status show ' + type;
     s.textContent = msg;
     if (type === 'success') setTimeout(() => s.classList.remove('show'), 8000);
   }
-
   async function requestNotifPermission() {
     if (!('Notification' in window)) { showStatus('error', 'متصفحك لا يدعم الإشعارات.'); return; }
     if (Notification.permission === 'granted') { showStatus('info', '✅ إشعارات المتصفح مفعّلة.'); return; }
@@ -711,7 +657,6 @@
     if (p === 'granted') showStatus('success', '✅ تم تفعيل الإشعارات.');
     else showStatus('error', '❌ لم يتم منح الإذن.');
   }
-
   function renderAlerts() {
     const list = el('alertsList');
     const alerts = getAlerts();
@@ -736,7 +681,6 @@
       });
     });
   }
-
   function sendEmailSafe(params, onSuccess, onError) {
     if (!window.emailjs) { if (onError) onError({ text: 'مكتبة EmailJS غير محملة' }); return; }
     try {
@@ -746,7 +690,6 @@
       } else { if (onError) onError({ text: 'emailjs.send لم يرجع Promise' }); }
     } catch (e) { if (onError) onError(e); }
   }
-
   async function checkAlerts() {
     const alerts = getAlerts();
     if (!alerts.length) return;
@@ -771,7 +714,6 @@
     }
     if (changed) { saveAlerts(alerts); renderAlerts(); }
   }
-
   async function handleAlertSubmit(e) {
     e.preventDefault();
     const email = el('alertEmail').value.trim();
@@ -845,7 +787,6 @@
       silverNodes[s.key] = { price: card.querySelector('.s-price'), kilo: card.querySelector('.s-kilo') };
     });
   }
-
   function updateSilverGrid(c) {
     const silverGram999 = market.silverOz / GRAM_PER_OZ * c.rate;
     SILVER_PURITIES.forEach(s => {
@@ -857,7 +798,6 @@
       node.kilo.textContent = 'الكيلو: ' + fmtMoney(kiloPrice, c) + ' ' + c.symbol;
     });
   }
-
   function updateSilverCalc(c) {
     const w = parseFloat(el('silverCalcWeight').value) || 0;
     const purity = parseInt(el('silverCalcPurity').value, 10) / 1000;
@@ -889,7 +829,6 @@
       barNodes[b.key] = { price: card.querySelector('.bar-price'), perGram: card.querySelector('.bar-per-gram') };
     });
   }
-
   function updateBars(goldGram24, c) {
     BARS.forEach(b => {
       const node = barNodes[b.key];
@@ -1034,11 +973,33 @@
     if (isMarketOpen()) { st.textContent = 'السوق مفتوح'; st.className = 'pill live'; }
     else { st.textContent = 'السوق مغلق'; st.className = 'pill demo'; }
 
+    // ✅ شارة ذكية حسب عمر الكاش
     const mp = el('modePill');
-    if (state.source === 'live') { mp.innerHTML = '<i></i> بيانات حية'; mp.className = 'pill live'; }
-    else if (state.source === 'cache') { mp.textContent = '📦 محفوظة'; mp.className = 'pill demo'; }
-    else if (state.source === 'stale') { mp.textContent = '⚠️ قديمة'; mp.className = 'pill demo'; }
-    else { mp.textContent = 'جارٍ…'; mp.className = 'pill demo'; }
+    const cacheAge = state.lastUpdate ? (Date.now() - state.lastUpdate.getTime()) : Infinity;
+
+    if (state.source === 'live') {
+      mp.innerHTML = '<i></i> بيانات حية';
+      mp.className = 'pill live';
+      mp.title = 'أسعار محدّثة من الخادم';
+    } else if (state.source === 'cache' && cacheAge < FRESH_THRESHOLD) {
+      mp.innerHTML = '<i></i> بيانات حديثة';
+      mp.className = 'pill live';
+      mp.title = 'محفوظة مؤقتاً، حديثة';
+    } else if (state.source === 'cache') {
+      const mins = Math.round(cacheAge / 60000);
+      const hours = Math.round(mins / 60);
+      const label = hours >= 1 ? `${hours} س` : `${mins} د`;
+      mp.textContent = `📦 محفوظة منذ ${label}`;
+      mp.className = 'pill demo';
+      mp.title = 'اضغط زر تحديث لجلب أسعار جديدة';
+    } else if (state.source === 'stale') {
+      mp.textContent = '⚠️ قديمة';
+      mp.className = 'pill demo';
+      mp.title = 'فشل الاتصال — أسعار من آخر جلب ناجح';
+    } else {
+      mp.textContent = 'جارٍ…';
+      mp.className = 'pill demo';
+    }
 
     if (state.lastUpdate) {
       el('updatedAt').textContent = timeFormat.format(state.lastUpdate);
@@ -1048,9 +1009,12 @@
     checkAlerts();
   }
 
-  async function fetchMetals() {
+  async function fetchMetals(force = false) {
     const last = parseInt(localStorage.getItem(LAST_FETCH_KEY) || '0', 10);
-    if (last && Date.now() - last < FETCH_MIN_INTERVAL && state.source === 'cache') return;
+    if (!force && last && Date.now() - last < FETCH_MIN_INTERVAL && state.source === 'cache') {
+      console.log('[ayar] 📦 Using cache (age:', Math.round((Date.now()-last)/60000), 'min)');
+      return;
+    }
     try {
       const res = await fetch(API_URL, { cache: 'no-store' });
       if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -1066,8 +1030,9 @@
       state.source = 'live'; state.lastUpdate = new Date();
       localStorage.setItem(LAST_FETCH_KEY, String(Date.now()));
       saveCache(); pushUsd(market.goldOz); render();
+      console.log('[ayar] ✅ Live data received');
     } catch (err) {
-      console.error('[ayar] fetch failed:', err);
+      console.error('[ayar] ❌ fetch failed:', err);
       state.source = state.lastUpdate ? 'stale' : 'init';
       render();
     }
@@ -1084,7 +1049,6 @@
   /* ═══════════ الرسم البياني ═══════════ */
   const goldChartCache = { '24h':{d:null,ts:0,ttl:3e5}, '7d':{d:null,ts:0,ttl:36e5}, '30d':{d:null,ts:0,ttl:108e5}, '1y':{d:null,ts:0,ttl:432e5} };
   const silverChartCache = { '24h':{d:null,ts:0,ttl:3e5}, '7d':{d:null,ts:0,ttl:36e5}, '30d':{d:null,ts:0,ttl:108e5}, '1y':{d:null,ts:0,ttl:432e5} };
-
   let goldChartInst = null, goldChartSeries = null, goldChartRange = '24h';
   let silverChartInst = null, silverChartSeries = null, silverChartRange = '24h';
 
@@ -1191,14 +1155,13 @@
     render();
     renderAlerts();
 
-    // الأخبار — ابدأ فوراً
     fetchNews();
     startNewsAutoRefresh();
 
     initGoldChart(); initSilverChart();
     updateGoldChart(); updateSilverChart();
 
-    setTimeout(fetchMetals, 100);
+    setTimeout(() => fetchMetals(false), 100);
 
     el('alertForm').addEventListener('submit', handleAlertSubmit);
     el('notifPermissionBtn').addEventListener('click', requestNotifPermission);
@@ -1215,7 +1178,12 @@
       render();
     });
 
-    el('refreshBtn').addEventListener('click', () => { tick(); fetchMetals(); fetchNews(); });
+    // ✅ زر التحديث يجبر الجلب من الخادم
+    el('refreshBtn').addEventListener('click', () => {
+      tick();
+      fetchMetals(true);
+      fetchNews();
+    });
 
     ['calcWeight','calcManuf'].forEach(id => {
       el(id).addEventListener('input', () => {
@@ -1257,14 +1225,12 @@
       });
     });
 
-    // زر تحديث الأخبار
     const newsBtn = el('newsRefreshBtn');
     if (newsBtn) newsBtn.addEventListener('click', fetchNews);
 
     setInterval(tick, DRIFT_MS);
-    setInterval(fetchMetals, 60*60*1000);
+    setInterval(() => fetchMetals(false), 60*60*1000);
 
-    // أوقف تحديث الأخبار عند إخفاء الصفحة (توفير بطارية)
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         stopNewsAutoRefresh();
