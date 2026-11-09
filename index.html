@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0b0f">
-<meta name="description" content="عيار — أسعار الذهب والفضة والعملات في 9 دول عربية مع تنبيهات فورية عند وصول السعر الذي تريده.">
+<meta name="description" content="عيار — أسعار الذهب والفضة والعملات في 9 دول عربية مع تنبيهات فورية.">
 <meta name="robots" content="index,follow">
 <title>عيار — أسعار الذهب وتنبيهات الأسعار</title>
 <link rel="canonical" href="https://ayar-five.vercel.app/">
@@ -19,19 +19,9 @@
 
 <style>
   *,*::before,*::after{box-sizing:border-box}
-  :root{
-    color-scheme: dark;
-    --bg:#0a0b0f; --surface:#111420; --surface-2:#161a29; --line:#242a3d;
-    --gold:#e9b949; --gold-soft:#f7d98a; --text:#eef1f8; --muted:#8a93a9;
-    --green:#2fd39a; --red:#ff5f7a; --amber:#ffb35c; --radius:16px;
-  }
+  :root{color-scheme:dark;--bg:#0a0b0f;--surface:#111420;--surface-2:#161a29;--line:#242a3d;--gold:#e9b949;--gold-soft:#f7d98a;--text:#eef1f8;--muted:#8a93a9;--green:#2fd39a;--red:#ff5f7a;--amber:#ffb35c;--radius:16px}
   html,body{margin:0;padding:0}
-  body{
-    min-height:100vh;line-height:1.6;color:var(--text);
-    font-family:"Cairo",system-ui,sans-serif;-webkit-font-smoothing:antialiased;
-    background:radial-gradient(900px 520px at 82% -12%,rgba(233,185,73,.10),transparent 62%),radial-gradient(720px 420px at 8% -6%,rgba(70,120,255,.09),transparent 62%),var(--bg);
-    padding-bottom:40px;
-  }
+  body{min-height:100vh;line-height:1.6;color:var(--text);font-family:"Cairo",system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:radial-gradient(900px 520px at 82% -12%,rgba(233,185,73,.10),transparent 62%),radial-gradient(720px 420px at 8% -6%,rgba(70,120,255,.09),transparent 62%),var(--bg);padding-bottom:40px}
   .wrap{width:min(1120px,100% - 32px);margin-inline:auto}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   .site-header{position:sticky;top:0;z-index:50;background:rgba(10,11,15,.86);border-bottom:1px solid var(--line);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
@@ -94,8 +84,6 @@
   .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 12px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line)}
   .row span{font-size:12.5px;color:var(--muted)}
   .row strong{font-size:14.5px;font-weight:800;font-variant-numeric:tabular-nums}
-
-  /* ============ التنبيهات ============ */
   .alert-form{display:grid;gap:10px;margin-top:6px}
   .alert-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
   .btn-primary{font:inherit;font-size:13.5px;font-weight:800;padding:10px 18px;border-radius:10px;cursor:pointer;border:0;color:#1a1206;background:linear-gradient(180deg,var(--gold-soft),var(--gold));transition:.2s}
@@ -117,12 +105,10 @@
   .alert-delete{flex:0 0 auto;width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--red);font-size:16px;cursor:pointer}
   .alert-delete:hover{background:rgba(255,95,122,.10)}
   .alerts-empty{text-align:center;padding:16px;color:var(--muted);font-size:12.5px}
-
   .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .field{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--muted)}
   .field input,.field select{font:inherit;font-size:14px;padding:8px 10px;border-radius:8px;background:var(--surface-2);border:1px solid var(--line);color:var(--text)}
   .field input:focus,.field select:focus{outline:2px solid var(--gold-soft);border-color:transparent}
-
   .chart-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
   .chart-head{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap;gap:10px}
   .chart-title strong{font-size:15px;display:block}
@@ -135,7 +121,6 @@
   .chart-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(17,20,32,.72);z-index:2;font-size:13px;color:var(--muted)}
   .chart-loading.hidden{display:none}
   .chart-foot{padding:10px 18px;font-size:11px;color:var(--muted);border-top:1px solid var(--line)}
-
   .compare-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
   .compare-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
   .cmp-sum-item{display:flex;flex-direction:column;gap:3px;padding:14px 18px;background:var(--surface-2)}
@@ -152,7 +137,6 @@
   .compare-table .country{display:flex;align-items:center;gap:7px;font-weight:700}
   .compare-table .total-usd{font-weight:800;color:var(--gold-soft)}
   .compare-note{padding:10px 16px;font-size:11px;color:var(--muted);border-top:1px solid var(--line);background:var(--surface-2)}
-
   .calc-breakdown{margin-top:12px;display:grid;gap:2px;padding:12px 14px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px}
   .calc-row{display:flex;justify-content:space-between;padding:5px 0;font-size:12.5px;color:var(--muted);border-bottom:1px dashed rgba(36,42,61,.4)}
   .calc-row:last-child{border-bottom:0}
@@ -163,14 +147,11 @@
   .calc-row.total-sell strong{color:var(--green);font-size:16px}
   .calc-row.spread{padding-top:6px;border-bottom:0;font-size:11.5px;color:var(--red)}
   .calc-row.spread strong{color:var(--red);font-size:12.5px}
-
   .ad-slot{margin:22px auto;display:flex;align-items:center;justify-content:center;max-width:970px}
   .ad-slot:empty{min-height:90px;background:rgba(22,26,41,.45);border:1px dashed var(--line);border-radius:12px}
   .ad-slot:empty::before{content:"مساحة إعلانية";color:var(--muted);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;width:100%;height:90px}
-
   .footer{margin:42px 0 0;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:grid;gap:8px}
   .noscript{background:rgba(255,179,92,.10);border:1px solid rgba(255,179,92,.30);color:var(--amber);padding:12px 16px;border-radius:10px;margin:16px auto;max-width:1120px}
-
   @media (max-width:720px){
     .hero{grid-template-columns:1fr;padding:20px;gap:16px}
     .hero-side{align-items:flex-start}
@@ -228,10 +209,7 @@
   </section>
 
   <section class="section">
-    <div class="section-head">
-      <h2>الذهب — سعر الجرام</h2>
-      <span class="hint" id="priceModeHint">سعر الخام</span>
-    </div>
+    <div class="section-head"><h2>الذهب — سعر الجرام</h2><span class="hint" id="priceModeHint">سعر الخام</span></div>
     <div class="grid" id="karatGrid"></div>
   </section>
 
@@ -259,38 +237,18 @@
     </div>
   </section>
 
-  <!-- ============ تنبيهات الأسعار ============ -->
   <section class="section" id="alertsSection">
-    <div class="section-head">
-      <h2>🔔 تنبيهات الأسعار</h2>
-      <span class="hint">أدخل بريدك والسعر الذي تريده — سننبهك عند تحقيقه</span>
-    </div>
+    <div class="section-head"><h2>🔔 تنبيهات الأسعار</h2><span class="hint">أدخل بريدك والسعر — سننبهك عند تحقيقه</span></div>
     <article class="card">
       <h3 class="card-title">إنشاء تنبيه جديد</h3>
       <form class="alert-form" id="alertForm" novalidate>
         <div class="form-row">
-          <label class="field">البريد الإلكتروني
-            <input type="email" id="alertEmail" placeholder="you@example.com" required autocomplete="email">
-          </label>
-          <label class="field">السعر المستهدف (للجرام)
-            <input type="number" id="alertPrice" placeholder="مثلاً 6000" min="1" step="1" required inputmode="decimal">
-          </label>
+          <label class="field">البريد الإلكتروني<input type="email" id="alertEmail" placeholder="you@example.com" required autocomplete="email"></label>
+          <label class="field">السعر المستهدف (للجرام)<input type="number" id="alertPrice" placeholder="مثلاً 6000" min="1" step="1" required inputmode="decimal"></label>
         </div>
         <div class="form-row">
-          <label class="field">العيار
-            <select id="alertKarat">
-              <option value="24">24</option>
-              <option value="22">22</option>
-              <option value="21" selected>21</option>
-              <option value="18">18</option>
-            </select>
-          </label>
-          <label class="field">الاتجاه
-            <select id="alertDirection">
-              <option value="below">عند الهبوط إلى السعر أو أقل</option>
-              <option value="above">عند الصعود إلى السعر أو أكثر</option>
-            </select>
-          </label>
+          <label class="field">العيار<select id="alertKarat"><option value="24">24</option><option value="22">22</option><option value="21" selected>21</option><option value="18">18</option></select></label>
+          <label class="field">الاتجاه<select id="alertDirection"><option value="below">عند الهبوط إلى السعر أو أقل</option><option value="above">عند الصعود إلى السعر أو أكثر</option></select></label>
         </div>
         <div class="alert-actions">
           <button type="submit" class="btn-primary" id="alertSubmit">تنبيهني 🔔</button>
@@ -298,23 +256,15 @@
         </div>
       </form>
       <div class="alert-status" id="alertStatus"></div>
-      <div class="alerts-list" id="alertsList">
-        <p class="alerts-empty">لا توجد تنبيهات نشطة بعد.</p>
-      </div>
+      <div class="alerts-list" id="alertsList"><p class="alerts-empty">لا توجد تنبيهات نشطة بعد.</p></div>
     </article>
   </section>
 
   <section class="section">
-    <div class="section-head">
-      <h2>الرسم البياني التاريخي</h2>
-      <span class="hint">بالعملة المحلية</span>
-    </div>
+    <div class="section-head"><h2>الرسم البياني التاريخي</h2><span class="hint">بالعملة المحلية</span></div>
     <div class="chart-card">
       <div class="chart-head">
-        <div class="chart-title">
-          <strong>سعر أونصة الذهب</strong>
-          <small id="chartRangeLabel">آخر 24 ساعة</small>
-        </div>
+        <div class="chart-title"><strong>سعر أونصة الذهب</strong><small id="chartRangeLabel">آخر 24 ساعة</small></div>
         <div class="chart-tabs">
           <button class="chart-tab" data-range="24h" aria-selected="true">24 ساعة</button>
           <button class="chart-tab" data-range="7d" aria-selected="false">7 أيام</button>
@@ -326,15 +276,12 @@
         <div id="goldChart"></div>
         <div class="chart-loading" id="chartLoading">جارٍ تحميل البيانات…</div>
       </div>
-      <div class="chart-foot">المصدر: xaus.com</div>
+      <div class="chart-foot">المصدر: xaus.com (عبر وسيط CORS)</div>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-head">
-      <h2>مقارنة الأسعار بين الدول</h2>
-      <span class="hint">أين الذهب أرخص؟</span>
-    </div>
+    <div class="section-head"><h2>مقارنة الأسعار بين الدول</h2><span class="hint">أين الذهب أرخص؟</span></div>
     <div class="compare-card">
       <div class="compare-summary" id="compareSummary"></div>
       <div class="compare-table-wrap">
@@ -353,21 +300,10 @@
       <article class="card">
         <h3 class="card-title">احسب سعر الشراء والبيع</h3>
         <div class="form-row">
-          <label class="field">الوزن (جرام)
-            <input type="number" id="calcWeight" value="10" min="0" step="0.1" inputmode="decimal">
-          </label>
-          <label class="field">العيار
-            <select id="calcKarat">
-              <option value="24">24</option>
-              <option value="22">22</option>
-              <option value="21" selected>21</option>
-              <option value="18">18</option>
-            </select>
-          </label>
+          <label class="field">الوزن (جرام)<input type="number" id="calcWeight" value="10" min="0" step="0.1" inputmode="decimal"></label>
+          <label class="field">العيار<select id="calcKarat"><option value="24">24</option><option value="22">22</option><option value="21" selected>21</option><option value="18">18</option></select></label>
         </div>
-        <label class="field" style="margin-top:10px">نسبة المصنعية (٪)
-          <input type="number" id="calcManuf" value="7" min="0" max="50" step="0.5" inputmode="decimal">
-        </label>
+        <label class="field" style="margin-top:10px">نسبة المصنعية (٪)<input type="number" id="calcManuf" value="7" min="0" max="50" step="0.5" inputmode="decimal"></label>
         <div class="calc-breakdown">
           <div class="calc-row"><span>سعر الخام</span><strong id="calcBase">—</strong></div>
           <div class="calc-row"><span>+ المصنعية</span><strong id="calcManufVal">—</strong></div>
@@ -406,23 +342,23 @@
 (() => {
   'use strict';
 
-  /* ═══════════════════════════════════════════════════════════════
-     🔑 إعدادات EmailJS — استبدل PUBLIC_KEY فقط
-     ═══════════════════════════════════════════════════════════════ */
+  /* ═══════════ إعدادات EmailJS ═══════════ */
   const EMAILJS_PUBLIC_KEY  = 'UU4NtOdCRqPazrKFR';
   const EMAILJS_SERVICE_ID  = 'service_200';
   const EMAILJS_TEMPLATE_ID = 'template_jky2jwh';
 
-  // تهيئة EmailJS
-  if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-    console.log('[ayar] EmailJS initialized');
+  if (window.emailjs) {
+    try {
+      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+      console.log('[ayar] ✅ EmailJS initialized');
+    } catch (e) {
+      console.error('[ayar] ❌ EmailJS init failed:', e);
+    }
   } else {
-    console.warn('[ayar] EmailJS not initialized - check PUBLIC_KEY');
+    console.warn('[ayar] ⚠️ emailjs library not loaded');
   }
 
-  /* ═══════════════════════════════════════════════════════════════ */
-
+  /* ═══════════ ثوابت ═══════════ */
   const API_URL = 'https://ayar-proxy.ezzoabdo17.workers.dev/api/metals';
   const GRAM_PER_OZ = 31.1034768;
   const HISTORY_LEN = 40;
@@ -432,6 +368,11 @@
   const LAST_FETCH_KEY = 'ayar:lastFetch-v2';
   const CACHE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
   const ALERTS_KEY = 'ayar:alerts-v1';
+
+  // ✅ وسيط CORS لتجاوز حظر xaus.com
+  const XAUS_PROXY = 'https://api.allorigins.win/raw?url=';
+  const XAUS_INTRADAY = XAUS_PROXY + encodeURIComponent('https://xaus.com/api/v1/intraday?symbol=xau&hours=24');
+  const XAUS_HISTORY  = XAUS_PROXY + encodeURIComponent('https://xaus.com/api/v1/history');
 
   const FALLBACK = { goldOz: 4117.16, silverOz: 52.96 };
   const FALLBACK_RATES = { EGP:53.88, SAR:3.75, AED:3.6725, BHD:0.3760, IQD:1516, KWD:0.3110, QAR:3.64, OMR:0.3846, JOD:0.7090 };
@@ -480,7 +421,7 @@
     return true;
   }
 
-  /* ═════════════ التخزين المؤقت ═════════════ */
+  /* ═══════════ التخزين المؤقت ═══════════ */
   function loadCache() {
     try {
       const raw = localStorage.getItem(CACHE_KEY);
@@ -505,7 +446,7 @@
   }
   function pushUsd(p) { state.usdHistory.push(p); if (state.usdHistory.length > HISTORY_LEN) state.usdHistory.shift(); }
 
-  /* ═════════════ التنبيهات ═════════════ */
+  /* ═══════════ التنبيهات ═══════════ */
   function getAlerts() { try { return JSON.parse(localStorage.getItem(ALERTS_KEY) || '[]'); } catch (_) { return []; } }
   function saveAlerts(a) { try { localStorage.setItem(ALERTS_KEY, JSON.stringify(a)); } catch (_) {} }
 
@@ -553,7 +494,29 @@
     });
   }
 
-  /* ✅ checkAlerts — بعد إصلاح المتغيرات */
+  /* ✅ دالة آمنة لإرسال البريد — تتعامل مع كل الحالات */
+  function sendEmailSafe(params, onSuccess, onError) {
+    if (!window.emailjs) {
+      console.warn('[ayar] emailjs not available');
+      if (onError) onError({ text: 'مكتبة EmailJS غير محملة' });
+      return;
+    }
+    try {
+      const p = emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params);
+      if (p && typeof p.then === 'function') {
+        p.then(result => { if (onSuccess) onSuccess(result); })
+         .catch(err => { if (onError) onError(err); });
+      } else {
+        console.error('[ayar] emailjs.send did not return a Promise');
+        if (onError) onError({ text: 'emailjs.send لم يرجع Promise' });
+      }
+    } catch (e) {
+      console.error('[ayar] emailjs.send threw exception:', e);
+      if (onError) onError(e);
+    }
+  }
+
+  /* ✅ checkAlerts — مصلح: يستخدم a.* بشكل صحيح */
   async function checkAlerts() {
     const alerts = getAlerts();
     if (!alerts.length) return;
@@ -582,22 +545,17 @@
         } catch (e) {}
       }
 
-      // بريد إلكتروني عند تحقق الشرط
-      if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
-        try {
-          const result = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-            to_email: a.email,
-            target_price: nf(0,0).format(a.targetPrice),
-            current_price: fmtMoney(gram, c),
-            currency: c.symbol,
-            karat: a.karat,
-            direction: a.direction === 'below' ? 'الهبوط' : 'الصعود'
-          });
-          console.log('[ayar] ✅ alert email sent to', a.email, result);
-        } catch (err) {
-          console.error('[ayar] ❌ emailjs error:', err);
-        }
-      }
+      // بريد إلكتروني — يستخدم a.email, a.targetPrice, a.karat, a.direction
+      sendEmailSafe({
+        to_email: a.email,
+        target_price: nf(0,0).format(a.targetPrice),
+        current_price: fmtMoney(gram, c),
+        currency: c.symbol,
+        karat: a.karat,
+        direction: a.direction === 'below' ? 'الهبوط' : 'الصعود'
+      },
+      result => console.log('[ayar] ✅ trigger email sent to', a.email, result),
+      err => console.error('[ayar] ❌ trigger email failed:', err));
 
       showStatus('success', `🔔 تحقق تنبيهك! ${c.flag} ${c.name} — ${fmtMoney(gram, c)} ${c.symbol}`);
     }
@@ -605,7 +563,7 @@
     if (changed) { saveAlerts(alerts); renderAlerts(); }
   }
 
-  /* ✅ handleAlertSubmit — بعد إصلاح المتغيرات وحذف الكود اليتيم */
+  /* ✅ handleAlertSubmit — مصلح: بدون a.*، وبدون كود يتيم */
   async function handleAlertSubmit(e) {
     e.preventDefault();
     const email = el('alertEmail').value.trim();
@@ -627,35 +585,32 @@
     alerts.push({ email, targetPrice, karat, direction, country: state.code, createdAt: Date.now(), triggered: false });
     saveAlerts(alerts);
 
-    // بريد تأكيد التسجيل
-    if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
-      el('alertSubmit').disabled = true;
-      try {
-        const result = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          to_email: email,
-          target_price: nf(0,0).format(targetPrice),
-          current_price: fmtMoney(currentGram, c),
-          currency: c.symbol,
-          karat: karat,
-          direction: direction === 'below' ? 'الهبوط' : 'الصعود'
-        });
-        console.log('[ayar] ✅ Email sent:', result);
-        showStatus('success', `✅ تم تسجيل التنبيه وإرسال بريد تأكيد إلى ${email}.`);
-      } catch (err) {
-        console.error('[ayar] ❌ EmailJS error:', err);
-        showStatus('error', '⚠️ تم حفظ التنبيه محلياً، لكن تعذّر إرسال البريد: ' + (err.text || err.message || 'خطأ غير معروف'));
-      } finally {
-        el('alertSubmit').disabled = false;
-      }
-    } else {
-      showStatus('info', '⚠️ لم يتم إعداد EmailJS. تحقق من PUBLIC_KEY.');
-    }
+    // بريد تأكيد التسجيل — يستخدم email, targetPrice, currentGram, karat, direction
+    el('alertSubmit').disabled = true;
+    sendEmailSafe({
+      to_email: email,
+      target_price: nf(0,0).format(targetPrice),
+      current_price: fmtMoney(currentGram, c),
+      currency: c.symbol,
+      karat: karat,
+      direction: direction === 'below' ? 'الهبوط' : 'الصعود'
+    },
+    result => {
+      console.log('[ayar] ✅ confirmation email sent to', email, result);
+      showStatus('success', `✅ تم تسجيل التنبيه وإرسال بريد تأكيد إلى ${email}.`);
+      el('alertSubmit').disabled = false;
+    },
+    err => {
+      console.error('[ayar] ❌ confirmation email failed:', err);
+      showStatus('error', '⚠️ تم حفظ التنبيه محلياً، لكن تعذّر إرسال البريد: ' + (err.text || err.message || 'خطأ'));
+      el('alertSubmit').disabled = false;
+    });
 
     el('alertForm').reset();
     renderAlerts();
   }
 
-  /* ═════════════ العرض ═════════════ */
+  /* ═══════════ العرض ═══════════ */
   function renderChips() {
     el('countryChips').innerHTML = COUNTRIES.map(c => `
       <button class="chip${c.code===state.code?' is-active':''}" data-code="${c.code}" role="radio" aria-checked="${c.code===state.code}">
@@ -747,7 +702,6 @@
     const sellTotal = base * (1 - (c.bidSpread || 0.02));
     const spread = buyTotal - sellTotal;
     const spreadPct = buyTotal > 0 ? (spread/buyTotal)*100 : 0;
-
     el('calcBase').textContent = fmtMoney(base, c) + ' ' + c.symbol;
     el('calcManufVal').textContent = '+' + fmtMoney(manuf, c) + ' ' + c.symbol;
     el('calcTaxVal').textContent = '+' + fmtMoney(tax, c) + ' ' + c.symbol;
@@ -868,9 +822,7 @@
     render();
   }
 
-  /* ═════════════ الرسم البياني ═════════════ */
-  const XAUS_INTRADAY = 'https://xaus.com/api/v1/intraday?symbol=xau';
-  const XAUS_HISTORY = 'https://xaus.com/api/v1/history';
+  /* ═══════════ الرسم البياني (عبر allorigins CORS proxy) ═══════════ */
   const chartCache = { '24h':{d:null,ts:0,ttl:3e5}, '7d':{d:null,ts:0,ttl:36e5}, '30d':{d:null,ts:0,ttl:108e5}, '1y':{d:null,ts:0,ttl:432e5} };
   let chartInst = null, chartSeries = null, chartRange = '24h';
 
@@ -895,18 +847,21 @@
     const e = chartCache[range];
     if (e.d && Date.now()-e.ts < e.ttl) return e.d;
     let url, tr;
-    if (range === '24h') { url = XAUS_INTRADAY+'&hours=24'; tr = j => (j.points||[]).map(p => ({ time: Math.floor(new Date(p.t).getTime()/1000), value: p.p })); }
+    if (range === '24h') { url = XAUS_INTRADAY; tr = j => (j.points||[]).map(p => ({ time: Math.floor(new Date(p.t).getTime()/1000), value: p.p })); }
     else { url = XAUS_HISTORY; const lim = range==='7d'?7:range==='30d'?30:365; tr = j => (j.points||[]).slice(-lim).map(p => ({ time: Math.floor(new Date(p.d).getTime()/1000), value: p.c })); }
     const r = await fetch(url, { cache:'no-store' });
-    if (!r.ok) throw new Error('chart');
+    if (!r.ok) throw new Error('chart HTTP ' + r.status);
     const pts = tr(await r.json()).filter(p => p.value>0 && p.time>0);
-    if (!pts.length) throw new Error('empty');
+    if (!pts.length) throw new Error('empty chart data');
     e.d = pts; e.ts = Date.now(); return pts;
   }
 
+  /* ✅ updateChart — يعرض رسالة ودية عند الفشل بدل رمي الأخطاء */
   async function updateChart() {
     const load = el('chartLoading');
     if (!chartInst) return;
+    load.textContent = 'جارٍ تحميل البيانات…';
+    load.style.color = 'var(--muted)';
     load.classList.remove('hidden');
     try {
       const pts = await fetchChart(chartRange);
@@ -915,10 +870,15 @@
       chartSeries.setData(s);
       chartInst.timeScale().fitContent();
       load.classList.add('hidden');
-    } catch (err) { console.error(err); load.classList.add('hidden'); }
+    } catch (err) {
+      console.warn('[ayar] Chart unavailable:', err.message);
+      load.textContent = '📊 الرسم البياني غير متاح حالياً — الأسعار أعلاه محدّثة';
+      load.style.color = 'var(--amber)';
+      // لا نخفي loading، نتركه يظهر الرسالة
+    }
   }
 
-  /* ═════════════ التهيئة ═════════════ */
+  /* ═══════════ التهيئة ═══════════ */
   function init() {
     el('year').textContent = new Date().getFullYear();
     renderChips(); syncChips(); buildKaratGrid();
