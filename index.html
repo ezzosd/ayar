@@ -582,17 +582,26 @@
       }
 
       // ═════════ بريد إلكتروني — كود emailjs.send ═════════
-      if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'UU4NtOdCRqPazrKFR') {
-        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          to_email: a.email,                    // ⬅️ بريد الزائر
-          target_price: nf(0,0).format(a.targetPrice),
-          current_price: fmtMoney(gram, c),
+         if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'UU4NtOdCRqPazrKFR') {
+      el('alertSubmit').disabled = true;
+      try {
+        const result = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          to_email: email,
+          target_price: nf(0,0).format(targetPrice),
+          current_price: fmtMoney(currentGram, c),
           currency: c.symbol,
-          karat: a.karat,
-          direction: a.direction === 'below' ? 'الهبوط' : 'الصعود'
-        }).then(() => console.log('[ayar] ✅ alert email sent to', a.email))
-          .catch(err => console.error('[ayar] ❌ emailjs error:', err));
+          karat: karat,
+          direction: direction === 'below' ? 'الهبوط' : 'الصعود'
+        });
+        console.log('[ayar] ✅ Email sent:', result);
+        showStatus('success', `✅ تم تسجيل التنبيه وإرسال بريد تأكيد إلى ${email}.`);
+      } catch (err) {
+        console.error('[ayar] ❌ EmailJS error:', err);
+        showStatus('error', '⚠️ تم حفظ التنبيه محلياً، لكن تعذّر إرسال البريد: ' + (err.text || err.message || 'خطأ غير معروف'));
+      } finally {
+        el('alertSubmit').disabled = false;
       }
+    }
 
       showStatus('success', `🔔 تحقق تنبيهك! ${c.flag} ${c.name} — ${fmtMoney(gram, c)} ${c.symbol}`);
     }
@@ -622,9 +631,21 @@
     saveAlerts(alerts);
 
     // ═════════ بريد تأكيد التسجيل — كود emailjs.send ═════════
-    if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'UU4NtOdCRqPazrKFR') {
-      el('alertSubmit').disabled = true;
-      try {
+         if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'UU4NtOdCRqPazrKFR') {
+        try {
+          const result = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+            to_email: a.email,
+            target_price: nf(0,0).format(a.targetPrice),
+            current_price: fmtMoney(gram, c),
+            currency: c.symbol,
+            karat: a.karat,
+            direction: a.direction === 'below' ? 'الهبوط' : 'الصعود'
+          });
+          console.log('[ayar] ✅ alert email sent to', a.email, result);
+        } catch (err) {
+          console.error('[ayar] ❌ emailjs error:', err);
+        }
+      }
         await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
           to_email: email,                      // ⬅️ بريد الزائر
           target_price: nf(0,0).format(targetPrice),
