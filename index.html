@@ -409,7 +409,7 @@
   /* ═══════════════════════════════════════════════════════════════
      🔑 إعدادات EmailJS — استبدل القيم هنا فقط
      ═══════════════════════════════════════════════════════════════ */
-  const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';           // ← من Account → General
+  const EMAILJS_PUBLIC_KEY  = 'UU4NtOdCRqPazrKFR';           // ← من Account → General
   const EMAILJS_SERVICE_ID  = 'service_200';               // ← جاهز
   const EMAILJS_TEMPLATE_ID = 'template_jky2jwh';          // ← جاهز
 
@@ -579,7 +579,7 @@
       }
 
       // ═════════ بريد إلكتروني — كود emailjs.send ═════════
-      if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+      if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'UU4NtOdCRqPazrKFR') {
         emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
           to_email: a.email,                    // ⬅️ بريد الزائر
           target_price: nf(0,0).format(a.targetPrice),
@@ -619,7 +619,7 @@
     saveAlerts(alerts);
 
     // ═════════ بريد تأكيد التسجيل — كود emailjs.send ═════════
-    if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+    if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'UU4NtOdCRqPazrKFR') {
       el('alertSubmit').disabled = true;
       try {
         await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
