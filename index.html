@@ -26,6 +26,9 @@
 <!-- Monetag — Multitag -->
 <script src="https://quge5.com/88/tag.min.js" data-zone="307983" async data-cfasync="false"></script>
 
+<!-- Lightweight Charts — TradingView -->
+<script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+
 <link rel="manifest" href='data:application/manifest+json,{"name":"عيار","short_name":"عيار","start_url":"./","display":"standalone","background_color":"%230a0b0f","theme_color":"%230a0b0f","lang":"ar","dir":"rtl"}'>
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='38' fill='%230a0b0f'/%3E%3Ccircle cx='90' cy='90' r='62' fill='%23e9b949'/%3E%3Ctext x='90' y='120' text-anchor='middle' font-size='86' font-weight='700' fill='%233a2a06' font-family='sans-serif'%3Eع%3C/text%3E%3C/svg%3E">
 
@@ -38,7 +41,7 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type":"Question","name":"كم سعر جرام الذهب اليوم؟","acceptedAnswer":{"@type":"Answer","text":"سعر جرام الذهب اليوم يتغير لحظياً حسب السوق العالمي وسعر الصرف المحلي. في موقع عيار، يمكنك رؤية سعر الجرام لكل عيار (24، 22، 21، 18) في 9 دول عربية، ويتم التحديث تلقائياً."}},
+    {"@type":"Question","name":"كم سعر جرام الذهب اليوم؟","acceptedAnswer":{"@type":"Answer","text":"سعر جرام الذهب اليوم يتغير لحظياً حسب السوق العالمي وسعر الصرف المحلي. في موقع عيار، يمكنك رؤية سعر الجرام لكل عيار (24، 22، 21، 18) في 9 دول عربية."}},
     {"@type":"Question","name":"كيف يتم حساب سعر الذهب؟","acceptedAnswer":{"@type":"Answer","text":"يُحسب سعر الجرام بقسمة سعر أونصة الذهب العالمي على 31.1035، ثم ضربه في سعر صرف العملة المحلية، ثم في نسبة نقاء العيار."}},
     {"@type":"Question","name":"ما الفرق بين عيار 21 وعيار 24؟","acceptedAnswer":{"@type":"Answer","text":"عيار 24 هو الذهب الخالص 99.9% للاستثمار. عيار 21 يحتوي على 87.5% ذهب و12.5% معادن أخرى، وهو الأكثر شيوعاً في المشغولات."}},
     {"@type":"Question","name":"هل السعر المعروض يشمل المصنعية؟","acceptedAnswer":{"@type":"Answer","text":"السعر الأساسي هو سعر الخام. اضغط زر «سعر المشغول» لإضافة المصنعية والضريبة المحلية."}},
@@ -172,6 +175,32 @@
   .calc-result{margin-top:12px;padding:12px;border-radius:10px;background:var(--surface-2);border:1px solid var(--line);text-align:center}
   .calc-result strong{color:var(--gold-soft);font-size:20px;font-variant-numeric:tabular-nums;display:block;margin-top:2px}
   .calc-note{font-size:11px;color:var(--muted);margin-top:8px;text-align:center}
+
+  /* ============ قسم الرسم البياني ============ */
+  .chart-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:0;overflow:hidden}
+  .chart-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .chart-title{display:flex;flex-direction:column;gap:2px}
+  .chart-title strong{font-size:15px;color:var(--text)}
+  .chart-title small{font-size:11.5px;color:var(--muted)}
+  .chart-tabs{display:flex;gap:4px;background:var(--surface-2);border:1px solid var(--line);padding:3px;border-radius:10px;flex-wrap:wrap}
+  .chart-tab{font:inherit;font-size:12px;font-weight:700;padding:6px 12px;border-radius:7px;border:0;cursor:pointer;background:transparent;color:var(--muted);transition:color .15s, background .15s}
+  .chart-tab:hover{color:var(--text)}
+  .chart-tab[aria-selected="true"]{color:#20170a;background:linear-gradient(180deg,var(--gold-soft),var(--gold))}
+  .chart-tab:focus-visible{outline:2px solid var(--gold-soft);outline-offset:1px}
+  .chart-body{position:relative;padding:12px 8px 4px}
+  #goldChart{width:100%;height:340px;display:block}
+  .chart-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(17,20,32,.72);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);z-index:2;font-size:13px;color:var(--muted);gap:10px}
+  .chart-loading.hidden{display:none}
+  .chart-spinner{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--gold);animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .chart-error{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:rgba(17,20,32,.85);z-index:3;font-size:13px;color:var(--muted);text-align:center;padding:20px}
+  .chart-error.hidden{display:none}
+  .chart-error button{font:inherit;font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;cursor:pointer;border:1px solid var(--line);background:var(--surface-2);color:var(--text)}
+  .chart-foot{display:flex;justify-content:space-between;align-items:center;padding:10px 18px 14px;font-size:11px;color:var(--muted);border-top:1px solid var(--line);flex-wrap:wrap;gap:6px}
+  .chart-foot a{color:var(--gold-soft);text-decoration:none}
+  .chart-foot a:hover{text-decoration:underline}
+
+  /* محتوى SEO */
   .content-section{margin-top:32px;padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
   .content-section h2{color:var(--gold-soft);font-size:20px;margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
   .content-section p{margin:0 0 12px;font-size:14.5px;line-height:1.85;color:#c9d1e3}
@@ -202,9 +231,12 @@
     #spark{max-width:100%}
     .content-section{padding:18px}
     .content-section h2{font-size:18px}
+    #goldChart{height:260px}
+    .chart-head{padding:12px 14px}
+    .chart-tab{padding:5px 9px;font-size:11.5px}
   }
   @media print{
-    .site-header,.countries,.skip,.toolbar,.spark-label,#spark,.pill.live,.pill.demo,.market-status,.ad-slot{display:none !important}
+    .site-header,.countries,.skip,.toolbar,.spark-label,#spark,.pill.live,.pill.demo,.market-status,.ad-slot,.chart-card{display:none !important}
     body{background:#fff;color:#000;padding:0}
     .hero,.card,.data-table,.content-section{background:#fff;border:1px solid #bbb;color:#000;box-shadow:none}
     .big{color:#000 !important;background:none !important;-webkit-text-fill-color:#000 !important}
@@ -306,6 +338,43 @@
           <div class="row"><span id="fxLocalLabel">العملة المحلية مقابل الدولار</span><strong id="fxLocal">—</strong></div>
         </div>
       </article>
+    </div>
+  </section>
+
+  <!-- ============ الرسم البياني التاريخي ============ -->
+  <section class="section" aria-labelledby="chartTitle">
+    <div class="section-head">
+      <h2 id="chartTitle">الرسم البياني التاريخي</h2>
+      <span class="hint">بالعملة المحلية للدولة المختارة</span>
+    </div>
+    <div class="chart-card">
+      <div class="chart-head">
+        <div class="chart-title">
+          <strong>سعر أونصة الذهب</strong>
+          <small id="chartRangeLabel">آخر 24 ساعة</small>
+        </div>
+        <div class="chart-tabs" role="tablist" aria-label="نطاق الرسم البياني">
+          <button type="button" class="chart-tab" role="tab" data-range="24h" aria-selected="true">24 ساعة</button>
+          <button type="button" class="chart-tab" role="tab" data-range="7d" aria-selected="false">7 أيام</button>
+          <button type="button" class="chart-tab" role="tab" data-range="30d" aria-selected="false">30 يوماً</button>
+          <button type="button" class="chart-tab" role="tab" data-range="1y" aria-selected="false">سنة</button>
+        </div>
+      </div>
+      <div class="chart-body">
+        <div id="goldChart" role="img" aria-label="رسم بياني لسعر الذهب"></div>
+        <div class="chart-loading" id="chartLoading">
+          <span class="chart-spinner"></span>
+          <span>جارٍ تحميل البيانات…</span>
+        </div>
+        <div class="chart-error hidden" id="chartError">
+          <span>تعذّر تحميل الرسم البياني.</span>
+          <button type="button" id="chartRetry">إعادة المحاولة</button>
+        </div>
+      </div>
+      <div class="chart-foot">
+        <span>المصدر: xaus.com — بيانات تاريخية يومية وداخل اليوم</span>
+        <a href="https://xaus.com" target="_blank" rel="noopener">تفاصيل</a>
+      </div>
     </div>
   </section>
 
@@ -416,9 +485,8 @@
 
   const GRAM_PER_OZ = 31.1034768;
   const HISTORY_LEN = 40;
-  const CLOCK_MS = 1000;
   const DRIFT_MS = 5000;
-  const FETCH_MIN_INTERVAL = 8 * 60 * 60 * 1000; // 8 ساعات بين جلبين
+  const FETCH_MIN_INTERVAL = 8 * 60 * 60 * 1000;
   const CACHE_KEY = 'ayar:cache-v2';
   const LAST_FETCH_KEY = 'ayar:lastFetch-v2';
   const CACHE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
@@ -447,7 +515,6 @@
     { k:18, purity:'نقاء 75.0%' }
   ];
 
-  // ⚠️ القيم غير صفرية — تُعرض فوراً قبل أي جلب
   const market = { goldOz: FALLBACK.goldOz, silverOz: FALLBACK.silverOz };
   const state = { code:'EG', usdHistory:[], showManufacturing:false, showTable:false, lastUpdate:null, source:'init' };
 
@@ -485,14 +552,12 @@
     return true;
   }
 
-  // ===== التخزين المؤقت =====
   function loadCache() {
     try {
       const raw = localStorage.getItem(CACHE_KEY);
       if (!raw) return false;
       const cached = JSON.parse(raw);
       if (!cached || Date.now() - cached.ts > CACHE_MAX_AGE) return false;
-
       if (cached.goldOz)   market.goldOz   = cached.goldOz;
       if (cached.silverOz) market.silverOz = cached.silverOz;
       if (cached.currencies) {
@@ -632,8 +697,6 @@
     try {
       const c = byCode(state.code);
       if (!c) return;
-
-      // 🔑 ضمان وجود قيم — لا خروج مبكر
       if (!market.goldOz   || market.goldOz <= 0)   market.goldOz = FALLBACK.goldOz;
       if (!market.silverOz || market.silverOz <= 0) market.silverOz = FALLBACK.silverOz;
 
@@ -711,24 +774,20 @@
       } else {
         t.textContent = '—';
       }
-
     } catch (err) { console.error('[ayar] render:', err); }
   }
 
   async function fetchMetals() {
     if (DEMO_MODE) return;
-
     const lastFetch = parseInt(localStorage.getItem(LAST_FETCH_KEY) || '0', 10);
     if (lastFetch && Date.now() - lastFetch < FETCH_MIN_INTERVAL && state.source === 'cache') {
       console.log('[ayar] cache fresh — skipping fetch');
       return;
     }
-
     try {
       const res = await fetch(API_URL, { cache: 'no-store' });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
-
       if (data.metals) {
         market.goldOz = parseFloat(data.metals.gold) || market.goldOz;
         market.silverOz = parseFloat(data.metals.silver) || market.silverOz;
@@ -739,7 +798,6 @@
           if (v && v > 0) c.rate = 1 / v;
         });
       }
-
       state.source = 'live';
       state.lastUpdate = new Date();
       localStorage.setItem(LAST_FETCH_KEY, String(Date.now()));
@@ -763,6 +821,174 @@
     render();
   }
 
+  /* ======================== الرسم البياني التاريخي ======================== */
+  const XAUS_INTRADAY = 'https://xaus.com/api/v1/intraday?symbol=xau';
+  const XAUS_HISTORY  = 'https://xaus.com/api/v1/history';
+
+  const chartCache = {
+    '24h': { data: null, ts: 0, ttl: 5 * 60 * 1000 },
+    '7d':  { data: null, ts: 0, ttl: 60 * 60 * 1000 },
+    '30d': { data: null, ts: 0, ttl: 3 * 60 * 60 * 1000 },
+    '1y':  { data: null, ts: 0, ttl: 12 * 60 * 60 * 1000 }
+  };
+
+  let chartInstance = null;
+  let chartSeries = null;
+  let chartRange = '24h';
+
+  function initChart() {
+    const container = el('goldChart');
+    if (!container || !window.LightweightCharts) return;
+
+    if (!chartInstance) {
+      chartInstance = LightweightCharts.createChart(container, {
+        layout: {
+          background: { color: 'transparent' },
+          textColor: '#8a93a9',
+          fontFamily: 'Cairo, sans-serif',
+          fontSize: 11
+        },
+        grid: {
+          vertLines: { color: 'rgba(36,42,61,.5)' },
+          horzLines: { color: 'rgba(36,42,61,.5)' }
+        },
+        rightPriceScale: {
+          borderColor: 'rgba(36,42,61,.8)',
+          scaleMargins: { top: 0.1, bottom: 0.1 }
+        },
+        timeScale: {
+          borderColor: 'rgba(36,42,61,.8)',
+          timeVisible: true,
+          secondsVisible: false
+        },
+        crosshair: {
+          mode: LightweightCharts.CrosshairMode.Normal,
+          vertLine: { color: 'rgba(233,185,73,.4)', width: 1, style: 2 },
+          horzLine: { color: 'rgba(233,185,73,.4)', width: 1, style: 2 }
+        },
+        handleScale: { axisPressedMouseMove: true },
+        handleScroll: true
+      });
+
+      chartSeries = chartInstance.addAreaSeries({
+        lineColor: '#e9b949',
+        topColor: 'rgba(233,185,73,.35)',
+        bottomColor: 'rgba(233,185,73,.02)',
+        lineWidth: 2,
+        priceLineVisible: false,
+        lastValueVisible: true
+      });
+
+      const ro = new ResizeObserver(() => {
+        if (chartInstance) chartInstance.applyOptions({
+          width: container.clientWidth,
+          height: container.clientHeight
+        });
+      });
+      ro.observe(container);
+    }
+
+    chartInstance.applyOptions({
+      width: container.clientWidth,
+      height: container.clientHeight
+    });
+  }
+
+  async function fetchChartData(range) {
+    const entry = chartCache[range];
+    if (entry.data && Date.now() - entry.ts < entry.ttl) return entry.data;
+
+    let url, transform;
+    if (range === '24h') {
+      url = XAUS_INTRADAY + '&hours=24';
+      transform = json => (json.points || []).map(p => ({
+        time: Math.floor(new Date(p.t).getTime() / 1000),
+        value: p.p
+      }));
+    } else {
+      url = XAUS_HISTORY;
+      const limit = range === '7d' ? 7 : range === '30d' ? 30 : 365;
+      transform = json => (json.points || []).slice(-limit).map(p => ({
+        time: Math.floor(new Date(p.d).getTime() / 1000),
+        value: p.c
+      }));
+    }
+
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    const points = transform(json).filter(p => p.value > 0 && p.time > 0);
+
+    if (!points.length) throw new Error('empty');
+
+    entry.data = points;
+    entry.ts = Date.now();
+    return points;
+  }
+
+  async function updateChart() {
+    const loading = el('chartLoading');
+    const errorEl = el('chartError');
+    const rangeLabel = el('chartRangeLabel');
+
+    if (!chartInstance || !chartSeries) return;
+
+    loading.classList.remove('hidden');
+    errorEl.classList.add('hidden');
+
+    const labels = { '24h':'آخر 24 ساعة', '7d':'آخر 7 أيام', '30d':'آخر 30 يوماً', '1y':'آخر سنة' };
+    rangeLabel.textContent = labels[chartRange];
+
+    try {
+      const points = await fetchChartData(chartRange);
+      const c = byCode(state.code);
+
+      const scaled = points.map(p => ({
+        time: p.time,
+        value: p.value * c.rate
+      }));
+
+      const sorted = scaled
+        .sort((a, b) => a.time - b.time)
+        .filter((p, i, arr) => i === 0 || p.time !== arr[i - 1].time);
+
+      chartSeries.setData(sorted);
+
+      if (sorted.length > 1) {
+        chartInstance.timeScale().fitContent();
+      }
+
+      const first = sorted[0].value, last = sorted[sorted.length - 1].value;
+      const up = last >= first;
+      chartSeries.applyOptions({
+        lineColor: up ? '#2fd39a' : '#ff5f7a',
+        topColor: up ? 'rgba(47,211,154,.35)' : 'rgba(255,95,122,.35)',
+        bottomColor: up ? 'rgba(47,211,154,.02)' : 'rgba(255,95,122,.02)'
+      });
+
+      loading.classList.add('hidden');
+    } catch (err) {
+      console.error('[ayar] chart fetch failed:', err);
+      loading.classList.add('hidden');
+      errorEl.classList.remove('hidden');
+    }
+  }
+
+  function bindChartTabs() {
+    const tabs = document.querySelectorAll('.chart-tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        if (tab.dataset.range === chartRange) return;
+        chartRange = tab.dataset.range;
+        tabs.forEach(t => t.setAttribute('aria-selected', String(t === tab)));
+        updateChart();
+      });
+    });
+    const retry = el('chartRetry');
+    if (retry) retry.addEventListener('click', updateChart);
+  }
+
+  /* ======================== CSV / الحالة ======================== */
   function exportCSV() {
     try {
       const c = byCode(state.code);
@@ -817,20 +1043,23 @@
     syncChips();
     buildKaratGrid();
 
-    // 1) حمّل من الكاش إن وُجد
     loadCache();
-
-    // 2) اعرض فوراً (بالكاش أو بالقيم الاحتياطية)
     if (!state.lastUpdate) state.lastUpdate = new Date();
     render();
 
-    // 3) حاول الجلب في الخلفية
+    // الرسم البياني
+    initChart();
+    bindChartTabs();
+    updateChart();
+
     if (!DEMO_MODE) setTimeout(fetchMetals, 100);
 
     el('countryChips').addEventListener('click', e => {
       const btn = e.target.closest('.chip');
       if (!btn || btn.dataset.code === state.code) return;
-      state.code = btn.dataset.code; syncChips(); saveState(); render();
+      state.code = btn.dataset.code;
+      syncChips(); saveState(); render();
+      updateChart();
     });
 
     el('countryChips').addEventListener('keydown', e => {
@@ -844,7 +1073,10 @@
       if (e.key === 'Home') i = 0;
       if (e.key === 'End') i = chips.length - 1;
       e.preventDefault();
-      state.code = chips[i].dataset.code; syncChips(); saveState(); render(); chips[i].focus();
+      state.code = chips[i].dataset.code;
+      syncChips(); saveState(); render();
+      updateChart();
+      chips[i].focus();
     });
 
     el('manufToggle').addEventListener('click', () => {
@@ -863,7 +1095,7 @@
       }
     });
     el('exportBtn').addEventListener('click', exportCSV);
-    el('refreshBtn').addEventListener('click', () => { tick(); fetchMetals(); });
+    el('refreshBtn').addEventListener('click', () => { tick(); fetchMetals(); updateChart(); });
 
     ['calcWeight','calcKarat'].forEach(id => {
       el(id).addEventListener(id === 'calcKarat' ? 'change' : 'input', () => {
