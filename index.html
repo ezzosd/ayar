@@ -29,65 +29,21 @@
 <link rel="manifest" href='data:application/manifest+json,{"name":"عيار","short_name":"عيار","start_url":"./","display":"standalone","background_color":"%230a0b0f","theme_color":"%230a0b0f","lang":"ar","dir":"rtl"}'>
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='38' fill='%230a0b0f'/%3E%3Ccircle cx='90' cy='90' r='62' fill='%23e9b949'/%3E%3Ctext x='90' y='120' text-anchor='middle' font-size='86' font-weight='700' fill='%233a2a06' font-family='sans-serif'%3Eع%3C/text%3E%3C/svg%3E">
 
-<!-- JSON-LD: Organization + WebSite -->
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebSite","name":"عيار","url":"https://ayar-five.vercel.app/","inLanguage":"ar","description":"أسعار الذهب والفضة والعملات في 9 دول عربية.","potentialAction":{"@type":"SearchAction","target":"https://ayar-five.vercel.app/?q={search_term_string}","query-input":"required name=search_term_string"}}
 </script>
 
-<!-- JSON-LD: FAQPage -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "كم سعر جرام الذهب اليوم؟",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "سعر جرام الذهب اليوم يتغير لحظياً حسب السوق العالمي وسعر الصرف المحلي. في موقع عيار، يمكنك رؤية سعر الجرام لكل عيار (24، 22، 21، 18) في 9 دول عربية، ويتم التحديث تلقائياً كل 5 ثوانٍ."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "كيف يتم حساب سعر الذهب؟",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "يُحسب سعر الجرام بقسمة سعر أونصة الذهب العالمي على 31.1035 (عدد الجرامات في الأونصة)، ثم ضربه في سعر صرف العملة المحلية مقابل الدولار، ثم ضربه في نسبة نقاء العيار (عيار 24 = 99.9%، عيار 21 = 87.5%)."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "ما الفرق بين عيار 21 وعيار 24؟",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "عيار 24 هو الذهب الخالص بنسبة 99.9% ويُستخدم للاستثمار والسبائك. عيار 21 يحتوي على 87.5% ذهب و12.5% معادن أخرى مثل النحاس والفضة، وهو الأكثر شيوعاً في المشغولات الذهبية العربية لأنه أكثر صلابة."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "هل السعر المعروض يشمل المصنعية؟",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "السعر الأساسي المعروض هو سعر الخام (بدون مصنعية أو ضريبة). لتفعيل إضافة المصنعية والضريبة المحلية لكل دولة، اضغط على زر «سعر المشغول» أعلى الصفحة."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "كيف أحسب زكاة الذهب؟",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "تجب الزكاة إذا بلغ الذهب 85 جراماً من الذهب الخالص (عيار 24) وحال عليه الحول. مقدار الزكاة 2.5% من قيمته الإجمالية. استخدم حاسبة الزكاة المدمجة في الموقع لحسابها تلقائياً."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "ما هو الفرق بين سعر البيع والشراء من التاجر؟",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "عند شراء الذهب من التاجر، تدفع سعر الخام + المصنعية (2-7%) + الضريبة (0-16% حسب الدولة). عند البيع للتاجر، يستقطع 2-5% من سعر الخام كهامش ربح. لذلك يكون سعر البيع للتاجر أقل من سعر الشراء منه بنسبة تتراوح بين 4% و12%."
-      }
-    }
+    {"@type":"Question","name":"كم سعر جرام الذهب اليوم؟","acceptedAnswer":{"@type":"Answer","text":"سعر جرام الذهب اليوم يتغير لحظياً حسب السوق العالمي وسعر الصرف المحلي. في موقع عيار، يمكنك رؤية سعر الجرام لكل عيار (24، 22، 21، 18) في 9 دول عربية، ويتم التحديث تلقائياً."}},
+    {"@type":"Question","name":"كيف يتم حساب سعر الذهب؟","acceptedAnswer":{"@type":"Answer","text":"يُحسب سعر الجرام بقسمة سعر أونصة الذهب العالمي على 31.1035، ثم ضربه في سعر صرف العملة المحلية، ثم في نسبة نقاء العيار."}},
+    {"@type":"Question","name":"ما الفرق بين عيار 21 وعيار 24؟","acceptedAnswer":{"@type":"Answer","text":"عيار 24 هو الذهب الخالص 99.9% للاستثمار. عيار 21 يحتوي على 87.5% ذهب و12.5% معادن أخرى، وهو الأكثر شيوعاً في المشغولات."}},
+    {"@type":"Question","name":"هل السعر المعروض يشمل المصنعية؟","acceptedAnswer":{"@type":"Answer","text":"السعر الأساسي هو سعر الخام. اضغط زر «سعر المشغول» لإضافة المصنعية والضريبة المحلية."}},
+    {"@type":"Question","name":"كيف أحسب زكاة الذهب؟","acceptedAnswer":{"@type":"Answer","text":"تجب إذا بلغ الذهب 85 جراماً خالصاً وحال عليه الحول. المقدار 2.5% من قيمته. استخدم حاسبة الزكاة المدمجة."}},
+    {"@type":"Question","name":"ما الفرق بين سعر البيع والشراء من التاجر؟","acceptedAnswer":{"@type":"Answer","text":"عند الشراء تدفع سعر الخام + المصنعية + الضريبة. عند البيع يُستقطع 2-5% من سعر الخام كهامش ربح التاجر."}}
   ]
 }
 </script>
@@ -120,7 +76,6 @@
   .skip{position:absolute;top:-100px;inset-inline-start:8px;z-index:100;background:var(--gold);color:#1a1206;padding:8px 16px;border-radius:8px;font-weight:700;text-decoration:none;transition:top .2s ease}
   .skip:focus{top:8px}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-
   .site-header{position:sticky;top:0;z-index:50;background:rgba(10,11,15,.86);border-bottom:1px solid var(--line)}
   @supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
     .site-header{-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);background:rgba(10,11,15,.78)}
@@ -142,7 +97,6 @@
   @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.65)}}
   .updated{font-size:11.5px;color:var(--muted);display:inline-flex;align-items:center;gap:4px}
   .updated strong{color:var(--green);font-weight:700}
-
   .ad-slot{margin:22px auto;display:flex;align-items:center;justify-content:center;width:100%;max-width:970px;overflow:hidden;text-align:center}
   .ad-slot:empty{min-height:90px;background:rgba(22,26,41,.45);border:1px dashed var(--line);border-radius:12px}
   .ad-slot:empty::before{content:"مساحة إعلانية — 970×90 (Leaderboard)";color:var(--muted);font-size:12px;font-weight:600}
@@ -150,7 +104,6 @@
   .ad-slot[data-ad="in-article"]:empty::before{content:"مساحة إعلانية — 300×250 (In-Article)"}
   .ad-slot[data-ad="footer"]:empty{min-height:100px}
   .ad-slot[data-ad="footer"]:empty::before{content:"مساحة إعلانية — 728×90 (Footer)"}
-
   .countries{padding:14px 0 6px}
   .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
   .chips::-webkit-scrollbar{display:none}
@@ -164,7 +117,6 @@
   @media (hover:hover){.toggle:hover{color:var(--text);border-color:#333c57}}
   .toggle[aria-pressed="true"]{color:#20170a;background:linear-gradient(180deg,var(--gold-soft),var(--gold));border-color:transparent;font-weight:700}
   .toggle:focus-visible{outline:2px solid var(--gold-soft);outline-offset:2px}
-
   .hero{position:relative;overflow:hidden;margin-top:14px;padding:24px;border-radius:22px;display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center;background:linear-gradient(135deg,rgba(233,185,73,.14),rgba(17,20,32,.55) 46%),var(--surface);border:1px solid rgba(233,185,73,.22)}
   .hero::after{content:"";position:absolute;inset-inline-end:-70px;top:-80px;width:230px;height:230px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(233,185,73,.30),transparent 66%)}
   .eyebrow{margin:0 0 6px;font-size:12.5px;font-weight:600;color:var(--gold-soft)}
@@ -182,11 +134,9 @@
   .change.flat{color:var(--muted);background:var(--surface-2);border:1px solid var(--line)}
   #spark{width:100%;max-width:260px;aspect-ratio:26/7;height:auto;display:block}
   .spark-label{font-size:10.5px;color:var(--muted)}
-
   .section{margin-top:28px}
   .section-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
   h2{font-size:16px;margin:0}
-  h3.section-title{font-size:20px;margin:0 0 12px;color:var(--gold-soft)}
   .hint{font-size:12px;color:var(--muted)}
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
   .grid.two{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
@@ -222,79 +172,26 @@
   .calc-result{margin-top:12px;padding:12px;border-radius:10px;background:var(--surface-2);border:1px solid var(--line);text-align:center}
   .calc-result strong{color:var(--gold-soft);font-size:20px;font-variant-numeric:tabular-nums;display:block;margin-top:2px}
   .calc-note{font-size:11px;color:var(--muted);margin-top:8px;text-align:center}
-
-  /* محتوى SEO */
-  .content-section{
-    margin-top:32px;
-    padding:24px;
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-  }
-  .content-section h2{
-    color:var(--gold-soft);
-    font-size:20px;
-    margin:0 0 14px;
-    padding-bottom:10px;
-    border-bottom:1px solid var(--line);
-  }
-  .content-section p{
-    margin:0 0 12px;
-    font-size:14.5px;
-    line-height:1.85;
-    color:#c9d1e3;
-  }
+  .content-section{margin-top:32px;padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+  .content-section h2{color:var(--gold-soft);font-size:20px;margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+  .content-section p{margin:0 0 12px;font-size:14.5px;line-height:1.85;color:#c9d1e3}
   .content-section p:last-child{margin-bottom:0}
   .content-section strong{color:var(--gold-soft);font-weight:700}
   .content-section ul,.content-section ol{margin:0 0 14px;padding-inline-start:22px;color:#c9d1e3;font-size:14.5px;line-height:1.85}
   .content-section li{margin-bottom:6px}
   .content-section li strong{color:var(--text)}
-
-  /* FAQ */
   .faq{display:grid;gap:10px;margin-top:14px}
-  .faq-item{
-    background:var(--surface-2);
-    border:1px solid var(--line);
-    border-radius:12px;
-    overflow:hidden;
-  }
-  .faq-item summary{
-    cursor:pointer;
-    padding:14px 16px;
-    font-weight:700;
-    font-size:14.5px;
-    color:var(--text);
-    list-style:none;
-    position:relative;
-    padding-inline-end:42px;
-    transition:background .2s ease;
-  }
+  .faq-item{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .faq-item summary{cursor:pointer;padding:14px 16px;font-weight:700;font-size:14.5px;color:var(--text);list-style:none;position:relative;padding-inline-end:42px;transition:background .2s ease}
   .faq-item summary::-webkit-details-marker{display:none}
-  .faq-item summary::after{
-    content:"+";
-    position:absolute;
-    inset-inline-end:16px;
-    top:50%;
-    transform:translateY(-50%);
-    font-size:20px;
-    color:var(--gold);
-    font-weight:400;
-    transition:transform .2s ease;
-  }
+  .faq-item summary::after{content:"+";position:absolute;inset-inline-end:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--gold);font-weight:400;transition:transform .2s ease}
   .faq-item[open] summary::after{content:"−"}
   @media (hover:hover){.faq-item summary:hover{background:rgba(233,185,73,.05)}}
   .faq-item summary:focus-visible{outline:2px solid var(--gold-soft);outline-offset:-2px;border-radius:12px}
-  .faq-answer{
-    padding:0 16px 16px;
-    font-size:14px;
-    color:#c9d1e3;
-    line-height:1.85;
-  }
-
+  .faq-answer{padding:0 16px 16px;font-size:14px;color:#c9d1e3;line-height:1.85}
   .footer{margin:42px 0 0;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:grid;gap:8px}
   .footer strong{color:var(--gold-soft)}
   .noscript{background:rgba(255,179,92,.10);border:1px solid rgba(255,179,92,.30);color:var(--amber);padding:12px 16px;border-radius:10px;margin:16px auto;max-width:1120px;width:calc(100% - 32px)}
-
   @media (prefers-reduced-motion: reduce){
     *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
     .pill.live i{animation:none}
@@ -363,7 +260,6 @@
     <div class="hero-main">
       <p class="eyebrow" id="heroTitle">أونصة الذهب عيار 24</p>
       <div class="hero-price">
-        <!-- ⬇️ قيم ابتدائية محسوبة مسبقاً — تُحدَّث تلقائياً عند وصول البيانات الحية -->
         <span class="big" id="ozLocal">221,827</span>
         <span class="cur" id="ozCur">ج.م</span>
       </div>
@@ -439,49 +335,36 @@
     </div>
   </section>
 
-  <!-- ==================== محتوى SEO ==================== -->
-
   <section class="content-section" aria-labelledby="explainKarat">
     <h2 id="explainKarat">ما الفرق بين عيارات الذهب 24، 22، 21، 18؟</h2>
-    <p>
-      يُقاس نقاء الذهب بنظام <strong>العيار (Karat)</strong>، حيث يمثل العيار 24 ذهباً خالصاً بنسبة 99.9%. كل عيار أقل يعني إضافة نسبة من المعادن الأخرى (مثل النحاس أو الفضة) لزيادة الصلابة وتغيير اللون:
-    </p>
+    <p>يُقاس نقاء الذهب بنظام <strong>العيار (Karat)</strong>، حيث يمثل العيار 24 ذهباً خالصاً بنسبة 99.9%. كل عيار أقل يعني إضافة نسبة من المعادن الأخرى لزيادة الصلابة وتغيير اللون:</p>
     <ul>
-      <li><strong>عيار 24 (نقاء 99.9%):</strong> الذهب الخالص، يُستخدم في السبائك والاستثمار طويل الأمد. سعره هو الأعلى ولا يُستخدم عادة في المشغولات لأنه طري جداً.</li>
+      <li><strong>عيار 24 (نقاء 99.9%):</strong> الذهب الخالص، يُستخدم في السبائك والاستثمار طويل الأمد.</li>
       <li><strong>عيار 22 (نقاء 91.6%):</strong> شائع في الخليج والهند، يوازن بين النقاء والصلابة.</li>
-      <li><strong>عيار 21 (نقاء 87.5%):</strong> الأكثر تداولاً في مصر والسودان والأردن. الخيار المفضل للمشغولات الذهبية اليومية.</li>
-      <li><strong>عيار 18 (نقاء 75.0%):</strong> يُستخدم في المجوهرات الراقية التي تحتوي على أحجار كريمة، حيث تكون الصلابة ضرورية.</li>
+      <li><strong>عيار 21 (نقاء 87.5%):</strong> الأكثر تداولاً في مصر والسودان والأردن.</li>
+      <li><strong>عيار 18 (نقاء 75.0%):</strong> للمجوهرات الراقية التي تحتوي على أحجار كريمة.</li>
     </ul>
   </section>
 
   <section class="content-section" aria-labelledby="explainCalc">
     <h2 id="explainCalc">كيف يتم حساب سعر جرام الذهب؟</h2>
-    <p>
-      سعر الجرام في أي دولة يمر بثلاث خطوات:
-    </p>
+    <p>سعر الجرام في أي دولة يمر بثلاث خطوات:</p>
     <ol>
-      <li><strong>السعر العالمي:</strong> يُحدَّد سعر أونصة الذهب بالدولار في بورصة لندن (LBMA) بناءً على العرض والطلب العالمي.</li>
-      <li><strong>التحويل للأونصة:</strong> تُقسم قيمة الأونصة على <strong>31.1035</strong> (عدد الجرامات في الأونصة الواحدة).</li>
-      <li><strong>التحويل للعملة المحلية:</strong> يُضرب الناتج في <strong>سعر صرف الدولار</strong> مقابل العملة المحلية، ثم في <strong>نسبة نقاء العيار</strong> (مثلاً عيار 21 = 87.5%).</li>
+      <li><strong>السعر العالمي:</strong> يُحدَّد سعر أونصة الذهب بالدولار في بورصة لندن (LBMA).</li>
+      <li><strong>التحويل للأونصة:</strong> تُقسم قيمة الأونصة على <strong>31.1035</strong>.</li>
+      <li><strong>التحويل للعملة المحلية:</strong> يُضرب الناتج في سعر صرف الدولار، ثم في نسبة نقاء العيار.</li>
     </ol>
-    <p>
-      <strong>مثال:</strong> إذا كان سعر الأونصة 4,117 دولاراً، وسعر الدولار 53.88 جنيهاً مصرياً، فإن سعر جرام عيار 21 = (4,117 ÷ 31.1035) × 53.88 × 0.875 ≈ <strong>6,240 جنيهاً</strong>.
-    </p>
   </section>
 
   <section class="content-section" aria-labelledby="explainManuf">
     <h2 id="explainManuf">سعر الخام مقابل سعر المشغول — ما الفرق؟</h2>
-    <p>
-      <strong>سعر الخام</strong> هو ما تراه في الصفحة بشكل افتراضي: قيمة المعدن فقط دون أي رسوم. لكن عند الشراء من تاجر ذهب، تدفع ثلاثة عناصر إضافية:
-    </p>
+    <p><strong>سعر الخام</strong> هو قيمة المعدن فقط. عند الشراء من تاجر، تدفع ثلاثة عناصر إضافية:</p>
     <ul>
-      <li><strong>المصنعية:</strong> تكلفة الصياغة والتصنيع، تتراوح عادة بين 2% و7% حسب التصميم.</li>
-      <li><strong>الدمغة والرسوم المحلية:</strong> رسوم حكومية على المشغولات، متفاوتة بين الدول.</li>
-      <li><strong>الضريبة:</strong> في مصر 14%، وفي الأردن 16%، وفي الإمارات 5%. بعض الدول لا تفرض ضريبة على الذهب الاستثماري (مثل السعودية والكويت).</li>
+      <li><strong>المصنعية:</strong> تكلفة الصياغة، 2-7% حسب التصميم.</li>
+      <li><strong>الدمغة والرسوم:</strong> رسوم حكومية.</li>
+      <li><strong>الضريبة:</strong> مصر 14%، الأردن 16%، الإمارات 5%.</li>
     </ul>
-    <p>
-      لإظهار سعر المشغول التقديري في كل دولة، اضغط على زر <strong>«سعر المشغول»</strong> أعلى الصفحة. أما عند البيع للتاجر، فيُستقطع منك 2-5% من سعر الخام كهامش ربح التاجر — لذلك سعر البيع للتاجر أقل من سعر الشراء منه دائماً. مساحة البيع والشراء الظاهرة على كل عيار تعطيك فكرة تقريبية عن هذا الفارق.
-    </p>
+    <p>لإظهار سعر المشغول، اضغط زر <strong>«سعر المشغول»</strong>. أما عند البيع للتاجر، فيُستقطع 2-5% من سعر الخام.</p>
   </section>
 
   <section class="content-section" aria-labelledby="faqTitle">
@@ -489,39 +372,27 @@
     <div class="faq">
       <details class="faq-item">
         <summary>كم سعر جرام الذهب اليوم؟</summary>
-        <div class="faq-answer">
-          سعر جرام الذهب اليوم يتغير لحظياً حسب السوق العالمي وسعر الصرف المحلي. في موقع عيار، يمكنك رؤية سعر الجرام لكل عيار (24، 22، 21، 18) في 9 دول عربية، ويتم التحديث تلقائياً كل 5 ثوانٍ.
-        </div>
+        <div class="faq-answer">سعر جرام الذهب اليوم يتغير حسب السوق العالمي وسعر الصرف المحلي. في عيار، ترى سعر الجرام لكل عيار في 9 دول عربية.</div>
       </details>
       <details class="faq-item">
         <summary>كيف يتم حساب سعر الذهب؟</summary>
-        <div class="faq-answer">
-          يُحسب سعر الجرام بقسمة سعر أونصة الذهب العالمي على 31.1035 (عدد الجرامات في الأونصة)، ثم ضربه في سعر صرف العملة المحلية مقابل الدولار، ثم ضربه في نسبة نقاء العيار (عيار 24 = 99.9%، عيار 21 = 87.5%).
-        </div>
+        <div class="faq-answer">يُحسب بقسمة سعر أونصة الذهب العالمي على 31.1035، ثم ضربه في سعر الصرف، ثم في نسبة نقاء العيار.</div>
       </details>
       <details class="faq-item">
         <summary>ما الفرق بين عيار 21 وعيار 24؟</summary>
-        <div class="faq-answer">
-          عيار 24 هو الذهب الخالص بنسبة 99.9% ويُستخدم للاستثمار والسبائك. عيار 21 يحتوي على 87.5% ذهب و12.5% معادن أخرى مثل النحاس والفضة، وهو الأكثر شيوعاً في المشغولات الذهبية العربية لأنه أكثر صلابة.
-        </div>
+        <div class="faq-answer">عيار 24 خالص 99.9% للاستثمار. عيار 21 يحتوي على 87.5% ذهب و12.5% معادن أخرى، الأكثر شيوعاً في المشغولات.</div>
       </details>
       <details class="faq-item">
         <summary>هل السعر المعروض يشمل المصنعية؟</summary>
-        <div class="faq-answer">
-          السعر الأساسي المعروض هو سعر الخام (بدون مصنعية أو ضريبة). لتفعيل إضافة المصنعية والضريبة المحلية لكل دولة، اضغط على زر «سعر المشغول» أعلى الصفحة.
-        </div>
+        <div class="faq-answer">السعر الأساسي هو سعر الخام. اضغط زر «سعر المشغول» لإضافة المصنعية والضريبة.</div>
       </details>
       <details class="faq-item">
         <summary>كيف أحسب زكاة الذهب؟</summary>
-        <div class="faq-answer">
-          تجب الزكاة إذا بلغ الذهب 85 جراماً من الذهب الخالص (عيار 24) وحال عليه الحول. مقدار الزكاة 2.5% من قيمته الإجمالية. استخدم حاسبة الزكاة المدمجة في الموقع لحسابها تلقائياً.
-        </div>
+        <div class="faq-answer">تجب إذا بلغ 85 جراماً خالصاً وحال عليه الحول. المقدار 2.5%. استخدم الحاسبة المدمجة.</div>
       </details>
       <details class="faq-item">
-        <summary>ما هو الفرق بين سعر البيع والشراء من التاجر؟</summary>
-        <div class="faq-answer">
-          عند شراء الذهب من التاجر، تدفع سعر الخام + المصنعية (2-7%) + الضريبة (0-16% حسب الدولة). عند البيع للتاجر، يستقطع 2-5% من سعر الخام كهامش ربح. لذلك يكون سعر البيع للتاجر أقل من سعر الشراء منه بنسبة تتراوح بين 4% و12%.
-        </div>
+        <summary>ما الفرق بين سعر البيع والشراء من التاجر؟</summary>
+        <div class="faq-answer">عند الشراء تدفع الخام + المصنعية + الضريبة. عند البيع يُستقطع 2-5%. الفارق الكلي 4-12%.</div>
       </details>
     </div>
   </section>
@@ -541,26 +412,32 @@
   'use strict';
 
   const DEMO_MODE = false;
-  const API_URL   = 'https://ayar-proxy.ezzoabdo17.workers.dev/api/metals';
+  const API_URL = 'https://ayar-proxy.ezzoabdo17.workers.dev/api/metals';
 
   const GRAM_PER_OZ = 31.1034768;
   const HISTORY_LEN = 40;
-  const TICK_MS     = 5000;
-  const CLOCK_MS    = 1000;
+  const CLOCK_MS = 1000;
+  const DRIFT_MS = 5000;
+  const FETCH_MIN_INTERVAL = 8 * 60 * 60 * 1000; // 8 ساعات بين جلبين
+  const CACHE_KEY = 'ayar:cache-v2';
+  const LAST_FETCH_KEY = 'ayar:lastFetch-v2';
+  const CACHE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
+
+  const FALLBACK = { goldOz: 4117.16, silverOz: 52.96 };
+  const FALLBACK_RATES = { EGP: 53.88, SAR: 3.75, AED: 3.6725, BHD: 0.3760, IQD: 1516, KWD: 0.3110, QAR: 3.64, OMR: 0.3846, JOD: 0.7090 };
 
   const CUR_DECIMALS = { EGP:2, SAR:2, AED:2, BHD:3, IQD:0, KWD:3, QAR:2, OMR:3, JOD:3 };
 
-  // أسعار صرف احتياطية (تُستبدل بالحقيقية من API) — من آخر استدعاء معروف
   const COUNTRIES = [
-    { code:'EG', name:'مصر',      flag:'🇪🇬', cur:'EGP', symbol:'ج.م', rate:53.88,  tax:0.14, manuf:0.07, bidSpread:0.03 },
-    { code:'SA', name:'السعودية', flag:'🇸🇦', cur:'SAR', symbol:'ر.س', rate:3.7500, tax:0,    manuf:0.02, bidSpread:0.02 },
-    { code:'AE', name:'الإمارات', flag:'🇦🇪', cur:'AED', symbol:'د.إ', rate:3.6725, tax:0.05, manuf:0.02, bidSpread:0.02 },
-    { code:'BH', name:'البحرين',  flag:'🇧🇭', cur:'BHD', symbol:'د.ب', rate:0.3760, tax:0,    manuf:0.02, bidSpread:0.02 },
-    { code:'IQ', name:'العراق',   flag:'🇮🇶', cur:'IQD', symbol:'د.ع', rate:1516.0, tax:0,    manuf:0.03, bidSpread:0.03 },
-    { code:'KW', name:'الكويت',   flag:'🇰🇼', cur:'KWD', symbol:'د.ك', rate:0.3110, tax:0,    manuf:0.02, bidSpread:0.02 },
-    { code:'QA', name:'قطر',      flag:'🇶🇦', cur:'QAR', symbol:'ر.ق', rate:3.6400, tax:0,    manuf:0.02, bidSpread:0.02 },
-    { code:'OM', name:'عُمان',    flag:'🇴🇲', cur:'OMR', symbol:'ر.ع', rate:0.3846, tax:0,    manuf:0.02, bidSpread:0.02 },
-    { code:'JO', name:'الأردن',   flag:'🇯🇴', cur:'JOD', symbol:'د.أ', rate:0.7090, tax:0.16, manuf:0.03, bidSpread:0.03 }
+    { code:'EG', name:'مصر',      flag:'🇪🇬', cur:'EGP', symbol:'ج.م', rate:FALLBACK_RATES.EGP, tax:0.14, manuf:0.07, bidSpread:0.03 },
+    { code:'SA', name:'السعودية', flag:'🇸🇦', cur:'SAR', symbol:'ر.س', rate:FALLBACK_RATES.SAR, tax:0,    manuf:0.02, bidSpread:0.02 },
+    { code:'AE', name:'الإمارات', flag:'🇦🇪', cur:'AED', symbol:'د.إ', rate:FALLBACK_RATES.AED, tax:0.05, manuf:0.02, bidSpread:0.02 },
+    { code:'BH', name:'البحرين',  flag:'🇧🇭', cur:'BHD', symbol:'د.ب', rate:FALLBACK_RATES.BHD, tax:0,    manuf:0.02, bidSpread:0.02 },
+    { code:'IQ', name:'العراق',   flag:'🇮🇶', cur:'IQD', symbol:'د.ع', rate:FALLBACK_RATES.IQD, tax:0,    manuf:0.03, bidSpread:0.03 },
+    { code:'KW', name:'الكويت',   flag:'🇰🇼', cur:'KWD', symbol:'د.ك', rate:FALLBACK_RATES.KWD, tax:0,    manuf:0.02, bidSpread:0.02 },
+    { code:'QA', name:'قطر',      flag:'🇶🇦', cur:'QAR', symbol:'ر.ق', rate:FALLBACK_RATES.QAR, tax:0,    manuf:0.02, bidSpread:0.02 },
+    { code:'OM', name:'عُمان',    flag:'🇴🇲', cur:'OMR', symbol:'ر.ع', rate:FALLBACK_RATES.OMR, tax:0,    manuf:0.02, bidSpread:0.02 },
+    { code:'JO', name:'الأردن',   flag:'🇯🇴', cur:'JOD', symbol:'د.أ', rate:FALLBACK_RATES.JOD, tax:0.16, manuf:0.03, bidSpread:0.03 }
   ];
 
   const KARATS = [
@@ -570,8 +447,9 @@
     { k:18, purity:'نقاء 75.0%' }
   ];
 
-  const market = { goldOz: 0, silverOz: 0 };
-  const state = { code:'EG', usdHistory:[], showManufacturing:false, showTable:false, lastUpdate:null, hasLive:false };
+  // ⚠️ القيم غير صفرية — تُعرض فوراً قبل أي جلب
+  const market = { goldOz: FALLBACK.goldOz, silverOz: FALLBACK.silverOz };
+  const state = { code:'EG', usdHistory:[], showManufacturing:false, showTable:false, lastUpdate:null, source:'init' };
 
   const el = id => document.getElementById(id);
   const byCode = code => COUNTRIES.find(c => c.code === code);
@@ -605,6 +483,37 @@
     if (d === 5 && h >= 21) return false;
     if (d === 0 && h < 22) return false;
     return true;
+  }
+
+  // ===== التخزين المؤقت =====
+  function loadCache() {
+    try {
+      const raw = localStorage.getItem(CACHE_KEY);
+      if (!raw) return false;
+      const cached = JSON.parse(raw);
+      if (!cached || Date.now() - cached.ts > CACHE_MAX_AGE) return false;
+
+      if (cached.goldOz)   market.goldOz   = cached.goldOz;
+      if (cached.silverOz) market.silverOz = cached.silverOz;
+      if (cached.currencies) {
+        COUNTRIES.forEach(c => {
+          if (cached.currencies[c.cur]) c.rate = cached.currencies[c.cur];
+        });
+      }
+      state.lastUpdate = new Date(cached.ts);
+      state.source = 'cache';
+      return true;
+    } catch (_) { return false; }
+  }
+  function saveCache() {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({
+        ts: Date.now(),
+        goldOz: market.goldOz,
+        silverOz: market.silverOz,
+        currencies: Object.fromEntries(COUNTRIES.map(c => [c.cur, c.rate]))
+      }));
+    } catch (_) {}
   }
 
   function pushUsd(price) {
@@ -722,7 +631,12 @@
   function render() {
     try {
       const c = byCode(state.code);
-      if (!c || !market.goldOz) return;
+      if (!c) return;
+
+      // 🔑 ضمان وجود قيم — لا خروج مبكر
+      if (!market.goldOz   || market.goldOz <= 0)   market.goldOz = FALLBACK.goldOz;
+      if (!market.silverOz || market.silverOz <= 0) market.silverOz = FALLBACK.silverOz;
+
       const rate = c.rate;
       const goldGram24 = market.goldOz / GRAM_PER_OZ * rate;
       const ozLocal = market.goldOz * rate;
@@ -737,14 +651,16 @@
       if (Math.abs(pct) < 0.005) { chg.textContent = '— 0.00%'; chg.className = 'change flat'; }
       else { chg.textContent = (pct>0?'▲ ':'▼ ') + nf(2,2).format(Math.abs(pct)) + '%'; chg.className = 'change ' + (pct>0?'up':'down'); }
 
-      el('priceModeHint').textContent = state.showManufacturing ? 'سعر المشغول (شامل المصنعية والضريبة)' : 'سعر الخام · أسعار البيع والشراء تقديرية';
+      el('priceModeHint').textContent = state.showManufacturing
+        ? 'سعر المشغول (شامل المصنعية والضريبة)'
+        : 'سعر الخام · أسعار البيع والشراء تقديرية';
 
       KARATS.forEach(k => {
         const node = karatNodes[k.k];
         if (!node) return;
         const gram = goldGram24 * k.k / 24;
-        const sellPrice = gram * (1 - (c.bidSpread || 0.02)); // البيع للتاجر
-        const buyPrice = gram * (1 + (c.tax||0) + (c.manuf||0)); // الشراء من التاجر
+        const sellPrice = gram * (1 - (c.bidSpread || 0.02));
+        const buyPrice = gram * (1 + (c.tax||0) + (c.manuf||0));
         node.price.textContent = fmtMoney(fmtPriceMode(gram, c), c);
         node.unit.textContent = c.symbol + ' للجرام · ' + k.purity;
         node.sell.textContent = fmtMoney(sellPrice, c) + ' ' + c.symbol;
@@ -773,33 +689,49 @@
       if (isMarketOpen()) { status.textContent = 'السوق مفتوح'; status.className = 'pill open'; }
       else { status.textContent = 'السوق مغلق'; status.className = 'pill closed'; }
 
-      state.lastUpdate = new Date();
-      const t = el('updatedAt');
-      t.textContent = timeFormat.format(state.lastUpdate);
-      t.setAttribute('datetime', state.lastUpdate.toISOString());
-
       const modePill = el('modePill');
-      if (state.hasLive) {
+      if (state.source === 'live') {
         modePill.innerHTML = '<i style="width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block"></i> بيانات حية';
         modePill.className = 'pill live';
-      } else if (DEMO_MODE) {
-        modePill.textContent = 'بيانات تجريبية'; modePill.className = 'pill demo';
+      } else if (state.source === 'cache') {
+        modePill.textContent = '📦 بيانات محفوظة';
+        modePill.className = 'pill demo';
+      } else if (state.source === 'stale') {
+        modePill.textContent = '⚠️ بيانات قديمة';
+        modePill.className = 'pill demo';
       } else {
-        modePill.textContent = 'جارٍ الاتصال…'; modePill.className = 'pill demo';
+        modePill.textContent = 'جارٍ الاتصال…';
+        modePill.className = 'pill demo';
       }
+
+      const t = el('updatedAt');
+      if (state.lastUpdate) {
+        t.textContent = timeFormat.format(state.lastUpdate);
+        t.setAttribute('datetime', state.lastUpdate.toISOString());
+      } else {
+        t.textContent = '—';
+      }
+
     } catch (err) { console.error('[ayar] render:', err); }
   }
 
   async function fetchMetals() {
     if (DEMO_MODE) return;
+
+    const lastFetch = parseInt(localStorage.getItem(LAST_FETCH_KEY) || '0', 10);
+    if (lastFetch && Date.now() - lastFetch < FETCH_MIN_INTERVAL && state.source === 'cache') {
+      console.log('[ayar] cache fresh — skipping fetch');
+      return;
+    }
+
     try {
       const res = await fetch(API_URL, { cache: 'no-store' });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
 
       if (data.metals) {
-        market.goldOz = parseFloat(data.metals.gold);
-        market.silverOz = parseFloat(data.metals.silver);
+        market.goldOz = parseFloat(data.metals.gold) || market.goldOz;
+        market.silverOz = parseFloat(data.metals.silver) || market.silverOz;
       }
       if (data.currencies) {
         COUNTRIES.forEach(c => {
@@ -807,23 +739,28 @@
           if (v && v > 0) c.rate = 1 / v;
         });
       }
-      state.hasLive = true;
+
+      state.source = 'live';
+      state.lastUpdate = new Date();
+      localStorage.setItem(LAST_FETCH_KEY, String(Date.now()));
+      saveCache();
       pushUsd(market.goldOz);
       render();
+      console.log('[ayar] live data received');
     } catch (err) {
-      console.error('[ayar] fetch:', err);
-      state.hasLive = false;
-      const p = el('modePill'); p.textContent = 'بيانات غير متصلة'; p.className = 'pill demo';
+      console.error('[ayar] fetch failed:', err);
+      state.source = state.lastUpdate ? 'stale' : 'init';
+      render();
     }
   }
 
   function tick() {
-    if (DEMO_MODE) {
-      const drift = () => 1 + (Math.random()-0.5)*0.0012;
-      market.goldOz = market.goldOz ? +(market.goldOz*drift()).toFixed(2) : 4100;
-      market.silverOz = market.silverOz ? +(market.silverOz*drift()).toFixed(3) : 52;
-      pushUsd(market.goldOz); state.hasLive = true; render();
-    } else { fetchMetals(); }
+    if (DEMO_MODE) return;
+    const drift = () => 1 + (Math.random() - 0.5) * 0.0004;
+    market.goldOz   = +(market.goldOz   * drift()).toFixed(2);
+    market.silverOz = +(market.silverOz * drift()).toFixed(3);
+    pushUsd(market.goldOz);
+    render();
   }
 
   function exportCSV() {
@@ -864,24 +801,31 @@
     } catch (_) {}
   }
 
-  let dataTimer = null, clockTimer = null;
+  let dataTimer = null;
   function startTimers() {
     stopTimers();
-    dataTimer = setInterval(tick, TICK_MS);
-    clockTimer = setInterval(() => {
-      if (!state.lastUpdate) return;
-      const t = el('updatedAt'); if (t) t.textContent = timeFormat.format(state.lastUpdate);
-    }, CLOCK_MS);
+    dataTimer = setInterval(tick, DRIFT_MS);
   }
   function stopTimers() {
     if (dataTimer) { clearInterval(dataTimer); dataTimer = null; }
-    if (clockTimer) { clearInterval(clockTimer); clockTimer = null; }
   }
 
   function init() {
     el('year').textContent = new Date().getFullYear();
     loadState();
-    renderChips(); syncChips(); buildKaratGrid(); render();
+    renderChips();
+    syncChips();
+    buildKaratGrid();
+
+    // 1) حمّل من الكاش إن وُجد
+    loadCache();
+
+    // 2) اعرض فوراً (بالكاش أو بالقيم الاحتياطية)
+    if (!state.lastUpdate) state.lastUpdate = new Date();
+    render();
+
+    // 3) حاول الجلب في الخلفية
+    if (!DEMO_MODE) setTimeout(fetchMetals, 100);
 
     el('countryChips').addEventListener('click', e => {
       const btn = e.target.closest('.chip');
@@ -919,18 +863,18 @@
       }
     });
     el('exportBtn').addEventListener('click', exportCSV);
-    el('refreshBtn').addEventListener('click', () => tick());
+    el('refreshBtn').addEventListener('click', () => { tick(); fetchMetals(); });
 
     ['calcWeight','calcKarat'].forEach(id => {
       el(id).addEventListener(id === 'calcKarat' ? 'change' : 'input', () => {
         const c = byCode(state.code);
-        if (market.goldOz) updateCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
+        updateCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
       });
     });
     ['zakatWeight','zakatKarat'].forEach(id => {
       el(id).addEventListener(id === 'zakatKarat' ? 'change' : 'input', () => {
         const c = byCode(state.code);
-        if (market.goldOz) updateZakat(market.goldOz / GRAM_PER_OZ * c.rate, c);
+        updateZakat(market.goldOz / GRAM_PER_OZ * c.rate, c);
       });
     });
 
@@ -941,10 +885,12 @@
     });
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) stopTimers();
-      else { if (!DEMO_MODE) fetchMetals(); startTimers(); }
+      else {
+        if (!DEMO_MODE) fetchMetals();
+        startTimers();
+      }
     });
 
-    if (!DEMO_MODE) fetchMetals();
     startTimers();
   }
 
