@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0b0f">
-<meta name="description" content="عيار — أسعار الذهب والفضة والعملات في 9 دول عربية مع تنبيهات فورية.">
+<meta name="description" content="عيار — أسعار الذهب والفضة والسبائك والجنيهات في 9 دول عربية مع تنبيهات فورية.">
 <meta name="robots" content="index,follow">
-<title>عيار — أسعار الذهب وتنبيهات الأسعار</title>
+<title>عيار — أسعار الذهب والسبائك والجنيهات</title>
 <link rel="canonical" href="https://ayar-five.vercel.app/">
 
 <script src="https://quge5.com/88/tag.min.js" data-zone="307983" async data-cfasync="false"></script>
@@ -84,6 +84,19 @@
   .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 12px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line)}
   .row span{font-size:12.5px;color:var(--muted)}
   .row strong{font-size:14.5px;font-weight:800;font-variant-numeric:tabular-nums}
+
+  /* ============ السبائك والجنيهات ============ */
+  .bars-grid{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+  .bar-card{text-align:center;padding:14px 10px;position:relative;transition:.18s}
+  .bar-card:hover{transform:translateY(-3px);border-color:rgba(233,185,73,.35)}
+  .bar-card.is-coin{border-color:rgba(233,185,73,.42);background:linear-gradient(180deg,rgba(233,185,73,.12),transparent 72%),var(--surface)}
+  .bar-card .bar-icon{font-size:26px;line-height:1;margin-bottom:6px;display:block}
+  .bar-card .bar-weight{font-size:14.5px;font-weight:800;color:var(--gold-soft);margin:0 0 8px}
+  .bar-card .bar-price{font-size:17px;font-weight:800;margin:0;font-variant-numeric:tabular-nums;line-height:1.3}
+  .bar-card .bar-per-gram{font-size:11px;color:var(--muted);margin:6px 0 0;font-variant-numeric:tabular-nums}
+  .bar-card .bar-premium{font-size:10px;color:var(--amber);margin:3px 0 0;font-weight:700}
+  .bar-card .bar-tag{position:absolute;top:8px;inset-inline-end:8px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:6px;background:rgba(233,185,73,.20);color:var(--gold-soft)}
+
   .alert-form{display:grid;gap:10px;margin-top:6px}
   .alert-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
   .btn-primary{font:inherit;font-size:13.5px;font-weight:800;padding:10px 18px;border-radius:10px;cursor:pointer;border:0;color:#1a1206;background:linear-gradient(180deg,var(--gold-soft),var(--gold));transition:.2s}
@@ -118,7 +131,7 @@
   .chart-tab[aria-selected="true"]{color:#20170a;background:linear-gradient(180deg,var(--gold-soft),var(--gold))}
   .chart-body{position:relative;padding:12px 8px 4px}
   #goldChart{width:100%;height:340px}
-  .chart-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(17,20,32,.72);z-index:2;font-size:13px;color:var(--muted)}
+  .chart-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(17,20,32,.72);z-index:2;font-size:13px;color:var(--muted);text-align:center;padding:20px}
   .chart-loading.hidden{display:none}
   .chart-foot{padding:10px 18px;font-size:11px;color:var(--muted);border-top:1px solid var(--line)}
   .compare-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
@@ -159,6 +172,7 @@
     .compare-table th:nth-child(4),.compare-table td:nth-child(4){display:none}
     .form-row{grid-template-columns:1fr}
     .chart-tab{padding:5px 9px;font-size:11.5px}
+    .bars-grid{grid-template-columns:repeat(2,1fr)}
   }
 </style>
 </head>
@@ -168,7 +182,7 @@
   <div class="wrap header-inner">
     <a class="brand" href="#">
       <span class="brand-mark"><svg viewBox="0 0 32 32"><defs><linearGradient id="gm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8dc95"/><stop offset="1" stop-color="#c9922b"/></linearGradient></defs><circle cx="16" cy="16" r="15" fill="url(#gm)"/><text x="16" y="21.5" text-anchor="middle" font-size="14" font-weight="700" fill="#3a2a06">ع</text></svg></span>
-      <span class="brand-text"><strong>عيار</strong><small>أسعار الذهب والتنبيهات</small></span>
+      <span class="brand-text"><strong>عيار</strong><small>أسعار الذهب والسبائك</small></span>
     </a>
     <div class="header-meta">
       <span class="pill demo" id="modePill">…</span>
@@ -189,7 +203,7 @@
 </nav>
 
 <main class="wrap" id="main">
-  <h1 class="sr-only">أسعار الذهب والفضة وتنبيهات الأسعار</h1>
+  <h1 class="sr-only">أسعار الذهب والفضة والسبائك والتنبيهات</h1>
 
   <div class="ad-slot" data-ad="top"></div>
 
@@ -237,6 +251,16 @@
     </div>
   </section>
 
+  <!-- ============ السبائك والجنيهات ============ -->
+  <section class="section" aria-labelledby="barsTitle">
+    <div class="section-head">
+      <h2 id="barsTitle">السبائك والجنيهات الذهبية</h2>
+      <span class="hint">سعر الشراء شامل مصنعية السبائك</span>
+    </div>
+    <div class="grid bars-grid" id="barsGrid"></div>
+  </section>
+
+  <!-- ============ تنبيهات الأسعار ============ -->
   <section class="section" id="alertsSection">
     <div class="section-head"><h2>🔔 تنبيهات الأسعار</h2><span class="hint">أدخل بريدك والسعر — سننبهك عند تحقيقه</span></div>
     <article class="card">
@@ -369,7 +393,6 @@
   const CACHE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
   const ALERTS_KEY = 'ayar:alerts-v1';
 
-  // ✅ وسيط CORS لتجاوز حظر xaus.com
   const XAUS_PROXY = 'https://api.allorigins.win/raw?url=';
   const XAUS_INTRADAY = XAUS_PROXY + encodeURIComponent('https://xaus.com/api/v1/intraday?symbol=xau&hours=24');
   const XAUS_HISTORY  = XAUS_PROXY + encodeURIComponent('https://xaus.com/api/v1/history');
@@ -393,6 +416,16 @@
   const KARATS = [
     { k:24, purity:'99.9%' }, { k:22, purity:'91.6%' },
     { k:21, purity:'87.5%', popular:true }, { k:18, purity:'75.0%' }
+  ];
+
+  const BARS = [
+    { key:'bar1',   weight:1,   karat:24, premium:0.040, label:'سبيكة 1 جم',   icon:'🥇' },
+    { key:'bar5',   weight:5,   karat:24, premium:0.025, label:'سبيكة 5 جم',   icon:'🥇' },
+    { key:'bar10',  weight:10,  karat:24, premium:0.020, label:'سبيكة 10 جم',  icon:'🥇' },
+    { key:'bar20',  weight:20,  karat:24, premium:0.015, label:'سبيكة 20 جم',  icon:'🥇' },
+    { key:'bar50',  weight:50,  karat:24, premium:0.010, label:'سبيكة 50 جم',  icon:'🥇' },
+    { key:'bar100', weight:100, karat:24, premium:0.008, label:'سبيكة 100 جم', icon:'🥇' },
+    { key:'coin',   weight:8,   karat:21, premium:0.030, label:'جنيه ذهب',     icon:'🪙', isCoin:true }
   ];
 
   const market = { goldOz: FALLBACK.goldOz, silverOz: FALLBACK.silverOz };
@@ -494,7 +527,6 @@
     });
   }
 
-  /* ✅ دالة آمنة لإرسال البريد — تتعامل مع كل الحالات */
   function sendEmailSafe(params, onSuccess, onError) {
     if (!window.emailjs) {
       console.warn('[ayar] emailjs not available');
@@ -516,7 +548,6 @@
     }
   }
 
-  /* ✅ checkAlerts — مصلح: يستخدم a.* بشكل صحيح */
   async function checkAlerts() {
     const alerts = getAlerts();
     if (!alerts.length) return;
@@ -535,7 +566,6 @@
       a.triggeredPrice = gram;
       changed = true;
 
-      // إشعار المتصفح
       if ('Notification' in window && Notification.permission === 'granted') {
         try {
           new Notification('🔔 عيار — تحقق تنبيه السعر', {
@@ -545,7 +575,6 @@
         } catch (e) {}
       }
 
-      // بريد إلكتروني — يستخدم a.email, a.targetPrice, a.karat, a.direction
       sendEmailSafe({
         to_email: a.email,
         target_price: nf(0,0).format(a.targetPrice),
@@ -563,7 +592,6 @@
     if (changed) { saveAlerts(alerts); renderAlerts(); }
   }
 
-  /* ✅ handleAlertSubmit — مصلح: بدون a.*، وبدون كود يتيم */
   async function handleAlertSubmit(e) {
     e.preventDefault();
     const email = el('alertEmail').value.trim();
@@ -585,7 +613,6 @@
     alerts.push({ email, targetPrice, karat, direction, country: state.code, createdAt: Date.now(), triggered: false });
     saveAlerts(alerts);
 
-    // بريد تأكيد التسجيل — يستخدم email, targetPrice, currentGram, karat, direction
     el('alertSubmit').disabled = true;
     sendEmailSafe({
       to_email: email,
@@ -639,6 +666,38 @@
     KARATS.forEach(k => {
       const card = el('karatGrid').querySelector(`[data-k="${k.k}"]`);
       karatNodes[k.k] = { price:card.querySelector('.price'), unit:card.querySelector('.unit'), sell:card.querySelector('.v-sell'), buy:card.querySelector('.v-buy') };
+    });
+  }
+
+  const barNodes = {};
+  function buildBarsGrid() {
+    el('barsGrid').innerHTML = BARS.map(b => `
+      <article class="card bar-card${b.isCoin ? ' is-coin' : ''}" data-bar="${b.key}">
+        <span class="bar-tag">${b.isCoin ? '8 جم · 21' : '24 قيراط'}</span>
+        <span class="bar-icon">${b.icon}</span>
+        <p class="bar-weight">${b.label}</p>
+        <p class="bar-price">—</p>
+        <p class="bar-per-gram">—</p>
+        <p class="bar-premium">مصنعية ${nf(1,1).format(b.premium * 100)}%</p>
+      </article>`).join('');
+    BARS.forEach(b => {
+      const card = el('barsGrid').querySelector(`[data-bar="${b.key}"]`);
+      barNodes[b.key] = {
+        price: card.querySelector('.bar-price'),
+        perGram: card.querySelector('.bar-per-gram')
+      };
+    });
+  }
+
+  function updateBars(goldGram24, c) {
+    BARS.forEach(b => {
+      const node = barNodes[b.key];
+      if (!node) return;
+      const pureGram = goldGram24 * b.karat / 24;
+      const perGram = pureGram * (1 + b.premium);
+      const total = perGram * b.weight;
+      node.price.textContent = fmtMoney(total, c) + ' ' + c.symbol;
+      node.perGram.textContent = 'الجرام: ' + fmtMoney(perGram, c) + ' ' + c.symbol;
     });
   }
 
@@ -767,6 +826,7 @@
     el('fxLocal').textContent = fmtRate(1/rate) + ' دولار';
 
     drawSpark(el('spark'), histUsd.map(v => v*rate));
+    updateBars(goldGram24, c);
     updateComparison();
     updateCalculator(goldGram24, c);
     updateZakat(goldGram24, c);
@@ -822,7 +882,7 @@
     render();
   }
 
-  /* ═══════════ الرسم البياني (عبر allorigins CORS proxy) ═══════════ */
+  /* ═══════════ الرسم البياني ═══════════ */
   const chartCache = { '24h':{d:null,ts:0,ttl:3e5}, '7d':{d:null,ts:0,ttl:36e5}, '30d':{d:null,ts:0,ttl:108e5}, '1y':{d:null,ts:0,ttl:432e5} };
   let chartInst = null, chartSeries = null, chartRange = '24h';
 
@@ -856,7 +916,6 @@
     e.d = pts; e.ts = Date.now(); return pts;
   }
 
-  /* ✅ updateChart — يعرض رسالة ودية عند الفشل بدل رمي الأخطاء */
   async function updateChart() {
     const load = el('chartLoading');
     if (!chartInst) return;
@@ -874,14 +933,13 @@
       console.warn('[ayar] Chart unavailable:', err.message);
       load.textContent = '📊 الرسم البياني غير متاح حالياً — الأسعار أعلاه محدّثة';
       load.style.color = 'var(--amber)';
-      // لا نخفي loading، نتركه يظهر الرسالة
     }
   }
 
   /* ═══════════ التهيئة ═══════════ */
   function init() {
     el('year').textContent = new Date().getFullYear();
-    renderChips(); syncChips(); buildKaratGrid();
+    renderChips(); syncChips(); buildKaratGrid(); buildBarsGrid();
     loadCache();
     if (!state.lastUpdate) state.lastUpdate = new Date();
     render();
