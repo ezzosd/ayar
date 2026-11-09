@@ -407,19 +407,19 @@
   'use strict';
 
   /* ═══════════════════════════════════════════════════════════════
-     🔑 إعدادات EmailJS — استبدل القيم هنا فقط
+     🔑 إعدادات EmailJS — استبدل PUBLIC_KEY فقط
      ═══════════════════════════════════════════════════════════════ */
-  const EMAILJS_PUBLIC_KEY  = 'UU4NtOdCRqPazrKFR';           // ← من Account → General
-  const EMAILJS_SERVICE_ID  = 'service_200';               // ← جاهز
-  const EMAILJS_TEMPLATE_ID = 'template_jky2jwh';          // ← جاهز
+  const EMAILJS_PUBLIC_KEY  = 'UU4NtOdCRqPazrKFR';
+  const EMAILJS_SERVICE_ID  = 'service_200';
+  const EMAILJS_TEMPLATE_ID = 'template_jky2jwh';
 
   // تهيئة EmailJS
   if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
-  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-  console.log('[ayar] EmailJS initialized');
-} else {
-  console.warn('[ayar] EmailJS not initialized - check PUBLIC_KEY');
-}
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    console.log('[ayar] EmailJS initialized');
+  } else {
+    console.warn('[ayar] EmailJS not initialized - check PUBLIC_KEY');
+  }
 
   /* ═══════════════════════════════════════════════════════════════ */
 
@@ -553,6 +553,7 @@
     });
   }
 
+  /* ✅ checkAlerts — بعد إصلاح المتغيرات */
   async function checkAlerts() {
     const alerts = getAlerts();
     if (!alerts.length) return;
@@ -581,27 +582,22 @@
         } catch (e) {}
       }
 
-      // ═════════ بريد إلكتروني — كود emailjs.send ═════════
-         if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'UU4NtOdCRqPazrKFR') {
-      el('alertSubmit').disabled = true;
-      try {
-        const result = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          to_email: email,
-          target_price: nf(0,0).format(targetPrice),
-          current_price: fmtMoney(currentGram, c),
-          currency: c.symbol,
-          karat: karat,
-          direction: direction === 'below' ? 'الهبوط' : 'الصعود'
-        });
-        console.log('[ayar] ✅ Email sent:', result);
-        showStatus('success', `✅ تم تسجيل التنبيه وإرسال بريد تأكيد إلى ${email}.`);
-      } catch (err) {
-        console.error('[ayar] ❌ EmailJS error:', err);
-        showStatus('error', '⚠️ تم حفظ التنبيه محلياً، لكن تعذّر إرسال البريد: ' + (err.text || err.message || 'خطأ غير معروف'));
-      } finally {
-        el('alertSubmit').disabled = false;
+      // بريد إلكتروني عند تحقق الشرط
+      if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+        try {
+          const result = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+            to_email: a.email,
+            target_price: nf(0,0).format(a.targetPrice),
+            current_price: fmtMoney(gram, c),
+            currency: c.symbol,
+            karat: a.karat,
+            direction: a.direction === 'below' ? 'الهبوط' : 'الصعود'
+          });
+          console.log('[ayar] ✅ alert email sent to', a.email, result);
+        } catch (err) {
+          console.error('[ayar] ❌ emailjs error:', err);
+        }
       }
-    }
 
       showStatus('success', `🔔 تحقق تنبيهك! ${c.flag} ${c.name} — ${fmtMoney(gram, c)} ${c.symbol}`);
     }
@@ -609,6 +605,7 @@
     if (changed) { saveAlerts(alerts); renderAlerts(); }
   }
 
+  /* ✅ handleAlertSubmit — بعد إصلاح المتغيرات وحذف الكود اليتيم */
   async function handleAlertSubmit(e) {
     e.preventDefault();
     const email = el('alertEmail').value.trim();
@@ -630,39 +627,28 @@
     alerts.push({ email, targetPrice, karat, direction, country: state.code, createdAt: Date.now(), triggered: false });
     saveAlerts(alerts);
 
-    // ═════════ بريد تأكيد التسجيل — كود emailjs.send ═════════
-         if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'UU4NtOdCRqPazrKFR') {
-        try {
-          const result = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-            to_email: a.email,
-            target_price: nf(0,0).format(a.targetPrice),
-            current_price: fmtMoney(gram, c),
-            currency: c.symbol,
-            karat: a.karat,
-            direction: a.direction === 'below' ? 'الهبوط' : 'الصعود'
-          });
-          console.log('[ayar] ✅ alert email sent to', a.email, result);
-        } catch (err) {
-          console.error('[ayar] ❌ emailjs error:', err);
-        }
-      }
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          to_email: email,                      // ⬅️ بريد الزائر
+    // بريد تأكيد التسجيل
+    if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+      el('alertSubmit').disabled = true;
+      try {
+        const result = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          to_email: email,
           target_price: nf(0,0).format(targetPrice),
           current_price: fmtMoney(currentGram, c),
           currency: c.symbol,
           karat: karat,
           direction: direction === 'below' ? 'الهبوط' : 'الصعود'
         });
+        console.log('[ayar] ✅ Email sent:', result);
         showStatus('success', `✅ تم تسجيل التنبيه وإرسال بريد تأكيد إلى ${email}.`);
       } catch (err) {
-        console.error('[ayar] emailjs error:', err);
-        showStatus('error', '⚠️ تم حفظ التنبيه محلياً، لكن تعذّر إرسال البريد. تحقق من إعدادات EmailJS.');
+        console.error('[ayar] ❌ EmailJS error:', err);
+        showStatus('error', '⚠️ تم حفظ التنبيه محلياً، لكن تعذّر إرسال البريد: ' + (err.text || err.message || 'خطأ غير معروف'));
       } finally {
         el('alertSubmit').disabled = false;
       }
     } else {
-      showStatus('info', '⚠️ لم يتم إعداد EmailJS بعد. راجع PUBLIC_KEY.');
+      showStatus('info', '⚠️ لم يتم إعداد EmailJS. تحقق من PUBLIC_KEY.');
     }
 
     el('alertForm').reset();
