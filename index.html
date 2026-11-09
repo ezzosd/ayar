@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0b0f">
-<meta name="description" content="عيار — تتبّع لحظي لأسعار الذهب والفضة والعملات في 9 دول عربية. سعر جرام الذهب عيار 24، 22، 21، 18 بالجنيه المصري والريال السعودي والدرهم الإماراتي والدينار الكويتي. حاسبة الزكاة وحاسبة سعر المشغول.">
-<meta name="keywords" content="سعر الذهب اليوم, سعر جرام الذهب, سعر الذهب عيار 21, عيار 24, حاسبة الذهب, حاسبة الزكاة, أسعار الفضة, أسعار العملات">
+<meta name="description" content="عيار — تتبّع لحظي لأسعار الذهب والفضة والعملات في 9 دول عربية. سعر جرام الذهب عيار 24، 22، 21، 18 بالجنيه المصري والريال السعودي والدرهم الإماراتي والدينار الكويتي. حاسبة الزكاة وحاسبة بيع وشراء الذهب.">
+<meta name="keywords" content="سعر الذهب اليوم, سعر جرام الذهب, سعر الذهب عيار 21, عيار 24, حاسبة الذهب, حاسبة الزكاة, أسعار الفضة, أسعار العملات, حاسبة بيع وشراء الذهب">
 <meta name="robots" content="index,follow">
 <title>عيار — أسعار الذهب اليوم في مصر والسعودية والإمارات | 9 دول عربية</title>
 <link rel="canonical" href="https://ayar-five.vercel.app/">
@@ -44,7 +44,7 @@
     {"@type":"Question","name":"كم سعر جرام الذهب اليوم؟","acceptedAnswer":{"@type":"Answer","text":"سعر جرام الذهب اليوم يتغير لحظياً حسب السوق العالمي وسعر الصرف المحلي. في موقع عيار، يمكنك رؤية سعر الجرام لكل عيار (24، 22، 21، 18) في 9 دول عربية."}},
     {"@type":"Question","name":"كيف يتم حساب سعر الذهب؟","acceptedAnswer":{"@type":"Answer","text":"يُحسب سعر الجرام بقسمة سعر أونصة الذهب العالمي على 31.1035، ثم ضربه في سعر صرف العملة المحلية، ثم في نسبة نقاء العيار."}},
     {"@type":"Question","name":"ما الفرق بين عيار 21 وعيار 24؟","acceptedAnswer":{"@type":"Answer","text":"عيار 24 هو الذهب الخالص 99.9% للاستثمار. عيار 21 يحتوي على 87.5% ذهب و12.5% معادن أخرى، وهو الأكثر شيوعاً في المشغولات."}},
-    {"@type":"Question","name":"هل السعر المعروض يشمل المصنعية؟","acceptedAnswer":{"@type":"Answer","text":"السعر الأساسي هو سعر الخام. اضغط زر «سعر المشغول» لإضافة المصنعية والضريبة المحلية."}},
+    {"@type":"Question","name":"هل السعر المعروض يشمل المصنعية؟","acceptedAnswer":{"@type":"Answer","text":"السعر الأساسي هو سعر الخام. استخدم حاسبة البيع والشراء لإضافة المصنعية والضريبة المحلية لكل دولة."}},
     {"@type":"Question","name":"كيف أحسب زكاة الذهب؟","acceptedAnswer":{"@type":"Answer","text":"تجب إذا بلغ الذهب 85 جراماً خالصاً وحال عليه الحول. المقدار 2.5% من قيمته. استخدم حاسبة الزكاة المدمجة."}},
     {"@type":"Question","name":"ما الفرق بين سعر البيع والشراء من التاجر؟","acceptedAnswer":{"@type":"Answer","text":"عند الشراء تدفع سعر الخام + المصنعية + الضريبة. عند البيع يُستقطع 2-5% من سعر الخام كهامش ربح التاجر."}}
   ]
@@ -175,6 +175,57 @@
   .calc-result{margin-top:12px;padding:12px;border-radius:10px;background:var(--surface-2);border:1px solid var(--line);text-align:center}
   .calc-result strong{color:var(--gold-soft);font-size:20px;font-variant-numeric:tabular-nums;display:block;margin-top:2px}
   .calc-note{font-size:11px;color:var(--muted);margin-top:8px;text-align:center}
+
+  /* ============ تفصيل حاسبة البيع والشراء ============ */
+  .calc-breakdown{
+    margin-top:12px;
+    display:grid;
+    gap:2px;
+    padding:12px 14px;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:10px;
+  }
+  .calc-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    padding:5px 0;
+    font-size:12.5px;
+    color:var(--muted);
+    border-bottom:1px dashed rgba(36,42,61,.4);
+  }
+  .calc-row:last-child{border-bottom:0}
+  .calc-row strong{
+    font-size:13.5px;
+    font-weight:800;
+    font-variant-numeric:tabular-nums;
+    color:var(--text);
+  }
+  .calc-row.total-buy{
+    padding-top:10px;
+    margin-top:4px;
+    border-top:2px solid var(--amber);
+    border-bottom:0;
+    color:var(--amber);
+    font-weight:700;
+  }
+  .calc-row.total-buy strong{color:var(--amber);font-size:16px}
+  .calc-row.total-sell{
+    padding-top:6px;
+    border-bottom:0;
+    color:var(--green);
+    font-weight:700;
+  }
+  .calc-row.total-sell strong{color:var(--green);font-size:16px}
+  .calc-row.spread{
+    padding-top:6px;
+    border-bottom:0;
+    font-size:11.5px;
+    color:var(--red);
+  }
+  .calc-row.spread strong{color:var(--red);font-size:12.5px}
 
   /* ============ قسم الرسم البياني ============ */
   .chart-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:0;overflow:hidden}
@@ -383,13 +434,33 @@
   <section class="section" aria-labelledby="calcTitle">
     <div class="section-head"><h2 id="calcTitle">حاسبة الذهب والزكاة</h2></div>
     <div class="grid two">
+      <!-- 🆕 حاسبة بيع وشراء كاملة -->
       <article class="card">
-        <h3 class="card-title">حاسبة سعر الذهب</h3>
+        <h3 class="card-title">حاسبة البيع والشراء</h3>
         <div class="form-row">
-          <label class="field">الوزن (جرام)<input type="number" id="calcWeight" value="10" min="0" step="0.1" inputmode="decimal"></label>
-          <label class="field">العيار<select id="calcKarat"><option value="24">24</option><option value="22">22</option><option value="21" selected>21</option><option value="18">18</option></select></label>
+          <label class="field">الوزن (جرام)
+            <input type="number" id="calcWeight" value="10" min="0" step="0.1" inputmode="decimal">
+          </label>
+          <label class="field">العيار
+            <select id="calcKarat">
+              <option value="24">24</option>
+              <option value="22">22</option>
+              <option value="21" selected>21</option>
+              <option value="18">18</option>
+            </select>
+          </label>
         </div>
-        <div class="calc-result"><span class="hint">السعر التقديري</span><strong id="calcResult">—</strong></div>
+        <label class="field" style="margin-top:10px">نسبة المصنعية (٪)
+          <input type="number" id="calcManuf" value="7" min="0" max="50" step="0.5" inputmode="decimal">
+        </label>
+        <div class="calc-breakdown" aria-live="polite">
+          <div class="calc-row"><span>سعر الخام</span><strong id="calcBase">—</strong></div>
+          <div class="calc-row"><span>+ المصنعية</span><strong id="calcManufVal">—</strong></div>
+          <div class="calc-row"><span>+ الضريبة المحلية</span><strong id="calcTaxVal">—</strong></div>
+          <div class="calc-row total-buy"><span>💵 الشراء من التاجر</span><strong id="calcBuyTotal">—</strong></div>
+          <div class="calc-row total-sell"><span>💰 البيع للتاجر</span><strong id="calcSellTotal">—</strong></div>
+          <div class="calc-row spread"><span>⚠️ خسارة التداول</span><strong id="calcSpread">—</strong></div>
+        </div>
         <p class="calc-note" id="calcNote">—</p>
       </article>
       <article class="card">
@@ -433,7 +504,7 @@
       <li><strong>الدمغة والرسوم:</strong> رسوم حكومية.</li>
       <li><strong>الضريبة:</strong> مصر 14%، الأردن 16%، الإمارات 5%.</li>
     </ul>
-    <p>لإظهار سعر المشغول، اضغط زر <strong>«سعر المشغول»</strong>. أما عند البيع للتاجر، فيُستقطع 2-5% من سعر الخام.</p>
+    <p>استخدم <strong>حاسبة البيع والشراء</strong> أعلاه لمعرفة السعر النهائي للشراء والبيع بدقة.</p>
   </section>
 
   <section class="content-section" aria-labelledby="faqTitle">
@@ -453,7 +524,7 @@
       </details>
       <details class="faq-item">
         <summary>هل السعر المعروض يشمل المصنعية؟</summary>
-        <div class="faq-answer">السعر الأساسي هو سعر الخام. اضغط زر «سعر المشغول» لإضافة المصنعية والضريبة.</div>
+        <div class="faq-answer">السعر الأساسي هو سعر الخام. استخدم حاسبة البيع والشراء لإضافة المصنعية والضريبة.</div>
       </details>
       <details class="faq-item">
         <summary>كيف أحسب زكاة الذهب؟</summary>
@@ -672,12 +743,31 @@
     }).join('');
   }
 
+  /* ======================== حاسبة البيع والشراء ======================== */
   function updateCalculator(goldGram24, c) {
     const w = parseFloat(el('calcWeight').value) || 0;
     const k = parseInt(el('calcKarat').value, 10) || 24;
-    const gram = goldGram24 * k / 24;
-    el('calcResult').textContent = fmtMoney(fmtPriceMode(gram * w, c), c) + ' ' + c.symbol;
-    el('calcNote').textContent = state.showManufacturing ? 'شامل المصنعية والضريبة المحلية.' : 'سعر الخام بدون مصنعية أو ضريبة.';
+    const manufPct = parseFloat(el('calcManuf').value) || 0;
+
+    const gramPrice = goldGram24 * k / 24;
+    const base = gramPrice * w;
+    const manuf = base * (manufPct / 100);
+    const tax = base * (c.tax || 0);
+    const buyTotal = base + manuf + tax;
+    const sellTotal = base * (1 - (c.bidSpread || 0.02));
+    const spread = buyTotal - sellTotal;
+    const spreadPct = buyTotal > 0 ? (spread / buyTotal) * 100 : 0;
+
+    el('calcBase').textContent     = fmtMoney(base, c) + ' ' + c.symbol;
+    el('calcManufVal').textContent = (manuf > 0 ? '+' : '') + fmtMoney(manuf, c) + ' ' + c.symbol;
+    el('calcTaxVal').textContent   = (tax > 0 ? '+' : '') + fmtMoney(tax, c) + ' ' + c.symbol;
+    el('calcBuyTotal').textContent = fmtMoney(buyTotal, c) + ' ' + c.symbol;
+    el('calcSellTotal').textContent = fmtMoney(sellTotal, c) + ' ' + c.symbol;
+    el('calcSpread').textContent   = '−' + fmtMoney(spread, c) + ' ' + c.symbol + ' (' + nf(1, 1).format(spreadPct) + '%)';
+
+    const spreadLabel = nf(1, 1).format((c.bidSpread || 0.02) * 100);
+    const taxLabel = c.tax > 0 ? nf(0, 0).format(c.tax * 100) + '%' : '0%';
+    el('calcNote').textContent = 'ضريبة محلية ' + taxLabel + ' · هامش التاجر ' + spreadLabel + '%.';
   }
   function updateZakat(goldGram24, c) {
     const w = parseFloat(el('zakatWeight').value) || 0;
@@ -1047,7 +1137,6 @@
     if (!state.lastUpdate) state.lastUpdate = new Date();
     render();
 
-    // الرسم البياني
     initChart();
     bindChartTabs();
     updateChart();
@@ -1097,12 +1186,19 @@
     el('exportBtn').addEventListener('click', exportCSV);
     el('refreshBtn').addEventListener('click', () => { tick(); fetchMetals(); updateChart(); });
 
-    ['calcWeight','calcKarat'].forEach(id => {
-      el(id).addEventListener(id === 'calcKarat' ? 'change' : 'input', () => {
+    // حاسبة البيع والشراء
+    ['calcWeight','calcManuf'].forEach(id => {
+      el(id).addEventListener('input', () => {
         const c = byCode(state.code);
         updateCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
       });
     });
+    el('calcKarat').addEventListener('change', () => {
+      const c = byCode(state.code);
+      updateCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
+    });
+
+    // حاسبة الزكاة
     ['zakatWeight','zakatKarat'].forEach(id => {
       el(id).addEventListener(id === 'zakatKarat' ? 'change' : 'input', () => {
         const c = byCode(state.code);
