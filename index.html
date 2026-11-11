@@ -1432,9 +1432,41 @@
     });
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
 </script>
+
+<!-- 📊 كود تتبع الزيارات لـ لوحة التحكم -->
+<script>
+(function(){
+  const API = 'https://ayar-proxy.ezzoabdo17.workers.dev';
+  
+  function track(eventType, extra) {
+    try {
+      fetch(API + '/api/analytics/track', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(Object.assign({
+          eventType: eventType || 'pageview',
+          page: location.pathname,
+          referrer: document.referrer || null
+        }, extra || {})),
+        keepalive: true
+      }).catch(function(){});
+    } catch(e){}
+  }
+  
+  // تتبع الزيارة الأولى
+  track('pageview');
+  
+  // تتبع العودة للصفحة (من تبويب آخر)
+  document.addEventListener('visibilitychange', function(){
+    if (!document.hidden) track('pageview');
+  });
+})();
+</script>
+
 </body>
+</html>
 </html>
