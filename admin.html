@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>لوحة تحكم عيار</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Cairo,system-ui,sans-serif;background:#0a0b0f;color:#eef1f8;padding:20px;line-height:1.6}
+  .wrap{max-width:1100px;margin:auto}
+  h1{color:#e9b949;margin:0 0 20px;font-size:24px}
+  .login{max-width:400px;margin:100px auto;padding:30px;background:#111420;border:1px solid #242a3d;border-radius:16px}
+  .login h2{color:#e9b949;margin-top:0}
+  input,textarea,select{width:100%;padding:10px;margin:6px 0;background:#161a29;color:#eef1f8;border:1px solid #242a3d;border-radius:8px;font:inherit;font-size:14px}
+  textarea{min-height:100px;resize:vertical;font-family:inherit}
+  button{padding:10px 18px;background:linear-gradient(180deg,#f7d98a,#e9b949);color:#1a1206;border:0;border-radius:8px;font-weight:800;cursor:pointer;font:inherit;font-size:14px}
+  button:hover{filter:brightness(1.08)}
+  button.sec{background:#161a29;color:#eef1f8;border:1px solid #242a3d}
+  button.sec:hover{border-color:#e9b949}
+  button.danger{background:rgba(255,95,122,.15);color:#ff5f7a;border:1px solid rgba(255,95,122,.3)}
+  button.danger:hover{background:rgba(255,95,122,.25)}
+  .tabs{display:flex;gap:6px;margin:20px 0;flex-wrap:wrap}
+  .tab{padding:8px 18px;background:#161a29;color:#8a93a9;border:1px solid #242a3d;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px}
+  .tab.active{background:linear-gradient(180deg,#f7d98a,#e9b949);color:#1a1206;border-color:transparent}
+  .card{background:#111420;border:1px solid #242a3d;border-radius:12px;padding:18px;margin-bottom:14px}
+  .card h3{margin-top:0;color:#f7d98a;font-size:16px}
+  .list-item{display:flex;justify-content:space-between;gap:12px;padding:12px;border-bottom:1px solid #242a3d;align-items:flex-start}
+  .list-item:last-child{border:0}
+  .list-item-info{flex:1;min-width:0}
+  .list-item-info strong{display:block;margin-bottom:4px;color:#eef1f8}
+  .list-item-info .meta{color:#8a93a9;font-size:11.5px;margin-top:4px}
+  .list-item-info .body-preview{color:#c9d1e3;font-size:12.5px;margin-top:4px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .actions{display:flex;gap:6px;flex-shrink:0}
+  .actions button{padding:6px 10px;font-size:12px}
+  .muted{color:#8a93a9;font-size:12px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:800;background:rgba(233,185,73,.15);color:#f7d98a;margin-inline-start:6px}
+  .badge.off{background:rgba(255,95,122,.15);color:#ff5f7a}
+  .badge.on{background:rgba(47,211,154,.15);color:#2fd39a}
+  .status{padding:10px 14px;border-radius:8px;margin:10px 0;font-size:13px;display:none}
+  .status.success{background:rgba(47,211,154,.1);border:1px solid rgba(47,211,154,.3);color:#2fd39a;display:block}
+  .status.error{background:rgba(255,95,122,.1);border:1px solid rgba(255,95,122,.3);color:#ff5f7a;display:block}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+  .stat-box{background:#161a29;padding:16px;border-radius:10px;text-align:center;border:1px solid #242a3d}
+  .stat-box .num{font-size:28px;font-weight:800;color:#e9b949}
+  .stat-box .label{font-size:11.5px;color:#8a93a9;margin-top:4px}
+  .analytics-table{width:100%;border-collapse:collapse;font-size:13px}
+  .analytics-table th,.analytics-table td{padding:8px 12px;text-align:right;border-bottom:1px solid #242a3d}
+  .analytics-table th{background:#161a29;color:#8a93a9;font-weight:700;font-size:12px}
+  .empty{text-align:center;padding:24px;color:#8a93a9;font-size:13px}
+  @media(max-width:600px){.row{grid-template-columns:1fr}.list-item{flex-direction:column}.actions{width:100%;justify-content:flex-end}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<!-- شاشة تسجيل الدخول -->
+<div id="loginView" class="login">
+  <h2>🔐 دخول لوحة التحكم</h2>
+  <p class="muted">أدخل ADMIN_TOKEN الذي أعددته في Cloudflare</p>
+  <input type="password" id="tokenInput" placeholder="ayar_..." style="margin-top:12px">
+  <button onclick="login()" style="width:100%;margin-top:10px">دخول</button>
+  <div id="loginStatus" class="status"></div>
+</div>
+
+<!-- الواجهة الرئيسية -->
+<div id="mainView" style="display:none">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+    <h1>🎛️ لوحة تحكم عيار</h1>
+    <button class="sec" onclick="logout()">🚪 خروج</button>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-view="news">📰 الأخبار</div>
+    <div class="tab" data-view="sources">📡 المصادر</div>
+    <div class="tab" data-view="analytics">📊 التحليلات</div>
+    <div class="tab" data-view="tools">⚙️ أدوات</div>
+  </div>
+
+  <!-- ═══ الأخبار ═══ -->
+  <div id="view-news">
+    <div class="card">
+      <h3 id="newsFormTitle">➕ إضافة خبر جديد</h3>
+      <input type="hidden" id="newsId">
+      <input type="text" id="nTitle" placeholder="عنوان الخبر *">
+      <textarea id="nBody" placeholder="نص الخبر *"></textarea>
+      <div class="row">
+        <input type="text" id="nTag" placeholder="التصنيف" value="أخبار">
+        <input type="text" id="nTagClass" placeholder="tagClass (analysis, warning, forecast)">
+      </div>
+      <div class="row">
+        <input type="text" id="nSource" placeholder="المصدر" value="عيار">
+        <input type="text" id="nSourceUrl" placeholder="رابط المصدر (اختياري)">
+      </div>
+      <input type="text" id="nImageUrl" placeholder="رابط الصورة (اختياري)">
+      <label style="display:flex;align-items:center;gap:8px;margin:10px 0;font-size:13px">
+        <input type="checkbox" id="nPublished" checked style="width:auto"> نشر مباشرة
+      </label>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button onclick="saveNews()">💾 حفظ</button>
+        <button class="sec" onclick="resetNewsForm()">↩️ إلغاء</button>
+      </div>
+      <div id="newsStatus" class="status"></div>
+    </div>
+    <div class="card">
+      <h3>📋 الأخبار الحالية</h3>
+      <div id="newsList" class="empty">جارٍ التحميل…</div>
+    </div>
+  </div>
+
+  <!-- ═══ المصادر ═══ -->
+  <div id="view-sources" style="display:none">
+    <div class="card">
+      <h3>➕ إضافة مصدر RSS</h3>
+      <input type="text" id="sName" placeholder="اسم المصدر *">
+      <input type="text" id="sUrl" placeholder="رابط RSS * (https://...)">
+      <input type="text" id="sCat" placeholder="التصنيف (اقتصاد، تقنية، أخبار)">
+      <button onclick="saveSource()" style="margin-top:8px">💾 إضافة مصدر</button>
+      <div id="sourceStatus" class="status"></div>
+    </div>
+    <div class="card">
+      <h3>📡 المصادر الحالية</h3>
+      <div id="sourcesList" class="empty">جارٍ التحميل…</div>
+    </div>
+  </div>
+
+  <!-- ═══ التحليلات ═══ -->
+  <div id="view-analytics" style="display:none">
+    <div class="card">
+      <h3>📊 إحصائيات آخر 7 أيام</h3>
+      <div class="stat-grid" id="analyticsStats">
+        <div class="stat-box"><div class="num">—</div><div class="label">جارٍ التحميل</div></div>
+      </div>
+      <h4 style="color:#f7d98a;font-size:14px">حسب الدولة</h4>
+      <table class="analytics-table" id="countryTable"><tbody></tbody></table>
+      <h4 style="color:#f7d98a;font-size:14px;margin-top:20px">حسب اليوم</h4>
+      <table class="analytics-table" id="dayTable"><tbody></tbody></table>
+    </div>
+  </div>
+
+  <!-- ═══ أدوات ═══ -->
+  <div id="view-tools" style="display:none">
+    <div class="card">
+      <h3>⚡ تشغيل Cron يدويًا</h3>
+      <p class="muted">يشغّل مهمة جلب الأخبار من المصادر الآن (بدلاً من انتظار 30 دقيقة)</p>
+      <button onclick="runCron()">▶️ تشغيل Cron</button>
+      <div id="cronStatus" class="status"></div>
+    </div>
+    <div class="card">
+      <h3>📈 اختبار الـ API</h3>
+      <button class="sec" onclick="testApi('metals')">💰 أسعار الصرف</button>
+      <button class="sec" onclick="testApi('news')">📰 الأخبار</button>
+      <button class="sec" onclick="testApi('history')">📊 التاريخ</button>
+      <div id="apiStatus" class="status"></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+const API = 'https://ayar-proxy.ezzoabdo17.workers.dev';
+let TOKEN = localStorage.getItem('ayar-admin-token') || '';
+
+// ═══ المصادقة ═══
+function login() {
+  const t = document.getElementById('tokenInput').value.trim();
+  if (!t) return showStatus('loginStatus', 'error', 'أدخل التوكن');
+  TOKEN = t;
+  api('/api/admin/news').then(() => {
+    localStorage.setItem('ayar-admin-token', TOKEN);
+    showMain();
+  }).catch(e => {
+    showStatus('loginStatus', 'error', 'توكن غير صالح: ' + e.message);
+  });
+}
+
+function logout() {
+  localStorage.removeItem('ayar-admin-token');
+  TOKEN = '';
+  location.reload();
+}
+
+function showMain() {
+  document.getElementById('loginView').style.display = 'none';
+  document.getElementById('mainView').style.display = 'block';
+  loadNews();
+  loadSources();
+}
+
+// ═══ API helper ═══
+async function api(path, opts = {}) {
+  const r = await fetch(API + path, {
+    ...opts,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + TOKEN,
+      ...(opts.headers || {})
+    }
+  });
+  if (r.status === 401) {
+    localStorage.removeItem('ayar-admin-token');
+    throw new Error('انتهت الجلسة');
+  }
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(data.error || 'HTTP ' + r.status);
+  return data;
+}
+
+function showStatus(id, type, msg) {
+  const el = document.getElementById(id);
+  el.className = 'status ' + type;
+  el.textContent = msg;
+  if (type === 'success') setTimeout(() => el.className = 'status', 5000);
+}
+
+// ═══ الأخبار ═══
+async function loadNews() {
+  try {
+    const news = await api('/api/admin/news');
+    const list = document.getElementById('newsList');
+    if (!news.length) {
+      list.innerHTML = '<div class="empty">لا توجد أخبار. أضف خبرك الأول!</div>';
+      return;
+    }
+    list.innerHTML = news.map(n => `
+      <div class="list-item">
+        <div class="list-item-info">
+          <strong>${esc(n.title)}</strong>
+          <div class="meta">
+            ${esc(n.tag || 'أخبار')} · ${esc(n.source || 'عيار')}
+            ${n.is_published ? '<span class="badge on">منشور</span>' : '<span class="badge off">مسودة</span>'}
+            · ${new Date(n.created_at * 1000).toLocaleString('ar-EG')}
+          </div>
+          <div class="body-preview">${esc((n.body || '').slice(0, 150))}</div>
+        </div>
+        <div class="actions">
+          <button class="sec" onclick='editNews(${JSON.stringify(n).replace(/'/g, "&#39;")})'>✏️</button>
+          <button class="danger" onclick="deleteNews(${n.id})">🗑️</button>
+        </div>
+      </div>
+    `).join('');
+  } catch (e) {
+    document.getElementById('newsList').innerHTML = `<div class="empty">خطأ: ${esc(e.message)}</div>`;
+  }
+}
+
+function editNews(n) {
+  document.getElementById('newsId').value = n.id;
+  document.getElementById('nTitle').value = n.title;
+  document.getElementById('nBody').value = n.body;
+  document.getElementById('nTag').value = n.tag;
+  document.getElementById('nTagClass').value = n.tag_class || '';
+  document.getElementById('nSource').value = n.source;
+  document.getElementById('nSourceUrl').value = n.source_url || '';
+  document.getElementById('nImageUrl').value = n.image_url || '';
+  document.getElementById('nPublished').checked = !!n.is_published;
+  document.getElementById('newsFormTitle').textContent = '✏️ تعديل الخبر #' + n.id;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetNewsForm() {
+  document.getElementById('newsId').value = '';
+  ['nTitle','nBody','nTagClass','nSourceUrl','nImageUrl'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('nTag').value = 'أخبار';
+  document.getElementById('nSource').value = 'عيار';
+  document.getElementById('nPublished').checked = true;
+  document.getElementById('newsFormTitle').textContent = '➕ إضافة خبر جديد';
+}
+
+async function saveNews() {
+  const id = document.getElementById('newsId').value;
+  const body = {
+    title: document.getElementById('nTitle').value.trim(),
+    body: document.getElementById('nBody').value.trim(),
+    tag: document.getElementById('nTag').value.trim() || 'أخبار',
+    tagClass: document.getElementById('nTagClass').value.trim(),
+    source: document.getElementById('nSource').value.trim() || 'عيار',
+    sourceUrl: document.getElementById('nSourceUrl').value.trim() || null,
+    imageUrl: document.getElementById('nImageUrl').value.trim() || null,
+    isPublished: document.getElementById('nPublished').checked
+  };
+  if (!body.title || !body.body) return showStatus('newsStatus', 'error', 'العنوان والنص مطلوبان');
+  try {
+    await api(id ? '/api/admin/news/' + id : '/api/admin/news', {
+      method: id ? 'PUT' : 'POST',
+      body: JSON.stringify(body)
+    });
+    showStatus('newsStatus', 'success', id ? '✅ تم تحديث الخبر' : '✅ تم إضافة الخبر');
+    resetNewsForm();
+    loadNews();
+  } catch (e) {
+    showStatus('newsStatus', 'error', '❌ ' + e.message);
+  }
+}
+
+async function deleteNews(id) {
+  if (!confirm('حذف هذا الخبر نهائيًا؟')) return;
+  try {
+    await api('/api/admin/news/' + id, { method: 'DELETE' });
+    loadNews();
+  } catch (e) {
+    showStatus('newsStatus', 'error', '❌ ' + e.message);
+  }
+}
+
+// ═══ المصادر ═══
+async function loadSources() {
+  try {
+    const sources = await api('/api/admin/sources');
+    const list = document.getElementById('sourcesList');
+    if (!sources.length) {
+      list.innerHTML = '<div class="empty">لا توجد مصادر. أضف مصدر RSS الأول!</div>';
+      return;
+    }
+    list.innerHTML = sources.map(s => `
+      <div class="list-item">
+        <div class="list-item-info">
+          <strong>${esc(s.name)}</strong>
+          <div class="meta">
+            ${esc(s.category || 'عام')} ·
+            ${s.last_fetched ? 'آخر جلب: ' + new Date(s.last_fetched * 1000).toLocaleString('ar-EG') : 'لم يُجلب بعد'}
+          </div>
+          <div class="meta" style="direction:ltr;text-align:left;word-break:break-all">${esc(s.rss_url)}</div>
+        </div>
+        <div class="actions">
+          <button class="danger" onclick="deleteSource(${s.id})">🗑️</button>
+        </div>
+      </div>
+    `).join('');
+  } catch (e) {
+    document.getElementById('sourcesList').innerHTML = `<div class="empty">خطأ: ${esc(e.message)}</div>`;
+  }
+}
+
+async function saveSource() {
+  const body = {
+    name: document.getElementById('sName').value.trim(),
+    rssUrl: document.getElementById('sUrl').value.trim(),
+    category: document.getElementById('sCat').value.trim() || null
+  };
+  if (!body.name || !body.rssUrl) return showStatus('sourceStatus', 'error', 'الاسم والرابط مطلوبان');
+  try {
+    await api('/api/admin/sources', { method: 'POST', body: JSON.stringify(body) });
+    showStatus('sourceStatus', 'success', '✅ تم إضافة المصدر');
+    ['sName','sUrl','sCat'].forEach(id => document.getElementById(id).value = '');
+    loadSources();
+  } catch (e) {
+    showStatus('sourceStatus', 'error', '❌ ' + e.message);
+  }
+}
+
+async function deleteSource(id) {
+  if (!confirm('حذف هذا المصدر؟ (الأخبار المجلوبة ستبقى)')) return;
+  try {
+    await api('/api/admin/sources/' + id, { method: 'DELETE' });
+    loadSources();
+  } catch (e) {
+    showStatus('sourceStatus', 'error', '❌ ' + e.message);
+  }
+}
+
+// ═══ التحليلات ═══
+async function loadAnalytics() {
+  try {
+    const a = await api('/api/admin/analytics?days=7');
+    document.getElementById('analyticsStats').innerHTML = `
+      <div class="stat-box"><div class="num">${a.total || 0}</div><div class="label">إجمالي الزيارات</div></div>
+      <div class="stat-box"><div class="num">${(a.byCountry || []).length}</div><div class="label">عدد الدول</div></div>
+      <div class="stat-box"><div class="num">${(a.byDay || []).length}</div><div class="label">أيام نشطة</div></div>
+    `;
+    document.getElementById('countryTable').innerHTML = '<tbody>' +
+      ((a.byCountry || []).map(c => `<tr><td>${esc(c.country || 'غير معروف')}</td><td>${c.c}</td></tr>`).join('') || '<tr><td colspan="2" class="empty">لا بيانات</td></tr>') +
+      '</tbody>';
+    document.getElementById('dayTable').innerHTML = '<tbody>' +
+      ((a.byDay || []).map(d => `<tr><td>${esc(d.d)}</td><td>${d.c}</td></tr>`).join('') || '<tr><td colspan="2" class="empty">لا بيانات</td></tr>') +
+      '</tbody>';
+  } catch (e) {
+    document.getElementById('analyticsStats').innerHTML = `<div class="empty">خطأ: ${esc(e.message)}</div>`;
+  }
+}
+
+// ═══ الأدوات ═══
+async function runCron() {
+  try {
+    showStatus('cronStatus', 'success', '⏳ جارٍ الجلب… قد يستغرق دقيقة');
+    const r = await api('/api/admin/run-cron', { method: 'POST' });
+    showStatus('cronStatus', 'success', `✅ تم! مصادر: ${r.result.sources}, أخبار جديدة: ${r.result.inserted}`);
+    loadNews();
+  } catch (e) {
+    showStatus('cronStatus', 'error', '❌ ' + e.message);
+  }
+}
+
+async function testApi(which) {
+  try {
+    showStatus('apiStatus', 'success', '⏳ جارٍ الاختبار…');
+    let result;
+    if (which === 'metals') result = await fetch(API + '/api/metals').then(r => r.json());
+    else if (which === 'news') result = await fetch(API + '/api/news').then(r => r.json());
+    else if (which === 'history') result = await fetch(API + '/api/history?symbol=XAU&range=24h').then(r => r.json());
+    showStatus('apiStatus', 'success', '✅ ' + JSON.stringify(result).slice(0, 200) + '...');
+  } catch (e) {
+    showStatus('apiStatus', 'error', '❌ ' + e.message);
+  }
+}
+
+// ═══ Tabs ═══
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  document.querySelectorAll('[id^="view-"]').forEach(v => v.style.display = 'none');
+  document.getElementById('view-' + t.dataset.view).style.display = 'block';
+  if (t.dataset.view === 'analytics') loadAnalytics();
+});
+
+function esc(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// Auto-login
+if (TOKEN) {
+  api('/api/admin/news').then(() => showMain()).catch(() => {
+    localStorage.removeItem('ayar-admin-token');
+    TOKEN = '';
+  });
+}
+</script>
+</body>
+</html>
