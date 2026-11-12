@@ -8,7 +8,21 @@
 <meta name="robots" content="index,follow">
 <title>عيار — أسعار الذهب والأخبار والتحليلات</title>
 <link rel="canonical" href="https://ayar-five.vercel.app/">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23e9b949'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-size='16' font-weight='700' fill='%233a2a06'%3E%D8%B9%3C/text%3E%3C/svg%3E">
 
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="عيار">
+<meta property="og:title" content="عيار — أسعار الذهب والأخبار والتحليلات">
+<meta property="og:description" content="أسعار الذهب والفضة والسبائك في 9 دول عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية.">
+<meta property="og:url" content="https://ayar-five.vercel.app/">
+<meta property="og:locale" content="ar_AR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="عيار — أسعار الذهب والأخبار والتحليلات">
+<meta name="twitter:description" content="أسعار الذهب والفضة والسبائك في 9 دول عربية، مع أخبار وتحليلات وتنبيهات.">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"عيار","url":"https://ayar-five.vercel.app/","inLanguage":"ar","description":"أسعار الذهب والفضة والسبائك في 9 دول عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية."}
+</script>
 <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
@@ -457,7 +471,8 @@
   const EMAILJS_SERVICE_ID  = 'service_200';
   const EMAILJS_TEMPLATE_ID = 'template_jky2jwh';
 
-  if (window.emailjs) {
+  function initEmailJS() {
+    if (!window.emailjs) { console.warn('[ayar] ⚠️ EmailJS not loaded yet'); return; }
     try {
       emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
       console.log('[ayar] ✅ EmailJS initialized');
@@ -592,8 +607,10 @@
     try {
       localStorage.setItem(CACHE_KEY, JSON.stringify({
         ts: Date.now(), goldOz: market.goldOz, silverOz: market.silverOz,
-        currencies: Object.fromEntries(COUNTRIES.map(x => [x.cur, x.rate]))
+               currencies: Object.fromEntries(COUNTRIES.map(x => [x.cur, x.rate])),
+        usdHistory: state.usdHistory
       }));
+    
     } catch (_) {}
   }
   function pushUsd(p) { state.usdHistory.push(p); if (state.usdHistory.length > HISTORY_LEN) state.usdHistory.shift(); }
@@ -736,7 +753,9 @@
   }
   async function handleAlertSubmit(e) {
     e.preventDefault();
-    const email = el('alertEmail').value.trim();
+    const email =    el('alertForm').reset();
+    el('alertEmail').value = email;
+    renderAlerts();
     const targetPrice = parseFloat(el('alertPrice').value);
     const karat = parseInt(el('alertKarat').value, 10);
     const direction = el('alertDirection').value;
@@ -1338,14 +1357,16 @@
   }
 
   /* ═══════════ التهيئة ═══════════ */
-  function init() {
+    function init() {
     console.log('[ayar] 🚀 Initializing...');
     console.log('[ayar] LightweightCharts loaded:', !!window.LightweightCharts);
+    initEmailJS();
 
     el('year').textContent = new Date().getFullYear();
     renderChips(); syncChips(); buildKaratGrid(); buildSilverGrid(); buildBarsGrid();
     loadCache();
-    if (!state.lastUpdate) state.lastUpdate = new Date();
+          if (c.currencies) COUNTRIES.forEach(x => { if (c.currencies[x.cur]) x.rate = c.currencies[x.cur]; });
+      if (Array.isArray(c.usdHistory) && c.usdHistory.length) state.usdHistory = c.usdHistory;
     render();
     renderAlerts();
 
@@ -1472,5 +1493,4 @@
 </script>
 
 </body>
-</html>
 </html>
