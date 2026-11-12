@@ -575,7 +575,8 @@
   const NEWS_REFRESH_MS    = 15 * 60 * 1000;
   const CACHE_KEY       = 'ayar:cache-v5';
   const LAST_FETCH_KEY  = 'ayar:lastFetch-v5';
-  const CACHE_MAX_AGE   = 7 * 24 * 60 * 60 * 1000;
+  // 🔧 إصلاح 5: عمر الكاش من 7 أيام إلى ساعتين
+  const CACHE_MAX_AGE   = 2 * 60 * 60 * 1000;
   const ALERTS_KEY      = 'ayar:alerts-v1';
 
   const FALLBACK = { goldOz: 2650.0, silverOz: 31.0, platinumOz: 1000.0 };
@@ -615,7 +616,6 @@
     { key:'800', purity:0.800, label:'800', desc:'فضة قياسية', badge:null }
   ];
 
-  // متوسطات رسمية للمصنعية (منشور الجمارك المصرية 2026) — قابلة للتحديث
   const MANUF_RATES = {
     24: { fixed: 0,     pct: 3 },
     22: { fixed: 50.00, pct: 4 },
@@ -653,6 +653,17 @@
     return nf(4,4).format(v);
   }
   function fmtPriceMode(g, c) { return state.showManufacturing ? g * (1 + (c.tax||0) + (c.manuf||0)) : g; }
+
+  // 🔧 إصلاح 1: دالة تهريب HTML لمنع XSS
+  function escapeHTML(s) {
+    if (s == null) return '';
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
 
   function fetchWithTimeout(url, ms = 12000) {
     const controller = new AbortController();
@@ -701,17 +712,18 @@
   let newsIntervalId = null;
   let newsFetching = false;
 
+  // 🔧 إصلاح 2: تهريب كل الحقول النصية قبل الحقن
   function renderNewsCards(news, isFallback) {
     const grid = el('newsGrid'); if (!grid) return;
     if (!news || !news.length) { grid.innerHTML = '<div class="news-empty">📰 لا توجد أخبار جديدة حالياً.</div>'; return; }
     grid.innerHTML = news.map(n => `
       <article class="news-card">
-        <span class="news-tag ${n.tagClass || ''}">${n.tag || 'أخبار'}</span>
-        <h3>${n.title || ''}</h3>
-        <p>${n.body || ''}</p>
+        <span class="news-tag ${escapeHTML(n.tagClass || '')}">${escapeHTML(n.tag || 'أخبار')}</span>
+        <h3>${escapeHTML(n.title || '')}</h3>
+        <p>${escapeHTML(n.body || '')}</p>
         <div class="news-meta">
-          <span class="source">${n.source || 'مصدر'}</span>
-          <span>${n.date || ''}</span>
+          <span class="source">${escapeHTML(n.source || 'مصدر')}</span>
+          <span>${escapeHTML(n.date || '')}</span>
         </div>
       </article>
     `).join('');
@@ -912,7 +924,6 @@
     el('silverCalcNote').textContent = `سعر جرام ${el('silverCalcPurity').value}: ${fmtMoney(gramPrice, c)} ${c.symbol}`;
   }
 
-  // 🆕 عرض البلاتين
   function updatePlatinum(c) {
     const platinumOzLocal = market.platinumOz * c.rate;
     const platinumGram950 = market.platinumOz / GRAM_PER_OZ * c.rate * 0.95;
@@ -1020,7 +1031,6 @@
     el('calcNote').textContent = 'ضريبة ' + nf(0,0).format((c.tax||0)*100) + '% · هامش التاجر ' + nf(1,1).format((c.bidSpread||0.02)*100) + '%';
   }
 
-  // 🆕 حاسبة المصنعية المتقدمة
   function updateManufCalculator(goldGram24, c) {
     const w = parseFloat(el('manufWeight').value) || 0;
     const k = parseInt(el('manufKarat').value, 10) || 21;
@@ -1290,20 +1300,6 @@
     return dedupePoints(points);
   }
 
-  function generateSyntheticSeries(basePrice, range) {
-    const now = Math.floor(Date.now() / 1000);
-    const config = { '24h':{n:96,step:900}, '7d':{n:84,step:7200}, '30d':{n:90,step:28800}, '1y':{n:120,step:259200} }[range] || {n:96,step:900};
-    const safeBase = isFinite(basePrice) && basePrice > 0 ? basePrice : 1;
-    let value = safeBase * (0.98 + Math.random() * 0.02);
-    const points = [];
-    for (let i = config.n - 1; i >= 0; i--) {
-      value *= (1 + (Math.random() - 0.5) * 0.004);
-      points.push({ time: now - i * config.step, value: +value.toFixed(2) });
-    }
-    points[points.length - 1].value = +safeBase.toFixed(2);
-    return points;
-  }
-
   async function fetchChartData(range, isSilver) {
     const cache = isSilver ? silverChartCache : goldChartCache;
     const entry = cache[range];
@@ -1370,12 +1366,12 @@
       load.classList.add('hidden');
       console.log('[ayar] ✅ Gold chart:', series.length);
     } catch (err) {
-      console.warn('[ayar] ⚠️ Gold fallback:', err.message);
-      const synthetic = generateSyntheticSeries(market.goldOz * c.rate, goldChartRange);
-      goldChartSeries.setData(synthetic);
-      goldChartInst.timeScale().fitContent();
-      load.textContent = '📊 بيانات تقديرية';
+      // 🔧 إصلاح 3: لا مزيد من البيانات الوهمية
+      console.warn('[ayar] ⚠️ Gold chart unavailable:', err.message);
+      goldChartSeries.setData([]);
+      load.textContent = '⚠️ تعذّر تحميل البيانات التاريخية — حاول التحديث لاحقاً';
       load.style.color = 'var(--amber)';
+      load.classList.remove('hidden');
     }
   }
 
@@ -1394,12 +1390,12 @@
       load.classList.add('hidden');
       console.log('[ayar] ✅ Silver chart:', series.length);
     } catch (err) {
-      console.warn('[ayar] ⚠️ Silver fallback:', err.message);
-      const synthetic = generateSyntheticSeries(market.silverOz * c.rate, silverChartRange);
-      silverChartSeries.setData(synthetic);
-      silverChartInst.timeScale().fitContent();
-      load.textContent = '📊 بيانات تقديرية';
+      // 🔧 إصلاح 4: لا مزيد من البيانات الوهمية
+      console.warn('[ayar] ⚠️ Silver chart unavailable:', err.message);
+      silverChartSeries.setData([]);
+      load.textContent = '⚠️ تعذّر تحميل البيانات التاريخية — حاول التحديث لاحقاً';
       load.style.color = 'var(--amber)';
+      load.classList.remove('hidden');
     }
   }
 
@@ -1456,7 +1452,6 @@
       updateCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
     });
 
-    // حاسبة المصنعية المتقدمة — مستمعات
     el('manufWeight').addEventListener('input', () => {
       const c = byCode(state.code);
       updateManufCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
