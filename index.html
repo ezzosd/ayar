@@ -23,8 +23,9 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebSite","name":"عيار","url":"https://ayar-five.vercel.app/","inLanguage":"ar","description":"أسعار الذهب والفضة والسبائك في 9 دول عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية."}
 </script>
-<script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -170,6 +171,7 @@
   .chart-tab{font:inherit;font-size:12px;font-weight:700;padding:6px 12px;border-radius:7px;border:0;cursor:pointer;background:transparent;color:var(--muted)}
   .chart-tab[aria-selected="true"]{color:#20170a;background:linear-gradient(180deg,var(--gold-soft),var(--gold))}
   .chart-body{position:relative;padding:12px 8px 4px}
+  .silver-chart-wrap{position:relative;height:220px}
   #goldChart{width:100%;height:340px}
   #silverChart{width:100%;height:220px}
   .chart-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(17,20,32,.72);z-index:2;font-size:13px;color:var(--muted);text-align:center;padding:20px}
@@ -211,6 +213,7 @@
     .hero-side{align-items:flex-start}
     #goldChart{height:260px}
     #silverChart{height:200px}
+    .silver-chart-wrap{height:200px}
     .compare-table th:nth-child(4),.compare-table td:nth-child(4){display:none}
     .form-row{grid-template-columns:1fr}
     .chart-tab{padding:5px 9px;font-size:11.5px}
@@ -329,7 +332,7 @@
           <button class="chart-tab silver-chart-tab" data-srange="30d" aria-selected="false">30 يوماً</button>
           <button class="chart-tab silver-chart-tab" data-srange="1y" aria-selected="false">سنة</button>
         </div>
-        <div style="position:relative;height:220px">
+        <div class="silver-chart-wrap">
           <div id="silverChart"></div>
           <div class="chart-loading" id="silverChartLoading">جارٍ تحميل البيانات…</div>
         </div>
@@ -598,6 +601,7 @@
       if (c.goldOz) market.goldOz = c.goldOz;
       if (c.silverOz) market.silverOz = c.silverOz;
       if (c.currencies) COUNTRIES.forEach(x => { if (c.currencies[x.cur]) x.rate = c.currencies[x.cur]; });
+      if (Array.isArray(c.usdHistory) && c.usdHistory.length) state.usdHistory = c.usdHistory;
       state.lastUpdate = new Date(c.ts);
       state.source = 'cache';
       return true;
@@ -607,10 +611,9 @@
     try {
       localStorage.setItem(CACHE_KEY, JSON.stringify({
         ts: Date.now(), goldOz: market.goldOz, silverOz: market.silverOz,
-               currencies: Object.fromEntries(COUNTRIES.map(x => [x.cur, x.rate])),
+        currencies: Object.fromEntries(COUNTRIES.map(x => [x.cur, x.rate])),
         usdHistory: state.usdHistory
       }));
-    
     } catch (_) {}
   }
   function pushUsd(p) { state.usdHistory.push(p); if (state.usdHistory.length > HISTORY_LEN) state.usdHistory.shift(); }
@@ -743,6 +746,7 @@
         try { new Notification('🔔 عيار — تحقق تنبيه السعر', { body: `${c.flag} ${c.name} — عيار ${a.karat}\nالسعر: ${fmtMoney(gram, c)} ${c.symbol}`, tag: 'ayar-' + a.createdAt }); } catch (e) {}
       }
       sendEmailSafe({
+        email_type: 'trigger',
         to_email: a.email, target_price: nf(0,0).format(a.targetPrice),
         current_price: fmtMoney(gram, c), currency: c.symbol, karat: a.karat,
         direction: a.direction === 'below' ? 'الهبوط' : 'الصعود'
@@ -753,9 +757,7 @@
   }
   async function handleAlertSubmit(e) {
     e.preventDefault();
-    const email =    el('alertForm').reset();
-    el('alertEmail').value = email;
-    renderAlerts();
+    const email = el('alertEmail').value.trim();
     const targetPrice = parseFloat(el('alertPrice').value);
     const karat = parseInt(el('alertKarat').value, 10);
     const direction = el('alertDirection').value;
@@ -768,6 +770,7 @@
     saveAlerts(alerts);
     el('alertSubmit').disabled = true;
     sendEmailSafe({
+      email_type: 'confirmation',
       to_email: email, target_price: nf(0,0).format(targetPrice),
       current_price: fmtMoney(currentGram, c), currency: c.symbol, karat: karat,
       direction: direction === 'below' ? 'الهبوط' : 'الصعود'
@@ -775,6 +778,7 @@
     r => { showStatus('success', `✅ تم تسجيل التنبيه وإرسال بريد تأكيد إلى ${email}.`); el('alertSubmit').disabled = false; },
     err => { showStatus('error', '⚠️ تم حفظ التنبيه محلياً، لكن تعذّر إرسال البريد: ' + (err.text || err.message || 'خطأ')); el('alertSubmit').disabled = false; });
     el('alertForm').reset();
+    el('alertEmail').value = email;
     renderAlerts();
   }
 
@@ -1160,7 +1164,6 @@
     return out;
   }
 
-  /* 🆕 مصدر 3: CoinGecko (PAXG للذهب، KAG للفضة) */
   async function fetchFromCoinGecko(range, isSilver) {
     const coinId = isSilver ? 'kinesis-silver' : 'pax-gold';
     const days = { '24h': 1, '7d': 7, '30d': 30, '1y': 365 }[range] || 1;
@@ -1177,7 +1180,6 @@
     return dedupePoints(points);
   }
 
-  /* 🆕 مصدر 4: Stooq (CSV مجاني عبر allorigins) */
   async function fetchFromStooq(range, isSilver) {
     const sym = isSilver ? 'xagusd' : 'xauusd';
     const url = `https://stooq.com/q/d/l/?s=${sym}&i=d`;
@@ -1204,7 +1206,6 @@
     return dedupePoints(points);
   }
 
-  /* 🆕 توليد سلسلة تقديرية كملاذ أخير */
   function generateSyntheticSeries(basePrice, range) {
     const now = Math.floor(Date.now() / 1000);
     const config = {
@@ -1225,7 +1226,6 @@
     return points;
   }
 
-  /* 🆕 fetchChartData: 4 مصادر بالتتابع */
   async function fetchChartData(range, isSilver) {
     const cache = isSilver ? silverChartCache : goldChartCache;
     const entry = cache[range];
@@ -1234,7 +1234,6 @@
     const symbol = isSilver ? 'XAG' : 'XAU';
     const errors = [];
 
-    /* ─── المصدر 1: Worker ─── */
     try {
       const res = await fetchWithTimeout(`${HISTORY_API_URL}?symbol=${symbol}&range=${range}`, 8000);
       if (res.ok) {
@@ -1255,7 +1254,6 @@
       }
     } catch (e) { errors.push('Worker: ' + e.message); }
 
-    /* ─── المصدر 2: Yahoo (allorigins) ─── */
     try {
       const yahooSym = isSilver ? 'SI=F' : 'GC=F';
       const params = {
@@ -1285,7 +1283,6 @@
       errors.push('Yahoo: empty');
     } catch (e) { errors.push('Yahoo: ' + e.message); }
 
-    /* ─── المصدر 3: CoinGecko ─── */
     try {
       const points = await fetchFromCoinGecko(range, isSilver);
       console.log('[ayar] ✅ Source 3 (CoinGecko):', points.length, 'points');
@@ -1293,7 +1290,6 @@
       return points;
     } catch (e) { errors.push('CoinGecko: ' + e.message); }
 
-    /* ─── المصدر 4: Stooq ─── */
     try {
       const points = await fetchFromStooq(range, isSilver);
       console.log('[ayar] ✅ Source 4 (Stooq):', points.length, 'points');
@@ -1357,7 +1353,7 @@
   }
 
   /* ═══════════ التهيئة ═══════════ */
-    function init() {
+  function init() {
     console.log('[ayar] 🚀 Initializing...');
     console.log('[ayar] LightweightCharts loaded:', !!window.LightweightCharts);
     initEmailJS();
@@ -1365,8 +1361,6 @@
     el('year').textContent = new Date().getFullYear();
     renderChips(); syncChips(); buildKaratGrid(); buildSilverGrid(); buildBarsGrid();
     loadCache();
-          if (c.currencies) COUNTRIES.forEach(x => { if (c.currencies[x.cur]) x.rate = c.currencies[x.cur]; });
-      if (Array.isArray(c.usdHistory) && c.usdHistory.length) state.usdHistory = c.usdHistory;
     render();
     renderAlerts();
 
@@ -1457,7 +1451,7 @@
     });
   }
 
-   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
 </script>
@@ -1466,7 +1460,8 @@
 <script>
 (function(){
   const API = 'https://ayar-proxy.ezzoabdo17.workers.dev';
-  
+  const SESSION_KEY = 'ayar:session-id';
+
   function track(eventType, extra) {
     try {
       fetch(API + '/api/analytics/track', {
@@ -1475,20 +1470,19 @@
         body: JSON.stringify(Object.assign({
           eventType: eventType || 'pageview',
           page: location.pathname,
-          referrer: document.referrer || null
+          referrer: document.referrer || null,
+          sessionId: sessionStorage.getItem(SESSION_KEY) || null
         }, extra || {})),
         keepalive: true
       }).catch(function(){});
     } catch(e){}
   }
-  
-  // تتبع الزيارة الأولى
-  track('pageview');
-  
-  // تتبع العودة للصفحة (من تبويب آخر)
-  document.addEventListener('visibilitychange', function(){
-    if (!document.hidden) track('pageview');
-  });
+
+  const isNewSession = !sessionStorage.getItem(SESSION_KEY);
+  if (isNewSession) {
+    sessionStorage.setItem(SESSION_KEY, Date.now().toString(36) + Math.random().toString(36).slice(2,8));
+  }
+  track('pageview', { newSession: isNewSession });
 })();
 </script>
 
