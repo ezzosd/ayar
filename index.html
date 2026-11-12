@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0b0f">
-<meta name="description" content="عيار — أسعار الذهب والفضة والسبائك في 9 دول عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية.">
+<meta name="description" content="عيار — أسعار الذهب والفضة والبلاتين والسبائك في 9 دول عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية.">
 <meta name="robots" content="index,follow">
 <title>عيار — أسعار الذهب والأخبار والتحليلات</title>
 <link rel="canonical" href="https://ayar-five.vercel.app/">
@@ -13,15 +13,15 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="عيار">
 <meta property="og:title" content="عيار — أسعار الذهب والأخبار والتحليلات">
-<meta property="og:description" content="أسعار الذهب والفضة والسبائك في 9 دول عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية.">
+<meta property="og:description" content="أسعار الذهب والفضة والبلاتين والسبائك في 9 دول عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية.">
 <meta property="og:url" content="https://ayar-five.vercel.app/">
 <meta property="og:locale" content="ar_AR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="عيار — أسعار الذهب والأخبار والتحليلات">
-<meta name="twitter:description" content="أسعار الذهب والفضة والسبائك في 9 دول عربية، مع أخبار وتحليلات وتنبيهات.">
+<meta name="twitter:description" content="أسعار الذهب والفضة والبلاتين والسبائك في 9 دول عربية، مع أخبار وتحليلات وتنبيهات.">
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"عيار","url":"https://ayar-five.vercel.app/","inLanguage":"ar","description":"أسعار الذهب والفضة والسبائك في 9 دول عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية."}
+{"@context":"https://schema.org","@type":"WebSite","name":"عيار","url":"https://ayar-five.vercel.app/","inLanguage":"ar","description":"أسعار الذهب والفضة والبلاتين والسبائك في 9 دول عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية."}
 </script>
 
 <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" defer></script>
@@ -33,7 +33,7 @@
 
 <style>
   *,*::before,*::after{box-sizing:border-box}
-  :root{color-scheme:dark;--bg:#0a0b0f;--surface:#111420;--surface-2:#161a29;--line:#242a3d;--gold:#e9b949;--gold-soft:#f7d98a;--text:#eef1f8;--muted:#8a93a9;--green:#2fd39a;--red:#ff5f7a;--amber:#ffb35c;--silver:#c9d1e3;--silver-soft:#e8eef8;--radius:16px}
+  :root{color-scheme:dark;--bg:#0a0b0f;--surface:#111420;--surface-2:#161a29;--line:#242a3d;--gold:#e9b949;--gold-soft:#f7d98a;--text:#eef1f8;--muted:#8a93a9;--green:#2fd39a;--red:#ff5f7a;--amber:#ffb35c;--silver:#c9d1e3;--silver-soft:#e8eef8;--platinum:#d8e2f0;--platinum-soft:#edf2fa;--radius:16px}
   html,body{margin:0;padding:0}
   body{min-height:100vh;line-height:1.6;color:var(--text);font-family:"Cairo",system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:radial-gradient(900px 520px at 82% -12%,rgba(233,185,73,.10),transparent 62%),radial-gradient(720px 420px at 8% -6%,rgba(70,120,255,.09),transparent 62%),var(--bg);padding-bottom:40px}
   .wrap{width:min(1120px,100% - 32px);margin-inline:auto}
@@ -111,6 +111,9 @@
   .silver-card.is-999 .s-purity{color:#f5f8ff}
   .silver-card .s-badge{position:absolute;top:8px;inset-inline-end:8px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:6px;background:rgba(201,209,227,.18);color:var(--silver-soft)}
 
+  .platinum-card{border-color:rgba(216,226,240,.35);background:linear-gradient(180deg,rgba(216,226,240,.06),transparent 72%),var(--surface)}
+  .platinum-card .price{color:var(--platinum-soft)}
+
   .bars-grid{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
   .bar-card{text-align:center;padding:14px 10px;position:relative;transition:.18s}
   .bar-card:hover{transform:translateY(-3px);border-color:rgba(233,185,73,.35)}
@@ -163,6 +166,7 @@
   .field{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--muted)}
   .field input,.field select{font:inherit;font-size:14px;padding:8px 10px;border-radius:8px;background:var(--surface-2);border:1px solid var(--line);color:var(--text)}
   .field input:focus,.field select:focus{outline:2px solid var(--gold-soft);border-color:transparent}
+  .field input:disabled{opacity:.6;cursor:not-allowed}
   .chart-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
   .chart-head{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap;gap:10px}
   .chart-title strong{font-size:15px;display:block}
@@ -252,9 +256,9 @@
 </nav>
 
 <main class="wrap" id="main">
-  <h1 class="sr-only">أسعار الذهب والفضة والأخبار والتنبيهات</h1>
+  <h1 class="sr-only">أسعار الذهب والفضة والبلاتين والأخبار والتنبيهات</h1>
 
-  <!-- ═══ إعلان 1 من 5 — أعلى الصفحة ═══ -->
+  <!-- إعلان 1 من 5 -->
   <div class="ad-slot" data-ad="top">
     <script>(function(s){s.dataset.zone='12240026',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
   </div>
@@ -279,7 +283,7 @@
     <div class="grid" id="karatGrid"></div>
   </section>
 
-  <!-- ═══ إعلان 2 من 5 — بعد أسعار الأعيرة ═══ -->
+  <!-- إعلان 2 من 5 -->
   <div class="ad-slot" data-ad="after-karat">
     <script>(function(s){s.dataset.zone='12240027',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
   </div>
@@ -346,7 +350,34 @@
     </div>
   </section>
 
-  <!-- ═══ إعلان 3 من 5 — بعد قسم الفضة ═══ -->
+  <!-- 🆕 قسم البلاتين -->
+  <section class="section" aria-labelledby="platinumTitle">
+    <div class="section-head">
+      <h2 id="platinumTitle">🪨 البلاتين</h2>
+      <span class="hint">سعر البلاتين 950 — بالعملة المحلية</span>
+    </div>
+    <div class="grid two">
+      <article class="card platinum-card">
+        <h3 class="card-title">البلاتين (XPT) — نقاء 950</h3>
+        <p class="price" id="platinumGram">—</p>
+        <p class="unit" id="platinumUnit">—</p>
+        <div class="rows">
+          <div class="row"><span>أونصة البلاتين</span><strong id="platinumOz">—</strong></div>
+          <div class="row"><span>كيلو البلاتين</span><strong id="platinumKilo">—</strong></div>
+          <div class="row"><span>الأونصة بالدولار</span><strong id="platinumUsd">—</strong></div>
+        </div>
+      </article>
+      <article class="card">
+        <h3 class="card-title">ملاحظة عن البلاتين</h3>
+        <p class="unit" style="font-size:12px;line-height:1.9;margin-top:6px">
+          البلاتين يُستخدم في المجوهرات بنقاء <strong style="color:var(--platinum-soft)">950 (95%)</strong> أو <strong style="color:var(--platinum-soft)">900 (90%)</strong> — لا توجد عيارات كما في الذهب.<br><br>
+          الأسعار استرشادية ومتقلبة عالميًا؛ قد تختلف عن سعر الصاغة المحلي بهامش مصنعية. يعرض الموقع سعر الجرام النقي 950.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- إعلان 3 من 5 -->
   <div class="ad-slot" data-ad="after-silver">
     <script>(function(s){s.dataset.zone='12240028',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
   </div>
@@ -359,7 +390,7 @@
     <div class="grid bars-grid" id="barsGrid"></div>
   </section>
 
-  <!-- ═══ إعلان 4 من 5 — قبل قسم الأخبار ═══ -->
+  <!-- إعلان 4 من 5 -->
   <div class="ad-slot" data-ad="before-news">
     <script>(function(s){s.dataset.zone='12240029',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
   </div>
@@ -434,8 +465,9 @@
     </div>
   </section>
 
+  <!-- 🆕 قسم الحاسبات -->
   <section class="section">
-    <div class="section-head"><h2>حاسبة البيع والشراء (الذهب)</h2></div>
+    <div class="section-head"><h2>حاسبات الذهب والمصنعية</h2></div>
     <div class="grid two">
       <article class="card">
         <h3 class="card-title">احسب سعر الشراء والبيع</h3>
@@ -454,6 +486,38 @@
         </div>
         <p class="unit" id="calcNote">—</p>
       </article>
+
+      <!-- 🆕 حاسبة المصنعية المتقدمة -->
+      <article class="card">
+        <h3 class="card-title">🧮 حاسبة المصنعية المتقدمة</h3>
+        <div class="form-row">
+          <label class="field">الوزن (جرام)<input type="number" id="manufWeight" value="10" min="0" step="0.1" inputmode="decimal"></label>
+          <label class="field">العيار<select id="manufKarat"><option value="24">24</option><option value="22">22</option><option value="21" selected>21</option><option value="18">18</option></select></label>
+        </div>
+        <label class="field" style="margin-top:10px">طريقة المصنعية
+          <select id="manufMode">
+            <option value="pct">نسبة مئوية (%)</option>
+            <option value="fixed" selected>مبلغ ثابت للجرام (ج.م/جم)</option>
+          </select>
+        </label>
+        <label class="field" style="margin-top:10px">قيمة المصنعية
+          <input type="number" id="manufValue" value="64.41" min="0" step="0.01" inputmode="decimal">
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12.5px;color:var(--muted);cursor:pointer">
+          <input type="checkbox" id="manufOfficial" checked>
+          استخدام المتوسط الرسمي للعيار
+        </label>
+        <div class="calc-breakdown">
+          <div class="calc-row"><span>سعر الخام</span><strong id="manufBase">—</strong></div>
+          <div class="calc-row"><span>+ المصنعية</span><strong id="manufManuf">—</strong></div>
+          <div class="calc-row"><span>+ ضريبة على المصنعية فقط</span><strong id="manufTax">—</strong></div>
+          <div class="calc-row total-buy"><span>💵 إجمالي الشراء</span><strong id="manufBuy">—</strong></div>
+          <div class="calc-row total-sell"><span>💰 البيع للتاجر</span><strong id="manufSell">—</strong></div>
+          <div class="calc-row spread"><span>⚠️ صافي الخسارة</span><strong id="manufLoss">—</strong></div>
+        </div>
+        <p class="unit" id="manufNote">—</p>
+      </article>
+
       <article class="card">
         <h3 class="card-title">حاسبة الزكاة</h3>
         <div class="form-row">
@@ -468,13 +532,13 @@
     </div>
   </section>
 
-  <!-- ═══ إعلان 5 من 5 — أسفل الصفحة ═══ -->
+  <!-- إعلان 5 من 5 -->
   <div class="ad-slot" data-ad="footer">
     <script>(function(s){s.dataset.zone='12240005',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
   </div>
 
   <footer class="footer">
-    <p><strong>تنبيه:</strong> الأسعار استرشادية. المصدر: gold-api.com · التاريخ: Yahoo/CoinGecko/Stooq · الأخبار: Google News</p>
+    <p><strong>تنبيه:</strong> الأسعار استرشادية. المصدر: gold-api.com (XAU/XAG/XPT) · التاريخ: Yahoo/CoinGecko/Stooq · الأخبار: Google News</p>
     <p>© <span id="year"></span> عيار — جميع الحقوق محفوظة</p>
   </footer>
 </main>
@@ -490,12 +554,8 @@
 
   function initEmailJS() {
     if (!window.emailjs) { console.warn('[ayar] ⚠️ EmailJS not loaded yet'); return; }
-    try {
-      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-      console.log('[ayar] ✅ EmailJS initialized');
-    } catch (e) {
-      console.error('[ayar] ❌ EmailJS init failed:', e);
-    }
+    try { emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); console.log('[ayar] ✅ EmailJS initialized'); }
+    catch (e) { console.error('[ayar] ❌ EmailJS init failed:', e); }
   }
 
   const API_BASE        = 'https://ayar-proxy.ezzoabdo17.workers.dev';
@@ -513,12 +573,12 @@
   const AUTO_REFRESH_MS    = 15 * 60 * 1000;
   const FRESH_THRESHOLD    = 30 * 60 * 1000;
   const NEWS_REFRESH_MS    = 15 * 60 * 1000;
-  const CACHE_KEY       = 'ayar:cache-v4';
-  const LAST_FETCH_KEY  = 'ayar:lastFetch-v4';
+  const CACHE_KEY       = 'ayar:cache-v5';
+  const LAST_FETCH_KEY  = 'ayar:lastFetch-v5';
   const CACHE_MAX_AGE   = 7 * 24 * 60 * 60 * 1000;
   const ALERTS_KEY      = 'ayar:alerts-v1';
 
-  const FALLBACK = { goldOz: 2650.0, silverOz: 31.0 };
+  const FALLBACK = { goldOz: 2650.0, silverOz: 31.0, platinumOz: 1000.0 };
   const FALLBACK_RATES = { EGP:53.88, SAR:3.75, AED:3.6725, BHD:0.3760, IQD:1516, KWD:0.3110, QAR:3.64, OMR:0.3846, JOD:0.7090 };
   const CUR_DECIMALS = { EGP:2, SAR:2, AED:2, BHD:3, IQD:0, KWD:3, QAR:2, OMR:3, JOD:3 };
 
@@ -555,11 +615,19 @@
     { key:'800', purity:0.800, label:'800', desc:'فضة قياسية', badge:null }
   ];
 
+  // متوسطات رسمية للمصنعية (منشور الجمارك المصرية 2026) — قابلة للتحديث
+  const MANUF_RATES = {
+    24: { fixed: 0,     pct: 3 },
+    22: { fixed: 50.00, pct: 4 },
+    21: { fixed: 64.41, pct: 5 },
+    18: { fixed: 96.64, pct: 7 }
+  };
+
   const NEWS_FALLBACK = [
     { tag:'أخبار', tagClass:'', title:'جارٍ تحميل الأخبار…', body:'سيتم تحديث الأخبار تلقائيًا عند توفر الاتصال.', source:'عيار', date:'' }
   ];
 
-  const market = { goldOz: FALLBACK.goldOz, silverOz: FALLBACK.silverOz };
+  const market = { goldOz: FALLBACK.goldOz, silverOz: FALLBACK.silverOz, platinumOz: FALLBACK.platinumOz };
   const state = { code:'EG', usdHistory:[], showManufacturing:false, lastUpdate:null, source:'init' };
 
   const el = id => document.getElementById(id);
@@ -589,8 +657,7 @@
   function fetchWithTimeout(url, ms = 12000) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), ms);
-    return fetch(url, { cache:'no-store', signal: controller.signal })
-      .finally(() => clearTimeout(timer));
+    return fetch(url, { cache:'no-store', signal: controller.signal }).finally(() => clearTimeout(timer));
   }
 
   function isMarketOpen() {
@@ -609,6 +676,7 @@
       if (!c || Date.now() - c.ts > CACHE_MAX_AGE) return false;
       if (c.goldOz) market.goldOz = c.goldOz;
       if (c.silverOz) market.silverOz = c.silverOz;
+      if (c.platinumOz) market.platinumOz = c.platinumOz;
       if (c.currencies) COUNTRIES.forEach(x => { if (c.currencies[x.cur]) x.rate = c.currencies[x.cur]; });
       if (Array.isArray(c.usdHistory) && c.usdHistory.length) state.usdHistory = c.usdHistory;
       state.lastUpdate = new Date(c.ts);
@@ -619,7 +687,10 @@
   function saveCache() {
     try {
       localStorage.setItem(CACHE_KEY, JSON.stringify({
-        ts: Date.now(), goldOz: market.goldOz, silverOz: market.silverOz,
+        ts: Date.now(),
+        goldOz: market.goldOz,
+        silverOz: market.silverOz,
+        platinumOz: market.platinumOz,
         currencies: Object.fromEntries(COUNTRIES.map(x => [x.cur, x.rate])),
         usdHistory: state.usdHistory
       }));
@@ -631,12 +702,8 @@
   let newsFetching = false;
 
   function renderNewsCards(news, isFallback) {
-    const grid = el('newsGrid');
-    if (!grid) return;
-    if (!news || !news.length) {
-      grid.innerHTML = '<div class="news-empty">📰 لا توجد أخبار جديدة حالياً.</div>';
-      return;
-    }
+    const grid = el('newsGrid'); if (!grid) return;
+    if (!news || !news.length) { grid.innerHTML = '<div class="news-empty">📰 لا توجد أخبار جديدة حالياً.</div>'; return; }
     grid.innerHTML = news.map(n => `
       <article class="news-card">
         <span class="news-tag ${n.tagClass || ''}">${n.tag || 'أخبار'}</span>
@@ -650,40 +717,27 @@
     `).join('');
     const status = el('newsStatus');
     if (status) {
-      if (isFallback) {
-        status.textContent = '⚠️ أخبار محفوظة';
-        status.style.color = 'var(--amber)';
-      } else {
-        status.textContent = '✅ محدّث ' + timeFormat.format(new Date());
-        status.style.color = 'var(--green)';
-      }
+      if (isFallback) { status.textContent = '⚠️ أخبار محفوظة'; status.style.color = 'var(--amber)'; }
+      else { status.textContent = '✅ محدّث ' + timeFormat.format(new Date()); status.style.color = 'var(--green)'; }
     }
   }
 
   async function fetchNews() {
     if (newsFetching) return;
     newsFetching = true;
-    const grid = el('newsGrid');
-    const status = el('newsStatus');
-    if (grid && !grid.querySelector('.news-card')) {
-      grid.innerHTML = '<div class="news-loading">جارٍ تحميل الأخبار…</div>';
-    }
+    const grid = el('newsGrid'), status = el('newsStatus');
+    if (grid && !grid.querySelector('.news-card')) grid.innerHTML = '<div class="news-loading">جارٍ تحميل الأخبار…</div>';
     if (status) { status.textContent = 'جارٍ التحديث…'; status.style.color = 'var(--muted)'; }
     try {
       const res = await fetchWithTimeout(NEWS_API_URL, 12000);
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const news = await res.json();
-      if (!Array.isArray(news) || news.length === 0) {
-        renderNewsCards(NEWS_FALLBACK, true);
-      } else {
-        renderNewsCards(news, false);
-      }
+      if (!Array.isArray(news) || news.length === 0) renderNewsCards(NEWS_FALLBACK, true);
+      else renderNewsCards(news, false);
     } catch (err) {
       console.warn('[ayar] News fetch failed:', err.message);
       renderNewsCards(NEWS_FALLBACK, true);
-    } finally {
-      newsFetching = false;
-    }
+    } finally { newsFetching = false; }
   }
   function startNewsAutoRefresh() { stopNewsAutoRefresh(); newsIntervalId = setInterval(fetchNews, NEWS_REFRESH_MS); }
   function stopNewsAutoRefresh() { if (newsIntervalId) { clearInterval(newsIntervalId); newsIntervalId = null; } }
@@ -732,19 +786,16 @@
     if (!window.emailjs) { if (onError) onError({ text: 'مكتبة EmailJS غير محملة' }); return; }
     try {
       const p = emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params);
-      if (p && typeof p.then === 'function') {
-        p.then(r => { if (onSuccess) onSuccess(r); }).catch(err => { if (onError) onError(err); });
-      } else { if (onError) onError({ text: 'emailjs.send لم يرجع Promise' }); }
+      if (p && typeof p.then === 'function') p.then(r => onSuccess && onSuccess(r)).catch(err => onError && onError(err));
+      else if (onError) onError({ text: 'emailjs.send لم يرجع Promise' });
     } catch (e) { if (onError) onError(e); }
   }
   async function checkAlerts() {
-    const alerts = getAlerts();
-    if (!alerts.length) return;
+    const alerts = getAlerts(); if (!alerts.length) return;
     let changed = false;
     for (const a of alerts) {
       if (a.triggered) continue;
-      const c = byCode(a.country);
-      if (!c) continue;
+      const c = byCode(a.country); if (!c) continue;
       const gram = market.goldOz / GRAM_PER_OZ * c.rate * (a.karat / 24);
       const cond = a.direction === 'below' ? (gram <= a.targetPrice) : (gram >= a.targetPrice);
       if (!cond) continue;
@@ -839,8 +890,7 @@
   function updateSilverGrid(c) {
     const silverGram999 = market.silverOz / GRAM_PER_OZ * c.rate;
     SILVER_PURITIES.forEach(s => {
-      const node = silverNodes[s.key];
-      if (!node) return;
+      const node = silverNodes[s.key]; if (!node) return;
       const gramPrice = silverGram999 * s.purity;
       const kiloPrice = gramPrice * 1000;
       node.price.textContent = fmtMoney(gramPrice, c) + ' ' + c.symbol;
@@ -862,6 +912,17 @@
     el('silverCalcNote').textContent = `سعر جرام ${el('silverCalcPurity').value}: ${fmtMoney(gramPrice, c)} ${c.symbol}`;
   }
 
+  // 🆕 عرض البلاتين
+  function updatePlatinum(c) {
+    const platinumOzLocal = market.platinumOz * c.rate;
+    const platinumGram950 = market.platinumOz / GRAM_PER_OZ * c.rate * 0.95;
+    el('platinumGram').textContent = fmtMoney(platinumGram950, c);
+    el('platinumUnit').textContent = c.symbol + ' للجرام · نقاء 950';
+    el('platinumOz').textContent = fmtMoney(platinumOzLocal, c) + ' ' + c.symbol;
+    el('platinumKilo').textContent = fmtMoney(platinumGram950 * 1000, c) + ' ' + c.symbol;
+    el('platinumUsd').textContent = nf(2,2).format(market.platinumOz) + ' $';
+  }
+
   const barNodes = {};
   function buildBarsGrid() {
     el('barsGrid').innerHTML = BARS.map(b => `
@@ -880,8 +941,7 @@
   }
   function updateBars(goldGram24, c) {
     BARS.forEach(b => {
-      const node = barNodes[b.key];
-      if (!node) return;
+      const node = barNodes[b.key]; if (!node) return;
       const pureGram = goldGram24 * b.karat / 24;
       const perGram = pureGram * (1 + b.premium);
       const total = perGram * b.weight;
@@ -904,7 +964,8 @@
     const up = data[data.length-1] >= data[0];
     const color = up ? '#2fd39a' : '#ff5f7a';
     const grad = ctx.createLinearGradient(0,0,0,h);
-    grad.addColorStop(0, up?'rgba(47,211,154,.35)':'rgba(255,95,122,.35)'); grad.addColorStop(1,'rgba(0,0,0,0)');
+    grad.addColorStop(0, up?'rgba(47,211,154,.35)':'rgba(255,95,122,.35)');
+    grad.addColorStop(1,'rgba(0,0,0,0)');
     ctx.beginPath(); ctx.moveTo(x(0), y(data[0]));
     for (let i=1;i<data.length;i++) ctx.lineTo(x(i), y(data[i]));
     ctx.lineTo(x(data.length-1), h); ctx.lineTo(x(0), h); ctx.closePath(); ctx.fillStyle = grad; ctx.fill();
@@ -959,6 +1020,48 @@
     el('calcNote').textContent = 'ضريبة ' + nf(0,0).format((c.tax||0)*100) + '% · هامش التاجر ' + nf(1,1).format((c.bidSpread||0.02)*100) + '%';
   }
 
+  // 🆕 حاسبة المصنعية المتقدمة
+  function updateManufCalculator(goldGram24, c) {
+    const w = parseFloat(el('manufWeight').value) || 0;
+    const k = parseInt(el('manufKarat').value, 10) || 21;
+    const mode = el('manufMode').value;
+    const useOfficial = el('manufOfficial').checked;
+    const rate = MANUF_RATES[k] || MANUF_RATES[21];
+    const valueInput = el('manufValue');
+
+    const gramPrice = goldGram24 * k / 24;
+    let manufPerGram = 0;
+
+    if (useOfficial) {
+      valueInput.disabled = true;
+      if (mode === 'pct') { manufPerGram = gramPrice * (rate.pct / 100); valueInput.value = rate.pct.toFixed(1); }
+      else { manufPerGram = rate.fixed; valueInput.value = rate.fixed.toFixed(2); }
+    } else {
+      valueInput.disabled = false;
+      const val = parseFloat(valueInput.value) || 0;
+      manufPerGram = mode === 'pct' ? gramPrice * (val / 100) : val;
+    }
+
+    const base = gramPrice * w;
+    const manuf = manufPerGram * w;
+    const tax = manuf * (c.tax || 0);
+    const buyTotal = base + manuf + tax;
+    const sellTotal = base * (1 - (c.bidSpread || 0.02));
+    const loss = buyTotal - sellTotal;
+    const lossPct = buyTotal > 0 ? (loss/buyTotal)*100 : 0;
+
+    el('manufBase').textContent = fmtMoney(base, c) + ' ' + c.symbol;
+    el('manufManuf').textContent = '+' + fmtMoney(manuf, c) + ' ' + c.symbol;
+    el('manufTax').textContent = '+' + fmtMoney(tax, c) + ' ' + c.symbol;
+    el('manufBuy').textContent = fmtMoney(buyTotal, c) + ' ' + c.symbol;
+    el('manufSell').textContent = fmtMoney(sellTotal, c) + ' ' + c.symbol;
+    el('manufLoss').textContent = '−' + fmtMoney(loss, c) + ' (' + nf(1,1).format(lossPct) + '%)';
+
+    const taxPct = (c.tax || 0) * 100;
+    const officialText = rate.fixed > 0 ? nf(2,2).format(rate.fixed) + ' ' + c.symbol + '/جرام' : 'بدون (سبائك)';
+    el('manufNote').textContent = `المصنعية الرسمية للعيار ${k}: ${officialText}${taxPct > 0 ? ' · ضريبة ' + nf(0,0).format(taxPct) + '% على المصنعية فقط' : ''}.`;
+  }
+
   function updateZakat(goldGram24, c) {
     const w = parseFloat(el('zakatWeight').value) || 0;
     const k = parseInt(el('zakatKarat').value, 10) || 24;
@@ -970,10 +1073,10 @@
   }
 
   function render() {
-    const c = byCode(state.code);
-    if (!c) return;
+    const c = byCode(state.code); if (!c) return;
     if (!market.goldOz || market.goldOz <= 0) market.goldOz = FALLBACK.goldOz;
     if (!market.silverOz || market.silverOz <= 0) market.silverOz = FALLBACK.silverOz;
+    if (!market.platinumOz || market.platinumOz <= 0) market.platinumOz = FALLBACK.platinumOz;
 
     const rate = c.rate;
     const goldGram24 = market.goldOz / GRAM_PER_OZ * rate;
@@ -1012,10 +1115,12 @@
 
     updateSilverGrid(c);
     updateSilverCalc(c);
+    updatePlatinum(c);
     drawSpark(el('spark'), histUsd.map(v => v*rate));
     updateBars(goldGram24, c);
     updateComparison();
     updateCalculator(goldGram24, c);
+    updateManufCalculator(goldGram24, c);
     updateZakat(goldGram24, c);
 
     const st = el('marketStatus');
@@ -1025,26 +1130,15 @@
     const mp = el('modePill');
     const cacheAge = state.lastUpdate ? (Date.now() - state.lastUpdate.getTime()) : Infinity;
 
-    if (state.source === 'live') {
-      mp.innerHTML = '<i></i> بيانات حية';
-      mp.className = 'pill live';
-      mp.title = 'أسعار حقيقية من gold-api.com';
-    } else if (state.source === 'cache' && cacheAge < FRESH_THRESHOLD) {
-      mp.innerHTML = '<i></i> بيانات حديثة';
-      mp.className = 'pill live';
-    } else if (state.source === 'cache') {
-      const mins = Math.round(cacheAge / 60000);
-      const hours = Math.round(mins / 60);
+    if (state.source === 'live') { mp.innerHTML = '<i></i> بيانات حية'; mp.className = 'pill live'; mp.title = 'أسعار حقيقية من gold-api.com'; }
+    else if (state.source === 'cache' && cacheAge < FRESH_THRESHOLD) { mp.innerHTML = '<i></i> بيانات حديثة'; mp.className = 'pill live'; }
+    else if (state.source === 'cache') {
+      const mins = Math.round(cacheAge / 60000), hours = Math.round(mins / 60);
       const label = hours >= 1 ? `${hours} س` : `${mins} د`;
-      mp.textContent = `📦 محفوظة منذ ${label}`;
-      mp.className = 'pill demo';
-    } else if (state.source === 'stale') {
-      mp.textContent = '⚠️ قديمة';
-      mp.className = 'pill demo';
-    } else {
-      mp.textContent = 'جارٍ…';
-      mp.className = 'pill demo';
+      mp.textContent = `📦 محفوظة منذ ${label}`; mp.className = 'pill demo';
     }
+    else if (state.source === 'stale') { mp.textContent = '⚠️ قديمة'; mp.className = 'pill demo'; }
+    else { mp.textContent = 'جارٍ…'; mp.className = 'pill demo'; }
 
     if (state.lastUpdate) {
       el('updatedAt').textContent = timeFormat.format(state.lastUpdate);
@@ -1057,36 +1151,31 @@
   async function fetchMetals(force = false) {
     const last = parseInt(localStorage.getItem(LAST_FETCH_KEY) || '0', 10);
     if (!force && last && Date.now() - last < FETCH_MIN_INTERVAL && state.source === 'cache') {
-      console.log('[ayar] 📦 Using cache (age:', Math.round((Date.now()-last)/60000), 'min)');
-      return;
+      console.log('[ayar] 📦 Using cache'); return;
     }
-
     console.log('[ayar] 🌐 Fetching real spot prices…');
 
-    const [goldRes, silverRes, fxRes] = await Promise.allSettled([
+    const [goldRes, silverRes, platinumRes, fxRes] = await Promise.allSettled([
       fetchWithTimeout(`${GOLD_API_BASE}/price/XAU`, 10000),
       fetchWithTimeout(`${GOLD_API_BASE}/price/XAG`, 10000),
+      fetchWithTimeout(`${GOLD_API_BASE}/price/XPT`, 10000),
       fetchWithTimeout(API_URL, 10000)
     ]);
 
-    let gotGold = false, gotSilver = false, gotFx = false;
+    let gotGold = false, gotSilver = false, gotPlatinum = false, gotFx = false;
 
     if (goldRes.status === 'fulfilled' && goldRes.value.ok) {
-      try {
-        const d = await goldRes.value.json();
-        const p = parseFloat(d.price);
-        if (p > 0) { market.goldOz = p; gotGold = true; console.log('[ayar] ✅ Gold spot:', p, 'USD/oz'); }
-      } catch (e) { console.warn('[ayar] Gold parse error:', e.message); }
+      try { const d = await goldRes.value.json(); const p = parseFloat(d.price); if (p > 0) { market.goldOz = p; gotGold = true; console.log('[ayar] ✅ Gold:', p); } }
+      catch (e) { console.warn('[ayar] Gold parse error:', e.message); }
     }
-
     if (silverRes.status === 'fulfilled' && silverRes.value.ok) {
-      try {
-        const d = await silverRes.value.json();
-        const p = parseFloat(d.price);
-        if (p > 0) { market.silverOz = p; gotSilver = true; console.log('[ayar] ✅ Silver spot:', p, 'USD/oz'); }
-      } catch (e) { console.warn('[ayar] Silver parse error:', e.message); }
+      try { const d = await silverRes.value.json(); const p = parseFloat(d.price); if (p > 0) { market.silverOz = p; gotSilver = true; console.log('[ayar] ✅ Silver:', p); } }
+      catch (e) { console.warn('[ayar] Silver parse error:', e.message); }
     }
-
+    if (platinumRes.status === 'fulfilled' && platinumRes.value.ok) {
+      try { const d = await platinumRes.value.json(); const p = parseFloat(d.price); if (p > 0) { market.platinumOz = p; gotPlatinum = true; console.log('[ayar] ✅ Platinum:', p); } }
+      catch (e) { console.warn('[ayar] Platinum parse error:', e.message); }
+    }
     if (fxRes.status === 'fulfilled' && fxRes.value.ok) {
       try {
         const d = await fxRes.value.json();
@@ -1100,13 +1189,12 @@
             const flipErr   = Math.abs(1/raw - fb) / fb;
             c.rate = directErr <= flipErr ? raw : 1/raw;
           });
-          gotFx = true;
-          console.log('[ayar] ✅ FX rates updated');
+          gotFx = true; console.log('[ayar] ✅ FX updated');
         }
       } catch (e) { console.warn('[ayar] FX parse error:', e.message); }
     }
 
-    if (gotGold || gotSilver || gotFx) {
+    if (gotGold || gotSilver || gotPlatinum || gotFx) {
       state.source = 'live';
       state.lastUpdate = new Date();
       localStorage.setItem(LAST_FETCH_KEY, String(Date.now()));
@@ -1161,9 +1249,7 @@
 
   function dedupePoints(points) {
     const out = [];
-    for (const p of points) {
-      if (!out.length || out[out.length - 1].time !== p.time) out.push(p);
-    }
+    for (const p of points) { if (!out.length || out[out.length - 1].time !== p.time) out.push(p); }
     return out;
   }
 
@@ -1175,8 +1261,7 @@
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const json = await res.json();
     const prices = json.prices || [];
-    const points = prices
-      .map(([ts, price]) => ({ time: Math.floor(ts / 1000), value: +price }))
+    const points = prices.map(([ts, price]) => ({ time: Math.floor(ts/1000), value:+price }))
       .filter(p => p.value > 0 && p.time > 0 && isFinite(p.value))
       .sort((a,b) => a.time - b.time);
     if (!points.length) throw new Error('empty');
@@ -1194,16 +1279,12 @@
     const lines = csv.trim().split('\n').slice(1);
     if (!lines.length) throw new Error('empty CSV');
     const limit = range === '30d' ? 30 : range === '1y' ? 365 : range === '7d' ? 7 : 2;
-    const points = lines
-      .slice(-limit)
-      .map(line => {
-        const parts = line.split(',');
-        const date = parts[0];
-        const close = parseFloat(parts[4]);
-        const t = Math.floor(new Date(date).getTime() / 1000);
-        return { time: t, value: close };
-      })
-      .filter(p => p.value > 0 && p.time > 0 && isFinite(p.value))
+    const points = lines.slice(-limit).map(line => {
+      const parts = line.split(',');
+      const close = parseFloat(parts[4]);
+      const t = Math.floor(new Date(parts[0]).getTime() / 1000);
+      return { time: t, value: close };
+    }).filter(p => p.value > 0 && p.time > 0 && isFinite(p.value))
       .sort((a,b) => a.time - b.time);
     if (!points.length) throw new Error('empty');
     return dedupePoints(points);
@@ -1211,13 +1292,7 @@
 
   function generateSyntheticSeries(basePrice, range) {
     const now = Math.floor(Date.now() / 1000);
-    const config = {
-      '24h': { n: 96,  step: 900    },
-      '7d':  { n: 84,  step: 7200   },
-      '30d': { n: 90,  step: 28800  },
-      '1y':  { n: 120, step: 259200 }
-    }[range] || { n: 96, step: 900 };
-
+    const config = { '24h':{n:96,step:900}, '7d':{n:84,step:7200}, '30d':{n:90,step:28800}, '1y':{n:120,step:259200} }[range] || {n:96,step:900};
     const safeBase = isFinite(basePrice) && basePrice > 0 ? basePrice : 1;
     let value = safeBase * (0.98 + Math.random() * 0.02);
     const points = [];
@@ -1241,63 +1316,40 @@
       const res = await fetchWithTimeout(`${HISTORY_API_URL}?symbol=${symbol}&range=${range}`, 8000);
       if (res.ok) {
         const json = await res.json();
-        const points = (json.points || [])
-          .map(p => ({ time: Math.floor(new Date(p.t).getTime() / 1000), value: +p.c }))
+        const points = (json.points || []).map(p => ({ time: Math.floor(new Date(p.t).getTime()/1000), value:+p.c }))
           .filter(p => p.value > 0 && p.time > 0 && isFinite(p.value))
           .sort((a,b) => a.time - b.time);
         const dedup = dedupePoints(points);
-        if (dedup.length) {
-          console.log('[ayar] ✅ Source 1 (Worker):', dedup.length, 'points');
-          entry.d = dedup; entry.ts = Date.now();
-          return dedup;
-        }
-        errors.push('Worker: empty ' + (json.error || ''));
-      } else {
-        errors.push('Worker: HTTP ' + res.status);
+        if (dedup.length) { console.log('[ayar] ✅ Source 1 (Worker):', dedup.length); entry.d = dedup; entry.ts = Date.now(); return dedup; }
       }
     } catch (e) { errors.push('Worker: ' + e.message); }
 
     try {
       const yahooSym = isSilver ? 'SI=F' : 'GC=F';
-      const params = {
-        '24h': 'interval=15m&range=1d',
-        '7d':  'interval=1h&range=7d',
-        '30d': 'interval=1d&range=1mo',
-        '1y':  'interval=1d&range=1y'
-      }[range] || 'interval=15m&range=1d';
-      const yUrl = `${YAHOO_BASE}${yahooSym}?${params}`;
-      const proxyUrl = ALLORIGINS + encodeURIComponent(yUrl);
-      const res = await fetchWithTimeout(proxyUrl, 12000);
+      const params = { '24h':'interval=15m&range=1d', '7d':'interval=1h&range=7d', '30d':'interval=1d&range=1mo', '1y':'interval=1d&range=1y' }[range] || 'interval=15m&range=1d';
+      const res = await fetchWithTimeout(ALLORIGINS + encodeURIComponent(`${YAHOO_BASE}${yahooSym}?${params}`), 12000);
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const json = await res.json();
       const result = json?.chart?.result?.[0];
       const ts = result?.timestamp || [];
       const closes = result?.indicators?.quote?.[0]?.close || [];
-      const points = ts
-        .map((t, i) => ({ time: t, value: +closes[i] }))
+      const points = ts.map((t, i) => ({ time:t, value:+closes[i] }))
         .filter(p => p.value > 0 && p.time > 0 && isFinite(p.value))
         .sort((a,b) => a.time - b.time);
       const dedup = dedupePoints(points);
-      if (dedup.length) {
-        console.log('[ayar] ✅ Source 2 (Yahoo):', dedup.length, 'points');
-        entry.d = dedup; entry.ts = Date.now();
-        return dedup;
-      }
-      errors.push('Yahoo: empty');
+      if (dedup.length) { console.log('[ayar] ✅ Source 2 (Yahoo):', dedup.length); entry.d = dedup; entry.ts = Date.now(); return dedup; }
     } catch (e) { errors.push('Yahoo: ' + e.message); }
 
     try {
       const points = await fetchFromCoinGecko(range, isSilver);
-      console.log('[ayar] ✅ Source 3 (CoinGecko):', points.length, 'points');
-      entry.d = points; entry.ts = Date.now();
-      return points;
+      console.log('[ayar] ✅ Source 3 (CoinGecko):', points.length);
+      entry.d = points; entry.ts = Date.now(); return points;
     } catch (e) { errors.push('CoinGecko: ' + e.message); }
 
     try {
       const points = await fetchFromStooq(range, isSilver);
-      console.log('[ayar] ✅ Source 4 (Stooq):', points.length, 'points');
-      entry.d = points; entry.ts = Date.now();
-      return points;
+      console.log('[ayar] ✅ Source 4 (Stooq):', points.length);
+      entry.d = points; entry.ts = Date.now(); return points;
     } catch (e) { errors.push('Stooq: ' + e.message); }
 
     throw new Error('All sources failed → ' + errors.join(' | '));
@@ -1309,7 +1361,6 @@
     load.textContent = 'جارٍ تحميل البيانات…';
     load.style.color = 'var(--muted)';
     load.classList.remove('hidden');
-
     const c = byCode(state.code);
     try {
       const pts = await fetchChartData(goldChartRange, false);
@@ -1317,14 +1368,13 @@
       goldChartSeries.setData(series);
       goldChartInst.timeScale().fitContent();
       load.classList.add('hidden');
-      console.log('[ayar] ✅ Gold chart rendered:', series.length, 'points');
+      console.log('[ayar] ✅ Gold chart:', series.length);
     } catch (err) {
-      console.warn('[ayar] ⚠️ Gold chart fallback:', err.message);
-      const base = market.goldOz * c.rate;
-      const synthetic = generateSyntheticSeries(base, goldChartRange);
+      console.warn('[ayar] ⚠️ Gold fallback:', err.message);
+      const synthetic = generateSyntheticSeries(market.goldOz * c.rate, goldChartRange);
       goldChartSeries.setData(synthetic);
       goldChartInst.timeScale().fitContent();
-      load.textContent = '📊 بيانات تقديرية (تعذّر جلب التاريخ الحقيقي)';
+      load.textContent = '📊 بيانات تقديرية';
       load.style.color = 'var(--amber)';
     }
   }
@@ -1335,7 +1385,6 @@
     load.textContent = 'جارٍ تحميل البيانات…';
     load.style.color = 'var(--muted)';
     load.classList.remove('hidden');
-
     const c = byCode(state.code);
     try {
       const pts = await fetchChartData(silverChartRange, true);
@@ -1343,148 +1392,4 @@
       silverChartSeries.setData(series);
       silverChartInst.timeScale().fitContent();
       load.classList.add('hidden');
-      console.log('[ayar] ✅ Silver chart rendered:', series.length, 'points');
-    } catch (err) {
-      console.warn('[ayar] ⚠️ Silver chart fallback:', err.message);
-      const base = market.silverOz * c.rate;
-      const synthetic = generateSyntheticSeries(base, silverChartRange);
-      silverChartSeries.setData(synthetic);
-      silverChartInst.timeScale().fitContent();
-      load.textContent = '📊 بيانات تقديرية (تعذّر جلب التاريخ الحقيقي)';
-      load.style.color = 'var(--amber)';
-    }
-  }
-
-  function init() {
-    console.log('[ayar] 🚀 Initializing...');
-    console.log('[ayar] LightweightCharts loaded:', !!window.LightweightCharts);
-    initEmailJS();
-
-    el('year').textContent = new Date().getFullYear();
-    renderChips(); syncChips(); buildKaratGrid(); buildSilverGrid(); buildBarsGrid();
-    loadCache();
-    render();
-    renderAlerts();
-
-    fetchNews();
-    startNewsAutoRefresh();
-
-    initGoldChart(); initSilverChart();
-    updateGoldChart(); updateSilverChart();
-
-    setTimeout(() => fetchMetals(true), 100);
-
-    el('alertForm').addEventListener('submit', handleAlertSubmit);
-    el('notifPermissionBtn').addEventListener('click', requestNotifPermission);
-
-    el('countryChips').addEventListener('click', e => {
-      const b = e.target.closest('.chip');
-      if (!b || b.dataset.code === state.code) return;
-      state.code = b.dataset.code; syncChips(); render(); updateGoldChart(); updateSilverChart();
-    });
-
-    el('manufToggle').addEventListener('click', () => {
-      state.showManufacturing = !state.showManufacturing;
-      el('manufToggle').setAttribute('aria-pressed', String(state.showManufacturing));
-      render();
-    });
-
-    el('refreshBtn').addEventListener('click', () => {
-      console.log('[ayar] 🔄 Manual refresh');
-      fetchMetals(true);
-      fetchNews();
-      Object.values(goldChartCache).forEach(e => { e.d = null; e.ts = 0; });
-      Object.values(silverChartCache).forEach(e => { e.d = null; e.ts = 0; });
-      updateGoldChart(); updateSilverChart();
-    });
-
-    ['calcWeight','calcManuf'].forEach(id => {
-      el(id).addEventListener('input', () => {
-        const c = byCode(state.code);
-        updateCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
-      });
-    });
-    el('calcKarat').addEventListener('change', () => {
-      const c = byCode(state.code);
-      updateCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
-    });
-    ['zakatWeight','zakatKarat'].forEach(id => {
-      el(id).addEventListener(id === 'zakatKarat' ? 'change' : 'input', () => {
-        const c = byCode(state.code);
-        updateZakat(market.goldOz / GRAM_PER_OZ * c.rate, c);
-      });
-    });
-
-    ['silverCalcWeight','silverCalcManuf'].forEach(id => {
-      el(id).addEventListener('input', () => { updateSilverCalc(byCode(state.code)); });
-    });
-    el('silverCalcPurity').addEventListener('change', () => { updateSilverCalc(byCode(state.code)); });
-
-    document.querySelectorAll('.chart-tab[data-range]').forEach(t => {
-      t.addEventListener('click', () => {
-        if (t.dataset.range === goldChartRange) return;
-        goldChartRange = t.dataset.range;
-        document.querySelectorAll('.chart-tab[data-range]').forEach(x => x.setAttribute('aria-selected', String(x===t)));
-        updateGoldChart();
-      });
-    });
-
-    document.querySelectorAll('.silver-chart-tab').forEach(t => {
-      t.addEventListener('click', () => {
-        if (t.dataset.srange === silverChartRange) return;
-        silverChartRange = t.dataset.srange;
-        document.querySelectorAll('.silver-chart-tab').forEach(x => x.setAttribute('aria-selected', String(x===t)));
-        updateSilverChart();
-      });
-    });
-
-    const newsBtn = el('newsRefreshBtn');
-    if (newsBtn) newsBtn.addEventListener('click', fetchNews);
-
-    setInterval(() => fetchMetals(false), AUTO_REFRESH_MS);
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        stopNewsAutoRefresh();
-      } else {
-        fetchNews();
-        startNewsAutoRefresh();
-      }
-    });
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
-})();
-</script>
-<script>
-(function(){
-  const API = 'https://ayar-proxy.ezzoabdo17.workers.dev';
-  const SESSION_KEY = 'ayar:session-id';
-
-  function track(eventType, extra) {
-    try {
-      fetch(API + '/api/analytics/track', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(Object.assign({
-          eventType: eventType || 'pageview',
-          page: location.pathname,
-          referrer: document.referrer || null,
-          sessionId: sessionStorage.getItem(SESSION_KEY) || null
-        }, extra || {})),
-        keepalive: true
-      }).catch(function(){});
-    } catch(e){}
-  }
-
-  const isNewSession = !sessionStorage.getItem(SESSION_KEY);
-  if (isNewSession) {
-    sessionStorage.setItem(SESSION_KEY, Date.now().toString(36) + Math.random().toString(36).slice(2,8));
-  }
-  track('pageview', { newSession: isNewSession });
-})();
-</script>
-
-</body>
-</html>
+      console.log('[ayar] ✅ Silver chart:',
