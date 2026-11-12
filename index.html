@@ -1392,4 +1392,166 @@
       silverChartSeries.setData(series);
       silverChartInst.timeScale().fitContent();
       load.classList.add('hidden');
-      console.log('[ayar] ✅ Silver chart:',
+      console.log('[ayar] ✅ Silver chart:', series.length);
+    } catch (err) {
+      console.warn('[ayar] ⚠️ Silver fallback:', err.message);
+      const synthetic = generateSyntheticSeries(market.silverOz * c.rate, silverChartRange);
+      silverChartSeries.setData(synthetic);
+      silverChartInst.timeScale().fitContent();
+      load.textContent = '📊 بيانات تقديرية';
+      load.style.color = 'var(--amber)';
+    }
+  }
+
+  function init() {
+    console.log('[ayar] 🚀 Initializing...');
+    initEmailJS();
+
+    el('year').textContent = new Date().getFullYear();
+    renderChips(); syncChips(); buildKaratGrid(); buildSilverGrid(); buildBarsGrid();
+    loadCache();
+    render();
+    renderAlerts();
+
+    fetchNews();
+    startNewsAutoRefresh();
+
+    initGoldChart(); initSilverChart();
+    updateGoldChart(); updateSilverChart();
+
+    setTimeout(() => fetchMetals(true), 100);
+
+    el('alertForm').addEventListener('submit', handleAlertSubmit);
+    el('notifPermissionBtn').addEventListener('click', requestNotifPermission);
+
+    el('countryChips').addEventListener('click', e => {
+      const b = e.target.closest('.chip');
+      if (!b || b.dataset.code === state.code) return;
+      state.code = b.dataset.code; syncChips(); render(); updateGoldChart(); updateSilverChart();
+    });
+
+    el('manufToggle').addEventListener('click', () => {
+      state.showManufacturing = !state.showManufacturing;
+      el('manufToggle').setAttribute('aria-pressed', String(state.showManufacturing));
+      render();
+    });
+
+    el('refreshBtn').addEventListener('click', () => {
+      console.log('[ayar] 🔄 Manual refresh');
+      fetchMetals(true);
+      fetchNews();
+      Object.values(goldChartCache).forEach(e => { e.d = null; e.ts = 0; });
+      Object.values(silverChartCache).forEach(e => { e.d = null; e.ts = 0; });
+      updateGoldChart(); updateSilverChart();
+    });
+
+    ['calcWeight','calcManuf'].forEach(id => {
+      el(id).addEventListener('input', () => {
+        const c = byCode(state.code);
+        updateCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
+      });
+    });
+    el('calcKarat').addEventListener('change', () => {
+      const c = byCode(state.code);
+      updateCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
+    });
+
+    // حاسبة المصنعية المتقدمة — مستمعات
+    el('manufWeight').addEventListener('input', () => {
+      const c = byCode(state.code);
+      updateManufCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
+    });
+    el('manufValue').addEventListener('input', () => {
+      if (el('manufOfficial').checked) return;
+      const c = byCode(state.code);
+      updateManufCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
+    });
+    el('manufKarat').addEventListener('change', () => {
+      el('manufOfficial').checked = true;
+      const c = byCode(state.code);
+      updateManufCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
+    });
+    el('manufMode').addEventListener('change', () => {
+      el('manufOfficial').checked = true;
+      const c = byCode(state.code);
+      updateManufCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
+    });
+    el('manufOfficial').addEventListener('change', () => {
+      const c = byCode(state.code);
+      updateManufCalculator(market.goldOz / GRAM_PER_OZ * c.rate, c);
+    });
+
+    ['zakatWeight','zakatKarat'].forEach(id => {
+      el(id).addEventListener(id === 'zakatKarat' ? 'change' : 'input', () => {
+        const c = byCode(state.code);
+        updateZakat(market.goldOz / GRAM_PER_OZ * c.rate, c);
+      });
+    });
+
+    ['silverCalcWeight','silverCalcManuf'].forEach(id => {
+      el(id).addEventListener('input', () => { updateSilverCalc(byCode(state.code)); });
+    });
+    el('silverCalcPurity').addEventListener('change', () => { updateSilverCalc(byCode(state.code)); });
+
+    document.querySelectorAll('.chart-tab[data-range]').forEach(t => {
+      t.addEventListener('click', () => {
+        if (t.dataset.range === goldChartRange) return;
+        goldChartRange = t.dataset.range;
+        document.querySelectorAll('.chart-tab[data-range]').forEach(x => x.setAttribute('aria-selected', String(x===t)));
+        updateGoldChart();
+      });
+    });
+    document.querySelectorAll('.silver-chart-tab').forEach(t => {
+      t.addEventListener('click', () => {
+        if (t.dataset.srange === silverChartRange) return;
+        silverChartRange = t.dataset.srange;
+        document.querySelectorAll('.silver-chart-tab').forEach(x => x.setAttribute('aria-selected', String(x===t)));
+        updateSilverChart();
+      });
+    });
+
+    const newsBtn = el('newsRefreshBtn');
+    if (newsBtn) newsBtn.addEventListener('click', fetchNews);
+
+    setInterval(() => fetchMetals(false), AUTO_REFRESH_MS);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopNewsAutoRefresh();
+      else { fetchNews(); startNewsAutoRefresh(); }
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+<script>
+(function(){
+  const API = 'https://ayar-proxy.ezzoabdo17.workers.dev';
+  const SESSION_KEY = 'ayar:session-id';
+
+  function track(eventType, extra) {
+    try {
+      fetch(API + '/api/analytics/track', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(Object.assign({
+          eventType: eventType || 'pageview',
+          page: location.pathname,
+          referrer: document.referrer || null,
+          sessionId: sessionStorage.getItem(SESSION_KEY) || null
+        }, extra || {})),
+        keepalive: true
+      }).catch(function(){});
+    } catch(e){}
+  }
+
+  const isNewSession = !sessionStorage.getItem(SESSION_KEY);
+  if (isNewSession) sessionStorage.setItem(SESSION_KEY, Date.now().toString(36) + Math.random().toString(36).slice(2,8));
+  track('pageview', { newSession: isNewSession });
+})();
+</script>
+
+</body>
+</html>
