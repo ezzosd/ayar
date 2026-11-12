@@ -794,10 +794,18 @@
       });
     });
   }
-  function sendEmailSafe(params, onSuccess, onError) {
+   function sendEmailSafe(params, onSuccess, onError) {
     if (!window.emailjs) { if (onError) onError({ text: 'مكتبة EmailJS غير محملة' }); return; }
     try {
-      const p = emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params);
+      const p = emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        params,
+        {
+          publicKey: EMAILJS_PUBLIC_KEY,
+          limitRate: { id: 'ayar-alerts', throttle: 60000 }
+        }
+      );
       if (p && typeof p.then === 'function') p.then(r => onSuccess && onSuccess(r)).catch(err => onError && onError(err));
       else if (onError) onError({ text: 'emailjs.send لم يرجع Promise' });
     } catch (e) { if (onError) onError(e); }
@@ -836,6 +844,12 @@
     const c = byCode(state.code);
     const currentGram = market.goldOz / GRAM_PER_OZ * c.rate * (karat / 24);
     const alerts = getAlerts();
+        const activeAlerts = alerts.filter(a => !a.triggered);
+    if (activeAlerts.length >= 5) {
+      showStatus('error', '⚠️ لديك 5 تنبيهات نشطة — احذف بعضها أولاً من القائمة أدناه.');
+      el('alertSubmit').disabled = false;
+      return;
+    }
     alerts.push({ email, targetPrice, karat, direction, country: state.code, createdAt: Date.now(), triggered: false });
     saveAlerts(alerts);
     el('alertSubmit').disabled = true;
