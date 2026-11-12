@@ -1592,7 +1592,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   track('pageview', { newSession: isNewSession, sessionId: sessionId });
 })();
 </script>
- 
+
+<!-- 🆕 تسجيل Service Worker -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('[SW] ✅ Registered:', reg.scope))
+      .catch(err => console.warn('[SW] ❌ Failed:', err));
+  });
+}
+</script>
 
 </body>
-</html>
