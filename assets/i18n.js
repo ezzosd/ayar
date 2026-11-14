@@ -260,6 +260,7 @@
   var textOriginals = new WeakMap();
   var textTranslated = new WeakMap();
   var attrOriginals = new WeakMap();
+  var attrTranslated = new WeakMap();
   var busy = false;
   var current = 'ar';
   var originalTitle = document.title;
@@ -291,10 +292,14 @@
     ['placeholder','title','aria-label','alt'].forEach(function(name){
       if (!el.hasAttribute(name)) return;
       var map = attrOriginals.get(el);
+      var translatedMap = attrTranslated.get(el);
       if (!map) { map = {}; attrOriginals.set(el,map); }
-      if (typeof map[name] === 'undefined') map[name] = el.getAttribute(name);
+      if (!translatedMap) { translatedMap = {}; attrTranslated.set(el,translatedMap); }
+      var liveValue = el.getAttribute(name);
+      if (typeof map[name] === 'undefined' || (typeof translatedMap[name] !== 'undefined' && liveValue !== translatedMap[name])) map[name] = liveValue;
       var next = translateText(map[name], current);
-      if (el.getAttribute(name) !== next) el.setAttribute(name,next);
+      translatedMap[name] = next;
+      if (liveValue !== next) el.setAttribute(name,next);
     });
   }
   function scan(root) {
