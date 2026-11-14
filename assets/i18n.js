@@ -335,14 +335,18 @@
     var prefix = languageFromPath();
     if (prefix === 'ar' || !root || !root.querySelectorAll) return;
     var links = [];
-    if (root.matches && root.matches('a[href^="/"]')) links.push(root);
-    root.querySelectorAll('a[href^="/"]').forEach(function(a){ links.push(a); });
+    if (root.matches && root.matches('a[href^="/"],a[href^="https://ayargo.com/"]')) links.push(root);
+    root.querySelectorAll('a[href^="/"],a[href^="https://ayargo.com/"]').forEach(function(a){ links.push(a); });
     links.forEach(function(a) {
       var href = a.getAttribute('href');
-      if (!href || href.charAt(1) === '/' || /^\/(?:assets|api|\.well-known)(?:\/|$)/.test(href)) return;
-      var base = href.replace(/^\/(?:en|fr)(?=\/|$)/, '');
+      if (!href || href.indexOf('//') === 0) return;
+      var absolute = href.indexOf('https://ayargo.com/') === 0;
+      var localPath = absolute ? href.slice('https://ayargo.com'.length) : href;
+      if (/^\/(?:assets|api|\.well-known)(?:\/|$)/.test(localPath)) return;
+      var base = localPath.replace(/^\/(?:en|fr)(?=\/|$)/, '');
       if (!base) base = '/';
       var next = '/' + prefix + (base.charAt(0) === '/' ? base : '/' + base);
+      if (absolute) next = 'https://ayargo.com' + next;
       if (href !== next) a.setAttribute('href', next);
     });
   }
