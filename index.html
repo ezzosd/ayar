@@ -1234,7 +1234,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const raw = parseFloat(d.currencies[c.cur]);
             if (!raw || raw <= 0) return;
             const fb = FALLBACK_RATES[c.cur];
-            if (!fb) { c.rate = raw; return; }
+            if (!fb) { c.rate = raw > 1 ? raw : 1/raw; return; }
             const directErr = Math.abs(raw - fb) / fb;
             const flipErr   = Math.abs(1/raw - fb) / fb;
             c.rate = directErr <= flipErr ? raw : 1/raw;
