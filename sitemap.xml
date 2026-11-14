@@ -1,315 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ayargo.com/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/"/>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://ayargo.com/gold-price/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/"/>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://ayargo.com/gold-price/egypt/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/egypt/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/egypt/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/egypt/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/egypt/"/>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://ayargo.com/gold-price/saudi-arabia/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/saudi-arabia/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/saudi-arabia/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/saudi-arabia/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/saudi-arabia/"/>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://ayargo.com/gold-price/uae/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/uae/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/uae/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/uae/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/uae/"/>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://ayargo.com/gold-price/bahrain/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/bahrain/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/bahrain/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/bahrain/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/bahrain/"/>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://ayargo.com/gold-price/iraq/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/iraq/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/iraq/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/iraq/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/iraq/"/>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://ayargo.com/gold-price/kuwait/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/kuwait/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/kuwait/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/kuwait/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/kuwait/"/>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://ayargo.com/gold-price/qatar/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/qatar/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/qatar/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/qatar/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/qatar/"/>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://ayargo.com/gold-price/oman/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/oman/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/oman/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/oman/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/oman/"/>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://ayargo.com/gold-price/jordan/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/jordan/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/jordan/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/jordan/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/jordan/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/gold-price/algeria/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/algeria/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/algeria/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/algeria/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/algeria/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/gold-price/morocco/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/morocco/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/morocco/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/morocco/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/morocco/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/en/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/en/gold-price/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/en/gold-price/egypt/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/egypt/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/egypt/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/egypt/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/egypt/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/en/gold-price/saudi-arabia/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/saudi-arabia/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/saudi-arabia/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/saudi-arabia/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/saudi-arabia/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/en/gold-price/uae/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/uae/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/uae/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/uae/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/uae/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/en/gold-price/bahrain/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/bahrain/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/bahrain/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/bahrain/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/bahrain/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/en/gold-price/iraq/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/iraq/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/iraq/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/iraq/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/iraq/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/en/gold-price/kuwait/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/kuwait/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/kuwait/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/kuwait/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/kuwait/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/en/gold-price/qatar/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/qatar/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/qatar/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/qatar/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/qatar/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/en/gold-price/oman/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/oman/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/oman/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/oman/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/oman/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/en/gold-price/jordan/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/jordan/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/jordan/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/jordan/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/jordan/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/en/gold-price/algeria/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/algeria/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/algeria/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/algeria/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/algeria/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/en/gold-price/morocco/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/morocco/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/morocco/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/morocco/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/morocco/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/fr/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/fr/gold-price/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/fr/gold-price/egypt/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/egypt/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/egypt/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/egypt/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/egypt/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/fr/gold-price/saudi-arabia/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/saudi-arabia/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/saudi-arabia/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/saudi-arabia/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/saudi-arabia/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/fr/gold-price/uae/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/uae/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/uae/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/uae/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/uae/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/fr/gold-price/bahrain/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/bahrain/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/bahrain/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/bahrain/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/bahrain/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/fr/gold-price/iraq/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/iraq/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/iraq/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/iraq/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/iraq/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/fr/gold-price/kuwait/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/kuwait/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/kuwait/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/kuwait/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/kuwait/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/fr/gold-price/qatar/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/qatar/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/qatar/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/qatar/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/qatar/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/fr/gold-price/oman/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/oman/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/oman/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/oman/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/oman/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/fr/gold-price/jordan/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/jordan/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/jordan/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/jordan/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/jordan/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/fr/gold-price/algeria/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/algeria/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/algeria/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/algeria/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/algeria/"/>
-  </url>
-  <url>
-    <loc>https://ayargo.com/fr/gold-price/morocco/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/morocco/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/morocco/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/morocco/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/morocco/"/>
+    <lastmod>2026-11-12</lastmod>
   </url>
 </urlset>
