@@ -62,6 +62,69 @@
       'ضريبة':'Tax','بدون (سبائك)':'None (bars)','لم يبلغ النصاب':'Below nisab','النصاب مُستوفى (2.5% من قيمة الذهب الخالص).':'Nisab reached (2.5% of the value of pure gold).',
       'بيانات محدثة':'Data updated','⚠️ تحديث جزئي':'⚠️ Partial update','⚠️ بيانات قديمة':'⚠️ Stale data',
       '📦 بيانات محفوظة حديثاً':'📦 Recently cached data','⚠️ تعذّر تحميل البيانات التاريخية — حاول التحديث لاحقاً':'⚠️ Historical data unavailable — please try again later'
+
+      "تابع سعر الذهب اليوم في مصر بالجنيه المصري، وأسعار جرام الذهب عيار 24 و22 و21 و18، مع أسعار الفضة والبلاتين وحاسبات الذهب من عيار.": "Track today’s gold price in Egypt in Egyptian pounds, including 24K, 22K, 21K and 18K gram prices, silver and platinum prices, and Ayar gold calculators.",
+      "أسعار الذهب والفضة والبلاتين والسبائك في 9 دول عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية.": "Gold, silver, platinum and bullion prices across 9 Arab countries, with automatic news, analysis and instant alerts.",
+      "أسعار الذهب في الدول العربية": "Gold prices across Arab countries",
+      "كل الدول والأسواق ←": "All countries and markets ←",
+      "اختر الدولة لمتابعة أسعار الذهب بالعملة المحلية، مع أسعار عيارات 24 و22 و21 و18. الأسعار استرشادية وقد تختلف عن أسعار البيع والشراء لدى محلات الصاغة.": "Choose a country to follow gold prices in local currency, including 24K, 22K, 21K and 18K. Prices are indicative and may differ from jewellers’ buying and selling prices.",
+      "تابع سعر الجرام والعيارات بالعملة المحلية": "Follow gram and karat prices in local currency",
+      "البلاتين يُستخدم في المجوهرات بنقاء": "Platinum is used in jewellery at a purity of",
+      "بيانات تاريخية استرشادية من مصادر خارجية (قد تستخدم عقوداً آجلة أو أصولاً مرتبطة بالذهب، وقد تختلف عن السعر الفوري المعروض). المصادر: Worker / Yahoo / CoinGecko / Stooq.": "Indicative historical data from external sources. It may use futures contracts or gold-linked assets and may differ from the displayed spot price. Sources: Worker / Yahoo / CoinGecko / Stooq.",
+      "مقارنة تقديرية موحّدة بالدولار اعتماداً على نسب الضريبة والمصنعية الافتراضية داخل الموقع؛ ليست عرض سعر من متجر ولا تمثل بالضرورة الرسوم الفعلية في كل دولة.": "An estimated USD comparison based on the site's default tax and workmanship rates. It is not a shop quotation and may not reflect actual fees in each country.",
+      "مصادر الأسعار والتاريخ والأخبار قد تتغير حسب توافر الخدمات الخارجية، ولا يضمن الموقع استمرار أي مصدر دون انقطاع.": "Price, historical-data and news sources may change depending on external service availability. Continuous availability of any source is not guaranteed.",
+      "مكتبة EmailJS غير محملة": "EmailJS library is not loaded",
+      "emailjs.send لم يرجع Promise": "emailjs.send did not return a Promise",
+      "🔔 عيار — تحقق تنبيه السعر": "🔔 Ayar — Price alert check",
+      "⚠️ تم حفظ التنبيه محلياً، لكن تعذّر إرسال البريد:": "⚠️ The alert was saved locally, but the email could not be sent:",
+      "جارٍ التحديث…": "Updating…",
+      "سعر الذهب اليوم في": "Gold price today in",
+      "أسعار الذهب في": "Gold prices in",
+      "بالعملة المحلية": "in local currency",
+      "سعر جرام": "Price per gram",
+      "المصنعية": "Workmanship",
+      "جرام خالص. وزنك": "grams of pure gold. Your weight:",
+      "جرام.": "grams.",
+      "للجرام · نقاء 99.9%": "per gram · 99.9% purity",
+      "للجرام · نقاء 950": "per gram · 950 purity",
+      "البيع للتاجر": "Sell to dealer",
+      "الشراء من التاجر": "Buy from dealer",
+      "الذهب": "Gold",
+      "الفضة": "Silver",
+      "البلاتين": "Platinum",
+      "العملة": "Currency",
+      "أخبار": "News",
+      "مصدر": "Source",
+      "تنبيه": "Alert",
+      "السعر": "Price",
+      "الوزن": "Weight",
+      "جرام": "gram",
+      "جرامات": "grams",
+      "كيلوجرام": "kilogram",
+      "أونصة": "ounce",
+      "عيار": "Karat",
+      "الذهب عيار": "Gold",
+      "الفضة عيار": "Silver",
+      "مصر": "Egypt",
+      "السعودية": "Saudi Arabia",
+      "الإمارات": "United Arab Emirates",
+      "البحرين": "Bahrain",
+      "العراق": "Iraq",
+      "الكويت": "Kuwait",
+      "قطر": "Qatar",
+      "عُمان": "Oman",
+      "الأردن": "Jordan",
+      "الجزائر": "Algeria",
+      "المغرب": "Morocco",
+      "ج.م": "EGP",
+      "ر.س": "SAR",
+      "د.إ": "AED",
+      "د.ب": "BHD",
+      "د.ع": "IQD",
+      "د.ك": "KWD",
+      "ر.ق": "QAR",
+      "ر.ع": "OMR",
+      "د.أ": "JOD",
     },
     fr: {
       'عيار':'Ayar','الذهب والفضة والأخبار':'Or, argent et actualités','آخر تحديث:':'Dernière mise à jour :',
@@ -122,12 +185,76 @@
       'ضريبة':'Taxe','بدون (سبائك)':'Aucun (lingots)','لم يبلغ النصاب':'Sous le nisab','النصاب مُستوفى (2.5% من قيمة الذهب الخالص).':'Nisab atteint (2,5 % de la valeur de l’or pur).',
       'بيانات محدثة':'Données actualisées','⚠️ تحديث جزئي':'⚠️ Mise à jour partielle','⚠️ بيانات قديمة':'⚠️ Données anciennes',
       '📦 بيانات محفوظة حديثاً':'📦 Données récemment mises en cache','⚠️ تعذّر تحميل البيانات التاريخية — حاول التحديث لاحقاً':'⚠️ Historique indisponible — veuillez réessayer plus tard'
+      "تابع سعر الذهب اليوم في مصر بالجنيه المصري، وأسعار جرام الذهب عيار 24 و22 و21 و18، مع أسعار الفضة والبلاتين وحاسبات الذهب من عيار.": "Suivez le cours de l’or aujourd’hui en Égypte en livres égyptiennes : prix du gramme 24, 22, 21 et 18 carats, argent, platine et calculateurs Ayar.",
+      "أسعار الذهب والفضة والبلاتين والسبائك في 9 دول عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية.": "Cours de l’or, de l’argent, du platine et des lingots dans 9 pays arabes, avec actualités, analyses et alertes instantanées.",
+      "أسعار الذهب في الدول العربية": "Prix de l’or dans les pays arabes",
+      "كل الدول والأسواق ←": "Tous les pays et marchés ←",
+      "اختر الدولة لمتابعة أسعار الذهب بالعملة المحلية، مع أسعار عيارات 24 و22 و21 و18. الأسعار استرشادية وقد تختلف عن أسعار البيع والشراء لدى محلات الصاغة.": "Choisissez un pays pour suivre les cours de l’or en monnaie locale, notamment les prix 24, 22, 21 et 18 carats. Les prix sont indicatifs et peuvent différer de ceux des bijoutiers.",
+      "تابع سعر الجرام والعيارات بالعملة المحلية": "Suivez le prix du gramme et des carats en monnaie locale",
+      "البلاتين يُستخدم في المجوهرات بنقاء": "Le platine est utilisé en joaillerie avec une pureté de",
+      "بيانات تاريخية استرشادية من مصادر خارجية (قد تستخدم عقوداً آجلة أو أصولاً مرتبطة بالذهب، وقد تختلف عن السعر الفوري المعروض). المصادر: Worker / Yahoo / CoinGecko / Stooq.": "Données historiques indicatives provenant de sources externes. Elles peuvent utiliser des contrats à terme ou des actifs liés à l’or et différer du cours au comptant affiché. Sources : Worker / Yahoo / CoinGecko / Stooq.",
+      "مقارنة تقديرية موحّدة بالدولار اعتماداً على نسب الضريبة والمصنعية الافتراضية داخل الموقع؛ ليست عرض سعر من متجر ولا تمثل بالضرورة الرسوم الفعلية في كل دولة.": "Comparaison estimative en dollars fondée sur les taux de taxe et de fabrication par défaut du site. Il ne s’agit pas d’un devis de magasin et ces montants ne reflètent pas nécessairement les frais réels de chaque pays.",
+      "مصادر الأسعار والتاريخ والأخبار قد تتغير حسب توافر الخدمات الخارجية، ولا يضمن الموقع استمرار أي مصدر دون انقطاع.": "Les sources des prix, données historiques et actualités peuvent changer selon la disponibilité des services externes. Leur disponibilité continue n’est pas garantie.",
+      "مكتبة EmailJS غير محملة": "La bibliothèque EmailJS n’est pas chargée",
+      "emailjs.send لم يرجع Promise": "emailjs.send n’a pas renvoyé de Promise",
+      "🔔 عيار — تحقق تنبيه السعر": "🔔 Ayar — Vérification de l’alerte de prix",
+      "⚠️ تم حفظ التنبيه محلياً، لكن تعذّر إرسال البريد:": "⚠️ L’alerte a été enregistrée localement, mais l’e-mail n’a pas pu être envoyé :",
+      "جارٍ التحديث…": "Mise à jour…",
+      "سعر الذهب اليوم في": "Cours de l’or aujourd’hui en",
+      "أسعار الذهب في": "Prix de l’or en",
+      "بالعملة المحلية": "en monnaie locale",
+      "سعر جرام": "Prix du gramme",
+      "المصنعية": "Frais de fabrication",
+      "جرام خالص. وزنك": "grammes d’or pur. Votre poids :",
+      "جرام.": "grammes.",
+      "للجرام · نقاء 99.9%": "par gramme · pureté 99,9 %",
+      "للجرام · نقاء 950": "par gramme · pureté 950",
+      "البيع للتاجر": "Vente au commerçant",
+      "الشراء من التاجر": "Achat au commerçant",
+      "الذهب": "Or",
+      "الفضة": "Argent",
+      "البلاتين": "Platine",
+      "العملة": "Devise",
+      "أخبار": "Actualités",
+      "مصدر": "Source",
+      "تنبيه": "Alerte",
+      "السعر": "Prix",
+      "الوزن": "Poids",
+      "جرام": "gramme",
+      "جرامات": "grammes",
+      "كيلوجرام": "kilogramme",
+      "أونصة": "once",
+      "عيار": "Carat",
+      "الذهب عيار": "Or",
+      "الفضة عيار": "Argent",
+      "مصر": "Égypte",
+      "السعودية": "Arabie saoudite",
+      "الإمارات": "Émirats arabes unis",
+      "البحرين": "Bahreïn",
+      "العراق": "Irak",
+      "الكويت": "Koweït",
+      "قطر": "Qatar",
+      "عُمان": "Oman",
+      "الأردن": "Jordanie",
+      "الجزائر": "Algérie",
+      "المغرب": "Maroc",
+      "ج.م": "EGP",
+      "ر.س": "SAR",
+      "د.إ": "AED",
+      "د.ب": "BHD",
+      "د.ع": "IQD",
+      "د.ك": "KWD",
+      "ر.ق": "QAR",
+      "ر.ع": "OMR",
+      "د.أ": "JOD",
     }
   };
   var textOriginals = new WeakMap();
   var attrOriginals = new WeakMap();
   var busy = false;
   var current = 'ar';
+  var originalTitle = document.title;
+  var originalMeta = new WeakMap();
   function translateText(source, lang) {
     if (lang === 'ar') return source;
     var dict = translations[lang] || {};
@@ -164,7 +291,7 @@
     var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     var node;
     while ((node = walker.nextNode())) {
-      if (node.parentElement && /^(SCRIPT|STYLE|NOSCRIPT|OPTION)$/i.test(node.parentElement.tagName)) continue;
+      if (node.parentElement && /^(SCRIPT|STYLE|NOSCRIPT)$/i.test(node.parentElement.tagName) && !node.parentElement.closest('#ayar-language-select')) continue;
       processText(node);
     }
     if (root.querySelectorAll) root.querySelectorAll('[placeholder],[title],[aria-label],[alt]').forEach(processAttributes);
@@ -175,11 +302,11 @@
     document.documentElement.dir = current === 'ar' ? 'rtl' : 'ltr';
     document.body.classList.toggle('ayar-ltr', current !== 'ar');
     scan(document.body);
-    if (document.title) document.title = translateText(document.title, current);
+    if (originalTitle) document.title = translateText(originalTitle, current);
     var desc = document.querySelector('meta[name="description"]');
-    if (desc) desc.content = translateText(desc.content, current);
+    if (desc) { if (!originalMeta.has(desc)) originalMeta.set(desc, desc.content); desc.content = translateText(originalMeta.get(desc), current); }
     var og = document.querySelector('meta[property="og:description"]');
-    if (og) og.content = translateText(og.content, current);
+    if (og) { if (!originalMeta.has(og)) originalMeta.set(og, og.content); og.content = translateText(originalMeta.get(og), current); }
     var locale = document.querySelector('meta[property="og:locale"]');
     if (locale) locale.content = current === 'fr' ? 'fr_FR' : current === 'en' ? 'en_US' : 'ar_AR';
     var selector = document.getElementById('ayar-language-select');
