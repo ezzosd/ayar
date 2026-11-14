@@ -1248,6 +1248,41 @@
       } catch (e) { console.warn('[ayar] FX parse error:', e.message); }
     }
 
+
+    // DZD/MAD fallback: daily USD reference rates, cached locally for 24 hours.
+    const missingNewCurrencies = ['DZD','MAD'].filter(code => {
+      const country = COUNTRIES.find(c => c.cur === code);
+      return !country || !Number.isFinite(country.rate) || country.rate <= 0;
+    });
+    if (missingNewCurrencies.length) {
+      try {
+        let backupRates = null;
+        const cachedBackup = localStorage.getItem('ayar:fx:open-er-api:v1');
+        if (cachedBackup) {
+          const cached = JSON.parse(cachedBackup);
+          if (cached && cached.rates && Date.now() - cached.savedAt < 24 * 60 * 60 * 1000) backupRates = cached.rates;
+        }
+        if (!backupRates) {
+          const backupResponse = await fetchWithTimeout('https://open.er-api.com/v6/latest/USD', 10000);
+          if (backupResponse.ok) {
+            const backupData = await backupResponse.json();
+            if (backupData.result === 'success' && backupData.base_code === 'USD' && backupData.rates) {
+              backupRates = backupData.rates;
+              localStorage.setItem('ayar:fx:open-er-api:v1', JSON.stringify({ savedAt: Date.now(), rates: backupRates }));
+            }
+          }
+        }
+        if (backupRates) missingNewCurrencies.forEach(code => {
+          const country = COUNTRIES.find(c => c.cur === code);
+          const rate = Number(backupRates[code]);
+          if (country && Number.isFinite(rate) && rate > 0) country.rate = rate;
+        });
+      } catch (e) { console.warn('[ayar] DZD/MAD backup FX unavailable:', e.message); }
+    }
+    gotFx = COUNTRIES.every(c => Number.isFinite(c.rate) && c.rate > 0);
+    if (gotFx) console.log('[ayar] ✅ FX rates available for all 11 markets');
+    else console.warn('[ayar] ⚠️ FX rates are incomplete; unavailable currencies will not be estimated');
+
     if (gotGold || gotSilver || gotPlatinum || gotFx) {
       // لا نصف البيانات بأنها حية بالكامل إذا فشل أحد المصادر الأساسية.
       state.source = (gotGold && gotSilver && gotPlatinum && gotFx) ? 'live' : 'partial';
@@ -1606,5 +1641,7 @@
 
 
 <script src="/assets/i18n.js" defer></script>
+
+<div class="ayar-fx-attribution" style="max-width:1120px;margin:18px auto 8px;padding:0 16px;text-align:center;font:11px/1.6 Arial,sans-serif;color:#8a93a9">Reference exchange rates: <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">Rates By Exchange Rate API</a></div>
 </body>
 </html>
