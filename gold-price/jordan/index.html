@@ -1237,7 +1237,9 @@
             const flipErr   = Math.abs(1/raw - fb) / fb;
             c.rate = directErr <= flipErr ? raw : 1/raw;
           });
-          gotFx = true; console.log('[ayar] ✅ FX updated');
+          gotFx = COUNTRIES.every(c => Number.isFinite(c.rate) && c.rate > 0);
+          if (gotFx) console.log('[ayar] ✅ FX updated for all markets');
+          else console.warn('[ayar] ⚠️ FX missing for one or more markets');
         }
       } catch (e) { console.warn('[ayar] FX parse error:', e.message); }
     }
