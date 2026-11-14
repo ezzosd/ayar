@@ -1503,7 +1503,7 @@
     el('countryChips').addEventListener('click', e => {
       const b = e.target.closest('.chip');
       if (!b || b.dataset.code === state.code) return;
-      if (typeof SEO_COUNTRY_PAGE !== 'undefined' && SEO_COUNTRY_PAGE && COUNTRY_PATHS[b.dataset.code]) { location.href = COUNTRY_PATHS[b.dataset.code]; return; }
+      if (typeof SEO_COUNTRY_PAGE !== 'undefined' && SEO_COUNTRY_PAGE && COUNTRY_PATHS[b.dataset.code]) { const lang = document.documentElement.lang || 'ar'; const prefix = (lang === 'en' || lang === 'fr') ? '/' + lang : ''; location.href = prefix + COUNTRY_PATHS[b.dataset.code]; return; }
       state.code = b.dataset.code; syncChips(); render(); updateGoldChart(); updateSilverChart();
     });
 
