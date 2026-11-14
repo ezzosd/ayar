@@ -189,7 +189,7 @@
   function addSelector() {
     if (document.getElementById('ayar-language-select')) return;
     var style = document.createElement('style');
-    style.textContent = '.ayar-language-wrap{display:inline-flex;align-items:center;gap:6px;margin-inline-start:8px}.ayar-language-select{font:600 12px/1.4 inherit;color:var(--text,#eef1f8);background:var(--surface,#111420);border:1px solid var(--line,#242a3d);border-radius:9px;padding:7px 9px;cursor:pointer;min-height:34px}.ayar-ltr body{direction:ltr}.ayar-ltr .header-inner,.ayar-ltr .header-meta,.ayar-ltr .toolbar{direction:ltr}.ayar-ltr input,.ayar-ltr select,.ayar-ltr textarea{direction:ltr;text-align:left}html[lang="en"] body,html[lang="fr"] body{font-family:Inter,Arial,sans-serif}';
+    style.textContent = '.ayar-language-wrap{display:inline-flex;align-items:center;gap:6px;margin-inline-start:8px}.ayar-language-select{font-family:inherit;font-size:12px;font-weight:600;line-height:1.4;color:var(--text,#eef1f8);background:var(--surface,#111420);border:1px solid var(--line,#242a3d);border-radius:9px;padding:7px 9px;cursor:pointer;min-height:34px}body.ayar-ltr{direction:ltr}.ayar-ltr .header-inner,.ayar-ltr .header-meta,.ayar-ltr .toolbar{direction:ltr}.ayar-ltr input,.ayar-ltr select,.ayar-ltr textarea{direction:ltr;text-align:left}html[lang="en"] body,html[lang="fr"] body{font-family:Inter,Arial,sans-serif}';
     document.head.appendChild(style);
     var wrap = document.createElement('span');
     wrap.className = 'ayar-language-wrap';
