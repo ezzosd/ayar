@@ -188,7 +188,7 @@
       'خطأ':'Erreur','للجرام':'par gramme','الكيلو: —':'Kilo : —','🏆 الأرخص':'🏆 Le moins cher','📈 الأغلى':'📈 Le plus cher','💡 الفرق':'💡 Écart',
       'ضريبة':'Taxe','بدون (سبائك)':'Aucun (lingots)','لم يبلغ النصاب':'Sous le nisab','النصاب مُستوفى (2.5% من قيمة الذهب الخالص).':'Nisab atteint (2,5 % de la valeur de l’or pur).',
       'بيانات محدثة':'Données actualisées','⚠️ تحديث جزئي':'⚠️ Mise à jour partielle','⚠️ بيانات قديمة':'⚠️ Données anciennes',
-      '📦 بيانات محفوظة حديثاً':'📦 Données récemment mises en cache','⚠️ تعذّر تحميل البيانات التاريخية — حاول التحديث لاحقاً':'⚠️ Historique indisponible — veuillez réessayer plus tard'
+      '📦 بيانات محفوظة حديثاً':'📦 Données récemment mises en cache','⚠️ تعذّر تحميل البيانات التاريخية — حاول التحديث لاحقاً':'⚠️ Historique indisponible — veuillez réessayer plus tard',
       "تابع سعر الذهب اليوم في مصر بالجنيه المصري، وأسعار جرام الذهب عيار 24 و22 و21 و18، مع أسعار الفضة والبلاتين وحاسبات الذهب من عيار.": "Suivez le cours de l’or aujourd’hui en Égypte en livres égyptiennes : prix du gramme 24, 22, 21 et 18 carats, argent, platine et calculateurs Ayar.",
       "أسعار الذهب والفضة والبلاتين والسبائك في 11 دولة عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية.": "Cours de l’or, de l’argent, du platine et des lingots dans 9 pays arabes, avec actualités, analyses et alertes instantanées.",
       "أسعار الذهب في الدول العربية": "Prix de l’or dans les pays arabes",
