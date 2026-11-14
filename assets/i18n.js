@@ -258,6 +258,7 @@
     }
   };
   var textOriginals = new WeakMap();
+  var textTranslated = new WeakMap();
   var attrOriginals = new WeakMap();
   var busy = false;
   var current = 'ar';
@@ -277,9 +278,13 @@
     return out;
   }
   function processText(node) {
-    if (!textOriginals.has(node)) textOriginals.set(node, node.nodeValue);
+    var previousTranslation = textTranslated.get(node);
+    if (!textOriginals.has(node) || (typeof previousTranslation !== 'undefined' && node.nodeValue !== previousTranslation)) {
+      textOriginals.set(node, node.nodeValue);
+    }
     var original = textOriginals.get(node);
     var next = translateText(original, current);
+    textTranslated.set(node, next);
     if (node.nodeValue !== next) node.nodeValue = next;
   }
   function processAttributes(el) {
