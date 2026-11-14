@@ -64,7 +64,7 @@
       '📦 بيانات محفوظة حديثاً':'📦 Recently cached data','⚠️ تعذّر تحميل البيانات التاريخية — حاول التحديث لاحقاً':'⚠️ Historical data unavailable — please try again later'
 
       "تابع سعر الذهب اليوم في مصر بالجنيه المصري، وأسعار جرام الذهب عيار 24 و22 و21 و18، مع أسعار الفضة والبلاتين وحاسبات الذهب من عيار.": "Track today’s gold price in Egypt in Egyptian pounds, including 24K, 22K, 21K and 18K gram prices, silver and platinum prices, and Ayar gold calculators.",
-      "أسعار الذهب والفضة والبلاتين والسبائك في 9 دول عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية.": "Gold, silver, platinum and bullion prices across 9 Arab countries, with automatic news, analysis and instant alerts.",
+      "أسعار الذهب والفضة والبلاتين والسبائك في 11 دولة عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية.": "Gold, silver, platinum and bullion prices across 9 Arab countries, with automatic news, analysis and instant alerts.",
       "أسعار الذهب في الدول العربية": "Gold prices across Arab countries",
       "كل الدول والأسواق ←": "All countries and markets ←",
       "اختر الدولة لمتابعة أسعار الذهب بالعملة المحلية، مع أسعار عيارات 24 و22 و21 و18. الأسعار استرشادية وقد تختلف عن أسعار البيع والشراء لدى محلات الصاغة.": "Choose a country to follow gold prices in local currency, including 24K, 22K, 21K and 18K. Prices are indicative and may differ from jewellers’ buying and selling prices.",
@@ -190,7 +190,7 @@
       'بيانات محدثة':'Données actualisées','⚠️ تحديث جزئي':'⚠️ Mise à jour partielle','⚠️ بيانات قديمة':'⚠️ Données anciennes',
       '📦 بيانات محفوظة حديثاً':'📦 Données récemment mises en cache','⚠️ تعذّر تحميل البيانات التاريخية — حاول التحديث لاحقاً':'⚠️ Historique indisponible — veuillez réessayer plus tard'
       "تابع سعر الذهب اليوم في مصر بالجنيه المصري، وأسعار جرام الذهب عيار 24 و22 و21 و18، مع أسعار الفضة والبلاتين وحاسبات الذهب من عيار.": "Suivez le cours de l’or aujourd’hui en Égypte en livres égyptiennes : prix du gramme 24, 22, 21 et 18 carats, argent, platine et calculateurs Ayar.",
-      "أسعار الذهب والفضة والبلاتين والسبائك في 9 دول عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية.": "Cours de l’or, de l’argent, du platine et des lingots dans 9 pays arabes, avec actualités, analyses et alertes instantanées.",
+      "أسعار الذهب والفضة والبلاتين والسبائك في 11 دولة عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية.": "Cours de l’or, de l’argent, du platine et des lingots dans 9 pays arabes, avec actualités, analyses et alertes instantanées.",
       "أسعار الذهب في الدول العربية": "Prix de l’or dans les pays arabes",
       "كل الدول والأسواق ←": "Tous les pays et marchés ←",
       "اختر الدولة لمتابعة أسعار الذهب بالعملة المحلية، مع أسعار عيارات 24 و22 و21 و18. الأسعار استرشادية وقد تختلف عن أسعار البيع والشراء لدى محلات الصاغة.": "Choisissez un pays pour suivre les cours de l’or en monnaie locale, notamment les prix 24, 22, 21 et 18 carats. Les prix sont indicatifs et peuvent différer de ceux des bijoutiers.",
