@@ -314,12 +314,45 @@
     }
     if (root.querySelectorAll) root.querySelectorAll('[placeholder],[title],[aria-label],[alt]').forEach(processAttributes);
   }
+  function languageFromPath() {
+    var match = location.pathname.match(/^\/(en|fr)(?:\/|$)/);
+    return match ? match[1] : 'ar';
+  }
+  function basePathFromUrl(pathname) {
+    var base = pathname.replace(/^\/(?:en|fr)(?=\/|$)/, '');
+    return base || '/';
+  }
+  function languageUrl(lang) {
+    var base = basePathFromUrl(location.pathname);
+    if (lang === 'ar') return base;
+    return '/' + lang + (base.charAt(0) === '/' ? base : '/' + base);
+  }
+  function navigateLanguage(lang) {
+    var target = languageUrl(lang);
+    if (target !== location.pathname) location.assign(target);
+  }
+  function rewriteInternalLinks(root) {
+    var prefix = languageFromPath();
+    if (prefix === 'ar' || !root || !root.querySelectorAll) return;
+    var links = [];
+    if (root.matches && root.matches('a[href^="/"]')) links.push(root);
+    root.querySelectorAll('a[href^="/"]').forEach(function(a){ links.push(a); });
+    links.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (!href || href.charAt(1) === '/' || /^\/(?:assets|api|\.well-known)(?:\/|$)/.test(href)) return;
+      var base = href.replace(/^\/(?:en|fr)(?=\/|$)/, '');
+      if (!base) base = '/';
+      var next = '/' + prefix + (base.charAt(0) === '/' ? base : '/' + base);
+      if (href !== next) a.setAttribute('href', next);
+    });
+  }
   function applyLanguage(lang) {
     current = translations[lang] ? lang : 'ar';
     document.documentElement.lang = current;
     document.documentElement.dir = current === 'ar' ? 'rtl' : 'ltr';
     document.body.classList.toggle('ayar-ltr', current !== 'ar');
     scan(document.body);
+    rewriteInternalLinks(document.body);
     if (originalTitle) document.title = translateText(originalTitle, current);
     var desc = document.querySelector('meta[name="description"]');
     if (desc) { if (!originalMeta.has(desc)) originalMeta.set(desc, desc.content); desc.content = translateText(originalMeta.get(desc), current); }
@@ -345,22 +378,20 @@
     [['ar','العربية'],['en','English'],['fr','Français']].forEach(function(item){
       var option = document.createElement('option'); option.value=item[0]; option.textContent=item[1]; select.appendChild(option);
     });
-    select.addEventListener('change',function(){applyLanguage(select.value);});
+    select.addEventListener('change',function(){navigateLanguage(select.value);});
     wrap.appendChild(select);
     var target = document.querySelector('.header-meta') || document.querySelector('.header-inner') || document.querySelector('main') || document.body;
     target.appendChild(wrap);
   }
   function init() {
     addSelector();
-    var saved = 'ar';
-    try { saved = localStorage.getItem(STORAGE_KEY) || 'ar'; } catch (e) {}
-    applyLanguage(saved);
+    applyLanguage(languageFromPath());
     var observer = new MutationObserver(function(records){
       if (busy) return;
       busy = true;
       records.forEach(function(record){
         if (record.type === 'characterData') processText(record.target);
-        else record.addedNodes.forEach(function(node){ scan(node); });
+        else record.addedNodes.forEach(function(node){ scan(node); rewriteInternalLinks(node); });
         if (record.type === 'attributes') processAttributes(record.target);
       });
       busy = false;
