@@ -594,7 +594,7 @@
 
   const FALLBACK = { goldOz: 2650.0, silverOz: 31.0, platinumOz: 1000.0 };
   const FALLBACK_RATES = { EGP:53.88, SAR:3.75, AED:3.6725, BHD:0.3760, IQD:1516, KWD:0.3110, QAR:3.64, OMR:0.3846, JOD:0.7090 };
-  const CUR_DECIMALS = { EGP:2, SAR:2, AED:2, BHD:3, IQD:0, KWD:3, QAR:2, OMR:3, JOD:3 };
+  const CUR_DECIMALS = { EGP:2, SAR:2, AED:2, BHD:3, IQD:0, KWD:3, QAR:2, OMR:3, JOD:3, DZD:2, MAD:2 };
 
   const COUNTRIES = [
     { code:'EG', name:'مصر',      flag:'🇪🇬', cur:'EGP', symbol:'ج.م', rate:FALLBACK_RATES.EGP, tax:0.14, manuf:0.07, bidSpread:0.03 },
@@ -605,7 +605,9 @@
     { code:'KW', name:'الكويت',   flag:'🇰🇼', cur:'KWD', symbol:'د.ك', rate:FALLBACK_RATES.KWD, tax:0,    manuf:0.02, bidSpread:0.02 },
     { code:'QA', name:'قطر',      flag:'🇶🇦', cur:'QAR', symbol:'ر.ق', rate:FALLBACK_RATES.QAR, tax:0,    manuf:0.02, bidSpread:0.02 },
     { code:'OM', name:'عُمان',    flag:'🇴🇲', cur:'OMR', symbol:'ر.ع', rate:FALLBACK_RATES.OMR, tax:0,    manuf:0.02, bidSpread:0.02 },
-    { code:'JO', name:'الأردن',   flag:'🇯🇴', cur:'JOD', symbol:'د.أ', rate:FALLBACK_RATES.JOD, tax:0.16, manuf:0.03, bidSpread:0.03 }
+    { code:'JO', name:'الأردن',   flag:'🇯🇴', cur:'JOD', symbol:'د.أ', rate:FALLBACK_RATES.JOD, tax:0.16, manuf:0.03, bidSpread:0.03 },
+    { code:'DZ', name:'الجزائر',  flag:'🇩🇿', cur:'DZD', symbol:'دج', rate:NaN, tax:0, manuf:0.03, bidSpread:0.03 },
+    { code:'MA', name:'المغرب',   flag:'🇲🇦', cur:'MAD', symbol:'د.م', rate:NaN, tax:0, manuf:0.03, bidSpread:0.03 }
   ];
 
   const KARATS = [
@@ -642,7 +644,7 @@
 
   const market = { goldOz: FALLBACK.goldOz, silverOz: FALLBACK.silverOz, platinumOz: FALLBACK.platinumOz };
   const SEO_COUNTRY_PAGE = true;
-  const COUNTRY_PATHS = {'EG':'/gold-price/egypt/','SA':'/gold-price/saudi-arabia/','AE':'/gold-price/uae/','BH':'/gold-price/bahrain/','IQ':'/gold-price/iraq/','KW':'/gold-price/kuwait/','QA':'/gold-price/qatar/','OM':'/gold-price/oman/','JO':'/gold-price/jordan/'};
+  const COUNTRY_PATHS = {'EG':'/gold-price/egypt/','SA':'/gold-price/saudi-arabia/','AE':'/gold-price/uae/','BH':'/gold-price/bahrain/','IQ':'/gold-price/iraq/','KW':'/gold-price/kuwait/','QA':'/gold-price/qatar/','OM':'/gold-price/oman/','JO':'/gold-price/jordan/','DZ':'/gold-price/algeria/','MA':'/gold-price/morocco/'};
   const state = { code:'JO', usdHistory:[], showManufacturing:false, lastUpdate:null, goldUpdatedAt:null, source:'init' };
 
   const el = id => document.getElementById(id);
