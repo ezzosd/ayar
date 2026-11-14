@@ -385,7 +385,9 @@
     select.addEventListener('change',function(){navigateLanguage(select.value);});
     wrap.appendChild(select);
     var target = document.querySelector('.header-meta') || document.querySelector('.header-inner') || document.querySelector('main') || document.body;
-    target.appendChild(wrap);
+    var brand = document.querySelector('.brand');
+    if (brand && target === document.querySelector('main') && brand.parentNode) brand.parentNode.insertBefore(wrap, brand.nextSibling);
+    else target.appendChild(wrap);
   }
   function init() {
     addSelector();
