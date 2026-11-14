@@ -61,7 +61,7 @@
       'خطأ':'Error','للجرام':'per gram','الكيلو: —':'Kilogram: —','🏆 الأرخص':'🏆 Lowest','📈 الأغلى':'📈 Highest','💡 الفرق':'💡 Difference',
       'ضريبة':'Tax','بدون (سبائك)':'None (bars)','لم يبلغ النصاب':'Below nisab','النصاب مُستوفى (2.5% من قيمة الذهب الخالص).':'Nisab reached (2.5% of the value of pure gold).',
       'بيانات محدثة':'Data updated','⚠️ تحديث جزئي':'⚠️ Partial update','⚠️ بيانات قديمة':'⚠️ Stale data',
-      '📦 بيانات محفوظة حديثاً':'📦 Recently cached data','⚠️ تعذّر تحميل البيانات التاريخية — حاول التحديث لاحقاً':'⚠️ Historical data unavailable — please try again later'
+      '📦 بيانات محفوظة حديثاً':'📦 Recently cached data','⚠️ تعذّر تحميل البيانات التاريخية — حاول التحديث لاحقاً':'⚠️ Historical data unavailable — please try again later',
 
       "تابع سعر الذهب اليوم في مصر بالجنيه المصري، وأسعار جرام الذهب عيار 24 و22 و21 و18، مع أسعار الفضة والبلاتين وحاسبات الذهب من عيار.": "Track today’s gold price in Egypt in Egyptian pounds, including 24K, 22K, 21K and 18K gram prices, silver and platinum prices, and Ayar gold calculators.",
       "أسعار الذهب والفضة والبلاتين والسبائك في 11 دولة عربية، مع أخبار وتحليلات تلقائية وتنبيهات فورية.": "Gold, silver, platinum and bullion prices across 9 Arab countries, with automatic news, analysis and instant alerts.",
