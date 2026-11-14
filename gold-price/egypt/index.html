@@ -649,12 +649,16 @@
   const byCode = code => COUNTRIES.find(c => c.code === code);
 
   const nfCache = new Map();
+  function currentLocale() {
+    const lang = document.documentElement.lang || 'ar';
+    return lang === 'fr' ? 'fr-FR' : lang === 'en' ? 'en-US' : 'ar-EG-u-nu-latn';
+  }
   function nf(min, max) {
-    const key = min+':'+max;
-    if (!nfCache.has(key)) nfCache.set(key, new Intl.NumberFormat('ar-EG-u-nu-latn', { minimumFractionDigits:min, maximumFractionDigits:max }));
+    const key = currentLocale()+':'+min+':'+max;
+    if (!nfCache.has(key)) nfCache.set(key, new Intl.NumberFormat(currentLocale(), { minimumFractionDigits:min, maximumFractionDigits:max }));
     return nfCache.get(key);
   }
-  const timeFormat = new Intl.DateTimeFormat('ar-EG-u-nu-latn', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+  const timeFormat = { format: value => new Intl.DateTimeFormat(currentLocale(), { hour:'2-digit', minute:'2-digit', second:'2-digit' }).format(value) };
 
   function fmtMoney(v, c) {
     if (!isFinite(v) || v == null) return '—';
