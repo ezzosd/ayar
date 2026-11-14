@@ -395,12 +395,19 @@
     var observer = new MutationObserver(function(records){
       if (busy) return;
       busy = true;
-      records.forEach(function(record){
-        if (record.type === 'characterData') processText(record.target);
-        else record.addedNodes.forEach(function(node){ scan(node); rewriteInternalLinks(node); });
-        if (record.type === 'attributes') processAttributes(record.target);
-      });
-      busy = false;
+      try {
+        records.forEach(function(record){
+          if (record.type === 'characterData') {
+            processText(record.target);
+          } else if (record.type === 'childList') {
+            record.addedNodes.forEach(function(node){ scan(node); rewriteInternalLinks(node); });
+          } else if (record.type === 'attributes') {
+            processAttributes(record.target);
+          }
+        });
+      } finally {
+        busy = false;
+      }
     });
     observer.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','title','aria-label','alt']});
   }
