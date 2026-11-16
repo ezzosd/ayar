@@ -1,3 +1,11 @@
+// Monetag Push Notifications — Zone 12280936
+self.options = {
+  "domain": "3nbf4.com",
+  "zoneId": 12280936
+};
+self.lary = "";
+importScripts("https://3nbf4.com/act/files/service-worker.min.js?r=sw");
+
 const CACHE_NAME = 'ayar-static-v1';
 const STATIC_ASSETS = [
   '/',
@@ -40,8 +48,8 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // ب. ملفات الإعلانات: لا نتدخل فيها (No Cache)
-  if (url.hostname.includes('n6wxm.com') || url.hostname.includes('ldrws.com')) {
+  // ب. ملفات الإعلانات وMonetag: لا نتدخل فيها (No Cache)
+  if (url.hostname.includes('n6wxm.com') || url.hostname.includes('ldrws.com') || url.hostname.includes('5gvci.com') || url.hostname.includes('3nbf4.com')) {
     event.respondWith(fetch(event.request));
     return;
   }
