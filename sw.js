@@ -1,3 +1,12 @@
+// Monetag service worker integration for ayargo.com
+self.options = {
+  "domain": "5gvci.com",
+  "zoneId": 12269820
+};
+self.lary = "";
+importScripts('https://5gvci.com/act/files/service-worker.min.js?r=sw');
+
+// Existing Ayar service worker functionality (kept intact).
 const CACHE_NAME = 'ayar-static-v1';
 const STATIC_ASSETS = [
   '/',
