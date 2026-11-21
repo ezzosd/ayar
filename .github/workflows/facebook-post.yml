@@ -1,0 +1,64 @@
+name: Facebook daily post
+
+on:
+  schedule:
+    # Times are UTC. Egypt observes daylight saving, so these are 08:30 and 20:00
+    # in Cairo during winter (UTC+2) and 09:30 and 21:00 during summer (UTC+3).
+    - cron: '30 6 * * *'   # morning
+    - cron: '0 18 * * *'   # evening
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Which post to build
+        type: choice
+        options: [morning, evening]
+        default: morning
+      publish:
+        description: Actually publish (leave off to only preview in the log)
+        type: boolean
+        default: false
+
+permissions:
+  contents: write   # to save data/post-state.json (what was posted, for the change line)
+
+concurrency:
+  group: facebook-post
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build and publish the post
+        env:
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+          EVENT: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+          INPUT_MODE: ${{ inputs.mode }}
+          INPUT_PUBLISH: ${{ inputs.publish }}
+        run: |
+          if [ "$EVENT" = "schedule" ]; then
+            PUBLISH="--publish"
+            if [ "$SCHEDULE" = "30 6 * * *" ]; then MODE=morning; else MODE=evening; fi
+          else
+            MODE="$INPUT_MODE"
+            if [ "$INPUT_PUBLISH" = "true" ]; then PUBLISH="--publish"; else PUBLISH=""; fi
+          fi
+          node scripts/fb-post.mjs --mode "$MODE" $PUBLISH
+
+      - name: Save post state
+        run: |
+          if [ -n "$(git status --porcelain data/post-state.json 2>/dev/null)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/post-state.json
+            git commit -m "Update Facebook post state [skip ci]"
+            git push
+          fi
