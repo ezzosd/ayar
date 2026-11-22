@@ -1391,22 +1391,38 @@
     const sudan = COUNTRIES.find(country => country.cur === 'SDG');
     if (!sudan) return false;
     try {
-      // BUY = user buys USDT; SELL = user sells USDT, as defined by Binance P2P.
-      const results = await Promise.allSettled([fetchSudanP2PSide('BUY'), fetchSudanP2PSide('SELL')]);
-      const buyRate = results[0].status === 'fulfilled' ? results[0].value : NaN;
-      const sellRate = results[1].status === 'fulfilled' ? results[1].value : NaN;
-      if (!Number.isFinite(buyRate)) throw new Error('Binance P2P buy-side quote unavailable');
-      const updatedAt = Date.now();
-      sudan.rate = buyRate; // USD-to-SDG conversion follows the cost of buying 1 USDT.
-      localStorage.setItem(SUDAN_P2P_CACHE_KEY, JSON.stringify({ buyRate, sellRate, updatedAt }));
-      state.fxUpdatedAt = updatedAt;
-      paintSudanP2P(buyRate, sellRate, updatedAt, false);
-      console.log('[ayar] Binance P2P SDG updated', { buyRate, sellRate, updatedAt });
+      // Fetch both P2P sides through our Cloudflare Worker to avoid browser-side Binance blocking/CORS.
+      const response = await fetchWithTimeout(API_BASE + '/api/sudan/p2p', 16000);
+      let payload = null;
+      try { payload = await response.json(); } catch (_) {}
+      if (!response.ok) {
+        const details = payload?.diagnostics
+          ? Object.values(payload.diagnostics).filter(Boolean).join(' | ')
+          : '';
+        throw new Error((payload?.error || 'Sudan P2P endpoint failed') +
+          (details ? ': ' + details : ' (HTTP ' + response.status + ')'));
+      }
+
+      const buyRate = Number(payload?.buy?.medianPrice);
+      const sellRate = Number(payload?.sell?.medianPrice);
+      if (!Number.isFinite(buyRate) || buyRate <= 0) {
+        throw new Error(payload?.error || 'Worker returned no valid Binance P2P buy quote');
+      }
+
+      const updatedAt = payload?.updatedAt ? Date.parse(payload.updatedAt) : Date.now();
+      sudan.rate = buyRate; // USD-to-SDG follows the cost of buying 1 USDT.
+      localStorage.setItem(SUDAN_P2P_CACHE_KEY, JSON.stringify({
+        buyRate,
+        sellRate: Number.isFinite(sellRate) && sellRate > 0 ? sellRate : null,
+        updatedAt: Number.isFinite(updatedAt) ? updatedAt : Date.now()
+      }));
+      state.fxUpdatedAt = Number.isFinite(updatedAt) ? updatedAt : Date.now();
+      paintSudanP2P(buyRate, sellRate, state.fxUpdatedAt, false);
+      console.log('[ayar] Binance P2P SDG updated through Worker', { buyRate, sellRate, updatedAt: state.fxUpdatedAt });
       return true;
     } catch (error) {
       console.warn('[ayar] Binance P2P SDG unavailable:', error.message);
-      // Preserve a previously verified P2P quote loaded from the page cache.
-      // Do not replace it with the official SDG rate or label it as live.
+      // Preserve a previously verified P2P quote; never substitute the official SDG rate.
       let cachedP2P = null;
       try {
         cachedP2P = JSON.parse(localStorage.getItem(SUDAN_P2P_CACHE_KEY) || 'null');
@@ -1415,13 +1431,12 @@
         sudan.rate = Number(cachedP2P.buyRate);
         paintSudanP2P(sudan.rate, Number(cachedP2P.sellRate), Number(cachedP2P.updatedAt), true);
       } else if (Number.isFinite(Number(sudan.rate)) && Number(sudan.rate) > 0) {
-        // The general market cache may contain the last P2P-derived SDG rate.
         paintSudanP2P(sudan.rate, NaN, state.cacheSavedAt, true);
       } else {
         sudan.rate = NaN;
         paintSudanP2P(NaN, NaN, null, false);
       }
-      state.fxUpdatedAt = null; // Cached data must never be labelled live.
+      state.fxUpdatedAt = null;
       return false;
     }
   }
