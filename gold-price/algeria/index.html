@@ -610,8 +610,8 @@
 
   const GRAM_PER_OZ = 31.1034768;
   const HISTORY_LEN = 40;
-  const FETCH_MIN_INTERVAL = 10 * 60 * 1000;
-  const AUTO_REFRESH_MS    = 15 * 60 * 1000;
+  const FETCH_MIN_INTERVAL = 60 * 1000;
+  const AUTO_REFRESH_MS    = 60 * 1000;
   const FRESH_THRESHOLD    = 30 * 60 * 1000;
   const NEWS_REFRESH_MS    = 15 * 60 * 1000;
   const CACHE_KEY       = 'ayar:cache-v5';
@@ -1059,7 +1059,7 @@
   function updateComparison() {
     const tbody = el('compareBody'), summary = el('compareSummary');
     const usdGram21 = (market.goldOz / GRAM_PER_OZ) * (21/24);
-    if (!usdGram21 || usdGram21 <= 0) return;
+    if (!Number.isFinite(usdGram21) || usdGram21 <= 0 || !COUNTRIES.every(c => Number.isFinite(c.rate) && c.rate > 0)) return;
     const rows = COUNTRIES.map(c => {
       const gram21Local = usdGram21 * c.rate;
       const adds = gram21Local * ((c.manuf||0) + (c.tax||0));
@@ -1617,7 +1617,7 @@
     const newsBtn = el('newsRefreshBtn');
     if (newsBtn) newsBtn.addEventListener('click', fetchNews);
 
-    setInterval(() => fetchMetals(false), AUTO_REFRESH_MS);
+    setInterval(() => { if (!document.hidden) fetchMetals(false); }, AUTO_REFRESH_MS);
 
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) stopNewsAutoRefresh();
