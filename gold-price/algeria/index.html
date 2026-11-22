@@ -727,6 +727,7 @@
     const value = Date.parse(raw); return Number.isFinite(value) ? value : null;
   }
   function isFreshSourceTime(value) { return Number.isFinite(value) && value <= Date.now() + 120000 && Date.now() - value <= FRESH_THRESHOLD; }
+  function isFreshFxTimestamp(value) { return Number.isFinite(value) && value <= Date.now() + 120000 && Date.now() - value <= 24 * 60 * 60 * 1000; }
 
   function isMarketOpen() {
     const d = new Date().getUTCDay(), h = new Date().getUTCHours();
@@ -1311,7 +1312,7 @@
 
     if (gotGold || gotSilver || gotPlatinum || gotFx) {
       // لا نصف البيانات بأنها حية بالكامل إذا فشل أحد المصادر الأساسية.
-      const allFresh = gotGold && gotSilver && gotPlatinum && gotFx && isFreshSourceTime(state.fxUpdatedAt);
+      const allFresh = gotGold && gotSilver && gotPlatinum && gotFx && isFreshFxTimestamp(state.fxUpdatedAt);
       state.source = allFresh ? 'live' : 'partial';
       state.lastUpdate = state.goldUpdatedAt ? new Date(state.goldUpdatedAt) : null;
       localStorage.setItem(LAST_FETCH_KEY, String(Date.now())); saveCache();
