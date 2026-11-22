@@ -593,20 +593,20 @@
   const CACHE_MAX_AGE   = 2 * 60 * 60 * 1000;
   const ALERTS_KEY      = 'ayar:alerts-v1';
 
-  const FALLBACK = { goldOz: 2650.0, silverOz: 31.0, platinumOz: 1000.0 };
-  const FALLBACK_RATES = { EGP:53.88, SAR:3.75, AED:3.6725, BHD:0.3760, IQD:1516, KWD:0.3110, QAR:3.64, OMR:0.3846, JOD:0.7090 };
+  // Valeurs de référence utilisées uniquement pour détecter le sens de conversion, jamais affichées comme prix.
+  const RATE_ORIENTATION_REFERENCE = { EGP:53.88, SAR:3.75, AED:3.6725, BHD:0.3760, IQD:1516, KWD:0.3110, QAR:3.64, OMR:0.3846, JOD:0.7090 };
   const CUR_DECIMALS = { EGP:2, SAR:2, AED:2, BHD:3, IQD:0, KWD:3, QAR:2, OMR:3, JOD:3, DZD:2, MAD:2 };
 
   const COUNTRIES = [
-    { code:'EG', name:'مصر',      flag:'🇪🇬', cur:'EGP', symbol:'ج.م', rate:FALLBACK_RATES.EGP, tax:0.14, manuf:0.07, bidSpread:0.03 },
-    { code:'SA', name:'السعودية', flag:'🇸🇦', cur:'SAR', symbol:'ر.س', rate:FALLBACK_RATES.SAR, tax:0,    manuf:0.02, bidSpread:0.02 },
-    { code:'AE', name:'الإمارات', flag:'🇦🇪', cur:'AED', symbol:'د.إ', rate:FALLBACK_RATES.AED, tax:0.05, manuf:0.02, bidSpread:0.02 },
-    { code:'BH', name:'البحرين',  flag:'🇧🇭', cur:'BHD', symbol:'د.ب', rate:FALLBACK_RATES.BHD, tax:0,    manuf:0.02, bidSpread:0.02 },
-    { code:'IQ', name:'العراق',   flag:'🇮🇶', cur:'IQD', symbol:'د.ع', rate:FALLBACK_RATES.IQD, tax:0,    manuf:0.03, bidSpread:0.03 },
-    { code:'KW', name:'الكويت',   flag:'🇰🇼', cur:'KWD', symbol:'د.ك', rate:FALLBACK_RATES.KWD, tax:0,    manuf:0.02, bidSpread:0.02 },
-    { code:'QA', name:'قطر',      flag:'🇶🇦', cur:'QAR', symbol:'ر.ق', rate:FALLBACK_RATES.QAR, tax:0,    manuf:0.02, bidSpread:0.02 },
-    { code:'OM', name:'عُمان',    flag:'🇴🇲', cur:'OMR', symbol:'ر.ع', rate:FALLBACK_RATES.OMR, tax:0,    manuf:0.02, bidSpread:0.02 },
-    { code:'JO', name:'الأردن',   flag:'🇯🇴', cur:'JOD', symbol:'د.أ', rate:FALLBACK_RATES.JOD, tax:0.16, manuf:0.03, bidSpread:0.03 },
+    { code:'EG', name:'مصر',      flag:'🇪🇬', cur:'EGP', symbol:'ج.م', rate:RATE_ORIENTATION_REFERENCE.EGP, tax:0.14, manuf:0.07, bidSpread:0.03 },
+    { code:'SA', name:'السعودية', flag:'🇸🇦', cur:'SAR', symbol:'ر.س', rate:RATE_ORIENTATION_REFERENCE.SAR, tax:0,    manuf:0.02, bidSpread:0.02 },
+    { code:'AE', name:'الإمارات', flag:'🇦🇪', cur:'AED', symbol:'د.إ', rate:RATE_ORIENTATION_REFERENCE.AED, tax:0.05, manuf:0.02, bidSpread:0.02 },
+    { code:'BH', name:'البحرين',  flag:'🇧🇭', cur:'BHD', symbol:'د.ب', rate:RATE_ORIENTATION_REFERENCE.BHD, tax:0,    manuf:0.02, bidSpread:0.02 },
+    { code:'IQ', name:'العراق',   flag:'🇮🇶', cur:'IQD', symbol:'د.ع', rate:RATE_ORIENTATION_REFERENCE.IQD, tax:0,    manuf:0.03, bidSpread:0.03 },
+    { code:'KW', name:'الكويت',   flag:'🇰🇼', cur:'KWD', symbol:'د.ك', rate:RATE_ORIENTATION_REFERENCE.KWD, tax:0,    manuf:0.02, bidSpread:0.02 },
+    { code:'QA', name:'قطر',      flag:'🇶🇦', cur:'QAR', symbol:'ر.ق', rate:RATE_ORIENTATION_REFERENCE.QAR, tax:0,    manuf:0.02, bidSpread:0.02 },
+    { code:'OM', name:'عُمان',    flag:'🇴🇲', cur:'OMR', symbol:'ر.ع', rate:RATE_ORIENTATION_REFERENCE.OMR, tax:0,    manuf:0.02, bidSpread:0.02 },
+    { code:'JO', name:'الأردن',   flag:'🇯🇴', cur:'JOD', symbol:'د.أ', rate:RATE_ORIENTATION_REFERENCE.JOD, tax:0.16, manuf:0.03, bidSpread:0.03 },
     { code:'DZ', name:'الجزائر',  flag:'🇩🇿', cur:'DZD', symbol:'دج', rate:NaN, tax:0, manuf:0.03, bidSpread:0.03 },
     { code:'MA', name:'المغرب',   flag:'🇲🇦', cur:'MAD', symbol:'د.م', rate:NaN, tax:0, manuf:0.03, bidSpread:0.03 }
   ];
@@ -643,10 +643,10 @@
     { tag:'أخبار', tagClass:'', title:'جارٍ تحميل الأخبار…', body:'سيتم تحديث الأخبار تلقائيًا عند توفر الاتصال.', source:'عيار', date:'' }
   ];
 
-  const market = { goldOz: FALLBACK.goldOz, silverOz: FALLBACK.silverOz, platinumOz: FALLBACK.platinumOz };
+  const market = { goldOz: NaN, silverOz: NaN, platinumOz: NaN };
   const SEO_COUNTRY_PAGE = true;
   const COUNTRY_PATHS = {'EG':'/gold-price/egypt/','SA':'/gold-price/saudi-arabia/','AE':'/gold-price/uae/','BH':'/gold-price/bahrain/','IQ':'/gold-price/iraq/','KW':'/gold-price/kuwait/','QA':'/gold-price/qatar/','OM':'/gold-price/oman/','JO':'/gold-price/jordan/','DZ':'/gold-price/algeria/','MA':'/gold-price/morocco/'};
-  const state = { code:'KW', usdHistory:[], showManufacturing:false, lastUpdate:null, goldUpdatedAt:null, source:'init' };
+  const state = { code:'KW', usdHistory:[], showManufacturing:false, lastUpdate:null, goldUpdatedAt:null, silverUpdatedAt:null, platinumUpdatedAt:null, fxUpdatedAt:null, cacheSavedAt:null, source:'init' };
 
   const el = id => document.getElementById(id);
   const byCode = code => COUNTRIES.find(c => c.code === code);
@@ -687,11 +687,9 @@
       .replace(/'/g, '&#39;');
   }
 
-  function fetchWithTimeout(url, ms = 12000) {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), ms);
-    return fetch(url, { cache:'no-store', signal: controller.signal }).finally(() => clearTimeout(timer));
-  }
+  function fetchWithTimeout(url, ms = 12000) { const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),ms);return fetch(url,{cache:'default',signal:controller.signal}).finally(()=>clearTimeout(timer)); }
+  function sourceTimestamp(data){const raw=data&&(data.price_as_of||data.updatedAt||data.updated_at||data.timestamp||data.as_of);if(raw==null||raw==='')return null;if(typeof raw==='number'||/^\\d{10,13}$/.test(String(raw))){const n=Number(raw),ms=n<1e12?n*1000:n;return Number.isFinite(ms)?ms:null;}const v=Date.parse(raw);return Number.isFinite(v)?v:null;}
+  function isFreshSourceTime(value){return Number.isFinite(value)&&value<=Date.now()+120000&&Date.now()-value<=FRESH_THRESHOLD;}
 
   function isMarketOpen() {
     const d = new Date().getUTCDay(), h = new Date().getUTCHours();
@@ -707,12 +705,17 @@
       if (!raw) return false;
       const c = JSON.parse(raw);
       if (!c || Date.now() - c.ts > CACHE_MAX_AGE) return false;
-      if (c.goldOz) market.goldOz = c.goldOz;
-      if (c.silverOz) market.silverOz = c.silverOz;
-      if (c.platinumOz) market.platinumOz = c.platinumOz;
+      state.goldUpdatedAt = Number(c.goldUpdatedAt) || null;
+      state.silverUpdatedAt = Number(c.silverUpdatedAt) || null;
+      state.platinumUpdatedAt = Number(c.platinumUpdatedAt) || null;
+      state.fxUpdatedAt = Number(c.fxUpdatedAt) || null;
+      if (c.goldOz && state.goldUpdatedAt) market.goldOz = c.goldOz;
+      if (c.silverOz && state.silverUpdatedAt) market.silverOz = c.silverOz;
+      if (c.platinumOz && state.platinumUpdatedAt) market.platinumOz = c.platinumOz;
       if (c.currencies) COUNTRIES.forEach(x => { if (c.currencies[x.cur]) x.rate = c.currencies[x.cur]; });
       if (Array.isArray(c.usdHistory) && c.usdHistory.length) state.usdHistory = c.usdHistory;
-      state.lastUpdate = new Date(c.ts);
+      state.cacheSavedAt = Number(c.ts) || null;
+      state.lastUpdate = state.goldUpdatedAt ? new Date(state.goldUpdatedAt) : null;
       state.source = 'cache';
       return true;
     } catch (_) { return false; }
@@ -721,6 +724,10 @@
     try {
       localStorage.setItem(CACHE_KEY, JSON.stringify({
         ts: Date.now(),
+        goldUpdatedAt: state.goldUpdatedAt,
+        silverUpdatedAt: state.silverUpdatedAt,
+        platinumUpdatedAt: state.platinumUpdatedAt,
+        fxUpdatedAt: state.fxUpdatedAt,
         goldOz: market.goldOz,
         silverOz: market.silverOz,
         platinumOz: market.platinumOz,
@@ -816,22 +823,7 @@
       });
     });
   }
-   function sendEmailSafe(params, onSuccess, onError) {
-    if (!window.emailjs) { if (onError) onError({ text: 'مكتبة EmailJS غير محملة' }); return; }
-    try {
-      const p = emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        params,
-        {
-          publicKey: EMAILJS_PUBLIC_KEY,
-          limitRate: { id: 'ayar-alerts', throttle: 60000 }
-        }
-      );
-      if (p && typeof p.then === 'function') p.then(r => onSuccess && onSuccess(r)).catch(err => onError && onError(err));
-      else if (onError) onError({ text: 'emailjs.send لم يرجع Promise' });
-    } catch (e) { if (onError) onError(e); }
-  }
+   let emailJsPromise=null;function sendEmailSafe(params,onSuccess,onError){if(!window.emailjs){if(!emailJsPromise)emailJsPromise=new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';script.async=true;script.onload=()=>window.emailjs?resolve():reject(new Error('EmailJS unavailable'));script.onerror=()=>reject(new Error('EmailJS failed to load'));document.head.appendChild(script);}).catch(error=>{emailJsPromise=null;throw error;});emailJsPromise.then(()=>{initEmailJS();sendEmailSafe(params,onSuccess,onError);}).catch(error=>onError&&onError(error));return;}try{const p=emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_TEMPLATE_ID,params,{publicKey:EMAILJS_PUBLIC_KEY,limitRate:{id:'ayar-alerts',throttle:60000}});if(p&&typeof p.then==='function')p.then(r=>onSuccess&&onSuccess(r)).catch(err=>onError&&onError(err));else if(onError)onError({text:'emailjs.send لم يرجع Promise'});}catch(e){if(onError)onError(e);}}
   async function checkAlerts() {
     // لا تُطلق تنبيهات بناءً على أسعار احتياطية/قديمة قبل نجاح جلب سعر الذهب.
     if (!state.goldUpdatedAt || Date.now() - state.goldUpdatedAt > FRESH_THRESHOLD) return;
@@ -1122,10 +1114,6 @@
 
   function render() {
     const c = byCode(state.code); if (!c) return;
-    if (!market.goldOz || market.goldOz <= 0) market.goldOz = FALLBACK.goldOz;
-    if (!market.silverOz || market.silverOz <= 0) market.silverOz = FALLBACK.silverOz;
-    if (!market.platinumOz || market.platinumOz <= 0) market.platinumOz = FALLBACK.platinumOz;
-
     const rate = c.rate;
     const goldGram24 = market.goldOz / GRAM_PER_OZ * rate;
     const ozLocal = market.goldOz * rate;
@@ -1178,7 +1166,7 @@
     const mp = el('modePill');
     const cacheAge = state.lastUpdate ? (Date.now() - state.lastUpdate.getTime()) : Infinity;
 
-    if (state.source === 'live') { mp.innerHTML = '<i></i> بيانات محدثة'; mp.className = 'pill live'; mp.title = 'تم تحديث مصادر الذهب والفضة والبلاتين والعملات بنجاح'; }
+    if (state.source === 'live') { mp.innerHTML = '<i></i> Données actualisées'; mp.className = 'pill live'; mp.title = 'Fraîcheur vérifiée à partir des horodatages des fournisseurs'; }
     else if (state.source === 'partial') { mp.textContent = '⚠️ تحديث جزئي'; mp.className = 'pill demo'; mp.title = 'تعذّر تحديث مصدر واحد أو أكثر؛ راجع وقت التحديث ومصدر البيانات'; }
     else if (state.source === 'cache' && cacheAge < FRESH_THRESHOLD) { mp.textContent = '📦 بيانات محفوظة حديثاً'; mp.className = 'pill demo'; }
     else if (state.source === 'cache') {
@@ -1187,12 +1175,9 @@
       mp.textContent = `📦 محفوظة منذ ${label}`; mp.className = 'pill demo';
     }
     else if (state.source === 'stale') { mp.textContent = '⚠️ بيانات قديمة'; mp.className = 'pill demo'; }
-    else { mp.textContent = '⚠️ أسعار احتياطية — لم يتم التحديث'; mp.className = 'pill demo'; mp.title = 'هذه قيم احتياطية وليست أسعاراً لحظية'; }
+    else { mp.textContent = '⏳ En attente de données vérifiées'; mp.className = 'pill demo'; mp.title = 'Aucun prix fixe ne sera présenté comme un cours actuel'; }
 
-    if (state.lastUpdate) {
-      el('updatedAt').textContent = timeFormat.format(state.lastUpdate);
-      el('updatedAt').setAttribute('datetime', state.lastUpdate.toISOString());
-    }
+    if(state.goldUpdatedAt&&Number.isFinite(state.goldUpdatedAt)){const d=new Date(state.goldUpdatedAt);el('updatedAt').textContent=timeFormat.format(d);el('updatedAt').setAttribute('datetime',d.toISOString());el('updatedAt').title='Horodatage du cours de l’or fourni par la source';}else{el('updatedAt').textContent='Indisponible';el('updatedAt').removeAttribute('datetime');el('updatedAt').title='Aucun horodatage vérifié reçu du fournisseur';}
 
     checkAlerts();
   }
@@ -1214,25 +1199,22 @@
     let gotGold = false, gotSilver = false, gotPlatinum = false, gotFx = false;
 
     if (goldRes.status === 'fulfilled' && goldRes.value.ok) {
-      try { const d = await goldRes.value.json(); const p = parseFloat(d.price); if (p > 0) { market.goldOz = p; gotGold = true; console.log('[ayar] ✅ Gold:', p); } }
-      catch (e) { console.warn('[ayar] Gold parse error:', e.message); }
+      try{const d=await goldRes.value.json(),p=Number(d.price),stamp=sourceTimestamp(d);if(p>0&&isFreshSourceTime(stamp)){market.goldOz=p;state.goldUpdatedAt=stamp;gotGold=true;}else console.warn('[ayar] Gold rejected: invalid price or stale/missing timestamp');}catch(e){console.warn('[ayar] Gold parse error:',e.message);}
     }
     if (silverRes.status === 'fulfilled' && silverRes.value.ok) {
-      try { const d = await silverRes.value.json(); const p = parseFloat(d.price); if (p > 0) { market.silverOz = p; gotSilver = true; console.log('[ayar] ✅ Silver:', p); } }
-      catch (e) { console.warn('[ayar] Silver parse error:', e.message); }
+      try{const d=await silverRes.value.json(),p=Number(d.price),stamp=sourceTimestamp(d);if(p>0&&isFreshSourceTime(stamp)){market.silverOz=p;state.silverUpdatedAt=stamp;gotSilver=true;}else console.warn('[ayar] Silver rejected: invalid price or stale/missing timestamp');}catch(e){console.warn('[ayar] Silver parse error:',e.message);}
     }
     if (platinumRes.status === 'fulfilled' && platinumRes.value.ok) {
-      try { const d = await platinumRes.value.json(); const p = parseFloat(d.price); if (p > 0) { market.platinumOz = p; gotPlatinum = true; console.log('[ayar] ✅ Platinum:', p); } }
-      catch (e) { console.warn('[ayar] Platinum parse error:', e.message); }
+      try{const d=await platinumRes.value.json(),p=Number(d.price),stamp=sourceTimestamp(d);if(p>0&&isFreshSourceTime(stamp)){market.platinumOz=p;state.platinumUpdatedAt=stamp;gotPlatinum=true;}else console.warn('[ayar] Platinum rejected: invalid price or stale/missing timestamp');}catch(e){console.warn('[ayar] Platinum parse error:',e.message);}
     }
     if (fxRes.status === 'fulfilled' && fxRes.value.ok) {
       try {
-        const d = await fxRes.value.json();
+        const d = await fxRes.value.json(); state.fxUpdatedAt=sourceTimestamp(d);
         if (d.currencies) {
           COUNTRIES.forEach(c => {
             const raw = parseFloat(d.currencies[c.cur]);
             if (!raw || raw <= 0) return;
-            const fb = FALLBACK_RATES[c.cur];
+            const fb = RATE_ORIENTATION_REFERENCE[c.cur];
             if (!fb) { c.rate = raw > 1 ? raw : 1/raw; return; }
             const directErr = Math.abs(raw - fb) / fb;
             const flipErr   = Math.abs(1/raw - fb) / fb;
@@ -1282,12 +1264,7 @@
 
     if (gotGold || gotSilver || gotPlatinum || gotFx) {
       // لا نصف البيانات بأنها حية بالكامل إذا فشل أحد المصادر الأساسية.
-      state.source = (gotGold && gotSilver && gotPlatinum && gotFx) ? 'live' : 'partial';
-      state.lastUpdate = new Date();
-      localStorage.setItem(LAST_FETCH_KEY, String(Date.now()));
-      saveCache();
-      if (gotGold) { pushUsd(market.goldOz); state.goldUpdatedAt = Date.now(); }
-      render();
+      const allFresh=gotGold&&gotSilver&&gotPlatinum&&gotFx&&isFreshSourceTime(state.fxUpdatedAt);state.source=allFresh?'live':'partial';state.lastUpdate=state.goldUpdatedAt?new Date(state.goldUpdatedAt):null;localStorage.setItem(LAST_FETCH_KEY,String(Date.now()));saveCache();if(gotGold)pushUsd(market.goldOz);render();
     } else {
       console.error('[ayar] ❌ All sources failed');
       state.source = state.lastUpdate ? 'stale' : 'init';
@@ -1299,6 +1276,11 @@
   const silverChartCache = { '24h':{d:null,ts:0,ttl:3e5}, '7d':{d:null,ts:0,ttl:36e5}, '30d':{d:null,ts:0,ttl:108e5}, '1y':{d:null,ts:0,ttl:432e5} };
   let goldChartInst = null, goldChartSeries = null, goldChartRange = '24h';
   let silverChartInst = null, silverChartSeries = null, silverChartRange = '24h';
+  let chartLibraryPromise=null,goldChartPromise=null,silverChartPromise=null;
+  function loadChartLibrary(){if(window.LightweightCharts)return Promise.resolve();if(!chartLibraryPromise)chartLibraryPromise=new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js';script.async=true;script.onload=()=>window.LightweightCharts?resolve():reject(new Error('Chart library unavailable'));script.onerror=()=>reject(new Error('Chart library failed to load'));document.head.appendChild(script);}).catch(error=>{chartLibraryPromise=null;throw error;});return chartLibraryPromise;}
+  function ensureGoldChart(){if(goldChartInst)return Promise.resolve();if(!goldChartPromise)goldChartPromise=loadChartLibrary().then(()=>{initGoldChart();return updateGoldChart();}).catch(error=>{goldChartPromise=null;console.warn('[ayar] Gold chart deferred:',error.message);});return goldChartPromise;}
+  function ensureSilverChart(){if(silverChartInst)return Promise.resolve();if(!silverChartPromise)silverChartPromise=loadChartLibrary().then(()=>{initSilverChart();return updateSilverChart();}).catch(error=>{silverChartPromise=null;console.warn('[ayar] Silver chart deferred:',error.message);});return silverChartPromise;}
+  function setupLazyCharts(){const gold=el('goldChart'),silver=el('silverChart');if(!('IntersectionObserver'in window)){ensureGoldChart();ensureSilverChart();return;}const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(!entry.isIntersecting)return;observer.unobserve(entry.target);if(entry.target===gold)ensureGoldChart();if(entry.target===silver)ensureSilverChart();}),{rootMargin:'180px 0px'});if(gold)observer.observe(gold);if(silver)observer.observe(silver);}
 
   function initGoldChart() {
     const box = el('goldChart');
@@ -1478,8 +1460,6 @@
 
   function init() {
     console.log('[ayar] 🚀 Initializing...');
-    initEmailJS();
-
     el('year').textContent = new Date().getFullYear();
     renderChips(); syncChips(); buildKaratGrid(); buildSilverGrid(); buildBarsGrid();
     loadCache();
@@ -1489,8 +1469,7 @@
     fetchNews();
     startNewsAutoRefresh();
 
-    initGoldChart(); initSilverChart();
-    updateGoldChart(); updateSilverChart();
+    setupLazyCharts();
 
     setTimeout(() => fetchMetals(true), 100);
 
@@ -1571,7 +1550,7 @@
         if (t.dataset.range === goldChartRange) return;
         goldChartRange = t.dataset.range;
         document.querySelectorAll('.chart-tab[data-range]').forEach(x => x.setAttribute('aria-selected', String(x===t)));
-        updateGoldChart();
+        ensureGoldChart();
       });
     });
     document.querySelectorAll('.silver-chart-tab').forEach(t => {
@@ -1579,7 +1558,7 @@
         if (t.dataset.srange === silverChartRange) return;
         silverChartRange = t.dataset.srange;
         document.querySelectorAll('.silver-chart-tab').forEach(x => x.setAttribute('aria-selected', String(x===t)));
-        updateSilverChart();
+        ensureSilverChart();
       });
     });
 
