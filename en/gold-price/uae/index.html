@@ -700,7 +700,7 @@
   function sourceTimestamp(data) {
     const raw = data && (data.price_as_of || data.updatedAt || data.updated_at || data.timestamp || data.as_of);
     if (raw == null || raw === '') return null;
-    if (typeof raw === 'number' || /^\\d{10,13}$/.test(String(raw))) { const numeric=Number(raw), millis=numeric<1e12?numeric*1000:numeric; return Number.isFinite(millis)?millis:null; }
+    if (typeof raw === 'number' || /^\d{10,13}$/.test(String(raw))) { const numeric=Number(raw), millis=numeric<1e12?numeric*1000:numeric; return Number.isFinite(millis)?millis:null; }
     const value=Date.parse(raw); return Number.isFinite(value)?value:null;
   }
   function isFreshSourceTime(value) { return Number.isFinite(value) && value <= Date.now()+120000 && Date.now()-value <= FRESH_THRESHOLD; }
