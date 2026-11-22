@@ -4,7 +4,7 @@
   var STORAGE_KEY = 'ayar:language';
   var translations = {
     en: {
-      'عيار':'Ayar','الذهب والفضة والأخبار':'Gold, Silver & News','آخر تحديث:':'Last update:',
+      'عيار':'Ayar','الذهب والفضة والأخبار':'Gold, Silver & News','السودان':'Sudan','الجنيه السوداني':'Sudanese pound','بالجنيه السوداني':'in Sudanese pounds','ج.س':'SDG','آخر تحديث:':'Last update:',
       '☀️ الوضع النهاري':'☀️ Day mode','🌙 الوضع الليلي':'🌙 Night mode','التبديل إلى الوضع النهاري':'Switch to day mode','التبديل إلى الوضع الليلي':'Switch to night mode',
       'سعر المشغول':'Price with workmanship','↻ تحديث':'↻ Refresh','عن بيانات الأسعار':'About price data',
       'يعرض عيار أسعاراً استرشادية للذهب والفضة والبلاتين في عدد من الدول العربية، مع أدوات لحساب قيمة الجرام والسبائك والمصنعية والزكاة. تُحوّل الأسعار العالمية إلى العملات المحلية وفق أسعار الصرف المتاحة، وقد تختلف أسعار محلات الصاغة بسبب المصنعية والضرائب وفروق البيع والشراء. تحقق دائماً من وقت آخر تحديث قبل اتخاذ قرار مالي.':'Ayar provides indicative gold, silver and platinum prices across Arab markets, with tools to calculate gram, bar, workmanship and zakat values. Global prices are converted into local currencies using available exchange rates. Shop prices may differ due to workmanship, taxes and dealer spreads. Always check the latest update time before making a financial decision.',
@@ -164,6 +164,10 @@
       "الأردن": "Jordan",
       "الجزائر": "Algeria",
       "المغرب": "Morocco",
+       "السودان": "Sudan",
+       "الجنيه السوداني": "Sudanese pound",
+       "بالجنيه السوداني": "in Sudanese pounds",
+       "ج.س": "SDG",
       "الدينار الجزائري": "Algerian dinar",
       "الدرهم المغربي": "Moroccan dirham",
       "بالدينار الجزائري": "in Algerian dinars",
@@ -419,6 +423,10 @@
       "الأردن": "Jordanie",
       "الجزائر": "Algérie",
       "المغرب": "Maroc",
+       "السودان": "Soudan",
+       "الجنيه السوداني": "livre soudanaise",
+       "بالجنيه السوداني": "en livres soudanaises",
+       "ج.س": "SDG",
       "الدينار الجزائري": "dinar algérien",
       "الدرهم المغربي": "dirham marocain",
       "بالدينار الجزائري": "en dinars algériens",
