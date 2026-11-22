@@ -1551,14 +1551,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     try {
       const res = await fetchWithTimeout(`${HISTORY_API_URL}?symbol=${symbol}&range=${range}`, 8000);
-      if (res.ok) {
-        const json = await res.json();
-        const points = (json.points || []).map(p => ({ time: Math.floor(new Date(p.t).getTime()/1000), value:+p.c }))
-          .filter(p => p.value > 0 && p.time > 0 && isFinite(p.value))
-          .sort((a,b) => a.time - b.time);
-        const dedup = dedupePoints(points);
-        if (dedup.length) { console.log('[ayar] ✅ Source 1 (Worker):', dedup.length); entry.d = dedup; entry.ts = Date.now(); return dedup; }
+      let json = null;
+      try { json = await res.json(); } catch (_) {}
+      if (!res.ok) throw new Error((json && (json.error || json.message)) || ('HTTP ' + res.status));
+      const rawPoints = Array.isArray(json && json.points) ? json.points : [];
+      const points = rawPoints.map(p => {
+          const rawTime = p.time ?? p.t ?? p.timestamp ?? p.date;
+          const parsedTime = typeof rawTime === 'number'
+            ? (rawTime > 1e12 ? Math.floor(rawTime / 1000) : Math.floor(rawTime))
+            : Math.floor(Date.parse(rawTime) / 1000);
+          const rawValue = p.value ?? p.c ?? p.close ?? p.price;
+          return { time: parsedTime, value: Number(rawValue) };
+        })
+        .filter(p => p.value > 0 && p.time > 0 && Number.isFinite(p.value) && Number.isFinite(p.time))
+        .sort((a,b) => a.time - b.time);
+      const dedup = dedupePoints(points);
+      if (dedup.length) {
+        console.log('[ayar] ✅ Source 1 (Worker):', dedup.length, json.source || '');
+        entry.d = dedup; entry.ts = Date.now(); return dedup;
       }
+      const workerErrors = Array.isArray(json && json.errors) ? json.errors.filter(Boolean).join(' | ') : '';
+      errors.push('Worker: ' + (workerErrors || (json && json.error) || 'لم يُرجع نقاطاً تاريخية'));
     } catch (e) { errors.push('Worker: ' + e.message); }
 
     try {
