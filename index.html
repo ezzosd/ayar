@@ -240,6 +240,20 @@
 @media(max-width:480px){.ayar-social-float{inset-inline-start:12px;bottom:12px;gap:8px}.ayar-social-link{min-height:44px;padding:7px 12px;font-size:12px}.ayar-social-link svg{width:21px;height:21px;flex-basis:21px}}
 @media(prefers-reduced-motion:reduce){.ayar-social-link{transition:none}}
 
+
+/* عيار: دعم الوضعين النهاري والليلي */
+html[data-theme="light"]{color-scheme:light}
+html[data-theme="light"]{--bg:#f5f7fb;--surface:#fff;--surface-2:#edf1f7;--line:#dce3ee;--text:#20283a;--muted:#65718a;--gold:#b98518;--gold-soft:#8d620c;--silver:#7c879c;--silver-soft:#536078;--platinum:#8794a8;--platinum-soft:#536078}
+html[data-theme="light"] body{background:radial-gradient(900px 520px at 82% -12%,rgba(233,185,73,.16),transparent 62%),radial-gradient(720px 420px at 8% -6%,rgba(70,120,255,.07),transparent 62%),var(--bg);color:var(--text)}
+html[data-theme="light"] .site-header{background:rgba(255,255,255,.90)}
+html[data-theme="light"] .hero{background:linear-gradient(135deg,rgba(233,185,73,.13),rgba(255,255,255,.8) 46%),var(--surface)}
+html[data-theme="light"] .chip.is-active,html[data-theme="light"] .toggle[aria-pressed="true"]{color:#fff}
+html[data-theme="light"] .news-card p{color:#4e5a70}
+html[data-theme="light"] .news-card:hover{box-shadow:0 8px 24px rgba(31,45,70,.10)}
+.theme-toggle{font:inherit;font-size:12px;font-weight:700;padding:7px 11px;border-radius:10px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--text);white-space:nowrap}
+.theme-toggle:hover{border-color:var(--gold)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+
 </style>
 <!-- تحديثات هذه النسخة: توحيد النطاق ayargo.com، توضيح حالات البيانات الجزئية والاحتياطية، منع إطلاق التنبيه على البيانات الاحتياطية، تحسين سلامة عرض البريد والتتبع، وتوضيح أن المقارنات والحاسبات استرشادية. -->
 
@@ -279,6 +293,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="pill demo" id="modePill">…</span>
       <span class="pill" id="marketStatus">…</span>
       <span class="updated">آخر تحديث: <time id="updatedAt">—</time></span>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false">☀️ الوضع النهاري</button>
     </div>
   </div>
 </header>
@@ -1682,4 +1697,5 @@ if ('serviceWorker' in navigator) {
   </a>
 </nav>
 
+<script>(function(){const key='ayar-theme';let theme='dark';try{theme=localStorage.getItem(key)||'dark'}catch(e){}if(theme!=='light'&&theme!=='dark')theme='dark';function apply(v){document.documentElement.setAttribute('data-theme',v);const b=document.getElementById('themeToggle');if(b){b.textContent=v==='dark'?'☀️ الوضع النهاري':'🌙 الوضع الليلي';b.setAttribute('aria-pressed',String(v==='light'));b.setAttribute('aria-label',v==='dark'?'التبديل إلى الوضع النهاري':'التبديل إلى الوضع الليلي')}const m=document.querySelector('meta[name="theme-color"]');if(m)m.content=v==='dark'?'#0a0b0f':'#f5f7fb'}apply(theme);document.addEventListener('DOMContentLoaded',function(){const b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){theme=theme==='dark'?'light':'dark';apply(theme);try{localStorage.setItem(key,theme)}catch(e){}})})})();</script>
 </body>
