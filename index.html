@@ -680,8 +680,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const CACHE_MAX_AGE   = 2 * 60 * 60 * 1000;
   const ALERTS_KEY      = 'ayar:alerts-v1';
 
-  const FALLBACK = { goldOz: 2650.0, silverOz: 31.0, platinumOz: 1000.0 };
-  const FALLBACK_RATES = { EGP:53.88, SAR:3.75, AED:3.6725, BHD:0.3760, IQD:1516, KWD:0.3110, QAR:3.64, OMR:0.3846, JOD:0.7090 };
+  // مراجع تقريبية لتحديد اتجاه تحويل العملة فقط، وليست أسعاراً تُعرض للزائر.
+  const RATE_ORIENTATION_REFERENCE = { EGP:53.88, SAR:3.75, AED:3.6725, BHD:0.3760, IQD:1516, KWD:0.3110, QAR:3.64, OMR:0.3846, JOD:0.7090 };
   const CUR_DECIMALS = { EGP:2, SAR:2, AED:2, BHD:3, IQD:0, KWD:3, QAR:2, OMR:3, JOD:3, DZD:2, MAD:2 };
 
   const COUNTRIES = [
@@ -779,8 +779,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   function sourceTimestamp(data) {
-    const raw = data && (data.updatedAt || data.updated_at || data.timestamp || data.as_of || data.price_as_of);
-    const value = raw == null ? NaN : Date.parse(raw);
+    const raw = data && (data.price_as_of || data.updatedAt || data.updated_at || data.timestamp || data.as_of);
+    if (raw == null || raw === '') return null;
+    if (typeof raw === 'number' || /^\\d{10,13}$/.test(String(raw))) {
+      const numeric = Number(raw);
+      const millis = numeric < 1e12 ? numeric * 1000 : numeric;
+      return Number.isFinite(millis) ? millis : null;
+    }
+    const value = Date.parse(raw);
     return Number.isFinite(value) ? value : null;
   }
   function isFreshSourceTime(value) {
@@ -1136,7 +1142,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function updateComparison() {
     const tbody = el('compareBody'), summary = el('compareSummary');
     const usdGram21 = (market.goldOz / GRAM_PER_OZ) * (21/24);
-    if (!usdGram21 || usdGram21 <= 0) return;
+    if (!Number.isFinite(usdGram21) || usdGram21 <= 0 || !COUNTRIES.every(c => Number.isFinite(c.rate) && c.rate > 0)) return;
     const rows = COUNTRIES.map(c => {
       const gram21Local = usdGram21 * c.rate;
       const adds = gram21Local * ((c.manuf||0) + (c.tax||0));
@@ -1352,7 +1358,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           COUNTRIES.forEach(c => {
             const raw = parseFloat(d.currencies[c.cur]);
             if (!raw || raw <= 0) return;
-            const fb = FALLBACK_RATES[c.cur];
+            const fb = RATE_ORIENTATION_REFERENCE[c.cur];
             if (!fb) { c.rate = raw > 1 ? raw : 1/raw; return; }
             const directErr = Math.abs(raw - fb) / fb;
             const flipErr   = Math.abs(1/raw - fb) / fb;
