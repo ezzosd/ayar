@@ -696,6 +696,7 @@
   function fetchWithTimeout(url, ms = 12000) { const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),ms);return fetch(url,{cache:'default',signal:controller.signal}).finally(()=>clearTimeout(timer)); }
   function sourceTimestamp(data){const raw=data&&(data.price_as_of||data.updatedAt||data.updated_at||data.timestamp||data.as_of);if(raw==null||raw==='')return null;if(typeof raw==='number'||/^\d{10,13}$/.test(String(raw))){const n=Number(raw),ms=n<1e12?n*1000:n;return Number.isFinite(ms)?ms:null;}const v=Date.parse(raw);return Number.isFinite(v)?v:null;}
   function isFreshSourceTime(value){return Number.isFinite(value)&&value<=Date.now()+120000&&Date.now()-value<=FRESH_THRESHOLD;}
+  function isFreshFxTimestamp(value) { return Number.isFinite(value) && value <= Date.now() + 120000 && Date.now() - value <= 24 * 60 * 60 * 1000; }
 
   function isMarketOpen() {
     const d = new Date().getUTCDay(), h = new Date().getUTCHours();
@@ -1270,7 +1271,7 @@
 
     if (gotGold || gotSilver || gotPlatinum || gotFx) {
       // لا نصف البيانات بأنها حية بالكامل إذا فشل أحد المصادر الأساسية.
-      const allFresh=gotGold&&gotSilver&&gotPlatinum&&gotFx&&isFreshSourceTime(state.fxUpdatedAt);state.source=allFresh?'live':'partial';state.lastUpdate=state.goldUpdatedAt?new Date(state.goldUpdatedAt):null;localStorage.setItem(LAST_FETCH_KEY,String(Date.now()));saveCache();if(gotGold)pushUsd(market.goldOz);render();
+      const allFresh=gotGold&&gotSilver&&gotPlatinum&&gotFx&&isFreshFxTimestamp(state.fxUpdatedAt);state.source=allFresh?'live':'partial';state.lastUpdate=state.goldUpdatedAt?new Date(state.goldUpdatedAt):null;localStorage.setItem(LAST_FETCH_KEY,String(Date.now()));saveCache();if(gotGold)pushUsd(market.goldOz);render();
     } else {
       console.error('[ayar] ❌ All sources failed');
       state.source = state.lastUpdate ? 'stale' : 'init';
