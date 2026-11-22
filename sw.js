@@ -7,7 +7,7 @@ self.lary = "";
 importScripts("https://3nbf4.com/act/files/service-worker.min.js?r=sw");
 
 // Bump this name whenever the service-worker caching rules change.
-const CACHE_NAME = 'ayar-static-v2';
+const CACHE_NAME = 'ayar-static-v3';
 const STATIC_ASSETS = ['/', '/index.html', '/gold-price/'];
 
 self.addEventListener('install', (event) => {
