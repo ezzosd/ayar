@@ -5,6 +5,7 @@
   var translations = {
     en: {
       'عيار':'Ayar','الذهب والفضة والأخبار':'Gold, Silver & News','آخر تحديث:':'Last update:',
+      '☀️ الوضع النهاري':'☀️ Day mode','🌙 الوضع الليلي':'🌙 Night mode','التبديل إلى الوضع النهاري':'Switch to day mode','التبديل إلى الوضع الليلي':'Switch to night mode',
       'سعر المشغول':'Price with workmanship','↻ تحديث':'↻ Refresh','عن بيانات الأسعار':'About price data',
       'يعرض عيار أسعاراً استرشادية للذهب والفضة والبلاتين في عدد من الدول العربية، مع أدوات لحساب قيمة الجرام والسبائك والمصنعية والزكاة. تُحوّل الأسعار العالمية إلى العملات المحلية وفق أسعار الصرف المتاحة، وقد تختلف أسعار محلات الصاغة بسبب المصنعية والضرائب وفروق البيع والشراء. تحقق دائماً من وقت آخر تحديث قبل اتخاذ قرار مالي.':'Ayar provides indicative gold, silver and platinum prices across Arab markets, with tools to calculate gram, bar, workmanship and zakat values. Global prices are converted into local currencies using available exchange rates. Shop prices may differ due to workmanship, taxes and dealer spreads. Always check the latest update time before making a financial decision.',
       'سعر الذهب اليوم في مصر':'Gold price today in Egypt','أسعار الذهب في مصر':'Gold prices in Egypt',
@@ -179,6 +180,7 @@
     },
     fr: {
       'عيار':'Ayar','الذهب والفضة والأخبار':'Or, argent et actualités','آخر تحديث:':'Dernière mise à jour :',
+      '☀️ الوضع النهاري':'☀️ Mode jour','🌙 الوضع الليلي':'🌙 Mode nuit','التبديل إلى الوضع النهاري':'Passer au mode jour','التبديل إلى الوضع الليلي':'Passer au mode nuit',
       'سعر المشغول':'Prix avec fabrication','↻ تحديث':'↻ Actualiser','عن بيانات الأسعار':'À propos des prix',
       'يعرض عيار أسعاراً استرشادية للذهب والفضة والبلاتين في عدد من الدول العربية، مع أدوات لحساب قيمة الجرام والسبائك والمصنعية والزكاة. تُحوّل الأسعار العالمية إلى العملات المحلية وفق أسعار الصرف المتاحة، وقد تختلف أسعار محلات الصاغة بسبب المصنعية والضرائب وفروق البيع والشراء. تحقق دائماً من وقت آخر تحديث قبل اتخاذ قرار مالي.':'Ayar présente des prix indicatifs de l’or, de l’argent et du platine sur plusieurs marchés arabes, ainsi que des outils de calcul pour les grammes, lingots, frais de fabrication et zakat. Les prix mondiaux sont convertis en monnaies locales selon les taux disponibles. Les prix des bijoutiers peuvent différer en raison des frais, taxes et marges. Vérifiez toujours l’heure de mise à jour avant toute décision financière.',
       'سعر الذهب اليوم في مصر':'Prix de l’or aujourd’hui en Égypte','أسعار الذهب في مصر':'Prix de l’or en Égypte',
