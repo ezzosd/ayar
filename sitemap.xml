@@ -348,4 +348,28 @@
     <loc>https://ayargo.com/contact.html</loc>
     <lastmod>2026-11-22</lastmod>
   </url>
+  <url>
+    <loc>https://ayargo.com/gold-price/sudan/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/sudan/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/sudan/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/sudan/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/sudan/"/>
+  </url>
+  <url>
+    <loc>https://ayargo.com/en/gold-price/sudan/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/sudan/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/sudan/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/sudan/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/sudan/"/>
+  </url>
+  <url>
+    <loc>https://ayargo.com/fr/gold-price/sudan/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ayargo.com/gold-price/sudan/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ayargo.com/en/gold-price/sudan/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ayargo.com/fr/gold-price/sudan/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ayargo.com/gold-price/sudan/"/>
+  </url>
 </urlset>
