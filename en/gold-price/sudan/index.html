@@ -330,9 +330,12 @@
         <p class="price" id="fxBig">—</p>
         <p class="unit">لكل 1 دولار أمريكي</p>
         <div class="rows">
+          <div class="row"><span id="fxBuyLabel">شراء USDT من Binance P2P</span><strong id="fxBuy">—</strong></div>
+          <div class="row"><span id="fxSellLabel">بيع USDT إلى Binance P2P</span><strong id="fxSell">—</strong></div>
           <div class="row"><span>100 دولار</span><strong id="fx100">—</strong></div>
           <div class="row"><span>1 عملة محلية</span><strong id="fxLocal">—</strong></div>
         </div>
+        <p id="fxSource" class="hint" style="margin:10px 0 0;line-height:1.7">مصدر الصرف: Binance P2P · السعر استرشادي</p>
       </article>
     </div>
   </section>
@@ -1201,6 +1204,105 @@
     checkAlerts();
   }
 
+  // Sudan FX: use Binance's official public P2P ads (not Spot/market ticker).
+  const SUDAN_P2P_CACHE_KEY = 'ayar:fx:binance-p2p:sdg:v1';
+  function p2pAdListUrl(tradeType) {
+    const url = new URL('https://www.binance.com/bapi/c2c/v1/public/c2c/agent/ad-list');
+    url.search = new URLSearchParams({ fiat:'SDG', asset:'USDT', tradeType, limit:'20', order:'price' }).toString();
+    return url.toString();
+  }
+  function extractP2PAds(payload) {
+    const candidates = [
+      payload && payload.data,
+      payload && payload.data && payload.data.list,
+      payload && payload.data && payload.data.data,
+      payload && payload.result && payload.result.data
+    ];
+    const list = candidates.find(Array.isArray) || [];
+    const prices = list.map(item => {
+      const adv = item && (item.adv || item.ad || item);
+      const advertiser = item && (item.advertiser || item.user || {});
+      const price = Number(adv && (adv.price || adv.unitPrice) || item && item.price);
+      const ordersRaw = advertiser.monthOrderCount ?? advertiser.totalOrderCount ?? adv?.monthOrderCount;
+      const finishRaw = advertiser.monthFinishRate ?? advertiser.completionRate ?? adv?.monthFinishRate;
+      const orders = ordersRaw == null ? null : Number(ordersRaw);
+      let finish = finishRaw == null ? null : Number(finishRaw);
+      if (finish != null && finish > 1) finish /= 100;
+      if (!Number.isFinite(price) || price <= 0) return null;
+      if (orders != null && Number.isFinite(orders) && orders < 20) return null;
+      if (finish != null && Number.isFinite(finish) && finish < 0.85) return null;
+      return price;
+    }).filter(Number.isFinite).sort((a,b) => a-b);
+    if (!prices.length) return NaN;
+    const median = prices.length % 2 ? prices[(prices.length-1)/2] : (prices[prices.length/2-1]+prices[prices.length/2])/2;
+    const stable = prices.filter(price => price >= median*0.85 && price <= median*1.15);
+    if (!stable.length) return median;
+    const mid = Math.floor(stable.length/2);
+    return stable.length % 2 ? stable[mid] : (stable[mid-1]+stable[mid])/2;
+  }
+  async function fetchSudanP2PSide(tradeType) {
+    const response = await fetchWithTimeout(p2pAdListUrl(tradeType), 12000);
+    if (!response.ok) throw new Error('Binance P2P HTTP ' + response.status);
+    const payload = await response.json();
+    if (payload && payload.success === false) throw new Error(payload.message || 'Binance P2P rejected request');
+    const rate = extractP2PAds(payload);
+    if (!Number.isFinite(rate) || rate <= 0) throw new Error('No valid SDG P2P ads for ' + tradeType);
+    return rate;
+  }
+  function paintSudanP2P(buyRate, sellRate, updatedAt, stale) {
+    const isEn = location.pathname.startsWith('/en/');
+    const isFr = location.pathname.startsWith('/fr/');
+    const labels = isEn
+      ? ['Buy USDT on Binance P2P','Sell USDT on Binance P2P']
+      : isFr
+        ? ['Acheter USDT sur Binance P2P','Vendre USDT sur Binance P2P']
+        : ['شراء USDT من Binance P2P','بيع USDT إلى Binance P2P'];
+    if (el('fxBuyLabel')) el('fxBuyLabel').textContent = labels[0];
+    if (el('fxSellLabel')) el('fxSellLabel').textContent = labels[1];
+    if (el('fxBuy')) el('fxBuy').textContent = Number.isFinite(buyRate) ? fmtRate(buyRate) + ' ج.س' : '—';
+    if (el('fxSell')) el('fxSell').textContent = Number.isFinite(sellRate) ? fmtRate(sellRate) + ' ج.س' : '—';
+    const source = el('fxSource');
+    if (source) {
+      const time = updatedAt ? new Date(updatedAt).toLocaleString(isEn?'en-US':isFr?'fr-FR':'ar-EG') : '';
+      source.textContent = isEn
+        ? 'Source: Binance P2P · indicative rate' + (stale ? ' · cached data' : '') + (time ? ' · Updated: ' + time : '')
+        : isFr
+          ? 'Source : Binance P2P · taux indicatif' + (stale ? ' · données en cache' : '') + (time ? ' · Mis à jour : ' + time : '')
+          : 'مصدر الصرف: Binance P2P · السعر استرشادي' + (stale ? ' · آخر بيانات محفوظة' : '') + (time ? ' · آخر تحديث: ' + time : '');
+    }
+  }
+  async function updateSudanP2P() {
+    const sudan = COUNTRIES.find(country => country.cur === 'SDG');
+    if (!sudan) return false;
+    try {
+      // BUY = user buys USDT; SELL = user sells USDT, as defined by Binance P2P.
+      const results = await Promise.allSettled([fetchSudanP2PSide('BUY'), fetchSudanP2PSide('SELL')]);
+      const buyRate = results[0].status === 'fulfilled' ? results[0].value : NaN;
+      const sellRate = results[1].status === 'fulfilled' ? results[1].value : NaN;
+      if (!Number.isFinite(buyRate)) throw new Error('Binance P2P buy-side quote unavailable');
+      const updatedAt = Date.now();
+      sudan.rate = buyRate; // USD-to-SDG conversion follows the cost of buying 1 USDT.
+      localStorage.setItem(SUDAN_P2P_CACHE_KEY, JSON.stringify({ buyRate, sellRate, updatedAt }));
+      state.fxUpdatedAt = updatedAt;
+      paintSudanP2P(buyRate, sellRate, updatedAt, false);
+      console.log('[ayar] Binance P2P SDG updated', { buyRate, sellRate, updatedAt });
+      return true;
+    } catch (error) {
+      console.warn('[ayar] Binance P2P SDG unavailable:', error.message);
+      try {
+        const cached = JSON.parse(localStorage.getItem(SUDAN_P2P_CACHE_KEY) || 'null');
+        if (cached && Number.isFinite(Number(cached.buyRate)) && Date.now() - Number(cached.updatedAt) < 7*24*60*60*1000) {
+          sudan.rate = Number(cached.buyRate);
+          paintSudanP2P(sudan.rate, Number(cached.sellRate), Number(cached.updatedAt), true);
+        } else {
+          paintSudanP2P(NaN, NaN, null, false);
+        }
+      } catch (_) { paintSudanP2P(NaN, NaN, null, false); }
+      state.fxUpdatedAt = null; // A cached P2P quote must never be labelled live.
+      return false;
+    }
+  }
+
   async function fetchMetals(force = false) {
     const last = parseInt(localStorage.getItem(LAST_FETCH_KEY) || '0', 10);
     if (!force && last && Date.now() - last < FETCH_MIN_INTERVAL && state.source === 'cache') {
@@ -1251,7 +1353,8 @@
 
 
     // DZD/MAD/SDG fallback: daily USD reference rates, cached locally for 24 hours.
-    const missingNewCurrencies = ['DZD','MAD','SDG'].filter(code => {
+    await updateSudanP2P();
+    const missingNewCurrencies = ['DZD','MAD'].filter(code => {
       const country = COUNTRIES.find(c => c.cur === code);
       return !country || !Number.isFinite(country.rate) || country.rate <= 0;
     });
