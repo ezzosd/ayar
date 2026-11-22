@@ -350,7 +350,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="section" aria-labelledby="arab-markets-title" style="margin-top:28px">
   <div class="section-head"><h2 id="arab-markets-title">أسعار الذهب في الدول العربية</h2><a class="hint" href="/gold-price/">كل الدول والأسواق ←</a></div>
   <p class="hint" style="line-height:1.9">اختر الدولة لمتابعة أسعار الذهب بالعملة المحلية، مع أسعار عيارات 24 و22 و21 و18. الأسعار استرشادية وقد تختلف عن أسعار البيع والشراء لدى محلات الصاغة.</p>
-  <div class="country-seo-grid"><a class="country-seo-link" href="/gold-price/egypt/">🇪🇬 أسعار الذهب في مصر</a><a class="country-seo-link" href="/gold-price/saudi-arabia/">🇸🇦 أسعار الذهب في السعودية</a><a class="country-seo-link" href="/gold-price/uae/">🇦🇪 أسعار الذهب في الإمارات</a><a class="country-seo-link" href="/gold-price/bahrain/">🇧🇭 أسعار الذهب في البحرين</a><a class="country-seo-link" href="/gold-price/iraq/">🇮🇶 أسعار الذهب في العراق</a><a class="country-seo-link" href="/gold-price/kuwait/">🇰🇼 أسعار الذهب في الكويت</a><a class="country-seo-link" href="/gold-price/qatar/">🇶🇦 أسعار الذهب في قطر</a><a class="country-seo-link" href="/gold-price/oman/">🇴🇲 أسعار الذهب في عُمان</a><a class="country-seo-link" href="/gold-price/jordan/">🇯🇴 أسعار الذهب في الأردن</a><a class="country-seo-link" href="/gold-price/algeria/">🇩🇿 أسعار الذهب في الجزائر</a><a class="country-seo-link" href="/gold-price/morocco/">🇲🇦 أسعار الذهب في المغرب</a></div>
+  <div class="country-seo-grid"><a class="country-seo-link" href="/gold-price/egypt/">🇪🇬 أسعار الذهب في مصر</a><a class="country-seo-link" href="/gold-price/saudi-arabia/">🇸🇦 أسعار الذهب في السعودية</a><a class="country-seo-link" href="/gold-price/uae/">🇦🇪 أسعار الذهب في الإمارات</a><a class="country-seo-link" href="/gold-price/bahrain/">🇧🇭 أسعار الذهب في البحرين</a><a class="country-seo-link" href="/gold-price/iraq/">🇮🇶 أسعار الذهب في العراق</a><a class="country-seo-link" href="/gold-price/kuwait/">🇰🇼 أسعار الذهب في الكويت</a><a class="country-seo-link" href="/gold-price/qatar/">🇶🇦 أسعار الذهب في قطر</a><a class="country-seo-link" href="/gold-price/oman/">🇴🇲 أسعار الذهب في عُمان</a><a class="country-seo-link" href="/gold-price/jordan/">🇯🇴 أسعار الذهب في الأردن</a><a class="country-seo-link" href="/gold-price/algeria/">🇩🇿 أسعار الذهب في الجزائر</a><a class="country-seo-link" href="/gold-price/morocco/">🇲🇦 أسعار الذهب في المغرب</a><a class="country-seo-link" href="/en/gold-price/sudan/">🇸🇩 أسعار الذهب في السودان</a></div>
 </section>
 
   <!-- إعلان 1 من 5 -->
@@ -669,7 +669,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   const FALLBACK = { goldOz: 2650.0, silverOz: 31.0, platinumOz: 1000.0 };
   const FALLBACK_RATES = { EGP:53.88, SAR:3.75, AED:3.6725, BHD:0.3760, IQD:1516, KWD:0.3110, QAR:3.64, OMR:0.3846, JOD:0.7090 };
-  const CUR_DECIMALS = { EGP:2, SAR:2, AED:2, BHD:3, IQD:0, KWD:3, QAR:2, OMR:3, JOD:3, DZD:2, MAD:2 };
+  const CUR_DECIMALS = { EGP:2, SAR:2, AED:2, BHD:3, IQD:0, KWD:3, QAR:2, OMR:3, JOD:3, DZD:2, MAD:2, SDG:2 };
 
   const COUNTRIES = [
     { code:'EG', name:'مصر',      flag:'🇪🇬', cur:'EGP', symbol:'ج.م', rate:FALLBACK_RATES.EGP, tax:0.14, manuf:0.07, bidSpread:0.03 },
@@ -682,7 +682,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     { code:'OM', name:'عُمان',    flag:'🇴🇲', cur:'OMR', symbol:'ر.ع', rate:FALLBACK_RATES.OMR, tax:0,    manuf:0.02, bidSpread:0.02 },
     { code:'JO', name:'الأردن',   flag:'🇯🇴', cur:'JOD', symbol:'د.أ', rate:FALLBACK_RATES.JOD, tax:0.16, manuf:0.03, bidSpread:0.03 },
     { code:'DZ', name:'الجزائر',  flag:'🇩🇿', cur:'DZD', symbol:'دج', rate:NaN, tax:0, manuf:0.03, bidSpread:0.03 },
-    { code:'MA', name:'المغرب',   flag:'🇲🇦', cur:'MAD', symbol:'د.م', rate:NaN, tax:0, manuf:0.03, bidSpread:0.03 }
+    { code:'MA', name:'المغرب',   flag:'🇲🇦', cur:'MAD', symbol:'د.م', rate:NaN, tax:0, manuf:0.03, bidSpread:0.03 },
+    { code:'SD', name:'السودان',  flag:'🇸🇩', cur:'SDG', symbol:'ج.س', rate:NaN, tax:0, manuf:0.03, bidSpread:0.03 }
   ];
 
   const KARATS = [
@@ -1317,7 +1318,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
     // DZD/MAD fallback: daily USD reference rates, cached locally for 24 hours.
-    const missingNewCurrencies = ['DZD','MAD'].filter(code => {
+    const missingNewCurrencies = ['DZD','MAD','SDG'].filter(code => {
       const country = COUNTRIES.find(c => c.cur === code);
       return !country || !Number.isFinite(country.rate) || country.rate <= 0;
     });
@@ -1347,7 +1348,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       } catch (e) { console.warn('[ayar] DZD/MAD backup FX unavailable:', e.message); }
     }
     gotFx = COUNTRIES.every(c => Number.isFinite(c.rate) && c.rate > 0);
-    if (gotFx) console.log('[ayar] ✅ FX rates available for all 11 markets');
+    if (gotFx) console.log(`[ayar] ✅ FX rates available for all ${COUNTRIES.length} markets`);
     else console.warn('[ayar] ⚠️ FX rates are incomplete; unavailable currencies will not be estimated');
 
     if (gotGold || gotSilver || gotPlatinum || gotFx) {
