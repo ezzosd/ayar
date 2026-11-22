@@ -87,7 +87,11 @@
       <input type="text" id="nTitle" placeholder="عنوان الخبر *">
       <textarea id="nBody" placeholder="نص الخبر *"></textarea>
       <div class="row">
-        <input type="text" id="nTag" placeholder="التصنيف" value="أخبار">
+        <select id="nTag">
+        <option>أخبار</option><option>اقتصاد</option><option>اقتصاد عربي</option>
+        <option>ذهب ومعادن</option><option>عملات</option><option>أسواق</option>
+        <option>طاقة</option><option>تقنية</option><option>تحليلات</option>
+      </select>
         <input type="text" id="nTagClass" placeholder="tagClass (analysis, warning, forecast)">
       </div>
       <div class="row">
@@ -106,6 +110,19 @@
     </div>
     <div class="card">
       <h3>📋 الأخبار الحالية</h3>
+      <div class="row" style="margin-bottom:12px">
+        <input id="newsSearch" type="search" placeholder="ابحث في العناوين والملخصات…" oninput="loadNews()">
+        <select id="newsFilter" onchange="loadNews()">
+          <option value="">كل التصنيفات</option>
+          <option>ذهب ومعادن</option><option>عملات</option><option>أسواق</option>
+          <option>اقتصاد</option><option>اقتصاد عربي</option><option>طاقة</option>
+          <option>تقنية</option><option>تحليلات</option><option>أخبار</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+        <button class="sec" onclick="autoClassifyNews()">🧠 تصنيف الأخبار تلقائيًا</button>
+        <button class="sec" onclick="hideIncompleteNews()">🛡️ تحويل الأخبار الناقصة إلى مسودات</button>
+      </div>
       <div id="newsList" class="empty">جارٍ التحميل…</div>
     </div>
   </div>
@@ -217,22 +234,49 @@ function showStatus(id, type, msg) {
 }
 
 // ═══ الأخبار ═══
+function detectNewsCategory(title, body, fallback = 'أخبار') {
+  const s = (String(title || '') + ' ' + String(body || '')).toLowerCase();
+  const rules = [
+    ['ذهب ومعادن', /ذهب|الذهب|فضة|الفضة|بلاتين|البلاتين|معادن ثمينة|مناجم|تعدين/],
+    ['طاقة', /نفط|النفط|خام|غاز طبيعي|الغاز|كهرباء|طاقة|أوبك|أوبك\+/],
+    ['عملات', /دولار|الدولار|اليورو|الجنيه|الريال|الدرهم|العملة|العملات|صرف|تضخم العملة|بيتكوين|بتكوين|كريبتو/],
+    ['أسواق', /بورصة|الأسهم|أسهم|سندات|مؤشر|مؤشرات|وول ستريت|تداول|صناديق الاستثمار/],
+    ['تقنية', /تقنية|تكنولوجيا|ذكاء اصطناعي|إنفيديا|سامسونج|آيفون|مايكروسوفت|جوجل|جافا|رقائق|معالجات/],
+    ['اقتصاد عربي', /مصر|السودان|السعودية|الإمارات|قطر|الكويت|البحرين|عمان|الأردن|تونس|المغرب|العراق|سوريا|لبنان|اقتصاد عربي/],
+    ['تحليلات', /تحليل|لماذا|كيف .* اقتصاد|قراءة اقتصادية|توقعات|رؤية مستقبلية/],
+    ['اقتصاد', /اقتصاد|اقتصادية|اقتصادي|ديون|نمو|ميزانية|موازنة|ضرائب|استثمار|تجارة|بطالة|فائدة|الفيدرالي/]
+  ];
+  for (const [category, pattern] of rules) if (pattern.test(s)) return category;
+  return fallback || 'أخبار';
+}
+
 async function loadNews() {
   try {
     const news = await api('/api/admin/news');
     const list = document.getElementById('newsList');
-    if (!news.length) {
-      list.innerHTML = '<div class="empty">لا توجد أخبار. أضف خبرك الأول!</div>';
+    const q = (document.getElementById('newsSearch')?.value || '').trim().toLowerCase();
+    const filter = document.getElementById('newsFilter')?.value || '';
+    const visible = news.filter(n => {
+      const category = detectNewsCategory(n.title, n.body, n.tag || 'أخبار');
+      const matchesQuery = !q || (String(n.title || '') + ' ' + String(n.body || '') + ' ' + String(n.source || '')).toLowerCase().includes(q);
+      const matchesCategory = !filter || category === filter;
+      return matchesQuery && matchesCategory;
+    });
+    if (!visible.length) {
+      list.innerHTML = '<div class="empty">لا توجد أخبار مطابقة للبحث أو التصنيف.</div>';
       return;
     }
-    list.innerHTML = news.map(n => `
+    list.innerHTML = visible.map(n => {
+      const suggestedTag = detectNewsCategory(n.title, n.body, n.tag || 'أخبار');
+      return `
       <div class="list-item">
         <div class="list-item-info">
           <strong>${esc(n.title)}</strong>
           <div class="meta">
-            ${esc(n.tag || 'أخبار')} · ${esc(n.source || 'عيار')}
+            ${esc(suggestedTag)} · ${esc(n.source || 'عيار')}
             ${n.is_published ? '<span class="badge on">منشور</span>' : '<span class="badge off">مسودة</span>'}
             · ${new Date(n.created_at * 1000).toLocaleString('ar-EG')}
+            ${suggestedTag !== (n.tag || 'أخبار') ? '<span class="badge">تصنيف مقترح</span>' : ''}
           </div>
           <div class="body-preview">${esc((n.body || '').slice(0, 150))}</div>
         </div>
@@ -240,10 +284,62 @@ async function loadNews() {
           <button class="sec" onclick='editNews(${JSON.stringify(n).replace(/'/g, "&#39;")})'>✏️</button>
           <button class="danger" onclick="deleteNews(${n.id})">🗑️</button>
         </div>
-      </div>
-    `).join('');
+      </div>`;
+    }).join('');
   } catch (e) {
     document.getElementById('newsList').innerHTML = `<div class="empty">خطأ: ${esc(e.message)}</div>`;
+  }
+}
+
+async function autoClassifyNews() {
+  if (!confirm('سيتم تحديث تصنيف الأخبار الحالية حسب العنوان والمحتوى. لن يتم حذف أي خبر أو تغيير حالة النشر. متابعة؟')) return;
+  try {
+    const news = await api('/api/admin/news');
+    let changed = 0;
+    for (const n of news) {
+      const tag = detectNewsCategory(n.title, n.body, n.tag || 'أخبار');
+      if (tag === (n.tag || 'أخبار')) continue;
+      await api('/api/admin/news/' + n.id, {
+        method: 'PUT',
+        body: JSON.stringify({
+          title:n.title, body:n.body, tag, tagClass:n.tag_class || '',
+          source:n.source || 'عيار', sourceUrl:n.source_url || null,
+          imageUrl:n.image_url || null, isPublished:!!n.is_published
+        })
+      });
+      changed++;
+    }
+    showStatus('newsStatus','success','تم تصحيح تصنيف ' + changed + ' خبرًا. لم تتغير حالات النشر.');
+    loadNews();
+  } catch (e) {
+    showStatus('newsStatus','error','تعذر إكمال التصنيف: ' + e.message + '؛ أعد المحاولة لمتابعة المراجعة.');
+  }
+}
+
+async function hideIncompleteNews() {
+  if (!confirm('سيتم تحويل الأخبار التي لا تحتوي على محتوى فعلي مثل «التفاصيل بعد قليل» إلى مسودات، دون حذفها. متابعة؟')) return;
+  try {
+    const news = await api('/api/admin/news');
+    let changed = 0;
+    for (const n of news) {
+      const text = String(n.title || '') + ' ' + String(n.body || '');
+      const invalid = /التفاصيل بعد قليل|سنوافيكم بالتفاصيل|المزيد بعد قليل|قريبًا\.\.\.|جارٍ التحديث|جاري التحديث/i.test(text) ||
+        String(n.body || '').trim().length < 45;
+      if (!invalid || !n.is_published) continue;
+      await api('/api/admin/news/' + n.id, {
+        method:'PUT',
+        body:JSON.stringify({
+          title:n.title, body:n.body, tag:n.tag || 'أخبار', tagClass:n.tag_class || '',
+          source:n.source || 'عيار', sourceUrl:n.source_url || null,
+          imageUrl:n.image_url || null, isPublished:false
+        })
+      });
+      changed++;
+    }
+    showStatus('newsStatus','success','تم تحويل ' + changed + ' خبرًا ناقصًا منشورًا إلى مسودات. لم يُحذف أي خبر.');
+    loadNews();
+  } catch (e) {
+    showStatus('newsStatus','error','تعذر إكمال التنظيف: ' + e.message);
   }
 }
 
