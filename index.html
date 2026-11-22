@@ -264,17 +264,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="alternate" hreflang="x-default" href="https://ayargo.com/">
 
 <style id="ayar-mobile-paint-optimization">@media(max-width:768px){body{background:var(--bg)}.site-header{-webkit-backdrop-filter:none;backdrop-filter:none}}</style>
-<style id="ayar-theme-fix">
-:root{color-scheme:dark}
-html[data-theme="light"]{color-scheme:light;--bg:#f5f7fb!important;--surface:#ffffff!important;--surface-2:#edf1f7!important;--line:#dce3ee!important;--text:#20283a!important;--muted:#65718a!important;--gold:#a8750c!important;--gold-soft:#8d620c!important;--silver:#7c879c!important;--silver-soft:#536078!important;--platinum:#8794a8!important;--platinum-soft:#536078!important}
-html[data-theme="light"] body{background:#f5f7fb!important;color:#20283a!important}
-html[data-theme="light"] .site-header{background:rgba(255,255,255,.96)!important;border-color:#dce3ee!important}
-html[data-theme="light"] .section,html[data-theme="light"] .card,html[data-theme="light"] .price-card,html[data-theme="light"] .news-card,html[data-theme="light"] .calculator-card,html[data-theme="light"] .seo-country-intro,html[data-theme="light"] .country-seo-link,html[data-theme="light"] .seo-faq details{background:#fff!important;color:#20283a!important;border-color:#dce3ee!important}
-html[data-theme="light"] .hint,html[data-theme="light"] .muted,html[data-theme="light"] small{color:#65718a}
-html[data-theme="light"] input,html[data-theme="light"] select,html[data-theme="light"] textarea{background:#fff!important;color:#20283a!important;border-color:#dce3ee!important}
-.theme-toggle{cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;min-height:42px;position:relative;z-index:99999;pointer-events:auto}
-@media(max-width:640px){.header-meta{display:flex;flex-wrap:wrap;align-items:center}.theme-toggle{min-height:44px;flex:1 1 130px}}
-</style>
+
+<style id="ayar-theme-fix">:root{color-scheme:dark}html[data-theme="light"]{color-scheme:light;--bg:#f5f7fb!important;--surface:#fff!important;--surface-2:#edf1f7!important;--line:#dce3ee!important;--text:#20283a!important;--muted:#65718a!important;--gold:#a8750c!important;--gold-soft:#8d620c!important;--silver:#7c879c!important;--silver-soft:#536078!important;--platinum:#8794a8!important;--platinum-soft:#536078!important}html[data-theme="light"] body{background:#f5f7fb!important;color:#20283a!important}html[data-theme="light"] .site-header{background:rgba(255,255,255,.96)!important;border-color:#dce3ee!important}html[data-theme="light"] .section,html[data-theme="light"] .card,html[data-theme="light"] .price-card,html[data-theme="light"] .news-card,html[data-theme="light"] .calculator-card,html[data-theme="light"] .seo-country-intro,html[data-theme="light"] .country-seo-link,html[data-theme="light"] .seo-faq details{background:#fff!important;color:#20283a!important;border-color:#dce3ee!important}html[data-theme="light"] input,html[data-theme="light"] select,html[data-theme="light"] textarea{background:#fff!important;color:#20283a!important;border-color:#dce3ee!important}.theme-toggle{cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;min-height:42px;position:relative;z-index:99999;pointer-events:auto}@media(max-width:640px){.header-meta{display:flex;flex-wrap:wrap;align-items:center}.theme-toggle{min-height:44px;flex:1 1 130px}}</style>
 </head>
 <body>
 
@@ -1698,15 +1689,6 @@ if ('serviceWorker' in navigator) {
 </nav>
 
 
-<script id="ayar-theme-controller">
-(function(){
- var KEY='ayar-theme';
- function get(){try{return localStorage.getItem(KEY)==='light'?'light':'dark'}catch(e){return 'dark'}}
- function words(){var l=(document.documentElement.lang||'ar').slice(0,2);return l==='en'?['☀️ Day mode','🌙 Night mode']:l==='fr'?['☀️ Mode jour','🌙 Mode nuit']:['☀️ الوضع النهاري','🌙 الوضع الليلي']}
- function paint(t){document.documentElement.setAttribute('data-theme',t);var b=document.getElementById('themeToggle');if(b){b.textContent=words()[t==='dark'?0:1];b.setAttribute('aria-pressed',String(t==='light'));b.setAttribute('type','button')}var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='light'?'#f5f7fb':'#0a0b0f')}
- paint(get());
- document.addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('#themeToggle'):null;if(!b)return;e.preventDefault();e.stopPropagation();var t=get()==='dark'?'light':'dark';try{localStorage.setItem(KEY,t)}catch(err){}paint(t)},true);
- window.addEventListener('pageshow',function(){paint(get())});
-})();
-</script>
+
+<script id="ayar-theme-controller">(function(){var K='ayar-theme';function get(){try{return localStorage.getItem(K)==='light'?'light':'dark'}catch(e){return'dark'}}function labels(){var l=(document.documentElement.lang||'ar').slice(0,2);return l==='en'?['☀️ Day mode','🌙 Night mode']:l==='fr'?['☀️ Mode jour','🌙 Mode nuit']:['☀️ الوضع النهاري','🌙 الوضع الليلي']}function paint(t){document.documentElement.setAttribute('data-theme',t);var b=document.getElementById('themeToggle');if(b){b.textContent=labels()[t==='dark'?0:1];b.setAttribute('aria-pressed',String(t==='light'));b.type='button'}var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='light'?'#f5f7fb':'#0a0b0f'}paint(get());document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#themeToggle');if(!b)return;e.preventDefault();e.stopPropagation();var t=get()==='dark'?'light':'dark';try{localStorage.setItem(K,t)}catch(x){}paint(t)},true);window.addEventListener('pageshow',function(){paint(get())})})();</script>
 </body>
