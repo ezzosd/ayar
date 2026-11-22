@@ -671,8 +671,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   const GRAM_PER_OZ = 31.1034768;
   const HISTORY_LEN = 40;
-  const FETCH_MIN_INTERVAL = 10 * 60 * 1000;
-  const AUTO_REFRESH_MS    = 15 * 60 * 1000;
+  const FETCH_MIN_INTERVAL = 60 * 1000;
+  const AUTO_REFRESH_MS    = 60 * 1000;
   const FRESH_THRESHOLD    = 30 * 60 * 1000;
   const NEWS_REFRESH_MS    = 15 * 60 * 1000;
   const CACHE_KEY       = 'ayar:cache-v5';
@@ -1744,7 +1744,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const newsBtn = el('newsRefreshBtn');
     if (newsBtn) newsBtn.addEventListener('click', fetchNews);
 
-    setInterval(() => fetchMetals(false), AUTO_REFRESH_MS);
+    setInterval(() => { if (!document.hidden) fetchMetals(false); }, AUTO_REFRESH_MS);
 
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) stopNewsAutoRefresh();
