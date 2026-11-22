@@ -1431,24 +1431,77 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   let chartLibraryPromise = null, goldChartPromise = null, silverChartPromise = null;
   function loadChartLibrary() {
     if (window.LightweightCharts) return Promise.resolve();
-    if (!chartLibraryPromise) chartLibraryPromise = new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = 'https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js';
-      script.async = true;
-      script.onload = () => window.LightweightCharts ? resolve() : reject(new Error('Chart library unavailable'));
-      script.onerror = () => reject(new Error('Chart library failed to load'));
-      document.head.appendChild(script);
-    }).catch(error => { chartLibraryPromise = null; throw error; });
+    if (!chartLibraryPromise) chartLibraryPromise = (async () => {
+      const sources = [
+        'https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js',
+        'https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js'
+      ];
+      let lastError = null;
+      for (const src of sources) {
+        try {
+          await new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            const timer = setTimeout(() => {
+              script.remove();
+              reject(new Error('Chart library timeout'));
+            }, 12000);
+            script.src = src;
+            script.async = true;
+            script.onload = () => {
+              clearTimeout(timer);
+              if (window.LightweightCharts) resolve();
+              else reject(new Error('Chart library global unavailable'));
+            };
+            script.onerror = () => {
+              clearTimeout(timer);
+              script.remove();
+              reject(new Error('Failed: ' + src));
+            };
+            document.head.appendChild(script);
+          });
+          console.log('[ayar] Chart library loaded:', src);
+          return;
+        } catch (error) {
+          lastError = error;
+          console.warn('[ayar] Chart CDN failed:', src, error.message);
+        }
+      }
+      throw lastError || new Error('تعذر تحميل مكتبة المخططات');
+    })().catch(error => { chartLibraryPromise = null; throw error; });
     return chartLibraryPromise;
   }
+
+  function showChartError(id, error) {
+    const load = el(id);
+    if (!load) return;
+    load.textContent = 'تعذّر تشغيل المخطط: ' + (error?.message || 'خطأ غير معروف');
+    load.style.color = 'var(--amber)';
+    load.classList.remove('hidden');
+  }
+
   function ensureGoldChart() {
-    if (goldChartInst) return Promise.resolve();
-    if (!goldChartPromise) goldChartPromise = loadChartLibrary().then(() => { initGoldChart(); return updateGoldChart(); }).catch(error => { goldChartPromise = null; console.warn('[ayar] Gold chart deferred:', error.message); });
+    if (!goldChartPromise) goldChartPromise = (async () => {
+      await loadChartLibrary();
+      if (!goldChartInst) initGoldChart();
+      await updateGoldChart();
+    })().catch(error => {
+      goldChartPromise = null;
+      console.error('[ayar] Gold chart initialization failed:', error);
+      showChartError('chartLoading', error);
+    });
     return goldChartPromise;
   }
+
   function ensureSilverChart() {
-    if (silverChartInst) return Promise.resolve();
-    if (!silverChartPromise) silverChartPromise = loadChartLibrary().then(() => { initSilverChart(); return updateSilverChart(); }).catch(error => { silverChartPromise = null; console.warn('[ayar] Silver chart deferred:', error.message); });
+    if (!silverChartPromise) silverChartPromise = (async () => {
+      await loadChartLibrary();
+      if (!silverChartInst) initSilverChart();
+      await updateSilverChart();
+    })().catch(error => {
+      silverChartPromise = null;
+      console.error('[ayar] Silver chart initialization failed:', error);
+      showChartError('silverChartLoading', error);
+    });
     return silverChartPromise;
   }
   function setupLazyCharts() {
@@ -1744,7 +1797,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if (t.dataset.range === goldChartRange) return;
         goldChartRange = t.dataset.range;
         document.querySelectorAll('.chart-tab[data-range]').forEach(x => x.setAttribute('aria-selected', String(x===t)));
-        ensureGoldChart();
+        if (goldChartInst) updateGoldChart();
+        else ensureGoldChart();
       });
     });
     document.querySelectorAll('.silver-chart-tab').forEach(t => {
@@ -1752,7 +1806,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if (t.dataset.srange === silverChartRange) return;
         silverChartRange = t.dataset.srange;
         document.querySelectorAll('.silver-chart-tab').forEach(x => x.setAttribute('aria-selected', String(x===t)));
-        ensureSilverChart();
+        if (silverChartInst) updateSilverChart();
+        else ensureSilverChart();
       });
     });
 
