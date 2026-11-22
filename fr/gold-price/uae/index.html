@@ -694,7 +694,7 @@
   }
 
   function fetchWithTimeout(url, ms = 12000) { const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),ms);return fetch(url,{cache:'default',signal:controller.signal}).finally(()=>clearTimeout(timer)); }
-  function sourceTimestamp(data){const raw=data&&(data.price_as_of||data.updatedAt||data.updated_at||data.timestamp||data.as_of);if(raw==null||raw==='')return null;if(typeof raw==='number'||/^\\d{10,13}$/.test(String(raw))){const n=Number(raw),ms=n<1e12?n*1000:n;return Number.isFinite(ms)?ms:null;}const v=Date.parse(raw);return Number.isFinite(v)?v:null;}
+  function sourceTimestamp(data){const raw=data&&(data.price_as_of||data.updatedAt||data.updated_at||data.timestamp||data.as_of);if(raw==null||raw==='')return null;if(typeof raw==='number'||/^\d{10,13}$/.test(String(raw))){const n=Number(raw),ms=n<1e12?n*1000:n;return Number.isFinite(ms)?ms:null;}const v=Date.parse(raw);return Number.isFinite(v)?v:null;}
   function isFreshSourceTime(value){return Number.isFinite(value)&&value<=Date.now()+120000&&Date.now()-value<=FRESH_THRESHOLD;}
 
   function isMarketOpen() {
