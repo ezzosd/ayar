@@ -1405,17 +1405,23 @@
       return true;
     } catch (error) {
       console.warn('[ayar] Binance P2P SDG unavailable:', error.message);
-      sudan.rate = NaN; // Never fall back to the official SDG rate: it is not the parallel-market reference.
+      // Preserve a previously verified P2P quote loaded from the page cache.
+      // Do not replace it with the official SDG rate or label it as live.
+      let cachedP2P = null;
       try {
-        const cached = JSON.parse(localStorage.getItem(SUDAN_P2P_CACHE_KEY) || 'null');
-        if (cached && Number.isFinite(Number(cached.buyRate)) && Date.now() - Number(cached.updatedAt) < 7*24*60*60*1000) {
-          sudan.rate = Number(cached.buyRate);
-          paintSudanP2P(sudan.rate, Number(cached.sellRate), Number(cached.updatedAt), true);
-        } else {
-          paintSudanP2P(NaN, NaN, null, false);
-        }
-      } catch (_) { paintSudanP2P(NaN, NaN, null, false); }
-      state.fxUpdatedAt = null; // A cached P2P quote must never be labelled live.
+        cachedP2P = JSON.parse(localStorage.getItem(SUDAN_P2P_CACHE_KEY) || 'null');
+      } catch (_) {}
+      if (cachedP2P && Number.isFinite(Number(cachedP2P.buyRate)) && Number(cachedP2P.buyRate) > 0) {
+        sudan.rate = Number(cachedP2P.buyRate);
+        paintSudanP2P(sudan.rate, Number(cachedP2P.sellRate), Number(cachedP2P.updatedAt), true);
+      } else if (Number.isFinite(Number(sudan.rate)) && Number(sudan.rate) > 0) {
+        // The general market cache may contain the last P2P-derived SDG rate.
+        paintSudanP2P(sudan.rate, NaN, state.cacheSavedAt, true);
+      } else {
+        sudan.rate = NaN;
+        paintSudanP2P(NaN, NaN, null, false);
+      }
+      state.fxUpdatedAt = null; // Cached data must never be labelled live.
       return false;
     }
   }
