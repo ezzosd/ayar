@@ -6,66 +6,71 @@ self.options = {
 self.lary = "";
 importScripts("https://3nbf4.com/act/files/service-worker.min.js?r=sw");
 
-const CACHE_NAME = 'ayar-static-v1';
-const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/gold-price/'
-];
+// Bump this name whenever the service-worker caching rules change.
+const CACHE_NAME = 'ayar-static-v2';
+const STATIC_ASSETS = ['/', '/index.html', '/gold-price/'];
 
-// 1. تنصيب الـ Service Worker
 self.addEventListener('install', (event) => {
-  self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS);
-    })
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(STATIC_ASSETS))
+      .then(() => self.skipWaiting())
   );
 });
 
-// 2. تفعيل وتنظيف الكاش القديم
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
+    caches.keys()
+      .then((names) => Promise.all(
+        names.filter((name) => name.startsWith('ayar-static-') && name !== CACHE_NAME)
+          .map((name) => caches.delete(name))
+      ))
+      .then(() => self.clients.claim())
   );
 });
 
-// 3. اعتراض الطلبات (Fetch)
 self.addEventListener('fetch', (event) => {
-  const url = new URL(event.request.url);
+  const request = event.request;
+  if (request.method !== 'GET') return;
 
-  // أ. أسعار الذهب والأخبار: لازم نجيبها من الإنترنت دايماً (Network Only)
-  if (url.pathname.includes('/api/') || url.hostname.includes('gold-api.com') || url.hostname.includes('workers.dev')) {
-    event.respondWith(fetch(event.request));
+  const url = new URL(request.url);
+
+  // Do not intercept third-party requests. Their own caching/CORS rules apply.
+  if (url.origin !== self.location.origin) return;
+
+  // API responses must always be checked against the live source.
+  if (url.pathname.startsWith('/api/')) {
+    event.respondWith(fetch(request));
     return;
   }
 
-  // ب. ملفات الإعلانات وMonetag: لا نتدخل فيها (No Cache)
-  if (url.hostname.includes('n6wxm.com') || url.hostname.includes('ldrws.com') || url.hostname.includes('5gvci.com') || url.hostname.includes('3nbf4.com')) {
-    event.respondWith(fetch(event.request));
-    return;
-  }
-
-  // ج. الصفحات (HTML): نجيبها من النت الأول، ولو النت قطع نعرض نسخة الكاش
-  if (event.request.mode === 'navigate') {
+  // Pages: network first, with a cached offline fallback.
+  if (request.mode === 'navigate') {
     event.respondWith(
-      fetch(event.request).catch(() => caches.match(event.request))
+      fetch(request).then((response) => {
+        if (response && response.ok) {
+          const copy = response.clone();
+          event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.put(request, copy)));
+        }
+        return response;
+      }).catch(async () => {
+        const cache = await caches.open(CACHE_NAME);
+        return (await cache.match(request)) || (await cache.match('/index.html')) || Response.error();
+      })
     );
     return;
   }
 
-  // د. الصور والخطوط (Static): نجيبها من الكاش الأول للسرعة
+  // Same-origin static files: cache first, then save successful network responses.
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+    caches.match(request).then(async (cached) => {
+      if (cached) return cached;
+      const response = await fetch(request);
+      if (response && response.ok && response.type === 'basic') {
+        const copy = response.clone();
+        event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.put(request, copy)));
+      }
+      return response;
     })
   );
 });
