@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-
+<script src="https://5gvci.com/act/files/tag.min.js?z=12280936" data-cfasync="false" async></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0b0f">
@@ -1747,6 +1747,5 @@
 
 
 <script id="ayar-theme-controller">(function(){var K='ayar-theme';function get(){try{return localStorage.getItem(K)==='light'?'light':'dark'}catch(e){return'dark'}}function labels(){var l=(document.documentElement.lang||'ar').slice(0,2);return l==='en'?['☀️ Day mode','🌙 Night mode']:l==='fr'?['☀️ Mode jour','🌙 Mode nuit']:['☀️ الوضع النهاري','🌙 الوضع الليلي']}function paint(t){document.documentElement.setAttribute('data-theme',t);var b=document.getElementById('themeToggle');if(b){b.textContent=labels()[t==='dark'?0:1];b.setAttribute('aria-pressed',String(t==='light'));b.type='button'}var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='light'?'#f5f7fb':'#0a0b0f'}paint(get());document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#themeToggle');if(!b)return;e.preventDefault();e.stopPropagation();var t=get()==='dark'?'light':'dark';try{localStorage.setItem(K,t)}catch(x){}paint(t)},true);window.addEventListener('pageshow',function(){paint(get())})})();</script>
-
 </body>
 </html>
