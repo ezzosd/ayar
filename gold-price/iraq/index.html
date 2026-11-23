@@ -315,7 +315,7 @@
 
   <!-- إعلان 1 من 5 -->
   <div class="ad-slot" data-ad="top">
-    <script>(function(s){s.dataset.zone='12240026',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    
   </div>
 
   <section class="hero" aria-label="ملخص سعر الذهب الحالي" aria-live="polite">
@@ -430,7 +430,7 @@
 
   <!-- إعلان 3 من 5 -->
   <div class="ad-slot" data-ad="after-silver">
-    <script>(function(s){s.dataset.zone='12240028',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    
   </div>
 
   <section class="section" aria-labelledby="barsTitle">
@@ -443,7 +443,7 @@
 
   <!-- إعلان 4 من 5 -->
   <div class="ad-slot" data-ad="before-news">
-    <script>(function(s){s.dataset.zone='12240029',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    
   </div>
 
   <section class="section" aria-labelledby="newsTitle">
@@ -1747,5 +1747,50 @@
 
 
 <script id="ayar-theme-controller">(function(){var K='ayar-theme';function get(){try{return localStorage.getItem(K)==='light'?'light':'dark'}catch(e){return'dark'}}function labels(){var l=(document.documentElement.lang||'ar').slice(0,2);return l==='en'?['☀️ Day mode','🌙 Night mode']:l==='fr'?['☀️ Mode jour','🌙 Mode nuit']:['☀️ الوضع النهاري','🌙 الوضع الليلي']}function paint(t){document.documentElement.setAttribute('data-theme',t);var b=document.getElementById('themeToggle');if(b){b.textContent=labels()[t==='dark'?0:1];b.setAttribute('aria-pressed',String(t==='light'));b.type='button'}var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='light'?'#f5f7fb':'#0a0b0f'}paint(get());document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#themeToggle');if(!b)return;e.preventDefault();e.stopPropagation();var t=get()==='dark'?'light':'dark';try{localStorage.setItem(K,t)}catch(x){}paint(t)},true);window.addEventListener('pageshow',function(){paint(get())})})();</script>
+
+<style id="ay-adsterra-styles">
+#ay-adsterra-bottom{margin:24px auto;min-height:50px;display:flex;justify-content:center;align-items:center;max-width:100%;overflow:hidden}
+.ay-adsterra-side{position:fixed;top:120px;z-index:30;width:160px;display:flex;justify-content:center;align-items:flex-start;overflow:visible}
+#ay-adsterra-left{left:8px}#ay-adsterra-right{right:8px}
+.ay-adsterra-side iframe{max-width:160px}
+#ay-adsterra-toggle{position:fixed;bottom:18px;left:16px;z-index:9998;border:1px solid rgba(233,185,73,.55);background:#171923;color:#f4cf72;border-radius:22px;padding:9px 14px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;box-shadow:0 4px 18px #0005}
+#ay-adsterra-panel{position:fixed;bottom:62px;left:16px;z-index:9999;width:300px;max-width:calc(100vw - 32px);background:#171923;border:1px solid #45404a;border-radius:12px;padding:8px;box-shadow:0 8px 28px #0007;display:none}
+#ay-adsterra-panel.open{display:block}
+#ay-adsterra-panel-head{display:flex;justify-content:space-between;align-items:center;color:#c9c9c9;font:12px sans-serif;padding:2px 2px 8px}
+#ay-adsterra-close{background:transparent;border:0;color:#fff;font-size:20px;cursor:pointer}
+#ay-adsterra-300{width:300px;min-height:250px;max-width:100%;overflow:hidden;display:flex;justify-content:center}
+@media(max-width:1100px){.ay-adsterra-side{display:none}}
+@media(max-width:767px){#ay-adsterra-bottom{margin:16px auto}}
+</style>
+<script data-cfasync="false">
+(function(){
+ if(window.__ayAdsterraLoaded)return;window.__ayAdsterraLoaded=true;
+ var slots=document.querySelectorAll('.ad-slot');
+ if(slots[0])slots[0].innerHTML='<div id="ay-adsterra-native"><div id="container-cedcca4087841426aa4ece8b3b448f9f"></div></div>';
+ if(slots[1])slots[1].innerHTML='<div id="ay-adsterra-728" style="width:100%;display:flex;justify-content:center"></div>';
+ if(slots[2])slots[2].innerHTML='<div id="ay-adsterra-468" style="width:100%;display:flex;justify-content:center"></div>';
+ var bottom=document.createElement('div');bottom.id='ay-adsterra-bottom';bottom.innerHTML='<div id="ay-adsterra-320"></div>';
+ var main=document.querySelector('main');if(main)main.appendChild(bottom);else document.body.appendChild(bottom);
+ var left=document.createElement('div');left.className='ay-adsterra-side';left.id='ay-adsterra-left';left.innerHTML='<div id="ay-adsterra-160x600"></div>';document.body.appendChild(left);
+ var right=document.createElement('div');right.className='ay-adsterra-side';right.id='ay-adsterra-right';right.innerHTML='<div id="ay-adsterra-160x300"></div>';document.body.appendChild(right);
+ var btn=document.createElement('button');btn.id='ay-adsterra-toggle';btn.type='button';btn.textContent='إعلان';document.body.appendChild(btn);
+ var panel=document.createElement('div');panel.id='ay-adsterra-panel';panel.innerHTML='<div id="ay-adsterra-panel-head"><span>إعلان</span><button id="ay-adsterra-close" type="button" aria-label="إغلاق">×</button></div><div id="ay-adsterra-300"></div>';document.body.appendChild(panel);
+ var loaded300=false;
+ btn.addEventListener('click',function(){panel.classList.toggle('open');if(!loaded300&&panel.classList.contains('open')){loaded300=true;loadBanner('ay-adsterra-300','e8ca17cb6a26ef521502ecc8b524bffa',300,250);}});
+ panel.querySelector('#ay-adsterra-close').addEventListener('click',function(){panel.classList.remove('open');});
+ function loadBanner(id,key,w,h,next){var el=document.getElementById(id);if(!el){if(next)next();return;}window.atOptions={key:key,format:'iframe',height:h,width:w,params:{}};var sc=document.createElement('script');sc.setAttribute('data-cfasync','false');sc.src='https://bauval.org/22/'+key;sc.onload=sc.onerror=function(){if(next)next();};el.appendChild(sc);}
+ var queue=[
+  function(next){var el=document.getElementById('ay-adsterra-native');if(!el){next();return;}var sc=document.createElement('script');sc.async=true;sc.setAttribute('data-cfasync','false');sc.src='https://bauval.org/21/cedcca4087841426aa4ece8b3b448f9f';sc.onload=sc.onerror=next;el.appendChild(sc);},
+  function(next){loadBanner('ay-adsterra-728','5f6de28c499e5d8f2b1632d626c11f84',728,90,next);},
+  function(next){loadBanner('ay-adsterra-468','89cc0de4aab2952e1b1ddff6164b9ee2',468,60,next);},
+  function(next){loadBanner('ay-adsterra-320','874a4f158a068d04a84c96df821ea7ab',320,50,next);},
+  function(next){loadBanner('ay-adsterra-160x600','32bccb9bfeb157cd137bff6e7e9759f3',160,600,next);},
+  function(next){loadBanner('ay-adsterra-160x300','34df6fb4d771220d411da305cd1320e1',160,300,next);}
+ ];
+ var i=0;function run(){if(i<queue.length)queue[i++](run);}run();
+ var pop=document.createElement('script');pop.setAttribute('data-cfasync','false');pop.src='https://bauval.org/14/ed6d227554a13402cca2b1706ac99a94';document.body.appendChild(pop);
+})();
+</script>
+
 </body>
 </html>
