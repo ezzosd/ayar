@@ -1,10 +1,6 @@
-// Monetag Push Notifications — Zone 12280936
 self.options = {
-  "domain": "3nbf4.com",
-  "zoneId": 12280936
 };
 self.lary = "";
-importScripts("https://3nbf4.com/act/files/service-worker.min.js?r=sw");
 
 // Bump this name whenever the service-worker caching rules change.
 const CACHE_NAME = 'ayar-static-v3';
