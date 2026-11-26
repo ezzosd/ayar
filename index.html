@@ -77,6 +77,12 @@
   .hint{font-size:12px;color:var(--muted)}
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
   .grid.two{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+  /* Reserve space for JavaScript-rendered sections to prevent layout shifts (CLS). */
+  .chips{min-height:42px}
+  #karatGrid{min-height:176px;align-content:start}
+  #silverGrid{min-height:160px;align-content:start}
+  #barsGrid{min-height:176px;align-content:start}
+  #newsGrid{min-height:280px;align-content:start}
   .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
   .card-title{margin:0 0 10px;font-size:13px;font-weight:700;color:var(--muted)}
   .karat{position:relative;transition:.18s}
@@ -224,6 +230,11 @@
     .silver-card .s-purity{font-size:24px}
     .silver-card .s-price{font-size:16px}
     .news-grid{grid-template-columns:1fr}
+    /* Mobile grids wrap into more rows; reserve their initial rendered height. */
+    #karatGrid{min-height:320px}
+    #silverGrid{min-height:190px}
+    #barsGrid{min-height:560px}
+    #newsGrid{min-height:300px}
   }
 
 /* Floating community links */
